@@ -1,74 +1,102 @@
-﻿CREATE DATABASE QLDKMH
-GO
-USE QLDKMH
-GO
+﻿create database QLDKMH
+go
+use QLDKMH
+go
 
-SET DATEFORMAT DMY
+set dateformat DMY
+--create tables
 
--- CREATE TABLES
-
--- CREATE TABLE SINHVIEN
-CREATE TABLE SINHVIEN 
+--table SINHVIEN
+create table SINHVIEN 
 (
-	MaSV CHAR(8) PRIMARY KEY,
-	HoTen NVARCHAR(30) NOT NULL,
-	NgaySinh SMALLDATETIME NOT NULL,
-	GioiTinh NVARCHAR(3),
-	MaNganh CHAR(4) NOT NULL,
-	MaDoiTuong CHAR(4) NOT NULL,
-	MaHuyen CHAR(4) NOT NULL,
+	MaSV char(6) primary key,
+	HoTen nvarchar(30) not null,
+	NgaySinh smalldatetime not null,
+	GioiTinh nvarchar(3),
+	MaNganh char(4) not null,
+	MaDoiTuong char(4) not null,
+	MaHuyen char(4) not null,
 )
 
--- CREATE TABLE DOITUONG
-CREATE TABLE DOITUONG
+--table DOITUONG
+create table DOITUONG
 (
-	MaDoiTuong CHAR(4) PRIMARY KEY,
-	TenDoiTuong NVARCHAR(40),
-	TiLeGiamHP INT
+	MaDoiTuong char(4) primary key,
+	TenDoiTuong nvarchar(40),
+	TiLeGiamHP int
 )
 
--- CREATE TABLE TINH
-CREATE TABLE TINH
+--table TINH
+create table TINH
 (	
-	MaTinh CHAR(4) PRIMARY KEY,
-	TenTinh NVARCHAR(30)
+	MaTinh char(4) primary key,
+	TenTinh nvarchar(30)
 )
 
--- CREATE TABLE HUYEN
-CREATE TABLE HUYEN
+--table HUYEN
+create table HUYEN
 (
-	MaHuyen CHAR(4) PRIMARY KEY,
-	TenHuyen NVARCHAR(30),
-	MaTinh CHAR(4) NOT NULL,
-	UuTien BIT,
+	MaHuyen char(4) primary key,
+	TenHuyen nvarchar(30),
+	MaTinh char(4) not null,
+	UuTien bit,
 )
 
--- CREATE TABLE KHOA
-CREATE TABLE KHOA
+--table KHOA
+create table KHOA
 (
-	MaKhoa CHAR(4) PRIMARY KEY,
-	TenKhoa NVARCHAR(40)
+	MaKhoa char(4) primary key,
+	TenKhoa nvarchar(40)
 )
 
--- CREATE TABLE NGANH
-CREATE TABLE NGANH 
+--table NGANH
+create table NGANH 
 (
-	MaNganh CHAR(4) PRIMARY KEY,
-	TenNganh NVARCHAR(40),
-	MaKhoa CHAR(4)
+	MaNganh char(4) primary key,
+	TenNganh nvarchar(40),
+	MaKhoa char(4)
 )
+
+--table PHIEUTHU
+CREATE TABLE PHIEUTHU
+(
+	MaPhieuThu int primary key,
+	MaPhieuDKHP int not null, --References to DKHP(MaPhieuDKHP),
+	NgayLap smalldatetime,
+	SoTienThu money
+)
+
+--table HOCKY_NAMHOC
+CREATE TABLE HOCKY_NAMHOC
+(
+	MaHKNH int primary key,
+	HocKy int not null, --References to DKHP(HocKy),
+	NamNK1 int,
+	NamNK2 int,
+	HanDongHocPhi smalldatetime
+)
+
+--table DSSV_CHUAHOANTHANH_HP
+CREATE TABLE DSSV_CHUAHOANTHANH_HP
+(
+	STT int,
+	MaHKNH int not null,
+	MaSV char(6) not null,
+	SoTienConLai money,
+	primary key (MaHKNH, MaSV)
+)
+
 
 -- CREATE CHECK CONSTRAINTS
-ALTER TABLE SINHVIEN ADD CONSTRAINT CHECK_GIOITINH CHECK (GioiTinh IN (N'Nam', N'Nữ'))
-ALTER TABLE DOITUONG ADD CONSTRAINT CHECK_TILE CHECK (TiLeGiamHP >= 0)
+alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
+alter table DOITUONG add constraint CHECK_TILE check (TiLeGiamHP >= 0)
 
 
 
 -- CREATE FOREIGN KEY CONSTRAINTS
-ALTER TABLE HUYEN ADD CONSTRAINT FK_HUYEN_TINH FOREIGN KEY (MaTinh) REFERENCES TINH(MaTinh)	 
-ALTER TABLE SINHVIEN ADD CONSTRAINT FK_SV_HUYEN FOREIGN KEY (MaHuyen) REFERENCES HUYEN(MaHuyen)
-ALTER TABLE SINHVIEN ADD CONSTRAINT FK_SV_NGANH FOREIGN KEY (MaNganh) REFERENCES NGANH(MaNganh)
-ALTER TABLE SINHVIEN ADD CONSTRAINT FK_SV_DOITUONG FOREIGN KEY (MaDoiTuong) REFERENCES DOITUONG(MaDoiTuong)
-ALTER TABLE NGANH ADD CONSTRAINT FK_NGANH_KHOA FOREIGN KEY (MaKhoa) REFERENCES KHOA(MaKhoa)
-
+alter table HUYEN add constraint FK_HUYEN_TINH foreign key (MaTinh) references TINH(MaTinh)	 
+alter table SINHVIEN add constraint FK_SV_HUYEN foreign key (MaHuyen) references HUYEN(MaHuyen)
+alter table SINHVIEN add constraint FK_SV_NGANH foreign key (MaNganh) references NGANH(MaNganh)
+alter table SINHVIEN add constraint FK_SV_DOITUONG foreign key (MaDoiTuong) references DOITUONG(MaDoiTuong)
+alter table NGANH add constraint FK_NGANH_KHOA foreign key (MaKhoa) references KHOA(MaKhoa)
 
