@@ -1,4 +1,6 @@
-﻿create database QLDKMH
+﻿
+
+create database QLDKMH
 go
 use QLDKMH
 go
