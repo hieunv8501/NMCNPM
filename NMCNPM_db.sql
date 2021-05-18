@@ -86,6 +86,43 @@ CREATE TABLE DSSV_CHUAHOANTHANH_HP
 	primary key (MaHKNH, MaSV)
 )
 
+-- TẠO CÁC TABLE CHO CHỨC NĂNG PHÂN QUYỀN
+
+--Table CHUCNANG
+CREATE TABLE CHUCNANG
+(
+	MaChucNang varchar(30) primary key,
+	TenChucNang nvarchar(50),
+	TenManHinhDuocLoad char(20)
+)
+
+/*Dữ liệu của Table này do người xây dựng hệ thống nhập đầy đủ cho nó
+trước khi triển khai hệ thống cho người dùng cuối sử dụng.
+Dữ liệu của các Table còn lại đều có thể được xem/thêm/xoá/sửa bởi
+người quản trị hệ thống (người có quyền cao nhất)*/
+
+--Table NHOMNGUOIDUNG
+CREATE TABLE NHOMNGUOIDUNG
+(
+	MaNhom char(10) primary key,
+	TenNhom nvarchar(50)
+)
+
+--Table PHANQUYEN
+CREATE TABLE PHANQUYEN
+(
+	MaNhom char(10) references NHOMNGUOIDUNG(MaNhom),
+	MaChucNang varchar(30) references CHUCNANG(MaChucNang)
+)
+
+--TABLE NGUOIDUNG
+CREATE TABLE NGUOIDUNG
+(
+	TenDangNhap varchar(50),
+	MatKhau varchar(30),
+	MaNhom char(10) references NHOMNGUOIDUNG(MaNhom)
+)
+
 -- TẠO CÁC RÀNG BUỘC VỀ KHÓA NGOẠI
 alter table HUYEN add constraint FK_HUYEN_TINH foreign key (MaTinh) references TINH(MaTinh)	 
 
