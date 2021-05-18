@@ -61,7 +61,7 @@ create table NGANH
 CREATE TABLE PHIEUTHU
 (
 	MaPhieuThu int primary key,
-	MaPhieuDKHP int not null, --References to DKHP(MaPhieuDKHP),
+	MaPhieuDKHP int not null, 
 	NgayLap smalldatetime,
 	SoTienThu money
 )
@@ -70,7 +70,7 @@ CREATE TABLE PHIEUTHU
 CREATE TABLE HOCKY_NAMHOC
 (
 	MaHKNH int primary key,
-	HocKy int not null, --References to DKHP(HocKy),
+	HocKy int not null,
 	NamNK1 int,
 	NamNK2 int,
 	HanDongHocPhi smalldatetime
@@ -86,17 +86,13 @@ CREATE TABLE DSSV_CHUAHOANTHANH_HP
 	primary key (MaHKNH, MaSV)
 )
 
-
--- CREATE CHECK CONSTRAINTS
-alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
-alter table DOITUONG add constraint CHECK_TILE check (TiLeGiamHP >= 0)
-
-
-
--- CREATE FOREIGN KEY CONSTRAINTS
+-- TẠO CÁC RÀNG BUỘC VỀ KHÓA NGOẠI
 alter table HUYEN add constraint FK_HUYEN_TINH foreign key (MaTinh) references TINH(MaTinh)	 
 alter table SINHVIEN add constraint FK_SV_HUYEN foreign key (MaHuyen) references HUYEN(MaHuyen)
 alter table SINHVIEN add constraint FK_SV_NGANH foreign key (MaNganh) references NGANH(MaNganh)
 alter table SINHVIEN add constraint FK_SV_DOITUONG foreign key (MaDoiTuong) references DOITUONG(MaDoiTuong)
 alter table NGANH add constraint FK_NGANH_KHOA foreign key (MaKhoa) references KHOA(MaKhoa)
 
+-- TẠO CÁC RÀNG BUỘC CHECK
+alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
+alter table DOITUONG add constraint CHECK_TILE check (TiLeGiamHP >= 0)
