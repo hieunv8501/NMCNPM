@@ -88,10 +88,17 @@ CREATE TABLE DSSV_CHUAHOANTHANH_HP
 
 -- TẠO CÁC RÀNG BUỘC VỀ KHÓA NGOẠI
 alter table HUYEN add constraint FK_HUYEN_TINH foreign key (MaTinh) references TINH(MaTinh)	 
+
 alter table SINHVIEN add constraint FK_SV_HUYEN foreign key (MaHuyen) references HUYEN(MaHuyen)
 alter table SINHVIEN add constraint FK_SV_NGANH foreign key (MaNganh) references NGANH(MaNganh)
 alter table SINHVIEN add constraint FK_SV_DOITUONG foreign key (MaDoiTuong) references DOITUONG(MaDoiTuong)
+
 alter table NGANH add constraint FK_NGANH_KHOA foreign key (MaKhoa) references KHOA(MaKhoa)
+
+alter table PHIEUTHU add constraint FK_PHIEUTHU_PHIEUDKHP foreign key (MaPhieuDKHP) references PHIEU_DKHP(MaPhieuDKHP)
+
+alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__HOCKY_NAMHOC foreign key (MaHKNH) references HOCKY_NAMHOC(MaHKNH)
+alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN foreign key (MaSV) references SINHVIEN(MaSV)
 
 -- TẠO CÁC RÀNG BUỘC CHECK
 alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
