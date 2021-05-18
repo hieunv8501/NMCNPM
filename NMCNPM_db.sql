@@ -61,7 +61,7 @@ create table NGANH
 CREATE TABLE PHIEUTHU
 (
 	MaPhieuThu int primary key,
-	MaPhieuDKHP int not null, --References to DKHP(SoPhieuDKHP),
+	MaPhieuDKHP int not null, 
 	NgayLap smalldatetime not null ,
 	SoTienThu money not null
 )
@@ -70,7 +70,7 @@ CREATE TABLE PHIEUTHU
 CREATE TABLE HOCKY_NAMHOC
 (
 	MaHKNH int primary key,
-	HocKy int not null, --References to DKHP(HocKy),
+	HocKy int not null,
 	NamNK1 int,
 	NamNK2 int,
 	HanDongHocPhi smalldatetime not null
@@ -79,36 +79,59 @@ CREATE TABLE HOCKY_NAMHOC
 --table DSSV_CHUAHOANTHANH_HP
 CREATE TABLE DSSV_CHUAHOANTHANH_HP
 (
-	STT int,
+	
 	MaHKNH int not null,
-	MaSV char(6) not null,--References SINHVIEN(MaSV)
+	MaSV char(6) not null,
+	STT int,
 	SoTienConLai money not null,
 	primary key (MaHKNH, MaSV)
 )
 
+-- TẠO CÁC TABLE CHO CHỨC NĂNG PHÂN QUYỀN
 
--- CREATE CHECK CONSTRAINTS
-alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
-alter table DOITUONG add constraint CHECK_TILE check (TiLeGiamHP >= 0)
+--Table CHUCNANG
+CREATE TABLE CHUCNANG
+(
+	MaChucNang varchar(30) primary key,
+	TenChucNang nvarchar(50),
+	TenManHinhDuocLoad char(20)
+)
 
+/*Dữ liệu của Table này do người xây dựng hệ thống nhập đầy đủ cho nó
+trước khi triển khai hệ thống cho người dùng cuối sử dụng.
+Dữ liệu của các Table còn lại đều có thể được xem/thêm/xoá/sửa bởi
+người quản trị hệ thống (người có quyền cao nhất)*/
 
+--Table NHOMNGUOIDUNG
+CREATE TABLE NHOMNGUOIDUNG
+(
+	MaNhom char(10) primary key,
+	TenNhom nvarchar(50)
+)
 
--- CREATE FOREIGN KEY CONSTRAINTS
+--Table PHANQUYEN
+CREATE TABLE PHANQUYEN
+(
+	MaNhom char(10) references NHOMNGUOIDUNG(MaNhom),
+	MaChucNang varchar(30) references CHUCNANG(MaChucNang)
+)
+
+--TABLE NGUOIDUNG
+CREATE TABLE NGUOIDUNG
+(
+	TenDangNhap varchar(50),
+	MatKhau varchar(30),
+	MaNhom char(10) references NHOMNGUOIDUNG(MaNhom)
+)
+
+-- TẠO CÁC RÀNG BUỘC VỀ KHÓA NGOẠI
 alter table HUYEN add constraint FK_HUYEN_TINH foreign key (MaTinh) references TINH(MaTinh)	 
 alter table SINHVIEN add constraint FK_SV_HUYEN foreign key (MaHuyen) references HUYEN(MaHuyen)
 alter table SINHVIEN add constraint FK_SV_NGANH foreign key (MaNganh) references NGANH(MaNganh)
 alter table SINHVIEN add constraint FK_SV_DOITUONG foreign key (MaDoiTuong) references DOITUONG(MaDoiTuong)
 alter table NGANH add constraint FK_NGANH_KHOA foreign key (MaKhoa) references KHOA(MaKhoa)
---Table cho chuc nang phan quyen.
---Table Chuc Nang
-CREATE TABLE CHUCNANG(MaChucNang VARCHAR(30) primary key ,TenChucNang NVARCHAR(50),TenManHinhDuocLoad CHAR(20))
-/*Dữ liệu của Table này do người xây dựng hệ thống nhập đầy đủ cho nó
-trước khi triển khai hệ thống cho người dùng cuối sử dụng.
-Dữ liệu của các Table còn lại đều có thể được xem/thêm/xoá/sửa bởi
-người quản trị hệ thống (người có quyền cao nhất)*/
-CREATE TABLE NHOMNGUOIDUNG(MaNhom CHAR(10) primary key,TenNhom NVARCHAR(50))
-CREATE TABLE PHANQUYEN(MaNhom CHAR(10) references NHOMNGUOIDUNG(MaNhom),MaChucNang VARCHAR(30) REFERENCES CHUCNANG(MaChucNang))
-CREATE TABLE NGUOIDUNG(TenDangNhap VARCHAR(50),MatKhau VARCHAR(20),MaNhom CHAR(10)REFERENCES NHOMNGUOIDUNG(MaNhom))
 
-
+-- TẠO CÁC RÀNG BUỘC CHECK
+alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
+alter table DOITUONG add constraint CHECK_TILE check (TiLeGiamHP >= 0)
 
