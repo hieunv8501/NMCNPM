@@ -4,8 +4,8 @@ use QLDKMH
 go
 
 set dateformat DMY
---create tables
 
+--create tables
 --table SINHVIEN
 create table SINHVIEN 
 (
@@ -63,11 +63,11 @@ CREATE TABLE PHIEUTHU
 	MaPhieuThu int primary key,
 	MaPhieuDKHP int not null, 
 	NgayLap smalldatetime,
-	SoTienThu money
+	SoTienThu smallmoney
 )
 
---table HOCKY_NAMHOC
-CREATE TABLE HOCKY_NAMHOC
+--table HKNH
+CREATE TABLE HKNH
 (
 	MaHKNH int primary key,
 	HocKy int not null,
@@ -82,7 +82,7 @@ CREATE TABLE DSSV_CHUAHOANTHANH_HP
 	STT int,
 	MaHKNH int not null,
 	MaSV char(6) not null,
-	SoTienConLai money,
+	SoTienConLai smallmoney,
 	primary key (MaHKNH, MaSV)
 )
 
@@ -134,7 +134,7 @@ alter table NGANH add constraint FK_NGANH_KHOA foreign key (MaKhoa) references K
 
 alter table PHIEUTHU add constraint FK_PHIEUTHU_PHIEUDKHP foreign key (MaPhieuDKHP) references PHIEU_DKHP(MaPhieuDKHP)
 
-alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__HOCKY_NAMHOC foreign key (MaHKNH) references HOCKY_NAMHOC(MaHKNH)
+alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__HKNH foreign key (MaHKNH) references HKNH(MaHKNH)
 alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN foreign key (MaSV) references SINHVIEN(MaSV)
 
 -- TẠO CÁC RÀNG BUỘC CHECK
