@@ -112,7 +112,8 @@ CREATE TABLE NHOMNGUOIDUNG
 CREATE TABLE PHANQUYEN
 (
 	MaNhom char(10) references NHOMNGUOIDUNG(MaNhom),
-	MaChucNang varchar(30) references CHUCNANG(MaChucNang)
+	MaChucNang varchar(30) references CHUCNANG(MaChucNang),
+	primary key(MaNhom, MaChucNang)
 )
 
 --TABLE NGUOIDUNG
