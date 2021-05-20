@@ -57,6 +57,44 @@ create table NGANH
 	MaKhoa char(4)
 )
 
+
+--table LOAIMONHOC
+CREATE TABLE LOAIMONHOC
+(
+	MaLoaiMon char(4) primary key,
+	TenLoaiMon nvarchar(10),
+	TỉLeChia int,
+	SoTienTC smallmoney
+)
+
+--table MONHOC
+CREATE TABLE MONHOC
+(
+	MaMonHoc char(5) primary key,
+	TenMonHoc nvarchar(50),
+	MaLoaiMon char(4) not null,
+	SoTiet int,
+	SoTinChi int,
+)
+
+--table HOCKY
+CREATE TABLE HOCKY
+(
+	MaHocKy	char(3) primary key,
+	TenHocKy nvarchar(20)
+)
+
+--table CHUONGTRINHHOC
+CREATE TABLE CHUONGTRINHHOC	
+(
+	MaNganh	char(4) not null,
+	MaMonHoc char(5) not null,
+	MaHocKy	char(3),
+	GhiChu nvarchar(50),
+	primary key (MaNganh, MaMonHoc)
+)
+
+
 --table PHIEUTHU
 CREATE TABLE PHIEUTHU
 (
@@ -126,18 +164,22 @@ CREATE TABLE NGUOIDUNG
 
 -- TẠO CÁC RÀNG BUỘC VỀ KHÓA NGOẠI
 alter table HUYEN add constraint FK_HUYEN_TINH foreign key (MaTinh) references TINH(MaTinh)	 
-
 alter table SINHVIEN add constraint FK_SV_HUYEN foreign key (MaHuyen) references HUYEN(MaHuyen)
 alter table SINHVIEN add constraint FK_SV_NGANH foreign key (MaNganh) references NGANH(MaNganh)
 alter table SINHVIEN add constraint FK_SV_DOITUONG foreign key (MaDoiTuong) references DOITUONG(MaDoiTuong)
-
 alter table NGANH add constraint FK_NGANH_KHOA foreign key (MaKhoa) references KHOA(MaKhoa)
-
+alter table MONHOC add constraint FK_MONHOC_LOAIMONHOC foreign key (MaLoaiMon) references LOAIMONHOC(MaLoaiMon)
+alter table CHUONGTRINHHOC add constraint FK_CTH_NGANH foreign key (MaNganh) references NGANH(MaNganh)
+alter table CHUONGTRINHHOC add constraint FK_CTH_MONHOC foreign key (MaMonHoc) references MONHOC(MaMonHoc)
+alter table CHUONGTRINHHOC add constraint FK_CTH_HOCKY foreign key (MaHocKy) references HOCKY(MaHocKy)
 alter table PHIEUTHU add constraint FK_PHIEUTHU_PHIEUDKHP foreign key (MaPhieuDKHP) references PHIEU_DKHP(MaPhieuDKHP)
-
 alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__HKNH foreign key (MaHKNH) references HKNH(MaHKNH)
 alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN foreign key (MaSV) references SINHVIEN(MaSV)
 
 -- TẠO CÁC RÀNG BUỘC CHECK
 alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
 alter table DOITUONG add constraint CHECK_TILE check (TiLeGiamHP >= 0)
+alter table LOAIMONHOC add constraint CHECK_TILECHIA check (TiLeChia > 0)
+alter table LOAIMONHOC add constraint CHECK_SOTIENTC check (SoTienTC > 0)
+alter table MONHOC add constraint CHECK_SOTIET check (SoTiet > 0)
+alter table MONHOC add constraint CHECK_SOTC check (SoTinChi > 0)
