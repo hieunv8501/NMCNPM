@@ -57,6 +57,44 @@ create table NGANH
 	MaKhoa char(4)
 )
 
+
+--table LOAIMONHOC
+CREATE TABLE LOAIMONHOC
+(
+	MaLoaiMon		char(4) PRIMARY KEY,
+	TenLoaiMon		nvarchar(10),
+	TỉLeChia		int,
+	SoTienTC		smallmoney
+)
+
+--table MONHOC
+CREATE TABLE MONHOC
+(
+	MaMonHoc	char(5) PRIMARY KEY,
+	TenMonHoc	nvarchar(50),
+	MaLoaiMon		char(4) CONSTRAINT FK_MH_LMH FOREIGN KEY REFERENCES LOAIMONHOC(MaLoaiMon),
+	SoTiet		int,
+	SoTinChi	int,
+)
+
+--table HOCKY
+CREATE TABLE HOCKY
+(
+	MaHocKy		char(3) PRIMARY KEY,
+	TenHocKy	nvarchar(20)
+)
+
+--table CT_CHUONGTRINHHOC
+CREATE TABLE CT_CHUONGTRINHHOC	
+(
+	MaNganh		char(4) CONSTRAINT FK_CTCTH_NGANH FOREIGN KEY REFERENCES NGANH(MaNganh),
+	MaMonHoc	char(5) CONSTRAINT FK_CTCTH_MONHOC FOREIGN KEY REFERENCES MONHOC(MaMonHoc),
+	MaHocKy		char(3) CONSTRAINT FK_CTCTH_HOCKY FOREIGN KEY REFERENCES HOCKY(MaHocKy),
+	GhiChu		nvarchar(50),
+	PRIMARY KEY (MaNganh, MaMonHoc)
+)
+
+
 --table PHIEUTHU
 CREATE TABLE PHIEUTHU
 (
@@ -141,3 +179,8 @@ alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__SINHV
 -- TẠO CÁC RÀNG BUỘC CHECK
 alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
 alter table DOITUONG add constraint CHECK_TILE check (TiLeGiamHP >= 0)
+
+alter table LOAIMONHOC add constraint CHECK_TILECHIA check (TiLeChia > 0)
+alter table LOAIMONHOC add constraint CHECK_SOTIENTC check (SoTienTC > 0)
+alter table MONHOC add constraint CHECK_SOTIET check (SoTiet > 0)
+alter table MONHOC add constraint CHECK_SOTC check (SoTinChi > 0)
