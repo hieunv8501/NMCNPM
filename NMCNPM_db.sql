@@ -171,6 +171,6 @@ alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__SINHV
 alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
 alter table DOITUONG add constraint CHECK_TILE check (TiLeGiamHocPhi >= 0)
 alter table LOAIMONHOC add constraint CHECK_TILECHIA check (TiLeChia > 0)
-alter table LOAIMONHOC add constraint CHECK_SOTIENMOTINCHI check (SoTienTC > 0)
+alter table LOAIMONHOC add constraint CHECK_SOTIENMOTINCHI check (SoTienMotTinChi > 0)
 alter table MONHOC add constraint CHECK_SOTIET check (SoTiet > 0)
 alter table MONHOC add constraint CHECK_SOTC check (SoTinChi > 0)
