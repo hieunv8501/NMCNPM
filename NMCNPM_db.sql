@@ -147,8 +147,8 @@ CREATE TABLE PHANQUYEN
 --TABLE NGUOIDUNG
 CREATE TABLE NGUOIDUNG
 (
-	TenDangNhap varchar(50),
-	MatKhau varchar(30),
+	TenDangNhap varchar(50) primary key,
+	MatKhau varchar(30) not null,
 	MaNhom char(10) references NHOMNGUOIDUNG(MaNhom)
 )
 
