@@ -13,9 +13,9 @@ create table SINHVIEN
 	HoTen nvarchar(30) not null,
 	NgaySinh smalldatetime not null,
 	GioiTinh nvarchar(3),
-	MaNganh char(4) not null,
-	MaDoiTuong char(4) not null,
 	MaHuyen char(4) not null,
+	MaNganh char(4) not null,
+	MaDoiTuong char(4) not null
 )
 
 --table DOITUONG
@@ -57,13 +57,12 @@ create table NGANH
 	MaKhoa char(4)
 )
 
-
 --table LOAIMONHOC
 CREATE TABLE LOAIMONHOC
 (
 	MaLoaiMon char(4) primary key,
 	TenLoaiMon nvarchar(10),
-	TỉLeChia int,
+	HeSoChia int,
 	SoTienMotTinChi smallmoney
 )
 
@@ -86,7 +85,6 @@ CREATE TABLE CHUONGTRINHHOC
 	GhiChu nvarchar(50),
 	primary key (MaNganh, MaMonHoc)
 )
-
 
 --table PHIEUTHU
 CREATE TABLE PHIEUTHU
@@ -170,7 +168,7 @@ alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__SINHV
 -- TẠO CÁC RÀNG BUỘC CHECK
 alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
 alter table DOITUONG add constraint CHECK_TILE check (TiLeGiamHocPhi >= 0)
-alter table LOAIMONHOC add constraint CHECK_TILECHIA check (TiLeChia > 0)
+alter table LOAIMONHOC add constraint CHECK_HESOCHIA check (HeSoChia > 0)
 alter table LOAIMONHOC add constraint CHECK_SOTIENMOTINCHI check (SoTienMotTinChi > 0)
 alter table MONHOC add constraint CHECK_SOTIET check (SoTiet > 0)
 alter table MONHOC add constraint CHECK_SOTC check (SoTinChi > 0)
