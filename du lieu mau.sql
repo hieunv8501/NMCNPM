@@ -11,7 +11,7 @@ insert into SINHVIEN values ('200021', N'Trần Thế Gia Bảo', '19/11/2002', 
 insert into SINHVIEN values ('171499', N'Trần Bích Vân', '01/10/1999', N'Nữ', 'KHMT', 'DT06', '6107')
 insert into SINHVIEN values ('182016', N'Cao Thị Thanh', '29/03/2000', N'Nữ', 'TMDT', 'DT01', '4008')
 insert into SINHVIEN values ('200021', N'Hứa Vĩ Văn', '25/06/2002', N'Nam', 'HTTT', 'DT05', '3706')
-insert into SINHVIEN values ('192447', N'Hoàng Bình An', '31/12/2001', N'Nam', 'CNTT', 'DT03', '5503')
+insert into SINHVIEN values ('192207', N'Hoàng Bình An', '31/12/2001', N'Nam', 'CNTT', 'DT03', '5503')
 insert into SINHVIEN values ('191537', N'Chung Gia Khánh', '04/04/2001', N'Nam', 'KHDL', 'DT02', '0315')
 insert into SINHVIEN values ('201011', N'Lê Ngọc Minh Khôi', '07/02/2002', N'Nam', 'ATTT', 'DT06', '0106')
 
