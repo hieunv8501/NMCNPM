@@ -81,7 +81,7 @@ CREATE TABLE CHUONGTRINHHOC
 (
 	MaNganh	char(4) not null,
 	MaMonHoc char(7) not null,
-	HocKy	int,
+	HocKy int not null,
 	GhiChu nvarchar(50),
 	primary key (MaNganh, MaMonHoc)
 )
@@ -90,18 +90,18 @@ CREATE TABLE CHUONGTRINHHOC
 CREATE TABLE DS_MONHOC_MO
 (
 	MaMo char(11) primary key,
-	MaHKNH int,
-	MaMonHoc char(7)
+	MaHKNH int not null,
+	MaMonHoc char(7) not null
 )
 
 --table PHIEU_DKHP
 CREATE TABLE PHIEU_DKHP
 (
 	SoPhieuDKHP int primary key,
-	MaSV char(6),
-	NgayLap smalldatetime,
-	MaHKNH int,
-	TongTCLT int Default 0,
+	MaSV char(6) not null,
+	NgayLap smalldatetime not null,
+	MaHKNH int not null,
+	TongTCLT int DEFAULT 0,
 	TongTCTH int DEFAULT 0,
 	TongTienDangKy money DEFAULT 0,
 	TongTienPhaiDong money DEFAULT 0,
@@ -133,7 +133,7 @@ CREATE TABLE HKNH
 	HocKy int not null,
 	Nam1 int not null,
 	Nam2 int not null,
-	HanDongHocPhi smalldatetime
+	HanDongHocPhi smalldatetime not null
 )
 
 --table DSSV_CHUAHOANTHANH_HP
@@ -141,7 +141,7 @@ CREATE TABLE DSSV_CHUAHOANTHANH_HP
 (
 	MaHKNH int not null,
 	MaSV char(6) not null,
-	SoTienConLai money,
+	SoTienConLai money not null,
 	primary key (MaHKNH, MaSV)
 )
 
