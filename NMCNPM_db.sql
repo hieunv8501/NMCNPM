@@ -131,8 +131,8 @@ CREATE TABLE HKNH
 (
 	MaHKNH int primary key,
 	HocKy int not null,
-	Nam1 int,
-	Nam2 int,
+	Nam1 int not null,
+	Nam2 int not null,
 	HanDongHocPhi smalldatetime
 )
 
