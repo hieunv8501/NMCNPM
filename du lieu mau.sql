@@ -17,7 +17,7 @@ insert into SINHVIEN values ('201011', N'Lê Ngọc Minh Khôi', '07/02/2002', N
 
 -- du lieu table TINH
 insert into TINH values ('0001', N'Thành phố Hà Nội')
-insert into	TINH values ('0002', N'Thành phố Hồ Chí Minh')
+insert into TINH values ('0002', N'Thành phố Hồ Chí Minh')
 insert into TINH values ('0003', N'Thành phố Hải Phòng')
 insert into TINH values ('0004', N'Thành phố Đà Nẵng')
 insert into TINH values ('0005', N'Hà Giang')
