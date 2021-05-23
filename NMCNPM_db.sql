@@ -327,7 +327,7 @@ BEGIN
 		SELECT COUNT(*) 
 		FROM PHIEU_DKHP p, inserted 
 		WHERE p.MaSV = inserted.MaSV and p.MaHKNH = inserted.MaHKNH
-	) = 2
+	) >= 2
 	BEGIN
 		PRINT N'Sinh viên chỉ có thể đăng ký môn học tối đa 1 lần/1 học kỳ'
 		ROLLBACK TRANSACTION
