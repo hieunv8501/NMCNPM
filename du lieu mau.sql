@@ -166,6 +166,10 @@ insert into CT_PHIEU_DKHP values (1, 'IT003.L28', null)
 -- du lieu table PHIEU_THU
 insert into PHIEU_THU values (1, 1, '25/12/2019', 0)
 insert into PHIEU_THU values (2, 2, '01/07/2020', 0)
+<<<<<<< HEAD
+=======
+insert into PHIEUTHU values (1, 1, '25/12/2019', 1)
+>>>>>>> 3f8f32c (Xóa trigger PhieuThu_TienThu và thay the no o trigger PHIEUTHU_UPDATE_PHIEU_DKHP_SOTIENCONLAI)
 
 -- du lieu table DSSV_CHUAHOANTHANH_HP
 insert into DSSV_CHUAHOANTHANH_HP values (21920, '191512', 553000)

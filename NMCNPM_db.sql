@@ -339,58 +339,34 @@ ON PHIEUTHU
 FOR INSERT,UPDATE
 AS
 BEGIN
-	DECLARE @SoPhieu int
-	SELECT @SoPhieu = SoPhieuDKHP FROM inserted;
-	IF(
-		(SELECT D.NgayLap 
-		FROM inserted D 
-		WHERE D.SoPhieuDKHP = @SoPhieu) > (SELECT HKNH.HanDongHocPhi
-										FROM inserted C JOIN PHIEU_DKHP 
-										ON C.SoPhieuDKHP = PHIEU_DKHP.SoPhieuDKHP JOIN HKNH 
-										ON PHIEU_DKHP.MAHKNH = HKNH.MaHKNH
-										WHERE C.SoPhieuDKHP = @SoPhieu)
-	)
-	BEGIN
-		PRINT N'Không thể lập phiếu thu vì đã quá hạn đóng học phí.'
-		ROLLBACK TRANSACTION
-	END
-END
-GO
-
---Trigger check tiền thu phải nhỏ hơn số tiền còn lại cua PHIEUDKHP
-CREATE TRIGGER PhieuThu_TienThu
-ON PHIEUTHU
-FOR INSERT, UPDATE
-AS
+DECLARE @SoPhieu int,@HanDong smalldatetime,@NgayLap smalldatetime
+SELECT @SoPhieu=SoPhieuDKHP,@NgayLap=NgayLap FROM inserted;
+SELECT @HanDong=HKNH.HanDongHocPhi FROM PHIEU_DKHP JOIN HKNH ON PHIEU_DKHP.MaHKNH=HKNH.MaHKNH WHERE PHIEU_DKHP.SoPhieuDKHP=@SoPhieu
+IF(@NgayLap>@HanDong)
 BEGIN
-	DECLARE @SoPhieu int
-	SELECT @SoPhieu = SoPhieuDKHP FROM inserted
-	IF (
-		(SELECT D.SoPhieuThu 
-		FROM inserted D 
-		WHERE D.SoPhieuDKHP = @SoPhieu) > (SELECT PHIEU_DKHP.SoTienConLai 
-										FROM inserted C JOIN PHIEU_DKHP 
-										ON C.SoPhieuDKHP = PHIEU_DKHP.SoPhieuDKHP 
-										WHERE C.SoPhieuDKHP = @SoPhieu)
-	)
-	BEGIN
-		PRINT N'Không thể lập phiếu thu vì số tiền thu lớn hơn số tiền còn lại phải đóng.'
-		ROLLBACK TRANSACTION
-	END
+PRINT N'Không thể lập phiếu thu vì đã quá hạn đóng học phí.'
+ROLLBACK TRANSACTION
+END
 END
 GO
 
---Trigger tự động cập nhật số tiền còn lại của bảng PHIEU_DKHP khi sinh viên nộp tiền (Lập phiếu thu)
+--Trigger tự động cập nhật số tiền còn lại của bảng PHIEU_DKHP khi sinh vien nop tien(Lap phieu thu)
 CREATE TRIGGER PHIEUTHU_UPDATE_PHIEU_DKHP_SOTIENCONLAI
 ON PHIEUTHU
-FOR INSERT, UPDATE
+FOR INSERT,UPDATE
 AS
 BEGIN
-	DECLARE @SoPhieu int, @SoTienThuDuoc money
-	SELECT @SoPhieu = SoPhieuDKHP, @SoTienThuDuoc = SoPhieuThu FROM inserted
-	
-	UPDATE PHIEU_DKHP
-	SET SoTienConLai = SoTienConLai-@SoTienThuDuoc
-	WHERE PHIEU_DKHP.SoPhieuDKHP = @SoPhieu
+DECLARE @SoPhieu int,@SoTienThuDuoc money
+SELECT @SoPhieu=SoPhieuDKHP,@SoTienThuDuoc=SoTienThu FROM inserted;
+IF( @SoTienThuDuoc>(SELECT SoTienConLai FROM PHIEU_DKHP WHERE SoPhieuDKHP=@SoPhieu))
+BEGIN
+PRINT N'Không thể lập phiếu vì số tiền thu lớn hơn số tiền còn lại'
+ROLLBACK TRANSACTION
 END
-
+ELSE
+BEGIN
+UPDATE PHIEU_DKHP
+SET SoTienConLai=SoTienConLai-@SoTienThuDuoc,TongTienDaDong=TongTienDaDong+@SoTienThuDuoc
+WHERE PHIEU_DKHP.SoPhieuDKHP=@SoPhieu
+END
+END
