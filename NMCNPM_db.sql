@@ -13,9 +13,9 @@ create table SINHVIEN
 	HoTen nvarchar(30) not null,
 	NgaySinh smalldatetime not null,
 	GioiTinh nvarchar(3),
-	MaHuyen char(4) not null,
 	MaNganh char(4) not null,
-	MaDoiTuong char(4) not null
+	MaDoiTuong char(4) not null,
+	MaHuyen char(4) not null
 )
 
 --table DOITUONG
