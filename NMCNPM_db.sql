@@ -196,7 +196,9 @@ alter table PHIEUTHU add constraint FK_PHIEUTHU_PHIEUDKHP foreign key (SoPhieuDK
 alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__HKNH foreign key (MaHKNH) references HKNH(MaHKNH)
 alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN foreign key (MaSV) references SINHVIEN(MaSV)
 alter table DS_MONHOC_MO add constraint FK_MAHKNH_HKNH FOREIGN KEY (MaHKNH) references HKNH(MaHKNH)
+alter table DS_MONHOC_MO add constraint FK_DS_MONHOCMO_MONHOC foreign key (MaMonHoc) references MONHOC(MaMonHoc)
 alter table PHIEU_DKHP add constraint FK_MASV_SINHVIEN FOREIGN KEY (MaSV) REFERENCES SINHVIEN(MaSV)
+alter table PHIEU_DKHP add constraint FK_PHIEUDKHP_HKNH foreign key (MaHKNH) references HKNH(MaHKNH)
 alter table CT_PHIEU_DKHP ADD
 CONSTRAINT FK_MaMo_DS_MONHOC_MO FOREIGN KEY (MaMo) references DS_MONHOC_MO(MaMo),
 CONSTRAINT FK_SoPhieuDKHP_PHIEU_DKHP FOREIGN KEY (SoPhieuDKHP) REFERENCES PHIEU_DKHP(SoPhieuDKHP)
@@ -208,8 +210,13 @@ alter table LOAIMONHOC add constraint CHECK_HESOCHIA check (HeSoChia > 0)
 alter table LOAIMONHOC add constraint CHECK_SOTIENMOTINCHI check (SoTienMotTinChi > 0)
 alter table MONHOC add constraint CHECK_SOTIET check (SoTiet > 0)
 alter table MONHOC add constraint CHECK_SOTINCHI check (SoTinChi > 0)
+alter table PHIEU_DKHP add constraint CHECK_TONGTIENDANGKY check (TongTienDangKy >= 0)
+alter table PHIEU_DKHP add constraint CHECK_TONGTIENPHAIDONG check (TongTienPhaiDong >= 0)
+alter table PHIEU_DKHP add constraint CHECK_TONGTIENDADONG check (TongTienDaDong >= 0)
+alter table PHIEU_DKHP add constraint CHECK_SOTIENCONLAI check (SoTienConLai >= 0)
+alter table DSSV_CHUAHOANTHANH_HP add constraint CHECK_TIENHOCPHI check (SoTienConLai > 0)
 GO
---TẠO CÁC TRIGGERS
+--TẠO CÁC TRIGGERS	
 
 --TRIGGER ON SINHVIEN
 CREATE TRIGGER TRG_SINHVIEN_NGUOIDUNG
@@ -386,15 +393,4 @@ BEGIN
 	SET SoTienConLai = SoTienConLai-@SoTienThuDuoc
 	WHERE PHIEU_DKHP.SoPhieuDKHP = @SoPhieu
 END
-
-
-
-
-
-
-
-
-
-
-
 
