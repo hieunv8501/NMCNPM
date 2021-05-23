@@ -222,6 +222,7 @@ BEGIN
 	UPDATE MONHOC SET SoTinChi = @SoTiet/@HeSoChia WHERE MaMonHoc = @MaMonHoc
 END
 GO 
+
 CREATE TRIGGER TG_LMH_STC ON LOAIMONHOC
 FOR UPDATE
 AS
@@ -239,9 +240,9 @@ BEGIN
 	CLOSE CUR_MMH
 	DEALLOCATE CUR_MMH
 END
+GO
 
 --Tính tổng số tín chỉ của PHIEU_DKHP
-GO
 CREATE TRIGGER TRIG_TONGTINCHI ON CT_PHIEU_DKHP
 FOR INSERT, UPDATE
 AS
@@ -260,6 +261,7 @@ BEGIN
 	UPDATE PHIEU_DKHP SET TongTCLT = TongTCLT + @SOTINCHILT WHERE SoPhieuDKHP = @SOPHIEU 
 	UPDATE PHIEU_DKHP SET TongTCTH = TongTCTH + @SOTINCHITH WHERE SoPhieuDKHP = @SOPHIEU 
 END
+
 GO
 CREATE TRIGGER TRIG_TONGTINCHI2 ON CT_PHIEU_DKHP
 FOR DELETE
@@ -287,38 +289,40 @@ END
 GO
 
 --BM6
---Ngay lap phieu thu phai <=han dong hoc phi cua dot dang ki hoc phan do
+--Ngày lập phiếu thu phải <= hạn đóng học phí của đợt đăng ký học phần đó.
 CREATE TRIGGER PhieuThu_NgayLap
 ON PHIEUTHU
 FOR INSERT,UPDATE
 AS
 BEGIN
-DECLARE @SoPhieu int
-SELECT @SoPhieu=SoPhieuDKHP FROM inserted;
-if((SELECT D.NgayLap FROM inserted D WHERE D.SoPhieuDKHP=@SoPhieu )>(SELECT HKNH.HanDongHocPhi
-FROM inserted C JOIN PHIEU_DKHP ON C.SoPhieuDKHP=PHIEU_DKHP.SoPhieuDKHP JOIN HKNH ON PHIEU_DKHP.MAHKNH=HKNH.MaHKNH
-WHERE C.SoPhieuDKHP=@SoPhieu))
-BEGIN
-PRINT N'Không thể lập phiếu thu vì đã quá hạn đóng học phí.'
-ROLLBACK TRANSACTION
+	DECLARE @SoPhieu int
+	SELECT @SoPhieu=SoPhieuDKHP FROM inserted;
+	if((SELECT D.NgayLap FROM inserted D WHERE D.SoPhieuDKHP=@SoPhieu )>(SELECT HKNH.HanDongHocPhi
+		FROM inserted C JOIN PHIEU_DKHP ON C.SoPhieuDKHP=PHIEU_DKHP.SoPhieuDKHP JOIN HKNH ON PHIEU_DKHP.MAHKNH=HKNH.MaHKNH
+		WHERE C.SoPhieuDKHP=@SoPhieu))
+	BEGIN
+		PRINT N'Không thể lập phiếu thu vì đã quá hạn đóng học phí.'
+		ROLLBACK TRANSACTION
+	END
 END
-END
---Trigger check tien thu phai nho hon so tien con lai cua PHIEUDKHP
+GO
+--Trigger check tiền thu phải nhỏ hơn số tiền còn lại cua PHIEUDKHP
 CREATE TRIGGER PhieuThu_TienThu
 ON PHIEUTHU
 FOR INSERT,UPDATE
 AS
 BEGIN
-DECLARE @SoPhieu int
-SELECT @SoPhieu=SoPhieuDKHP FROM inserted;
-if((SELECT D.SoPhieuThu FROM inserted D WHERE D.SoPhieuDKHP=@SoPhieu)>(SELECT PHIEU_DKHP.SoTienConLai
-FROM inserted C JOIN PHIEU_DKHP ON C.SoPhieuDKHP=PHIEU_DKHP.SoPhieuDKHP
-WHERE C.SoPhieuDKHP=@SoPhieu))
-BEGIN
-PRINT N'Không thể lập phiếu thu vì số tiền thu lon hơn số tiền còn lại phải đóng.'
-ROLLBACK TRANSACTION
+	DECLARE @SoPhieu int
+	SELECT @SoPhieu=SoPhieuDKHP FROM inserted;
+	if((SELECT D.SoPhieuThu FROM inserted D WHERE D.SoPhieuDKHP=@SoPhieu)>(SELECT PHIEU_DKHP.SoTienConLai
+		FROM inserted C JOIN PHIEU_DKHP ON C.SoPhieuDKHP=PHIEU_DKHP.SoPhieuDKHP
+		WHERE C.SoPhieuDKHP=@SoPhieu))
+	BEGIN
+		PRINT N'Không thể lập phiếu thu vì số tiền thu lớn hơn số tiền còn lại phải đóng.'
+		ROLLBACK TRANSACTION
+	END
 END
-END
+GO
 
 
 
