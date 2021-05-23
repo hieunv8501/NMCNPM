@@ -118,17 +118,17 @@ insert into NGANH values ('MMTT', N'Mạng máy tính và Truyền thông dữ l
 insert into NGANH values ('ATTT', N'An toàn thông tin', 'MMTT')
 
 --du lieu mau table MONHOC
-insert into MONHOC values ('IT001', N'Nhập môn lập trình', 'LT', '45', '3')
-insert into MONHOC values ('IT002', N'Lập trình hướng đối tượng', 'LT', '45', '3')
-insert into MONHOC values ('IT003', N'Cấu trúc dữ liệu và giải thuật', 'LT', '45', '3')
-insert into MONHOC values ('IT004', N'Cơ sở dữ liệu', 'LT', '45', '3')
-insert into MONHOC values ('IT005', N'Nhập môn mạng máy tính', 'LT', '45', '3')
-insert into MONHOC values ('IT012', N'Tổ chức Cấu trúc máy tính II', 'LT', '45', '4')
-insert into MONHOC values ('MA003', N'Xác suất thống kê', 'LT', '45', '3')
-insert into MONHOC values ('MA004', N'Cấu trúc rời rạc', 'LT', '60', '4')
-insert into MONHOC values ('SS004', N'Kỹ năng nghề nghiệp', 'LT', '30', '2')
-insert into MONHOC values ('SS007', N'Triết học Mác-Lênin', 'LT', '45', '3')
-insert into MONHOC values ('SE104', N'Nhập môn công nghệ phần mềm', 'LT', '60', '4')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT001', N'Nhập môn lập trình', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT002', N'Lập trình hướng đối tượng', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT003', N'Cấu trúc dữ liệu và giải thuật', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT004', N'Cơ sở dữ liệu', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT005', N'Nhập môn mạng máy tính', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT012', N'Tổ chức Cấu trúc máy tính II', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA003', N'Xác suất thống kê', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA004', N'Cấu trúc rời rạc', 'LT', '60')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS004', N'Kỹ năng nghề nghiệp', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS007', N'Triết học Mác-Lênin', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SE104', N'Nhập môn công nghệ phần mềm', 'LT', '60')
 
 -- du lieu table LOAIMONHOC
 insert into LOAIMONHOC values ('LT', N'Lý thuyết', 15, 27000)
