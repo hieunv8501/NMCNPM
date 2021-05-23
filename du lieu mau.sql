@@ -148,6 +148,7 @@ insert into HKNH values (22122, 2, 2021, 2022, '02/07/2022')
 
 -- du lieu table DS_MONHOC_MO
 insert into DS_MONHOC_MO values ('IT003.L27', 21920, 'IT003')
+insert into DS_MONHOC_MO values ('IT003.L28', 21920, 'IT003')
 insert into DS_MONHOC_MO values ('SS004.L20', 21920, 'SS004')
 insert into DS_MONHOC_MO values ('IT004.L22', 12021, 'IT004')
 insert into DS_MONHOC_MO values ('SE104.L22', 22021, 'SE104')
@@ -159,10 +160,11 @@ insert into PHIEU_DKHP values (2, '201011', '01/07/2020', 12021, 20, 4, 688000, 
 -- du lieu table CT_PHIEU_DKHP
 insert into CT_PHIEU_DKHP values (1, 'IT003.L27', null)
 insert into CT_PHIEU_DKHP values (1, 'SS004.L20', null)
+insert into CT_PHIEU_DKHP values (1, 'IT003.L28', null)
 
 -- du lieu table PHIEU_THU
-insert into PHIEU_THU values (1, 1, '25/12/2019', 0)
-insert into PHIEU_THU values (2, 2, '01/07/2020', 0)
+insert into PHIEUTHU values (1, 1, '25/12/2019', 0)
+insert into PHIEUTHU values (2, 2, '01/07/2020', 0)
 
 -- du lieu table DSSV_CHUAHOANTHANH_HP
 insert into DSSV_CHUAHOANTHANH_HP values (21920, '191512', 553000)
