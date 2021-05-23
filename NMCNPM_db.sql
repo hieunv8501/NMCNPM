@@ -208,8 +208,22 @@ alter table LOAIMONHOC add constraint CHECK_HESOCHIA check (HeSoChia > 0)
 alter table LOAIMONHOC add constraint CHECK_SOTIENMOTINCHI check (SoTienMotTinChi > 0)
 alter table MONHOC add constraint CHECK_SOTIET check (SoTiet > 0)
 alter table MONHOC add constraint CHECK_SOTINCHI check (SoTinChi > 0)
-
+GO
 --TẠO CÁC TRIGGERS
+
+--TRIGGER ON SINHVIEN
+CREATE TRIGGER TRG_SINHVIEN_NGUOIDUNG
+ON SINHVIEN
+FOR INSERT
+AS
+BEGIN
+	DECLARE @TenDangNhap char(6)
+
+	SELECT @TenDangNhap = MaSV 
+	FROM inserted
+
+	INSERT INTO NGUOIDUNG VALUES (@TenDangNhap, @TenDangNhap, 'SV')
+END
 
 --TRIGGER ON MONHOC
 -- Trigger tính số tín chỉ của MONHOC
