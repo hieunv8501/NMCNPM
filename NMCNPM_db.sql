@@ -63,7 +63,7 @@ CREATE TABLE LOAIMONHOC
 	MaLoaiMon char(4) primary key,
 	TenLoaiMon nvarchar(10),
 	HeSoChia int,
-	SoTienMotTinChi smallmoney
+	SoTienMotTinChi money
 )
 
 --table MONHOC
@@ -122,7 +122,7 @@ CREATE TABLE PHIEUTHU
 	SoPhieuThu int primary key,
 	SoPhieuDKHP int not null, 
 	NgayLap smalldatetime,
-	SoTienThu smallmoney
+	SoTienThu money
 )
 
 --table HKNH
@@ -140,7 +140,7 @@ CREATE TABLE DSSV_CHUAHOANTHANH_HP
 (
 	MaHKNH int not null,
 	MaSV char(6) not null,
-	SoTienConLai smallmoney,
+	SoTienConLai money,
 	primary key (MaHKNH, MaSV)
 )
 
