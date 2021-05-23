@@ -209,11 +209,13 @@ alter table LOAIMONHOC add constraint CHECK_SOTIENMOTINCHI check (SoTienMotTinCh
 alter table MONHOC add constraint CHECK_SOTIET check (SoTiet > 0)
 alter table MONHOC add constraint CHECK_SOTINCHI check (SoTinChi > 0)
 
---CÀI ĐẶT CÁC THUỘC TÍNH TÍNH TOÁN 
---TẠO CÁC TRIGGER 
---Tính số tín chỉ của MONHOC
+--TẠO CÁC TRIGGERS
+
+--TRIGGER ON MONHOC
+-- Trigger tính số tín chỉ của MONHOC
 GO
-CREATE TRIGGER TG_MH_STC ON MONHOC
+CREATE TRIGGER TG_MH_STC
+ON MONHOC
 FOR INSERT, UPDATE
 AS
 BEGIN
@@ -223,7 +225,10 @@ BEGIN
 END
 GO 
 
-CREATE TRIGGER TG_LMH_STC ON LOAIMONHOC
+--TRIGGER ON MONHOC
+-- Trigger tính số tín chỉ của LOAIMONHOC
+CREATE TRIGGER TG_LMH_STC 
+ON LOAIMONHOC
 FOR UPDATE
 AS
 BEGIN
@@ -242,7 +247,8 @@ BEGIN
 END
 GO
 
---Tính tổng số tín chỉ của PHIEU_DKHP
+--TRIGGER ON PHIEU_DKHP
+--Trigger tính số tín chỉ môn học sau khi thêm 1 vài CT_PHIEU_DKHP
 CREATE TRIGGER TRIG_TONGTINCHI ON CT_PHIEU_DKHP
 FOR INSERT, UPDATE
 AS
@@ -261,8 +267,10 @@ BEGIN
 	UPDATE PHIEU_DKHP SET TongTCLT = TongTCLT + @SOTINCHILT WHERE SoPhieuDKHP = @SOPHIEU 
 	UPDATE PHIEU_DKHP SET TongTCTH = TongTCTH + @SOTINCHITH WHERE SoPhieuDKHP = @SOPHIEU 
 END
-
 GO
+
+--TRIGGER ON CT_PHIEU_DKHP
+--Trigger tính số tín chỉ môn học sau khi xóa 1 vài CT_PHIEU_DKHP
 CREATE TRIGGER TRIG_TONGTINCHI2 ON CT_PHIEU_DKHP
 FOR DELETE
 AS
@@ -288,7 +296,22 @@ BEGIN
 END
 GO
 
---BM6
+--Sinh viên chỉ có thể DKMH 1 lần/1 kỳ học.
+CREATE TRIGGER TRG_DKMH_1LAN1KY 
+ON PHIEU_DK
+FOR INSERT, UPDATE 
+AS
+BEGIN 
+	IF (
+		SELECT COUNT(*) 
+		FROM PHIEU_DK p, inserted 
+		WHERE p.MaSV = inserted.MaSV and p.MaHKNH = inserted.MaHKNH
+	) = 2
+	ROLLBACK TRANSACTION
+END
+GO
+
+--TRIGGER ON PHIEUTHU
 --Ngày lập phiếu thu phải <= hạn đóng học phí của đợt đăng ký học phần đó.
 CREATE TRIGGER PhieuThu_NgayLap
 ON PHIEUTHU
@@ -297,15 +320,22 @@ AS
 BEGIN
 	DECLARE @SoPhieu int
 	SELECT @SoPhieu=SoPhieuDKHP FROM inserted;
-	if((SELECT D.NgayLap FROM inserted D WHERE D.SoPhieuDKHP=@SoPhieu )>(SELECT HKNH.HanDongHocPhi
-		FROM inserted C JOIN PHIEU_DKHP ON C.SoPhieuDKHP=PHIEU_DKHP.SoPhieuDKHP JOIN HKNH ON PHIEU_DKHP.MAHKNH=HKNH.MaHKNH
-		WHERE C.SoPhieuDKHP=@SoPhieu))
+	IF(
+		(SELECT D.NgayLap 
+		FROM inserted D 
+		WHERE D.SoPhieuDKHP=@SoPhieu) > (SELECT HKNH.HanDongHocPhi
+										FROM inserted C JOIN PHIEU_DKHP 
+										ON C.SoPhieuDKHP=PHIEU_DKHP.SoPhieuDKHP JOIN HKNH 
+										ON PHIEU_DKHP.MAHKNH=HKNH.MaHKNH
+										WHERE C.SoPhieuDKHP=@SoPhieu)
+	)
 	BEGIN
 		PRINT N'Không thể lập phiếu thu vì đã quá hạn đóng học phí.'
 		ROLLBACK TRANSACTION
 	END
 END
 GO
+
 --Trigger check tiền thu phải nhỏ hơn số tiền còn lại cua PHIEUDKHP
 CREATE TRIGGER PhieuThu_TienThu
 ON PHIEUTHU
@@ -314,9 +344,14 @@ AS
 BEGIN
 	DECLARE @SoPhieu int
 	SELECT @SoPhieu=SoPhieuDKHP FROM inserted;
-	if((SELECT D.SoPhieuThu FROM inserted D WHERE D.SoPhieuDKHP=@SoPhieu)>(SELECT PHIEU_DKHP.SoTienConLai
-		FROM inserted C JOIN PHIEU_DKHP ON C.SoPhieuDKHP=PHIEU_DKHP.SoPhieuDKHP
-		WHERE C.SoPhieuDKHP=@SoPhieu))
+	IF (
+		(SELECT D.SoPhieuThu 
+		FROM inserted D 
+		WHERE D.SoPhieuDKHP=@SoPhieu) > (SELECT PHIEU_DKHP.SoTienConLai 
+										FROM inserted C JOIN PHIEU_DKHP 
+										ON C.SoPhieuDKHP=PHIEU_DKHP.SoPhieuDKHP 
+										WHERE C.SoPhieuDKHP=@SoPhieu)
+	)
 	BEGIN
 		PRINT N'Không thể lập phiếu thu vì số tiền thu lớn hơn số tiền còn lại phải đóng.'
 		ROLLBACK TRANSACTION
