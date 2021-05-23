@@ -298,13 +298,13 @@ GO
 
 --Sinh viên chỉ có thể DKMH 1 lần/1 kỳ học.
 CREATE TRIGGER TRG_DKMH_1LAN1KY 
-ON PHIEU_DK
+ON PHIEU_DKHP
 FOR INSERT, UPDATE 
 AS
 BEGIN 
 	IF (
 		SELECT COUNT(*) 
-		FROM PHIEU_DK p, inserted 
+		FROM PHIEU_DKHP p, inserted 
 		WHERE p.MaSV = inserted.MaSV and p.MaHKNH = inserted.MaHKNH
 	) = 2
 	ROLLBACK TRANSACTION
