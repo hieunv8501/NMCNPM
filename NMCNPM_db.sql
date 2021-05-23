@@ -13,9 +13,9 @@ create table SINHVIEN
 	HoTen nvarchar(30) not null,
 	NgaySinh smalldatetime not null,
 	GioiTinh nvarchar(3),
-	MaHuyen char(4) not null,
 	MaNganh char(4) not null,
-	MaDoiTuong char(4) not null
+	MaDoiTuong char(4) not null,
+	MaHuyen char(4) not null
 )
 
 --table DOITUONG
@@ -63,7 +63,7 @@ CREATE TABLE LOAIMONHOC
 	MaLoaiMon char(4) primary key,
 	TenLoaiMon nvarchar(10),
 	HeSoChia int,
-	SoTienMotTinChi smallmoney
+	SoTienMotTinChi money
 )
 
 --table MONHOC
@@ -122,7 +122,7 @@ CREATE TABLE PHIEUTHU
 	SoPhieuThu int primary key,
 	SoPhieuDKHP int not null, 
 	NgayLap smalldatetime,
-	SoTienThu smallmoney
+	SoTienThu money
 )
 
 --table HKNH
@@ -140,7 +140,7 @@ CREATE TABLE DSSV_CHUAHOANTHANH_HP
 (
 	MaHKNH int not null,
 	MaSV char(6) not null,
-	SoTienConLai smallmoney,
+	SoTienConLai money,
 	primary key (MaHKNH, MaSV)
 )
 
@@ -206,8 +206,9 @@ alter table DOITUONG add constraint CHECK_TILE check (TiLeGiamHocPhi >= 0)
 alter table LOAIMONHOC add constraint CHECK_HESOCHIA check (HeSoChia > 0)
 alter table LOAIMONHOC add constraint CHECK_SOTIENMOTINCHI check (SoTienMotTinChi > 0)
 alter table MONHOC add constraint CHECK_SOTIET check (SoTiet > 0)
-alter table MONHOC add constraint CHECK_SOTC check (SoTinChi > 0)
+alter table MONHOC add constraint CHECK_SOTINCHI check (SoTinChi > 0)
 
+--TẠO CÁC TRIGGER 
 --Tính tổng số tín chỉ của PHIEU_DKHP
 GO
 CREATE TRIGGER TRIG_TONGTINCHI ON CT_PHIEU_DKHP
@@ -231,4 +232,36 @@ BEGIN
 END
 GO
 
-
+--BM6
+--Ngay lap phieu thu phai <=han dong hoc phi cua dot dang ki hoc phan do
+CREATE TRIGGER PhieuThu_NgayLap
+ON PHIEUTHU
+FOR INSERT,UPDATE
+AS
+BEGIN
+DECLARE @SoPhieu int
+SELECT @SoPhieu=SoPhieuDKHP FROM inserted;
+if((SELECT D.NgayLap FROM inserted D WHERE D.SoPhieuDKHP=@SoPhieu )>(SELECT HKNH.HanDongHocPhi
+FROM inserted C JOIN PHIEU_DKHP ON C.SoPhieuDKHP=PHIEU_DKHP.SoPhieuDKHP JOIN HKNH ON PHIEU_DKHP.MAHKNH=HKNH.MaHKNH
+WHERE C.SoPhieuDKHP=@SoPhieu))
+BEGIN
+PRINT N'Không thể lập phiếu thu vì đã quá hạn đóng học phí.'
+ROLLBACK TRANSACTION
+END
+END
+--Trigger check tien thu phai nho hon so tien con lai cua PHIEUDKHP
+CREATE TRIGGER PhieuThu_TienThu
+ON PHIEUTHU
+FOR INSERT,UPDATE
+AS
+BEGIN
+DECLARE @SoPhieu int
+SELECT @SoPhieu=SoPhieuDKHP FROM inserted;
+if((SELECT D.SoPhieuThu FROM inserted D WHERE D.SoPhieuDKHP=@SoPhieu)>(SELECT PHIEU_DKHP.SoTienConLai
+FROM inserted C JOIN PHIEU_DKHP ON C.SoPhieuDKHP=PHIEU_DKHP.SoPhieuDKHP
+WHERE C.SoPhieuDKHP=@SoPhieu))
+BEGIN
+PRINT N'Không thể lập phiếu thu vì số tiền thu lon hơn số tiền còn lại phải đóng.'
+ROLLBACK TRANSACTION
+END
+END
