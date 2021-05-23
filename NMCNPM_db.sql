@@ -122,8 +122,8 @@ CREATE TABLE PHIEUTHU
 (
 	SoPhieuThu int primary key,
 	SoPhieuDKHP int not null, 
-	NgayLap smalldatetime,
-	SoTienThu money
+	NgayLap smalldatetime not null,
+	SoTienThu money not null
 )
 
 --table HKNH
