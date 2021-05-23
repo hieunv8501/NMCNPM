@@ -210,6 +210,36 @@ alter table MONHOC add constraint CHECK_SOTIET check (SoTiet > 0)
 alter table MONHOC add constraint CHECK_SOTINCHI check (SoTinChi > 0)
 
 --CÀI ĐẶT CÁC THUỘC TÍNH TÍNH TOÁN 
+--TẠO CÁC TRIGGER 
+--Tính số tín chỉ của MONHOC
+GO
+CREATE TRIGGER TG_MH_STC ON MONHOC
+FOR INSERT, UPDATE
+AS
+BEGIN
+	DECLARE @SoTiet INT, @HeSoChia INT, @MaMonHoc char(5)
+	SELECT @SoTiet = SoTiet, @HeSoChia = HeSoChia, @MaMonHoc = MaMonHoc FROM INSERTED, LOAIMONHOC WHERE INSERTED.MaLoaiMon = LOAIMONHOC.MaLoaiMon
+	UPDATE MONHOC SET SoTinChi = @SoTiet/@HeSoChia WHERE MaMonHoc = @MaMonHoc
+END
+GO 
+CREATE TRIGGER TG_LMH_STC ON LOAIMONHOC
+FOR UPDATE
+AS
+BEGIN
+	DECLARE @MaLoaiMon char(4),@HeSoChia int, @MaMonHoc char(5)
+	SELECT @MaLoaiMon = MaLoaiMon, @HeSoChia = HeSoChia FROM INSERTED 
+	DECLARE CUR_MMH CURSOR FOR SELECT MaMonHoc FROM MONHOC WHERE MaLoaiMon = @MaLoaiMon
+	OPEN CUR_MMH
+	FETCH NEXT FROM CUR_MMH INTO @MaMonHoc
+	WHILE(@@FETCH_STATUS = 0)
+	BEGIN
+		UPDATE MONHOC SET SoTinChi = (SELECT SoTiet FROM MONHOC WHERE MaMonHoc = @MaMonHoc)/@HeSoChia WHERE MaMonHoc = @MaMonHoc
+		FETCH NEXT FROM CUR_MMH INTO @MaMonHoc
+	END
+	CLOSE CUR_MMH
+	DEALLOCATE CUR_MMH
+END
+
 --Tính tổng số tín chỉ của PHIEU_DKHP
 GO
 CREATE TRIGGER TRIG_TONGTINCHI ON CT_PHIEU_DKHP
@@ -255,9 +285,6 @@ BEGIN
 	ELSE UPDATE PHIEU_DKHP SET TongTCTH = TongTCTH - @SOTINCHITH WHERE SoPhieuDKHP = @SOPHIEU 
 END
 GO
-
---Tính 
-
 
 --BM6
 --Ngay lap phieu thu phai <=han dong hoc phi cua dot dang ki hoc phan do
