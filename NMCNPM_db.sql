@@ -69,7 +69,7 @@ CREATE TABLE LOAIMONHOC
 --table MONHOC
 CREATE TABLE MONHOC
 (
-	MaMonHoc char(5) primary key,
+	MaMonHoc char(7) primary key,
 	TenMonHoc nvarchar(50),
 	MaLoaiMon char(4) not null,
 	SoTiet int,
@@ -80,7 +80,7 @@ CREATE TABLE MONHOC
 CREATE TABLE CHUONGTRINHHOC	
 (
 	MaNganh	char(4) not null,
-	MaMonHoc char(5) not null,
+	MaMonHoc char(7) not null,
 	HocKy	int,
 	GhiChu nvarchar(50),
 	primary key (MaNganh, MaMonHoc)
@@ -91,7 +91,7 @@ CREATE TABLE DS_MONHOC_MO
 (
 	MaMo char(11) primary key,
 	MaHKNH int,
-	MaMonHoc char(5)
+	MaMonHoc char(7)
 )
 
 --table PHIEU_DKHP
