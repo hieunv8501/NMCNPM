@@ -328,7 +328,10 @@ BEGIN
 		FROM PHIEU_DKHP p, inserted 
 		WHERE p.MaSV = inserted.MaSV and p.MaHKNH = inserted.MaHKNH
 	) = 2
-	ROLLBACK TRANSACTION
+	BEGIN
+		PRINT N'Sinh viên chỉ có thể đăng ký môn học tối đa 1 lần/1 học kỳ'
+		ROLLBACK TRANSACTION
+	END
 END
 GO
 
@@ -339,14 +342,19 @@ ON PHIEUTHU
 FOR INSERT,UPDATE
 AS
 BEGIN
-DECLARE @SoPhieu int,@HanDong smalldatetime,@NgayLap smalldatetime
-SELECT @SoPhieu=SoPhieuDKHP,@NgayLap=NgayLap FROM inserted;
-SELECT @HanDong=HKNH.HanDongHocPhi FROM PHIEU_DKHP JOIN HKNH ON PHIEU_DKHP.MaHKNH=HKNH.MaHKNH WHERE PHIEU_DKHP.SoPhieuDKHP=@SoPhieu
-IF(@NgayLap>@HanDong)
-BEGIN
-PRINT N'Không thể lập phiếu thu vì đã quá hạn đóng học phí.'
-ROLLBACK TRANSACTION
-END
+	DECLARE @SoPhieu int, @HanDong smalldatetime, @NgayLap smalldatetime
+	SELECT @SoPhieu = SoPhieuDKHP, @NgayLap = NgayLap FROM inserted;
+
+	SELECT @HanDong = HKNH.HanDongHocPhi 
+	FROM PHIEU_DKHP JOIN HKNH 
+	ON PHIEU_DKHP.MaHKNH = HKNH.MaHKNH 
+	WHERE PHIEU_DKHP.SoPhieuDKHP = @SoPhieu
+	
+	IF(@NgayLap>@HanDong)
+	BEGIN
+		PRINT N'Không thể lập phiếu thu vì đã quá hạn đóng học phí.'
+		ROLLBACK TRANSACTION
+	END
 END
 GO
 
@@ -356,17 +364,17 @@ ON PHIEUTHU
 FOR INSERT,UPDATE
 AS
 BEGIN
-DECLARE @SoPhieu int,@SoTienThuDuoc money
-SELECT @SoPhieu=SoPhieuDKHP,@SoTienThuDuoc=SoTienThu FROM inserted;
-IF( @SoTienThuDuoc>(SELECT SoTienConLai FROM PHIEU_DKHP WHERE SoPhieuDKHP=@SoPhieu))
-BEGIN
-PRINT N'Không thể lập phiếu vì số tiền thu lớn hơn số tiền còn lại'
-ROLLBACK TRANSACTION
-END
-ELSE
-BEGIN
-UPDATE PHIEU_DKHP
-SET SoTienConLai=SoTienConLai-@SoTienThuDuoc,TongTienDaDong=TongTienDaDong+@SoTienThuDuoc
-WHERE PHIEU_DKHP.SoPhieuDKHP=@SoPhieu
-END
+	DECLARE @SoPhieu int, @SoTienThuDuoc money
+	SELECT @SoPhieu = SoPhieuDKHP, @SoTienThuDuoc = SoTienThu FROM inserted;
+	IF (@SoTienThuDuoc > (SELECT SoTienConLai FROM PHIEU_DKHP WHERE SoPhieuDKHP = @SoPhieu))
+	BEGIN
+		PRINT N'Không thể lập phiếu vì số tiền thu lớn hơn số tiền còn lại'
+		ROLLBACK TRANSACTION
+	END
+	ELSE
+	BEGIN
+		UPDATE PHIEU_DKHP
+		SET SoTienConLai = SoTienConLai - @SoTienThuDuoc, TongTienDaDong = TongTienDaDong + @SoTienThuDuoc
+		WHERE PHIEU_DKHP.SoPhieuDKHP = @SoPhieu
+	END
 END
