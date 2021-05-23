@@ -206,5 +206,5 @@ alter table DOITUONG add constraint CHECK_TILE check (TiLeGiamHocPhi >= 0)
 alter table LOAIMONHOC add constraint CHECK_HESOCHIA check (HeSoChia > 0)
 alter table LOAIMONHOC add constraint CHECK_SOTIENMOTINCHI check (SoTienMotTinChi > 0)
 alter table MONHOC add constraint CHECK_SOTIET check (SoTiet > 0)
-alter table MONHOC add constraint CHECK_SOTC check (SoTinChi > 0)
+alter table MONHOC add constraint CHECK_SOTINCHI check (SoTinChi > 0)
 
