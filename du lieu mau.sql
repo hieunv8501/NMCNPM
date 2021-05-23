@@ -1,6 +1,7 @@
 ﻿
 --BỘ DỮ LIỆU MẪU CHO CÁC TABLES
-
+use QLDKMH
+set DATEFORMAT DMY
 -- du lieu table SINHVIEN
 insert into SINHVIEN values ('191512', N'Trương Quốc Vinh', '11/09/2001', N'Nam', 'KTPM', 'DT01', '4901')
 insert into SINHVIEN values ('181108', N'Lê Thanh Bình', '24/07/2000', N'Nam', 'CNTT', 'DT02', '3906')
@@ -163,8 +164,8 @@ insert into CT_PHIEU_DKHP values (1, 'SS004.L20', null)
 insert into CT_PHIEU_DKHP values (1, 'IT003.L28', null)
 
 -- du lieu table PHIEU_THU
-insert into PHIEUTHU values (1, 1, '25/12/2019', 0)
-insert into PHIEUTHU values (2, 2, '01/07/2020', 0)
+insert into PHIEU_THU values (1, 1, '25/12/2019', 0)
+insert into PHIEU_THU values (2, 2, '01/07/2020', 0)
 
 -- du lieu table DSSV_CHUAHOANTHANH_HP
 insert into DSSV_CHUAHOANTHANH_HP values (21920, '191512', 553000)
