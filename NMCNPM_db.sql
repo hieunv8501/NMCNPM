@@ -247,7 +247,7 @@ END
 GO 
 
 --TRIGGER ON MONHOC
--- Trigger tính số tín chỉ của LOAIMONHOC
+-- Trigger tính số tín chỉ của MONHOC khi update LOAIMONHOC
 CREATE TRIGGER TG_LMH_STC 
 ON LOAIMONHOC
 FOR UPDATE
@@ -265,6 +265,24 @@ BEGIN
 	END
 	CLOSE CUR_MMH
 	DEALLOCATE CUR_MMH
+END
+GO
+
+--Sinh viên chỉ có thể DKMH 1 lần/1 kỳ học.
+CREATE TRIGGER TRG_DKMH_1LAN1KY 
+ON PHIEU_DKHP
+FOR INSERT, UPDATE 
+AS
+BEGIN 
+	IF (
+		SELECT COUNT(*) 
+		FROM PHIEU_DKHP p, inserted 
+		WHERE p.MaSV = inserted.MaSV and p.MaHKNH = inserted.MaHKNH
+	) >= 2
+	BEGIN
+		PRINT N'Sinh viên chỉ có thể đăng ký môn học tối đa 1 lần/1 học kỳ'
+		ROLLBACK TRANSACTION
+	END
 END
 GO
 
@@ -314,24 +332,6 @@ BEGIN
 	IF(@TONGTCTH_CU = @SOTINCHITH)
 		UPDATE PHIEU_DKHP SET TongTCTH = 0 WHERE SoPhieuDKHP = @SOPHIEU
 	ELSE UPDATE PHIEU_DKHP SET TongTCTH = TongTCTH - @SOTINCHITH WHERE SoPhieuDKHP = @SOPHIEU 
-END
-GO
-
---Sinh viên chỉ có thể DKMH 1 lần/1 kỳ học.
-CREATE TRIGGER TRG_DKMH_1LAN1KY 
-ON PHIEU_DKHP
-FOR INSERT, UPDATE 
-AS
-BEGIN 
-	IF (
-		SELECT COUNT(*) 
-		FROM PHIEU_DKHP p, inserted 
-		WHERE p.MaSV = inserted.MaSV and p.MaHKNH = inserted.MaHKNH
-	) >= 2
-	BEGIN
-		PRINT N'Sinh viên chỉ có thể đăng ký môn học tối đa 1 lần/1 học kỳ'
-		ROLLBACK TRANSACTION
-	END
 END
 GO
 
