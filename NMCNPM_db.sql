@@ -311,7 +311,8 @@ END
 GO
 
 --Trigger tính số tín chỉ môn học sau khi xóa 1 vài CT_PHIEU_DKHP
-CREATE TRIGGER TRIG_TONGTINCHI2 ON CT_PHIEU_DKHP
+CREATE TRIGGER TRIG_TONGTINCHI2 
+ON CT_PHIEU_DKHP
 FOR DELETE
 AS
 BEGIN
@@ -335,8 +336,10 @@ BEGIN
 	ELSE UPDATE PHIEU_DKHP SET TongTCTH = TongTCTH - @SOTINCHITH WHERE SoPhieuDKHP = @SOPHIEU 
 END
 GO
+
 --Tính tổng tiền đăng ký và phải đóng trên PHIEU_DKHP
-CREATE TRIGGER TG_PDKHP_TTDK_TTPD ON PHIEU_DKHP
+CREATE TRIGGER TG_PDKHP_TTDK_TTPD 
+ON PHIEU_DKHP
 FOR INSERT, UPDATE
 AS
 BEGIN
@@ -352,7 +355,10 @@ BEGIN
 END
 GO
 
-CREATE TRIGGER TG_LMH_TTDK_TTPD ON LOAIMONHOC
+--TRIGGER ON LOAIMONHOC 
+--Trigger khi update loại môn học sẽ thay dổi tiền học phí.
+CREATE TRIGGER TG_LMH_TTDK_TTPD 
+ON LOAIMONHOC
 FOR UPDATE
 AS
 BEGIN
@@ -378,7 +384,11 @@ BEGIN
 	DEALLOCATE CUR_PDK
 END
 GO
-CREATE TRIGGER TG_DT_TTPD ON DOITUONG
+
+--TRIGGER ON DOITUONG 
+--Trigger khi update tỉ lệ giảm học phí ở DOITUONG sẽ thay dổi tiền học phí của sinh viên.
+CREATE TRIGGER TG_DT_TTPD 
+ON DOITUONG
 FOR UPDATE
 AS
 BEGIN
@@ -397,7 +407,11 @@ BEGIN
 	DEALLOCATE CUR_DT
 END
 GO
-CREATE TRIGGER TG_SV_TTPD ON SINHVIEN
+
+--TRIGGER ON SINHVIEN 
+--Trigger khi update đối tượng sẽ thay dổi tiền học phí.
+CREATE TRIGGER TG_SV_TTPD 
+ON SINHVIEN
 FOR UPDATE
 AS
 BEGIN
@@ -419,13 +433,12 @@ BEGIN
 	END
 END
 GO
---BM6
---Ngay lap phieu thu phai <=han dong hoc phi cua dot dang ki hoc phan do
+
 --TRIGGER ON PHIEUTHU
 --Ngày lập phiếu thu phải <= hạn đóng học phí của đợt đăng ký học phần đó.
 CREATE TRIGGER PhieuThu_NgayLap
 ON PHIEUTHU
-FOR INSERT,UPDATE
+FOR INSERT, UPDATE
 AS
 BEGIN
 	DECLARE @SoPhieu int, @HanDong smalldatetime, @NgayLap smalldatetime
@@ -447,7 +460,7 @@ GO
 --Trigger tự động cập nhật số tiền còn lại của bảng PHIEU_DKHP khi sinh vien nop tien(Lap phieu thu)
 CREATE TRIGGER PHIEUTHU_UPDATE_PHIEU_DKHP_SOTIENCONLAI
 ON PHIEUTHU
-FOR INSERT,UPDATE
+FOR INSERT, UPDATE
 AS
 BEGIN
 	DECLARE @SoPhieu int, @SoTienThuDuoc money
