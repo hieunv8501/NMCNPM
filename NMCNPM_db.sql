@@ -1,6 +1,6 @@
-﻿create database QLDKMH
+﻿create database CNPM_db
 go
-use QLDKMH
+use CNPM_db
 go
 
 set dateformat DMY
