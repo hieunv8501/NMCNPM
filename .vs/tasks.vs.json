@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-Nhom_8",
+      "appliesTo": "Nhom_8.docx",
+      "type": "launch"
+    }
+  ]
+}
