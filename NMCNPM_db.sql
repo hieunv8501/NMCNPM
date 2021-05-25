@@ -128,7 +128,6 @@ CREATE TABLE TRACUU_DKHP
 	TongTCLT int not null,
 	TongTCTH int not null,
 	TinhTrang nvarchar(30)
-	
 )
 
 --table PHIEUTHU
