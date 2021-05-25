@@ -117,6 +117,20 @@ CREATE TABLE CT_PHIEU_DKHP
 	GhiChu nvarchar(40),
 	primary key(SoPhieuDKHP, MaMo)
 )
+
+--table TRACUU_DKHP
+CREATE TABLE TRACUU_DKHP
+(
+	SoPhieuDKHP int primary key,
+	MaSV char(6) not null,
+	NgayLap smalldatetime not null,
+	MaHKNH int not null,
+	TongTCLT int not null,
+	TongTCTH int not null,
+	TinhTrang nvarchar(30)
+	
+)
+
 --table PHIEUTHU
 CREATE TABLE PHIEUTHU
 (
@@ -192,16 +206,17 @@ alter table NGANH add constraint FK_NGANH_KHOA foreign key (MaKhoa) references K
 alter table MONHOC add constraint FK_MONHOC_LOAIMONHOC foreign key (MaLoaiMon) references LOAIMONHOC(MaLoaiMon)
 alter table CHUONGTRINHHOC add constraint FK_CTH_NGANH foreign key (MaNganh) references NGANH(MaNganh)
 alter table CHUONGTRINHHOC add constraint FK_CTH_MONHOC foreign key (MaMonHoc) references MONHOC(MaMonHoc)
-alter table PHIEUTHU add constraint FK_PHIEUTHU_PHIEUDKHP foreign key (SoPhieuDKHP) references PHIEU_DKHP(SoPhieuDKHP)
-alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__HKNH foreign key (MaHKNH) references HKNH(MaHKNH)
-alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN foreign key (MaSV) references SINHVIEN(MaSV)
 alter table DS_MONHOC_MO add constraint FK_MAHKNH_HKNH FOREIGN KEY (MaHKNH) references HKNH(MaHKNH)
 alter table DS_MONHOC_MO add constraint FK_DS_MONHOCMO_MONHOC foreign key (MaMonHoc) references MONHOC(MaMonHoc)
 alter table PHIEU_DKHP add constraint FK_MASV_SINHVIEN FOREIGN KEY (MaSV) REFERENCES SINHVIEN(MaSV)
 alter table PHIEU_DKHP add constraint FK_PHIEUDKHP_HKNH foreign key (MaHKNH) references HKNH(MaHKNH)
-alter table CT_PHIEU_DKHP ADD
-CONSTRAINT FK_MaMo_DS_MONHOC_MO FOREIGN KEY (MaMo) references DS_MONHOC_MO(MaMo),
-CONSTRAINT FK_SoPhieuDKHP_PHIEU_DKHP FOREIGN KEY (SoPhieuDKHP) REFERENCES PHIEU_DKHP(SoPhieuDKHP)
+alter table CT_PHIEU_DKHP ADD CONSTRAINT FK_MaMo_DS_MONHOC_MO FOREIGN KEY (MaMo) references DS_MONHOC_MO(MaMo)
+alter table PHIEUTHU add constraint FK_PHIEUTHU_PHIEUDKHP foreign key (SoPhieuDKHP) references PHIEU_DKHP(SoPhieuDKHP)
+alter table CT_PHIEU_DKHP ADD CONSTRAINT FK_SoPhieuDKHP_PHIEU_DKHP FOREIGN KEY (SoPhieuDKHP) REFERENCES PHIEU_DKHP(SoPhieuDKHP)
+alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__HKNH foreign key (MaHKNH) references HKNH(MaHKNH)
+alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN foreign key (MaSV) references SINHVIEN(MaSV)
+alter table TRACUU_DKHP add constraint FK_TRACUU_PHIEUDKHP foreign key (SoPhieuDKHP) references PHIEU_DKHP(SoPhieuDKHP)
+
 
 -- TẠO CÁC RÀNG BUỘC CHECK
 alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
