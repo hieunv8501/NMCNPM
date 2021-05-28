@@ -1,6 +1,7 @@
 ﻿
 --BỘ DỮ LIỆU MẪU CHO CÁC TABLES
-
+use QLDKMH
+set DATEFORMAT DMY
 -- du lieu table SINHVIEN
 insert into SINHVIEN values ('191512', N'Trương Quốc Vinh', '11/09/2001', N'Nam', 'KTPM', 'DT01', '4901')
 insert into SINHVIEN values ('181108', N'Lê Thanh Bình', '24/07/2000', N'Nam', 'CNTT', 'DT02', '3906')
@@ -17,7 +18,7 @@ insert into SINHVIEN values ('201011', N'Lê Ngọc Minh Khôi', '07/02/2002', N
 
 -- du lieu table TINH
 insert into TINH values ('0001', N'Thành phố Hà Nội')
-insert into	TINH values ('0002', N'Thành phố Hồ Chí Minh')
+insert into TINH values ('0002', N'Thành phố Hồ Chí Minh')
 insert into TINH values ('0003', N'Thành phố Hải Phòng')
 insert into TINH values ('0004', N'Thành phố Đà Nẵng')
 insert into TINH values ('0005', N'Hà Giang')
@@ -118,17 +119,31 @@ insert into NGANH values ('MMTT', N'Mạng máy tính và Truyền thông dữ l
 insert into NGANH values ('ATTT', N'An toàn thông tin', 'MMTT')
 
 --du lieu mau table MONHOC
-insert into MONHOC values ('IT001', N'Nhập môn lập trình', 'LT', '45', '3')
-insert into MONHOC values ('IT002', N'Lập trình hướng đối tượng', 'LT', '45', '3')
-insert into MONHOC values ('IT003', N'Cấu trúc dữ liệu và giải thuật', 'LT', '45', '3')
-insert into MONHOC values ('IT004', N'Cơ sở dữ liệu', 'LT', '45', '3')
-insert into MONHOC values ('IT005', N'Nhập môn mạng máy tính', 'LT', '45', '3')
-insert into MONHOC values ('IT012', N'Tổ chức Cấu trúc máy tính II', 'LT', '45', '4')
-insert into MONHOC values ('MA003', N'Xác suất thống kê', 'LT', '45', '3')
-insert into MONHOC values ('MA004', N'Cấu trúc rời rạc', 'LT', '60', '4')
-insert into MONHOC values ('SS004', N'Kỹ năng nghề nghiệp', 'LT', '30', '2')
-insert into MONHOC values ('SS007', N'Triết học Mác-Lênin', 'LT', '45', '3')
-insert into MONHOC values ('SE104', N'Nhập môn công nghệ phần mềm', 'LT', '60', '4')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT001LT', N'Nhập môn lập trình', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT001TH', N'Nhập môn lập trình', 'TH', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT002LT', N'Lập trình hướng đối tượng', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT002TH', N'Lập trình hướng đối tượng', 'TH', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT003LT', N'Cấu trúc dữ liệu và giải thuật', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT003TH', N'Cấu trúc dữ liệu và giải thuật', 'TH', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT004LT', N'Cơ sở dữ liệu', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT004TH', N'Cơ sở dữ liệu', 'TH', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT005LT', N'Nhập môn mạng máy tính', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT005TH', N'Nhập môn mạng máy tính', 'TH', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT012LT', N'Tổ chức Cấu trúc máy tính II', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT012TH', N'Tổ chức Cấu trúc máy tính II', 'TH', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA006', N'Giải tích', 'LT', '60')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA003', N'Đại số tuyến tính', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA004', N'Cấu trúc rời rạc', 'LT', '60')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA005', N'Xác suất thống kê', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS004', N'Kỹ năng nghề nghiệp', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT009', N'Giới thiệu ngành', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS007', N'Triết học Mác-Lênin', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS008', N'Kinh tế chính trị Mác-Lênin', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS009', N'Chủ nghĩa xã hội khoa học', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS003', N'Tư tưởng Hồ Chí Minh', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS010', N'Lịch sử Đảng Cộng Sản Việt Nam', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SE104LT', N'Nhập môn công nghệ phần mềm', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SE104TH', N'Nhập môn công nghệ phần mềm', 'TH', '30')
 
 -- du lieu table LOAIMONHOC
 insert into LOAIMONHOC values ('LT', N'Lý thuyết', 15, 27000)
@@ -148,6 +163,7 @@ insert into HKNH values (22122, 2, 2021, 2022, '02/07/2022')
 
 -- du lieu table DS_MONHOC_MO
 insert into DS_MONHOC_MO values ('IT003.L27', 21920, 'IT003')
+insert into DS_MONHOC_MO values ('IT003.L28', 21920, 'IT003')
 insert into DS_MONHOC_MO values ('SS004.L20', 21920, 'SS004')
 insert into DS_MONHOC_MO values ('IT004.L22', 12021, 'IT004')
 insert into DS_MONHOC_MO values ('SE104.L22', 22021, 'SE104')
@@ -159,10 +175,15 @@ insert into PHIEU_DKHP values (2, '201011', '01/07/2020', 12021, 20, 4, 688000, 
 -- du lieu table CT_PHIEU_DKHP
 insert into CT_PHIEU_DKHP values (1, 'IT003.L27', null)
 insert into CT_PHIEU_DKHP values (1, 'SS004.L20', null)
+insert into CT_PHIEU_DKHP values (1, 'IT003.L28', null)
 
 -- du lieu table PHIEU_THU
 insert into PHIEU_THU values (1, 1, '25/12/2019', 0)
 insert into PHIEU_THU values (2, 2, '01/07/2020', 0)
+<<<<<<< HEAD
+=======
+insert into PHIEUTHU values (1, 1, '25/12/2019', 1)
+>>>>>>> 3f8f32c (Xóa trigger PhieuThu_TienThu và thay the no o trigger PHIEUTHU_UPDATE_PHIEU_DKHP_SOTIENCONLAI)
 
 -- du lieu table DSSV_CHUAHOANTHANH_HP
 insert into DSSV_CHUAHOANTHANH_HP values (21920, '191512', 553000)
