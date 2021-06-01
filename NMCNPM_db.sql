@@ -118,18 +118,6 @@ CREATE TABLE CT_PHIEU_DKHP
 	primary key(SoPhieuDKHP, MaMo)
 )
 
---table TRACUU_DKHP
-CREATE TABLE TRACUU_DKHP
-(
-	SoPhieuDKHP int primary key,
-	MaSV char(6) not null,
-	NgayLap smalldatetime not null,
-	MaHKNH int not null,
-	TongTCLT int not null,
-	TongTCTH int not null,
-	TinhTrang nvarchar(30)
-)
-
 --table PHIEUTHU
 CREATE TABLE PHIEUTHU
 (
@@ -210,22 +198,10 @@ alter table DS_MONHOC_MO add constraint FK_DS_MONHOCMO_MONHOC foreign key (MaMon
 alter table PHIEU_DKHP add constraint FK_MASV_SINHVIEN FOREIGN KEY (MaSV) REFERENCES SINHVIEN(MaSV)
 alter table PHIEU_DKHP add constraint FK_PHIEUDKHP_HKNH foreign key (MaHKNH) references HKNH(MaHKNH)
 alter table CT_PHIEU_DKHP ADD CONSTRAINT FK_MaMo_DS_MONHOC_MO FOREIGN KEY (MaMo) references DS_MONHOC_MO(MaMo)
-alter table PHIEUTHU add constraint FK_PHIEUTHU_PHIEUDKHP foreign key (SoPhieuDKHP) references PHIEU_DKHP(SoPhieuDKHP)
 alter table CT_PHIEU_DKHP ADD CONSTRAINT FK_SoPhieuDKHP_PHIEU_DKHP FOREIGN KEY (SoPhieuDKHP) REFERENCES PHIEU_DKHP(SoPhieuDKHP)
+alter table PHIEUTHU add constraint FK_PHIEUTHU_PHIEUDKHP foreign key (SoPhieuDKHP) references PHIEU_DKHP(SoPhieuDKHP)
 alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__HKNH foreign key (MaHKNH) references HKNH(MaHKNH)
 alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN foreign key (MaSV) references SINHVIEN(MaSV)
-<<<<<<< HEAD
-alter table TRACUU_DKHP add constraint FK_TRACUU_PHIEUDKHP foreign key (SoPhieuDKHP) references PHIEU_DKHP(SoPhieuDKHP)
-
-=======
-alter table DS_MONHOC_MO add constraint FK_MAHKNH_HKNH FOREIGN KEY (MaHKNH) references HKNH(MaHKNH)
-alter table DS_MONHOC_MO add constraint FK_DS_MONHOCMO_MONHOC foreign key (MaMonHoc) references MONHOC(MaMonHoc)
-alter table PHIEU_DKHP add constraint FK_MASV_SINHVIEN FOREIGN KEY (MaSV) REFERENCES SINHVIEN(MaSV)
-alter table PHIEU_DKHP add constraint FK_PHIEUDKHP_HKNH foreign key (MaHKNH) references HKNH(MaHKNH)
-alter table CT_PHIEU_DKHP ADD
-CONSTRAINT FK_MaMo_DS_MONHOC_MO FOREIGN KEY (MaMo) references DS_MONHOC_MO(MaMo),
-CONSTRAINT FK_SoPhieuDKHP_PHIEU_DKHP FOREIGN KEY (SoPhieuDKHP) REFERENCES PHIEU_DKHP(SoPhieuDKHP)
->>>>>>> 788292dcd35cf3980d60c45e6b84a5bd6bf1613d
 
 -- TẠO CÁC RÀNG BUỘC CHECK
 alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
@@ -240,8 +216,8 @@ alter table PHIEU_DKHP add constraint CHECK_TONGTIENDADONG check (TongTienDaDong
 alter table PHIEU_DKHP add constraint CHECK_SOTIENCONLAI check (SoTienConLai >= 0)
 alter table DSSV_CHUAHOANTHANH_HP add constraint CHECK_TIENHOCPHI check (SoTienConLai > 0)
 GO
---TẠO CÁC TRIGGERS	
 
+--TẠO CÁC TRIGGERS	
 --TRIGGER ON SINHVIEN
 CREATE TRIGGER TRG_SINHVIEN_NGUOIDUNG
 ON SINHVIEN
@@ -264,7 +240,7 @@ ON MONHOC
 FOR INSERT, UPDATE
 AS
 BEGIN
-	DECLARE @SoTiet INT, @HeSoChia INT, @MaMonHoc char(5)
+	DECLARE @SoTiet INT, @HeSoChia INT, @MaMonHoc char(7)
 	SELECT @SoTiet = SoTiet, @HeSoChia = HeSoChia, @MaMonHoc = MaMonHoc FROM INSERTED, LOAIMONHOC WHERE INSERTED.MaLoaiMon = LOAIMONHOC.MaLoaiMon
 	UPDATE MONHOC SET SoTinChi = @SoTiet/@HeSoChia WHERE MaMonHoc = @MaMonHoc
 END
@@ -277,7 +253,7 @@ ON LOAIMONHOC
 FOR UPDATE
 AS
 BEGIN
-	DECLARE @MaLoaiMon char(4),@HeSoChia int, @MaMonHoc char(5)
+	DECLARE @MaLoaiMon char(4),@HeSoChia int, @MaMonHoc char(7)
 	SELECT @MaLoaiMon = MaLoaiMon, @HeSoChia = HeSoChia FROM INSERTED 
 	DECLARE CUR_MMH CURSOR FOR SELECT MaMonHoc FROM MONHOC WHERE MaLoaiMon = @MaLoaiMon
 	OPEN CUR_MMH

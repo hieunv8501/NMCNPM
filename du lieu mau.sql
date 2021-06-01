@@ -1,6 +1,6 @@
 ﻿
 --BỘ DỮ LIỆU MẪU CHO CÁC TABLES
-use QLDKMH
+use CNPM_db
 set DATEFORMAT DMY
 -- du lieu table SINHVIEN
 insert into SINHVIEN values ('191512', N'Trương Quốc Vinh', '11/09/2001', N'Nam', 'KTPM', 'DT01', '4901')
@@ -15,6 +15,7 @@ insert into SINHVIEN values ('200021', N'Hứa Vĩ Văn', '25/06/2002', N'Nam', 
 insert into SINHVIEN values ('192207', N'Hoàng Bình An', '31/12/2001', N'Nam', 'CNTT', 'DT03', '5503')
 insert into SINHVIEN values ('191537', N'Chung Gia Khánh', '04/04/2001', N'Nam', 'KHDL', 'DT02', '0315')
 insert into SINHVIEN values ('201011', N'Lê Ngọc Minh Khôi', '07/02/2002', N'Nam', 'ATTT', 'DT06', '0106')
+
 
 -- du lieu table TINH
 insert into TINH values ('0001', N'Thành phố Hà Nội')
@@ -119,7 +120,6 @@ insert into NGANH values ('MMTT', N'Mạng máy tính và Truyền thông dữ l
 insert into NGANH values ('ATTT', N'An toàn thông tin', 'MMTT')
 
 --du lieu mau table MONHOC
-<<<<<<< HEAD
 insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT001LT', N'Nhập môn lập trình', 'LT', '45')
 insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT001TH', N'Nhập môn lập trình', 'TH', '30')
 insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT002LT', N'Lập trình hướng đối tượng', 'LT', '45')
@@ -145,27 +145,14 @@ insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS003', N'T�
 insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS010', N'Lịch sử Đảng Cộng Sản Việt Nam', 'LT', '30')
 insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SE104LT', N'Nhập môn công nghệ phần mềm', 'LT', '45')
 insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SE104TH', N'Nhập môn công nghệ phần mềm', 'TH', '30')
-=======
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT001', N'Nhập môn lập trình', 'LT', '45')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT002', N'Lập trình hướng đối tượng', 'LT', '45')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT003', N'Cấu trúc dữ liệu và giải thuật', 'LT', '45')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT004', N'Cơ sở dữ liệu', 'LT', '45')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT005', N'Nhập môn mạng máy tính', 'LT', '45')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT012', N'Tổ chức Cấu trúc máy tính II', 'LT', '45')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA003', N'Xác suất thống kê', 'LT', '45')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA004', N'Cấu trúc rời rạc', 'LT', '60')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS004', N'Kỹ năng nghề nghiệp', 'LT', '30')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS007', N'Triết học Mác-Lênin', 'LT', '45')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SE104', N'Nhập môn công nghệ phần mềm', 'LT', '60')
->>>>>>> 788292dcd35cf3980d60c45e6b84a5bd6bf1613d
 
 -- du lieu table LOAIMONHOC
 insert into LOAIMONHOC values ('LT', N'Lý thuyết', 15, 27000)
 insert into LOAIMONHOC values ('TH', N'Thực hành', 30, 37000)
 
 -- du lieu table CHUONGTRINHHOC
-insert into CHUONGTRINHHOC values ('CNTT', N'IT005', 1, N'Nhóm ngành - Bắt buộc')
-insert into CHUONGTRINHHOC values ('KTPM', N'SE104', 1, N'Cơ sở ngành - Không bắt buộc')
+insert into CHUONGTRINHHOC values ('CNTT', N'IT005LT', 1, N'Nhóm ngành - Bắt buộc')
+insert into CHUONGTRINHHOC values ('KTPM', N'SE104LT', 1, N'Cơ sở ngành - Không bắt buộc')
 
 -- du lieu table HKNH
 insert into HKNH values (11920, 1, 2019, 2020, '21/12/2019')
@@ -176,28 +163,30 @@ insert into HKNH values (12122, 1, 2021, 2022, '29/12/2021')
 insert into HKNH values (22122, 2, 2021, 2022, '02/07/2022')
 
 -- du lieu table DS_MONHOC_MO
-insert into DS_MONHOC_MO values ('IT003.L27', 21920, 'IT003')
-insert into DS_MONHOC_MO values ('IT003.L28', 21920, 'IT003')
-insert into DS_MONHOC_MO values ('SS004.L20', 21920, 'SS004')
-insert into DS_MONHOC_MO values ('IT004.L22', 12021, 'IT004')
-insert into DS_MONHOC_MO values ('SE104.L22', 22021, 'SE104')
+insert into DS_MONHOC_MO values ('IT003LT.L27', 21920, 'IT003LT')
+insert into DS_MONHOC_MO values ('IT003TH.L27', 21920, 'IT003TH')
+insert into DS_MONHOC_MO values ('IT003LT.L28', 21920, 'IT003LT')
+insert into DS_MONHOC_MO values ('IT003TH.L28', 21920, 'IT003TH')
+insert into DS_MONHOC_MO values ('SS004LT.L20', 21920, 'SS004LT')
+insert into DS_MONHOC_MO values ('IT004LT.L22', 12021, 'IT004LT')
+insert into DS_MONHOC_MO values ('IT004TH.L22', 12021, 'IT004TH')
+insert into DS_MONHOC_MO values ('SE104LT.L22', 22021, 'SE104LT')
+insert into DS_MONHOC_MO values ('SE104TH.L22', 22021, 'SE104TH')
 
 -- du lieu table PHIEU_DKHP
 insert into PHIEU_DKHP values (1, '191512', '25/12/2019', 21920, 15, 4, 553000, 0, 0, 0)
 insert into PHIEU_DKHP values (2, '201011', '01/07/2020', 12021, 20, 4, 688000, 688000, 0, 688000)
 
+
 -- du lieu table CT_PHIEU_DKHP
-insert into CT_PHIEU_DKHP values (1, 'IT003.L27', null)
+insert into CT_PHIEU_DKHP values (1, 'IT003LT.L27', null)
 insert into CT_PHIEU_DKHP values (1, 'SS004.L20', null)
-insert into CT_PHIEU_DKHP values (1, 'IT003.L28', null)
+insert into CT_PHIEU_DKHP values (1, 'IT003LT.L28', null)
 
 -- du lieu table PHIEU_THU
-insert into PHIEU_THU values (1, 1, '25/12/2019', 0)
-insert into PHIEU_THU values (2, 2, '01/07/2020', 0)
-<<<<<<< HEAD
-=======
+insert into PHIEUTHU values (1, 1, '25/12/2019', 0)
+insert into PHIEUTHU values (2, 2, '01/07/2020', 0)
 insert into PHIEUTHU values (1, 1, '25/12/2019', 1)
->>>>>>> 3f8f32c (Xóa trigger PhieuThu_TienThu và thay the no o trigger PHIEUTHU_UPDATE_PHIEU_DKHP_SOTIENCONLAI)
 
 -- du lieu table DSSV_CHUAHOANTHANH_HP
 insert into DSSV_CHUAHOANTHANH_HP values (21920, '191512', 553000)
@@ -218,9 +207,6 @@ insert into NHOMNGUOIDUNG values ('SV', N'Sinh viên')
 -- du lieu table NGUOIDUNG
 insert into NGUOIDUNG values ('admin01', 'admin01', 'Admin')
 insert into NGUOIDUNG values ('pdt01', 'pdt01', 'PDT')
-insert into NGUOIDUNG values ('191512', '191512', 'SV')
-insert into NGUOIDUNG values ('180216', '180216', 'SV')
-insert into NGUOIDUNG values ('200021', '200021', 'SV')
 
 -- du lieu table NGUOIDUNG
 insert into PHANQUYEN values('Admin', 'CN01')
