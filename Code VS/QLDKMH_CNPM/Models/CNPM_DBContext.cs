@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
@@ -13,10 +14,10 @@ namespace QLDKMH_CNPM.Models
 
         public virtual DbSet<CHUCNANG> CHUCNANGs { get; set; }
         public virtual DbSet<CHUONGTRINHHOC> CHUONGTRINHHOCs { get; set; }
-        public virtual DbSet<CT_PHIEU_DKHP> CT_PHIEU_DKHP { get; set; }
+        public virtual DbSet<CT_PHIEU_DKHP> CT_PHIEU_DKHPs { get; set; }
         public virtual DbSet<DOITUONG> DOITUONGs { get; set; }
-        public virtual DbSet<DS_MONHOC_MO> DS_MONHOC_MO { get; set; }
-        public virtual DbSet<DSSV_CHUAHOANTHANH_HP> DSSV_CHUAHOANTHANH_HP { get; set; }
+        public virtual DbSet<DS_MONHOC_MO> DS_MONHOC_MOs { get; set; }
+        public virtual DbSet<DSSV_CHUAHOANTHANH_HP> DSSV_CHUAHOANTHANH_HPs { get; set; }
         public virtual DbSet<HKNH> HKNHs { get; set; }
         public virtual DbSet<HUYEN> HUYENs { get; set; }
         public virtual DbSet<KHOA> KHOAs { get; set; }
@@ -25,7 +26,7 @@ namespace QLDKMH_CNPM.Models
         public virtual DbSet<NGANH> NGANHs { get; set; }
         public virtual DbSet<NGUOIDUNG> NGUOIDUNGs { get; set; }
         public virtual DbSet<NHOMNGUOIDUNG> NHOMNGUOIDUNGs { get; set; }
-        public virtual DbSet<PHIEU_DKHP> PHIEU_DKHP { get; set; }
+        public virtual DbSet<PHIEU_DKHP> PHIEU_DKHPs { get; set; }
         public virtual DbSet<PHIEUTHU> PHIEUTHUs { get; set; }
         public virtual DbSet<SINHVIEN> SINHVIENs { get; set; }
         public virtual DbSet<TINH> TINHs { get; set; }

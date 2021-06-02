@@ -1,0 +1,51 @@
+﻿@model QLDKMH_CNPM.Models.CHUONGTRINHHOC
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CHUONGTRINHHOC</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MONHOC.TenMonHoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MONHOC.TenMonHoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NGANH.TenNganh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NGANH.TenNganh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HocKy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HocKy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GhiChu)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

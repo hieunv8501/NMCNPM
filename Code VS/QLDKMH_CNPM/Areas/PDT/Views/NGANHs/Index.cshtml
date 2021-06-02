@@ -1,0 +1,40 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.NGANH>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.KHOA.TenKhoa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenNganh)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.KHOA.TenKhoa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenNganh)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaNganh }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaNganh }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaNganh })
+        </td>
+    </tr>
+}
+
+</table>

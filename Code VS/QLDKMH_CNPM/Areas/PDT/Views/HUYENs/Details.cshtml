@@ -1,0 +1,43 @@
+﻿@model QLDKMH_CNPM.Models.HUYEN
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HUYEN</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TINH.TenTinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TINH.TenTinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenHuyen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenHuyen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VungSauVungXa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VungSauVungXa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaHuyen }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

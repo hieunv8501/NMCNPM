@@ -1,0 +1,35 @@
+﻿@model QLDKMH_CNPM.Models.DOITUONG
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DOITUONG</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenDoiTuong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenDoiTuong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TiLeGiamHocPhi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TiLeGiamHocPhi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaDoiTuong }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
