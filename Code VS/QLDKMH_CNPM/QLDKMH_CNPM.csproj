@@ -160,6 +160,7 @@
     <Compile Include="Areas\SV\Controllers\SVController.cs" />
     <Compile Include="Areas\SV\SVAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SINHVIENController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2239,6 +2240,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\SINHVIEN\Create.cshtml" />
+    <Content Include="Views\SINHVIEN\Delete.cshtml" />
+    <Content Include="Views\SINHVIEN\Details.cshtml" />
+    <Content Include="Views\SINHVIEN\Edit.cshtml" />
+    <Content Include="Views\SINHVIEN\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
