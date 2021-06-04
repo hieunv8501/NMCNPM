@@ -456,11 +456,11 @@ BEGIN
 	END
 END
 GO
-
+use 
 --Trigger tự động cập nhật số tiền còn lại của bảng PHIEU_DKHP khi sinh viên nộp tiền (Lập phiếu thu học phí)
-CREATE TRIGGER PHIEUTHU_UPDATE_PHIEU_DKHP_SOTIENCONLAI
+CREATE TRIGGER PHIEUTHU_INSERT_PHIEU_DKHP_SOTIENCONLAI
 ON PHIEUTHU
-FOR INSERT, UPDATE
+FOR INSERT
 AS
 BEGIN
 	DECLARE @SoPhieu int, @SoTienThuDuoc money
@@ -479,6 +479,28 @@ BEGIN
 END
 GO
 
+--Trigger tự động cập nhật số tiền còn lại của bảng PHIEU_DKHP khi sửa phiếu thu học phí. (Lập phiếu thu học phí)
+CREATE TRIGGER PHIEUTHU_UPDATE_PHIEU_DKHP_SOTIENCONLAI
+ON PHIEUTHU
+FOR UPDATE
+AS
+BEGIN
+	DECLARE @SoPhieu int, @SoTienMoi money,@SoTienCu money
+	SELECT @SoPhieu = SoPhieuDKHP, @SoTienMoi = inserted.SoTienThu FROM inserted
+	SELECT @SoTienCu=deleted.SoTienThu FROM deleted WHERE deleted.SoPhieuDKHP=@SoPhieu
+	IF (@SoTienMoi > (@SoTienCu+(SELECT SoTienConLai FROM PHIEU_DKHP WHERE SoPhieuDKHP = @SoPhieu)) OR @SoTienMoi< 0)
+	BEGIN
+		PRINT N'Không thể cập nhật phiếu thu vì số tiền thu mới hơn số tiền cần phải đóng hoặc số tiền thu mới < 0'
+		ROLLBACK TRANSACTION
+	END
+	ELSE
+	BEGIN
+		UPDATE PHIEU_DKHP
+		SET SoTienConLai = SoTienConLai - (@SoTienMoi-@SoTienCu), TongTienDaDong = TongTienDaDong + (@SoTienMoi-@SoTienCu)
+		WHERE PHIEU_DKHP.SoPhieuDKHP = @SoPhieu
+	END
+END
+GO
 --Trigger xóa PHIEUTHU
 CREATE TRIGGER PHIEUTHU_DELETE
 ON PHIEUTHU
