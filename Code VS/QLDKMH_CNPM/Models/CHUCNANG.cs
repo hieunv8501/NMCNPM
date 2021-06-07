@@ -16,7 +16,7 @@ namespace QLDKMH_CNPM.Models
         }
 
         [Key]
-        [StringLength(30)]
+        [StringLength(10)]
         public string MaChucNang { get; set; }
 
         [StringLength(50)]

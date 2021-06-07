@@ -79,7 +79,10 @@
                                             <input name="Password" type="password" placeholder="Mật khẩu" class="form-control form-control-user" />
                                             <p id="content" style="font-size:small">Mật khẩu chứng thực</p>
                                         </div>
-
+                                        if (ViewBag.m == "Sai")
+                                        {
+                                            <div class="alert alert-danger">Tên đăng nhập hoặc mật khẩu không đúng</div>
+                                        }
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">

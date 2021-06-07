@@ -24,7 +24,7 @@ namespace QLDKMH_CNPM.Models
         public string TenMonHoc { get; set; }
 
         [Required]
-        [StringLength(4)]
+        [StringLength(2)]
         public string MaLoaiMon { get; set; }
 
         public int? SoTiet { get; set; }

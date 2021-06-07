@@ -8,20 +8,20 @@ using System.Web;
 using System.Web.Mvc;
 using QLDKMH_CNPM.Models;
 
-namespace QLDKMH_CNPM.Areas.SV.Controllers
+namespace QLDKMH_CNPM.Controllers
 {
-    public class SINHVIENsController : Controller
+    public class SINHVIENController : Controller
     {
         private CNPM_DBContext db = new CNPM_DBContext();
 
-        // GET: SV/SINHVIENs
+        // GET: SINHVIEN
         public ActionResult Index()
         {
             var sINHVIENs = db.SINHVIENs.Include(s => s.DOITUONG).Include(s => s.HUYEN).Include(s => s.NGANH);
             return View(sINHVIENs.ToList());
         }
 
-        // GET: SV/SINHVIENs/Details/5
+        // GET: SINHVIEN/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -35,17 +35,34 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             }
             return View(sINHVIEN);
         }
+        //GetHuyen for choosing Huyen from List after selecting Tinh
+        public JsonResult GetHuyen(string id)
+        {
+            List<HUYEN> ddlHuyen = db.HUYENs.Where(x => x.MaTinh == id).ToList();
+            List<SelectListItem> selectListItems = new List<SelectListItem>();
+            List<SelectListItem> listHuyen = selectListItems;
 
-        // GET: SV/SINHVIENs/Create
+            listHuyen.Add(new SelectListItem { Text = "-- Chọn Huyện --", Value = "0" });
+            if (ddlHuyen != null)
+            {
+                foreach (var x in ddlHuyen)
+                {
+                    listHuyen.Add(new SelectListItem { Text = x.TenHuyen, Value = x.MaHuyen.ToString() });
+                }
+            }
+            return Json(new SelectList(listHuyen, "Value", "Text", JsonRequestBehavior.AllowGet));
+        }
+        // GET: SINHVIEN/Create
         public ActionResult Create()
         {
             ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong");
+            ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh");
             ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen");
             ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh");
             return View();
         }
 
-        // POST: SV/SINHVIENs/Create
+        // POST: SINHVIEN/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -56,16 +73,18 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             {
                 db.SINHVIENs.Add(sINHVIEN);
                 db.SaveChanges();
+                ViewBag.Message = "Your application description page.";
                 return RedirectToAction("Index");
             }
 
             ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong", sINHVIEN.MaDoiTuong);
+            ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh", sINHVIEN.HUYEN.MaTinh);
             ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen", sINHVIEN.MaHuyen);
             ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", sINHVIEN.MaNganh);
             return View(sINHVIEN);
         }
 
-        // GET: SV/SINHVIENs/Edit/5
+        // GET: SINHVIEN/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -78,12 +97,13 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
                 return HttpNotFound();
             }
             ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong", sINHVIEN.MaDoiTuong);
+            ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh", sINHVIEN.HUYEN.MaTinh);
             ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen", sINHVIEN.MaHuyen);
             ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", sINHVIEN.MaNganh);
             return View(sINHVIEN);
         }
 
-        // POST: SV/SINHVIENs/Edit/5
+        // POST: SINHVIEN/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -97,12 +117,13 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong", sINHVIEN.MaDoiTuong);
+            ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh", sINHVIEN.HUYEN.MaTinh);
             ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen", sINHVIEN.MaHuyen);
             ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", sINHVIEN.MaNganh);
             return View(sINHVIEN);
         }
 
-        // GET: SV/SINHVIENs/Delete/5
+        // GET: SINHVIEN/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -117,7 +138,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             return View(sINHVIEN);
         }
 
-        // POST: SV/SINHVIENs/Delete/5
+        // POST: SINHVIEN/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

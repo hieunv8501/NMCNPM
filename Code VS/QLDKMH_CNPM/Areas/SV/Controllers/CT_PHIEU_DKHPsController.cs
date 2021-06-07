@@ -17,7 +17,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
         // GET: SV/CT_PHIEU_DKHPs
         public ActionResult Index()
         {
-            var cT_PHIEU_DKHP = db.CT_PHIEU_DKHPs.Include(c => c.DS_MONHOC_MO).Include(c => c.PHIEU_DKHP);
+            var cT_PHIEU_DKHP = db.CT_PHIEU_DKHP.Include(c => c.DS_MONHOC_MO).Include(c => c.PHIEU_DKHP);
             return View(cT_PHIEU_DKHP.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CT_PHIEU_DKHP cT_PHIEU_DKHP = db.CT_PHIEU_DKHPs.Find(id);
+            CT_PHIEU_DKHP cT_PHIEU_DKHP = db.CT_PHIEU_DKHP.Find(id);
             if (cT_PHIEU_DKHP == null)
             {
                 return HttpNotFound();
@@ -39,8 +39,8 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
         // GET: SV/CT_PHIEU_DKHPs/Create
         public ActionResult Create()
         {
-            ViewBag.MaMo = new SelectList(db.DS_MONHOC_MOs, "MaMo", "MaMonHoc");
-            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHPs, "SoPhieuDKHP", "MaSV");
+            ViewBag.MaMo = new SelectList(db.DS_MONHOC_MO, "MaMo", "MaMonHoc");
+            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHP, "SoPhieuDKHP", "MaSV");
             return View();
         }
 
@@ -53,13 +53,13 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.CT_PHIEU_DKHPs.Add(cT_PHIEU_DKHP);
+                db.CT_PHIEU_DKHP.Add(cT_PHIEU_DKHP);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MaMo = new SelectList(db.DS_MONHOC_MOs, "MaMo", "MaMonHoc", cT_PHIEU_DKHP.MaMo);
-            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHPs, "SoPhieuDKHP", "MaSV", cT_PHIEU_DKHP.SoPhieuDKHP);
+            ViewBag.MaMo = new SelectList(db.DS_MONHOC_MO, "MaMo", "MaMonHoc", cT_PHIEU_DKHP.MaMo);
+            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHP, "SoPhieuDKHP", "MaSV", cT_PHIEU_DKHP.SoPhieuDKHP);
             return View(cT_PHIEU_DKHP);
         }
 
@@ -70,13 +70,13 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CT_PHIEU_DKHP cT_PHIEU_DKHP = db.CT_PHIEU_DKHPs.Find(id);
+            CT_PHIEU_DKHP cT_PHIEU_DKHP = db.CT_PHIEU_DKHP.Find(id);
             if (cT_PHIEU_DKHP == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MaMo = new SelectList(db.DS_MONHOC_MOs, "MaMo", "MaMonHoc", cT_PHIEU_DKHP.MaMo);
-            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHPs, "SoPhieuDKHP", "MaSV", cT_PHIEU_DKHP.SoPhieuDKHP);
+            ViewBag.MaMo = new SelectList(db.DS_MONHOC_MO, "MaMo", "MaMonHoc", cT_PHIEU_DKHP.MaMo);
+            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHP, "SoPhieuDKHP", "MaSV", cT_PHIEU_DKHP.SoPhieuDKHP);
             return View(cT_PHIEU_DKHP);
         }
 
@@ -93,8 +93,8 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MaMo = new SelectList(db.DS_MONHOC_MOs, "MaMo", "MaMonHoc", cT_PHIEU_DKHP.MaMo);
-            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHPs, "SoPhieuDKHP", "MaSV", cT_PHIEU_DKHP.SoPhieuDKHP);
+            ViewBag.MaMo = new SelectList(db.DS_MONHOC_MO, "MaMo", "MaMonHoc", cT_PHIEU_DKHP.MaMo);
+            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHP, "SoPhieuDKHP", "MaSV", cT_PHIEU_DKHP.SoPhieuDKHP);
             return View(cT_PHIEU_DKHP);
         }
 
@@ -105,7 +105,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CT_PHIEU_DKHP cT_PHIEU_DKHP = db.CT_PHIEU_DKHPs.Find(id);
+            CT_PHIEU_DKHP cT_PHIEU_DKHP = db.CT_PHIEU_DKHP.Find(id);
             if (cT_PHIEU_DKHP == null)
             {
                 return HttpNotFound();
@@ -118,8 +118,8 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CT_PHIEU_DKHP cT_PHIEU_DKHP = db.CT_PHIEU_DKHPs.Find(id);
-            db.CT_PHIEU_DKHPs.Remove(cT_PHIEU_DKHP);
+            CT_PHIEU_DKHP cT_PHIEU_DKHP = db.CT_PHIEU_DKHP.Find(id);
+            db.CT_PHIEU_DKHP.Remove(cT_PHIEU_DKHP);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -17,6 +17,7 @@ namespace QLDKMH_CNPM.Models
         [StringLength(30)]
         public string MatKhau { get; set; }
 
+        [Required]
         [StringLength(10)]
         public string MaNhom { get; set; }
 

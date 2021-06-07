@@ -5,69 +5,69 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2 class="text-center bg-white">Thông tin sinh viên</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3 class="alert-danger">Bạn có thật sự muốn xóa thông tin của sinh viên này?</h3>
 <div>
-    <h4>SINHVIEN</h4>
+    <div style="color:white; font-weight:bold;">
+        <span class="bg-danger p-1">SINH VIÊN</span>
+    </div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DOITUONG.TenDoiTuong)
-        </dt>
+</div>
+<div>
+    <table class="table" style="width:100%; font-weight:500;">
+        <tbody>
+            <tr>
+                <th style="color:white; background-color:#4e73df; width:600px">MSSV</th>
+                <td style="color:white; background-color:#4e73df;">@Html.DisplayFor(model => model.MaSV)</td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.DOITUONG.TenDoiTuong)
-        </dd>
+            <tr class="bg-light">
+                <th>Họ và Tên</th>
+                <td>@Html.DisplayFor(model => model.HoTen)</td>
+            </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HUYEN.TenHuyen)
-        </dt>
+            <tr>
+                <th style="color:white; background-color:#4e73df;">Giới tính</th>
+                <td style="color:white; background-color:#4e73df;">@Html.DisplayFor(model => model.GioiTinh)</td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.HUYEN.TenHuyen)
-        </dd>
+            <tr class="bg-light">
+                <th>Ngày sinh</th>
+                <td>@Html.DisplayFor(model => model.NgaySinh.Day)/@Html.DisplayFor(model => model.NgaySinh.Month)/@Html.DisplayFor(model => model.NgaySinh.Year) </td>
+            </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NGANH.TenNganh)
-        </dt>
+            <tr>
+                <th style="color:white; background-color:#4e73df;">Quê quán</th>
+                <td style="color:white; background-color:#4e73df;">@Html.DisplayFor(model => model.HUYEN.TenHuyen) - @Html.DisplayFor(model => model.HUYEN.TINH.TenTinh)</td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.NGANH.TenNganh)
-        </dd>
+            <tr class="bg-light">
+                <th>Ngành</th>
+                <td>@Html.DisplayFor(model => model.NGANH.TenNganh)</td>
+            </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HoTen)
-        </dt>
+            <tr>
+                <th style="color:white; background-color:#4e73df;">Khoa</th>
+                <td style="color:white; background-color:#4e73df;">@Html.DisplayFor(model => model.NGANH.KHOA.TenKhoa)</td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.HoTen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GioiTinh)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+            <tr class="bg-light">
+                <th>Loại đối tượng</th>
+                <td>@Html.DisplayFor(model => model.DOITUONG.TenDoiTuong)</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Xóa" class="btn btn-danger" />
+            <span>
+                @Html.ActionLink("Quay lại", "Index", new { id = Model.MaSV }, new { @class = "btn btn-primary", @style = "font-weight:500;" })
+            </span>
         </div>
     }
 </div>

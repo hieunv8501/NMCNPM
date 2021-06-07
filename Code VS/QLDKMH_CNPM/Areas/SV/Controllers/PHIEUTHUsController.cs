@@ -39,7 +39,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
         // GET: SV/PHIEUTHUs/Create
         public ActionResult Create()
         {
-            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHPs, "SoPhieuDKHP", "MaSV");
+            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHP, "SoPhieuDKHP", "MaSV");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHPs, "SoPhieuDKHP", "MaSV", pHIEUTHU.SoPhieuDKHP);
+            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHP, "SoPhieuDKHP", "MaSV", pHIEUTHU.SoPhieuDKHP);
             return View(pHIEUTHU);
         }
 
@@ -73,7 +73,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHPs, "SoPhieuDKHP", "MaSV", pHIEUTHU.SoPhieuDKHP);
+            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHP, "SoPhieuDKHP", "MaSV", pHIEUTHU.SoPhieuDKHP);
             return View(pHIEUTHU);
         }
 
@@ -90,7 +90,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHPs, "SoPhieuDKHP", "MaSV", pHIEUTHU.SoPhieuDKHP);
+            ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHP, "SoPhieuDKHP", "MaSV", pHIEUTHU.SoPhieuDKHP);
             return View(pHIEUTHU);
         }
 

@@ -17,7 +17,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
         // GET: SV/PHIEU_DKHPs
         public ActionResult Index()
         {
-            var pHIEU_DKHP = db.PHIEU_DKHPs.Include(p => p.HKNH).Include(p => p.SINHVIEN);
+            var pHIEU_DKHP = db.PHIEU_DKHP.Include(p => p.HKNH).Include(p => p.SINHVIEN);
             return View(pHIEU_DKHP.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHPs.Find(id);
+            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
             if (pHIEU_DKHP == null)
             {
                 return HttpNotFound();
@@ -53,7 +53,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.PHIEU_DKHPs.Add(pHIEU_DKHP);
+                db.PHIEU_DKHP.Add(pHIEU_DKHP);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -70,7 +70,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHPs.Find(id);
+            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
             if (pHIEU_DKHP == null)
             {
                 return HttpNotFound();
@@ -105,7 +105,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHPs.Find(id);
+            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
             if (pHIEU_DKHP == null)
             {
                 return HttpNotFound();
@@ -118,8 +118,8 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHPs.Find(id);
-            db.PHIEU_DKHPs.Remove(pHIEU_DKHP);
+            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
+            db.PHIEU_DKHP.Remove(pHIEU_DKHP);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

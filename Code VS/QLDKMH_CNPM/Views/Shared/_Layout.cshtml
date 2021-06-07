@@ -19,7 +19,8 @@
     <link href="~/Assets/css/sb-admin-2.min.css" rel="stylesheet" />
 
     <!--Custom styles for holding current tab active-->
-    <link href="~/Assets/css/w3.css" rel="stylesheet" />
+    <!--<link href="~/Assets/css/w3.css" rel="stylesheet" />-->
+
     <!--Custom styles for this page-->
     <link href="~/Assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <style>
@@ -47,23 +48,21 @@
             border-bottom: groove;
         }
 
-        .zoom 
-        {
+        .zoom {
             background-color: #4e73df;
             transition: transform .2s; /* Animation */
             border-bottom: solid black 1px;
             border-radius: 20px;
         }
 
-        .zoom:hover 
-        {
-               /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-            transform: scale(1.1);
-            text-transform: uppercase;
-            text-align-last: center;
-            background-color: red;
-            z-index: 1;
-        }
+            .zoom:hover {
+                /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+                transform: scale(1.1);
+                text-transform: uppercase;
+                text-align-last: center;
+                background-color: red;
+                z-index: 1;
+            }
 
         /*set dropdownlist effect*/
         .dropdown .btn {
@@ -71,11 +70,10 @@
             color: #fff;
         }
 
-        .dropdown .btn:hover 
-        {
-            background: cyan;
-            color: #000;
-        }
+            .dropdown .btn:hover {
+                background: cyan;
+                color: #000;
+            }
 
         .dropdown-menu .dropdown-item {
             display: block;
@@ -104,7 +102,7 @@
                 </a>
             </li>
             <!--Nav Item - Dashboard-->
-            <li class="nav-item zoom ">
+            <li class="nav-item zoom">
                 <a class="nav-link" href="@Url.Action("Index","Home")">
                     <img id="img_logo" alt="Home" width="25" height="25" src="@Url.Content("~/Content/img/home.png")" />
                     <span>Trang chủ</span>
@@ -117,38 +115,39 @@
             <!-- Heading-->
             <li class="sidebar-heading active bg-gradient-light my-1" style="color:black; font-size:12px">Thông tin</li>
 
+            <!--LIST of information-->
             <li class="nav-item active zoom">
-                <a class="nav-link" href="@Url.Action("Index","SINHVIEN")">
+                <a class="nav-link" href="@Url.Action("Index","SINHVIENs")">
                     <span>Sinh viên</span>
                 </a>
             </li>
 
             <li class="nav-item active zoom">
-                <a class="nav-link" href="@Url.Action("Index","HUYEN")">
+                <a class="nav-link" href="@Url.Action("Index","HUYENs")">
                     <span>Huyện</span>
                 </a>
             </li>
 
             <li class="nav-item active zoom">
-                <a class="nav-link" href="@Url.Action("Index","TINH")">
+                <a class="nav-link" href="@Url.Action("Index","TINHs")">
                     <span>Tỉnh</span>
                 </a>
             </li>
 
             <li class="nav-item active zoom">
-                <a class="nav-link" href="@Url.Action("Index","MONHOC")">
+                <a class="nav-link" href="@Url.Action("Index","MONHOCs")">
                     <span>Danh sách môn học</span>
                 </a>
             </li>
 
             <li class="nav-item active zoom">
-                <a class="nav-link" href="@Url.Action("Index","HKNH")">
+                <a class="nav-link" href="@Url.Action("Index","HKNHs")">
                     <span>Học kì - Năm học</span>
                 </a>
             </li>
 
             <li class="nav-item active zoom">
-                <a class="nav-link" href="@Url.Action("Index","LOAIMONHOC")">
+                <a class="nav-link" href="@Url.Action("Index","LOAIMONHOCs")">
                     <span>Loại môn học</span>
                 </a>
             </li>
@@ -166,7 +165,7 @@
             </li>
 
             <li class="nav-item active zoom">
-                <a class="nav-link" href="@Url.Action("Index","DS_SV_NOHP", new { })">
+                <a class="nav-link" href="@Url.Action("Index","DSSV_CHUAHOANTHANH_HP", new { })">
                     <span>Báo cáo học phí</span>
                 </a>
             </li>

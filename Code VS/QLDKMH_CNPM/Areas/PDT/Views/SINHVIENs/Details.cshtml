@@ -5,63 +5,55 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h2 class="text-center bg-white">Thông tin sinh viên</h2>
 
-<div>
-    <h4>SINHVIEN</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DOITUONG.TenDoiTuong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DOITUONG.TenDoiTuong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HUYEN.TenHuyen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HUYEN.TenHuyen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NGANH.TenNganh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NGANH.TenNganh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HoTen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HoTen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GioiTinh)
-        </dd>
-
-    </dl>
+<div style="color: white; font-weight: bold;">
+    <span class="bg-danger p-1">SINH VIÊN</span>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaSV }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<hr />
+<table class="table" style="width:100%; font-weight:500;">
+    <tbody>
+        <tr>
+            <th style="color:white; background-color:#4e73df; width:600px">MSSV</th>
+            <td style="color:white; background-color:#4e73df;">@Html.DisplayFor(model => model.MaSV)</td>
+        </tr>
+
+        <tr class="bg-light">
+            <th>Họ và Tên</th>
+            <td>@Html.DisplayFor(model => model.HoTen)</td>
+        </tr>
+
+        <tr>
+            <th style="color:white; background-color:#4e73df;">Giới tính</th>
+            <td style="color:white; background-color:#4e73df;">@Html.DisplayFor(model => model.GioiTinh)</td>
+        </tr>
+
+        <tr class="bg-light">
+            <th>Ngày sinh</th>
+            <td>@Html.DisplayFor(model => model.NgaySinh.Day)/@Html.DisplayFor(model => model.NgaySinh.Month)/@Html.DisplayFor(model => model.NgaySinh.Year) </td>
+        </tr>
+
+        <tr>
+            <th style="color: white; background-color:#4e73df;">Quê quán</th>
+            <td style="color: white; background-color:#4e73df;">@Html.DisplayFor(model => model.HUYEN.TenHuyen) - @Html.DisplayFor(model => model.HUYEN.TINH.TenTinh)</td>
+        </tr>
+
+        <tr class="bg-light">
+            <th>Ngành</th>
+            <td>@Html.DisplayFor(model => model.NGANH.TenNganh)</td>
+        </tr>
+
+        <tr>
+            <th style="color:white; background-color:#4e73df;">Khoa</th>
+            <td style="color:white; background-color:#4e73df;">@Html.DisplayFor(model => model.NGANH.KHOA.TenKhoa)</td>
+        </tr>
+
+        <tr class="bg-light">
+            <th>Loại đối tượng</th>
+            <td>@Html.DisplayFor(model => model.DOITUONG.TenDoiTuong)</td>
+        </tr>
+    </tbody>
+</table>
+<hr />
+@Html.ActionLink("Sửa", "Edit", new { id = Model.MaSV }, new { @class = "btn btn-danger", @style = "font-weight:500;" })
+@Html.ActionLink("Quay lại", "Index", new { id = Model.MaSV }, new { @class = "btn btn-primary", @style = "font-weight:500;" })

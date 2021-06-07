@@ -16,7 +16,7 @@ namespace QLDKMH_CNPM.Models
         }
 
         [Key]
-        [StringLength(4)]
+        [StringLength(2)]
         public string MaLoaiMon { get; set; }
 
         [StringLength(10)]
