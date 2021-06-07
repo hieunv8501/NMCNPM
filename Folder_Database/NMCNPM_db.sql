@@ -60,7 +60,7 @@ create table NGANH
 --table LOAIMONHOC
 CREATE TABLE LOAIMONHOC
 (
-	MaLoaiMon char(4) primary key,
+	MaLoaiMon char(2) primary key,
 	TenLoaiMon nvarchar(10),
 	HeSoChia int,
 	SoTienMotTinChi money
@@ -71,7 +71,7 @@ CREATE TABLE MONHOC
 (
 	MaMonHoc char(7) primary key,
 	TenMonHoc nvarchar(50),
-	MaLoaiMon char(4) not null,
+	MaLoaiMon char(2) not null,
 	SoTiet int,
 	SoTinChi int,
 )
@@ -151,7 +151,7 @@ CREATE TABLE DSSV_CHUAHOANTHANH_HP
 --Table CHUCNANG
 CREATE TABLE CHUCNANG
 (
-	MaChucNang varchar(30) primary key,
+	MaChucNang varchar(10) primary key,
 	TenChucNang nvarchar(50),
 	TenManHinhDuocLoad char(20)
 )
@@ -172,7 +172,7 @@ CREATE TABLE NHOMNGUOIDUNG
 CREATE TABLE PHANQUYEN
 (
 	MaNhom char(10) references NHOMNGUOIDUNG(MaNhom),
-	MaChucNang varchar(30) references CHUCNANG(MaChucNang),
+	MaChucNang varchar(10) references CHUCNANG(MaChucNang),
 	primary key(MaNhom, MaChucNang)
 )
 
@@ -253,7 +253,7 @@ ON LOAIMONHOC
 FOR UPDATE
 AS
 BEGIN
-	DECLARE @MaLoaiMon char(4),@HeSoChia int, @MaMonHoc char(7)
+	DECLARE @MaLoaiMon char(2), @HeSoChia int, @MaMonHoc char(7)
 	SELECT @MaLoaiMon = MaLoaiMon, @HeSoChia = HeSoChia FROM INSERTED 
 	DECLARE CUR_MMH CURSOR FOR SELECT MaMonHoc FROM MONHOC WHERE MaLoaiMon = @MaLoaiMon
 	OPEN CUR_MMH
@@ -409,7 +409,7 @@ END
 GO
 
 --TRIGGER ON SINHVIEN 
---Trigger khi update đối tượng sẽ thay dổi tiền học phí.
+--Trigger khi update đối tượng sẽ thay đổi tiền học phí.
 CREATE TRIGGER TG_SV_TTPD 
 ON SINHVIEN
 FOR UPDATE
@@ -456,7 +456,7 @@ BEGIN
 	END
 END
 GO
-use 
+GO
 --Trigger tự động cập nhật số tiền còn lại của bảng PHIEU_DKHP khi sinh viên nộp tiền (Lập phiếu thu học phí)
 CREATE TRIGGER PHIEUTHU_INSERT_PHIEU_DKHP_SOTIENCONLAI
 ON PHIEUTHU
@@ -488,7 +488,7 @@ BEGIN
 	DECLARE @SoPhieu int, @SoTienMoi money,@SoTienCu money
 	SELECT @SoPhieu = SoPhieuDKHP, @SoTienMoi = inserted.SoTienThu FROM inserted
 	SELECT @SoTienCu=deleted.SoTienThu FROM deleted WHERE deleted.SoPhieuDKHP=@SoPhieu
-	IF (@SoTienMoi > (@SoTienCu+(SELECT SoTienConLai FROM PHIEU_DKHP WHERE SoPhieuDKHP = @SoPhieu)) OR @SoTienMoi< 0)
+	IF (@SoTienMoi > (@SoTienCu + (SELECT SoTienConLai FROM PHIEU_DKHP WHERE SoPhieuDKHP = @SoPhieu)) OR (@SoTienMoi < 0))
 	BEGIN
 		PRINT N'Không thể cập nhật phiếu thu vì số tiền thu mới hơn số tiền cần phải đóng hoặc số tiền thu mới < 0'
 		ROLLBACK TRANSACTION
