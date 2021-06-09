@@ -35,12 +35,41 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             }
             return View(sINHVIEN);
         }
-
-        // GET: PDT/SINHVIENs/Create
-        public ActionResult Create()
+        public JsonResult GetHuyen(string id)
         {
+            var ddlHuyen = db.HUYENs.Where(x => x.MaTinh == id).ToList();
+            List<SelectListItem> listHuyen = new List<SelectListItem>();
+
+            listHuyen.Add(new SelectListItem { Text = "-- Chọn Huyện --", Value = "0" });
+            if (ddlHuyen != null)
+            {
+                foreach (var x in ddlHuyen)
+                {
+                    listHuyen.Add(new SelectListItem { Text = x.TenHuyen, Value = x.MaHuyen.ToString() });
+                }
+            }
+            return Json(new SelectList(listHuyen, "Value", "Text", JsonRequestBehavior.AllowGet));
+        }
+      
+        ///// 
+        //// GET: PDT/PDT/PDTHome
+        //public ActionResult TurnBack()
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        return RedirectToAction("PDTHome", "PDT");
+        //    }
+        //    return RedirectToAction("PDTHome", "PDT");
+        //}
+        // GET: PDT/SINHVIENs/Create
+        public ActionResult Create(int id = 0)
+        {
+            ViewBag.m = "Dung";
+            if (id == 1)
+                ViewBag.m = "Sai";
             ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong");
             ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen");
+            ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh");
             ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh");
             return View();
         }
@@ -61,6 +90,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
 
             ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong", sINHVIEN.MaDoiTuong);
             ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen", sINHVIEN.MaHuyen);
+            ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh");
             ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", sINHVIEN.MaNganh);
             return View(sINHVIEN);
         }
@@ -79,6 +109,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             }
             ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong", sINHVIEN.MaDoiTuong);
             ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen", sINHVIEN.MaHuyen);
+            ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh", sINHVIEN.HUYEN.MaTinh);
             ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", sINHVIEN.MaNganh);
             return View(sINHVIEN);
         }
@@ -98,6 +129,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             }
             ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong", sINHVIEN.MaDoiTuong);
             ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen", sINHVIEN.MaHuyen);
+            ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh", sINHVIEN.HUYEN.MaTinh);
             ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", sINHVIEN.MaNganh);
             return View(sINHVIEN);
         }

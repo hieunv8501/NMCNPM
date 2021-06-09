@@ -5,44 +5,50 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2 class="text-center bg-white">Thêm mới thông tin sinh viên</h2>
+@*<div class="header">*@
+    <h2 class="text-center bg-gradient-light get text-gray-900 Controllerfont">THÊM MỚI THÔNG TIN SINH VIÊN</h2>
+    @*<div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+    </div>
+</div>*@
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <div style="color:white; font-weight:bold;">
-            <span class="bg-gradient-danger p-1">SINH VIÊN</span>
-        </div>
+    <div class="form-horizontal card generalFont ">
+        @*<div style="color:white; font-weight:bold;">
+                <span class="bg-gradient-info p-1">SINH VIÊN</span>
+            </div>*@
         <hr />
-        <div class="form-grousp">
-            <div class="control-label col-md-2">Mã sinh viên</div>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaSV, new { htmlAttributes = new { @maxlength = "8", @class = "form-control" } })
+        <div class="form-group">
+            <div class="control-label">Mã sinh viên</div>
+            <div>
+                @Html.EditorFor(model => model.MaSV, new { htmlAttributes = new { @maxlength = "6", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MaSV, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="control-label col-md-2">Họ và tên sinh viên</div>
-            <div class="col-md-10">
+            <div class="control-label">Họ và tên sinh viên</div>
+            <div>
                 @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="control-label col-md-2">Ngày sinh (MM/dd/YYYY)</div>
-            <div class="col-md-10">
+        <div class="form-group ">
+            <div class="control-label">Ngày sinh (MM/dd/YYYY)</div>
+            <div>
                 @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="control-label col-md-2">Giới tính</div>
-            <div class="col-md-10">
+            <div class="control-label">Giới tính</div>
+            <div>
                 @Html.RadioButtonFor(model => model.GioiTinh, "Nam", new { @checked = "checked" })
                 Nam
                 @Html.RadioButtonFor(model => model.GioiTinh, "Nữ")
@@ -51,43 +57,79 @@
         </div>
 
         <div class="form-group">
-            <div class="control-label col-md-2">Tỉnh</div>
-            <div class="col-md-10">
+            <div class="control-label">Tỉnh</div>
+            <div>
                 @Html.DropDownList("MaTinh", null, "-- Chọn tỉnh --", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.HUYEN.TINH.TenTinh, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="control-label col-md-2">Huyện</div>
-            <div class="col-md-10">
+            <div class="control-label">Huyện</div>
+            <div>
                 @Html.DropDownList("MaHuyen", null, "-- Chọn huyện --", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.HUYEN.TenHuyen, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="control-label col-md-2">Ngành</div>
-            <div class="col-md-10">
+            <div class="control-label">Ngành</div>
+            <div>
                 @Html.DropDownList("MaNganh", null, "-- Chọn ngành --", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.NGANH.TenNganh, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="control-label col-md-2">Loại đối tượng</div>
-            <div class="col-md-10">
+            <div class="control-label">Loại đối tượng</div>
+            <div>
                 @Html.DropDownList("MaDoiTuong", null, "-- Chọn đối tượng --", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.DOITUONG.TenDoiTuong, "", new { @class = "text-danger" })
             </div>
         </div>
         <hr />
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Tạo" class="btn btn-primary" />
-                @Html.ActionLink("Quay lại", "Index")
+            <div class="col-md-offset-2">
+                <input type="submit" value="Thêm mới" class="btn btn-primary generalFont" />
+                @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-primary generalFont" })
+                <a class="btn btn-primary" href="~/PDT/PDT/PDTHome">Quay về trang chủ</a>
             </div>
         </div>
     </div>
 }
 
+@* Chọn Tỉnh trước sau đó sẽ đổ dữ liệu của các Huyện thuộc tỉnh đó vào trong dropdownlist *@
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#MaTinh").change(function () {
+        $("#MaHuyen").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetHuyen")',
+            dataType: 'json',
+            data: { id: $("#MaTinh").val() },
+            success: function (city) {
+                $.each(city, function (i, city) {
+                    $("#MaHuyen").append('<option value="'  +  city.Value  +  '">'  +  city.Text  +  '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed.' + ex);
+            }
+        });
+        return false;
+    })
+});
+</script>
+
+@*When the user scrolls the page, execute myFunction*@
+<!--<script>
+    window.onscroll = function () { myFunction() };
+    function myFunction() {
+        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        document.getElementById("myBar").style.width = scrolled + "%";
+    }
+</script>-->

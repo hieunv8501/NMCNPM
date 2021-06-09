@@ -5,42 +5,62 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Index</h2>
+<!--Page Heading-->
+<a class="h3 mb-1 text-danger Controllerfont">
+    DANH SÁCH HUYỆN
+</a>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TINH.TenTinh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenHuyen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VungSauVungXa)
-        </th>
-        <th></th>
-    </tr>
+<div class="bg-light card Controllerfont">
+    <div class="py-2">
+        <h3 class="font-weight-bold text-primary">
+            @Html.ActionLink("Thêm Huyện", "Create", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Quản lý Tỉnh", "Index", "HUYENs", null, new { @class = "btn btn-primary" })
+        </h3>
+    </div>
+    <div>
+        <div id="dataTable_wrapper" class="dataTables_wrapper m-1 card-body" style="background-color: white">
+            <div>
+                <div id="dataTable_wrapper" class="dataTables_wrapper">
+                    <table class="table table-bordered " id="dataTable">
+                        <thead>
+                            <tr style="text-align: center">
+                                <th width="700px">Thị xã/ Huyện/ Quận/ Thành phố </th>
+                                <th width="700px">Tỉnh/ Thành phố</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TINH.TenTinh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenHuyen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VungSauVungXa)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaHuyen }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaHuyen }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaHuyen })
-        </td>
-    </tr>
-}
+                        @foreach (var item in Model)
+                        {
+                            <tr>
 
-</table>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TenHuyen)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TINH.TenTinh)
+                                </td>
+                                <td>
+                                    <div class="container">
+                                        <div class="dropdown nav-item">
+                                            <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Tùy chọn
+                                            </button>
+                                            <div class="dropdown-menu" style="text-align:center;" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" href="@Url.Action("Details", "HUYENs", new {area ="PDT", id = item.MaHuyen})">Xem thông tin</a>
+                                                <a class="dropdown-item" href="@Url.Action("Edit", "HUYENs", new {area ="PDT", id = item.MaHuyen})">Sửa thông tin</a>
+                                                <a class="dropdown-item" href="@Url.Action("Delete", "HUYENs", new {area ="PDT", id = item.MaHuyen})">Xóa thông tin</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
