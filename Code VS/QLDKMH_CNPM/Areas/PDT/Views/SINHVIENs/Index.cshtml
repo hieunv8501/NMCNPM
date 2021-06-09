@@ -14,164 +14,162 @@
 <div class="bg-light card Controllerfont">
     <div class="py-2">
         <h3 class="font-weight-bold text-primary">
-            @Html.ActionLink("Thêm sinh viên", "Create", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Thêm Sinh viên", "Create", null, new { @class = "btn btn-primary" })
             @Html.ActionLink("Quản lý Huyện", "Index", "HUYENs", null, new { @class = "btn btn-primary" })
             @Html.ActionLink("Quản lý Đối tượng", "Index", "DOITUONGs", null, new { @class = "btn btn-primary" })
         </h3>
     </div>
 
-    <div>
-        <div id="dataTable_wrapper" class="dataTables_wrapper m-1 card-body" style="background-color: white">
-            <div>
-                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                    @*<div class="row">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="dataTables_length" id="dataTable_length">
+    <div id="dataTable_wrapper" class="dataTables_wrapper m-1 card-body m-1 p-1" style="background-color: white">
+        <div>
+            <div id="dataTable_wrapper" class="dataTables_wrapper">
+                @*<div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="dataTables_length" id="dataTable_length">
 
-                                    <label>
-                                        Hiển thị
-                                        <select id="sel" name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select> đối tượng dữ liệu
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div id="dataTable_filter" class="dataTables_filter">
-                                    <label>
-                                        Tìm kiếm từ khóa:
-                                        <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable">
-                                    </label>
-                                </div>
+                                <label>
+                                    Hiển thị
+                                    <select id="sel" name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select> đối tượng dữ liệu
+                                </label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12">*@
-                    <!--id = dataTable shows number of entries; sort and search function-->
-                    <table class="table table-bordered dataTable" id="dataTable" @*role="grid" aria-describedby="dataTable_info"*@>
-                        <thead>
-                            @*<tr style="text-align: center" role="row">
-                                    <th width="50px" class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="MSSV: activate to sort column descending" style="width: 48.1875px;">MSSV</th>
-                                    <th width="230px" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Họ Tên: activate to sort column ascending" style="width: 41.35px;">Họ Tên</th>
-                                    <th width="100px" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Ngày Sinh: activate to sort column ascending" style="width: 67.8375px;">Ngày Sinh</th>
-                                    <th width="120px" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Giới Tính: activate to sort column ascending" style="width: 35.8875px;">Giới Tính</th>
-                                    <th width="300px" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Quê Quán: activate to sort column ascending" style="width: 43.45px;">Quê Quán</th>
-                                    <th width="200px" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Ngành: activate to sort column ascending" style="width: 52.8875px;">Ngành</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Thao tác: activate to sort column ascending" style="width: 140.613px;">Thao tác</th>
-                                </tr>*@
-                            <tr style="text-align: center">
-                                <th width="50px">MSSV</th>
-                                <th width="230px">Họ Tên</th>
-                                <th width="100px">Ngày Sinh</th>
-                                <th width="120px">Giới Tính</th>
-                                <th width="300px">Quê Quán</th>
-                                <th width="200px">Ngành</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <!--This is for footer line-->
-                        <tfoot>
-                            <tr style="text-align:center">
-                                <th>MSSV</th>
-                                <th>Họ và Tên</th>
-                                <th>Ngày Sinh</th>
-                                <th>Giới Tính</th>
-                                <th>Quê Quán</th>
-                                <th>Ngành</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
+                        <div class="col-sm-12 col-md-6">
+                            <div id="dataTable_filter" class="dataTables_filter">
+                                <label>
+                                    Tìm kiếm từ khóa:
+                                    <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">*@
+                <!--id = dataTable shows number of entries; sort and search function-->
+                <table class="table table-bordered dataTable" id="dataTable" @*role="grid" aria-describedby="dataTable_info"*@>
+                    <thead>
+                        @*<tr style="text-align: center" role="row">
+                                <th width="50px" class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="MSSV: activate to sort column descending" style="width: 48.1875px;">MSSV</th>
+                                <th width="230px" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Họ Tên: activate to sort column ascending" style="width: 41.35px;">Họ Tên</th>
+                                <th width="100px" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Ngày Sinh: activate to sort column ascending" style="width: 67.8375px;">Ngày Sinh</th>
+                                <th width="120px" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Giới Tính: activate to sort column ascending" style="width: 35.8875px;">Giới Tính</th>
+                                <th width="300px" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Quê Quán: activate to sort column ascending" style="width: 43.45px;">Quê Quán</th>
+                                <th width="200px" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Ngành: activate to sort column ascending" style="width: 52.8875px;">Ngành</th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Thao tác: activate to sort column ascending" style="width: 140.613px;">Thao tác</th>
+                            </tr>*@
+                        <tr>
+                            <th width="40px">MSSV</th>
+                            <th width="180px">Họ tên</th>
+                            <th width="90px">Ngày sinh</th>
+                            <th width="90px">Giới tính</th>
+                            <th width="370px">Quê quán</th>
+                            <th width="180px">Ngành</th>
+                            <th style="text-align:center; width:fit-content">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <!--This is for footer line-->
+                    <tfoot>
+                        <tr>
+                            <th>MSSV</th>
+                            <th>Họ tên</th>
+                            <th>Ngày sinh</th>
+                            <th>Giới tính</th>
+                            <th>Quê quán</th>
+                            <th>Ngành</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
 
-                        @foreach (var item in Model)
-                        {
-                            <tr style="font-weight:100; text-align:center">
-                                <td>
-                                    @Html.DisplayFor(model => item.MaSV)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.HoTen)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NgaySinh.Day)/@Html.DisplayFor(modelItem => item.NgaySinh.Month)/@Html.DisplayFor(modelItem => item.NgaySinh.Year)
-                                    @*Tuy vẫn chạy và hiển thị ra đúng mong muốn nhưng
-                                        rất nhiều lỗi sẽ xuất hiện ở đoạn này nếu dùng câu lệnh ở dưới đây
-                                        @Html.Label(@item.NgaySinh.ToString("dd/MM/yyyy"))*@
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.GioiTinh)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.HUYEN.TenHuyen)
-                                    - @Html.DisplayFor(modelItem => item.HUYEN.TINH.TenTinh)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NGANH.TenNganh)
-                                </td>
-                                <td>
-                                    <!--EFFECT 1: line with blue-->
+                    @foreach (var item in Model)
+                    {
+                        <tr style="font-weight: 100;">
+                            <td>
+                                @Html.DisplayFor(model => item.MaSV)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HoTen)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NgaySinh.Day)/@Html.DisplayFor(modelItem => item.NgaySinh.Month)/@Html.DisplayFor(modelItem => item.NgaySinh.Year)
+                                @*Tuy vẫn chạy và hiển thị ra đúng mong muốn nhưng
+                                    rất nhiều lỗi sẽ xuất hiện ở đoạn này nếu dùng câu lệnh ở dưới đây
+                                    @Html.Label(@item.NgaySinh.ToString("dd/MM/yyyy"))*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GioiTinh)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HUYEN.TenHuyen)
+                                - @Html.DisplayFor(modelItem => item.HUYEN.TINH.TenTinh)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NGANH.TenNganh)
+                            </td>
+                            <td>
+                                <!--EFFECT 1: line with blue-->
 
-                                    <div class="container">
-                                        <div class="dropdown nav-item">
-                                            <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                Tùy chọn
-                                            </button>
-                                            <div class="dropdown-menu" style="text-align:center;" aria-labelledby="navbarDropdownMenuLink">
-                                                <a class="dropdown-item" href="@Url.Action("Details", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Xem thông tin</a>
-                                                <a class="dropdown-item" href="@Url.Action("Edit", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Sửa thông tin</a>
-                                                <a class="dropdown-item" href="@Url.Action("Delete", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Xóa thông tin</a>
-                                            </div>
+                                <div class="container">
+                                    <div class="dropdown nav-item">
+                                        <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Tùy chọn
+                                        </button>
+                                        <div class="dropdown-menu" style="text-align:center;" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="@Url.Action("Details", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Xem thông tin</a>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Sửa thông tin</a>
+                                            <a class="dropdown-item" href="@Url.Action("Delete", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Xóa thông tin</a>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <!--EFFECT 2: line with gray-->
-                                    <!--<div class="dropdown">
-                                    <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        Tùy chọn
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item Controllerfont" href="@Url.Action("Details", "SINHVIENs", new {area = "PDT", id = item.MaSV})">Xem thông tin</a>
-                                        <a class="dropdown-item Controllerfont" href="@Url.Action("Edit", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Sửa thông tin</a>
-                                        <a class="dropdown-item Controllerfont" href="@Url.Action("Delete", "SINHVIENs", new { area = "PDT", id = item.MaSV})">Xóa thông tin</a>
-                                    </div>
-                                    </div>-->
+                                <!--EFFECT 2: line with gray-->
+                                <!--<div class="dropdown">
+                                <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Tùy chọn
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item Controllerfont" href="@Url.Action("Details", "SINHVIENs", new {area = "PDT", id = item.MaSV})">Xem thông tin</a>
+                                    <a class="dropdown-item Controllerfont" href="@Url.Action("Edit", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Sửa thông tin</a>
+                                    <a class="dropdown-item Controllerfont" href="@Url.Action("Delete", "SINHVIENs", new { area = "PDT", id = item.MaSV})">Xóa thông tin</a>
+                                </div>
+                                </div>-->
 
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
             </div>
-            @*<div class="row">
-                    <div class="col-sm-12 col-md-5">
-                        <div class="dataTables_info"
-                             id="dataTable_info"
-                             role="status"
-                             aria-live="polite">
-                            Hiển thị
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-7">
-                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                            <ul class="pagination">
-                                <li class="paginate_button page-item previous disabled" id="dataTable_previous">
-                                    <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Trước</a>
-                                </li>
-                                <li class="paginate_button page-item active">
-                                    <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                                </li>
-                                <li class="paginate_button page-item ">
-                                    <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                                </li>
-                                <li class="paginate_button page-item next" id="dataTable_next">
-                                    <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">Sau</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>*@
         </div>
+        @*<div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info"
+                         id="dataTable_info"
+                         role="status"
+                         aria-live="polite">
+                        Hiển thị
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                        <ul class="pagination">
+                            <li class="paginate_button page-item previous disabled" id="dataTable_previous">
+                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Trước</a>
+                            </li>
+                            <li class="paginate_button page-item active">
+                                <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                            </li>
+                            <li class="paginate_button page-item ">
+                                <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+                            </li>
+                            <li class="paginate_button page-item next" id="dataTable_next">
+                                <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">Sau</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>*@
     </div>
 </div>
