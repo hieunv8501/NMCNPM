@@ -5,45 +5,51 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>HUYEN</h4>
+<h3 class="text-left text-danger Controllerfont">XÓA THÔNG TIN HUYỆN</h3>
+<hr />
+<div class="generalFont" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e37df">
+                <th width="50%">Mã huyện</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaHuyen)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tên huyện</th>
+                <td>@Html.DisplayFor(model => model.TenHuyen)</td>
+            </tr>
+            <tr style="color: white; background-color:#4e37df">
+                <th>Tên tỉnh</th>
+                <td>@Html.DisplayFor(model => model.TINH.TenTinh)</td>
+            </tr>
+            <tr class="bg-light" style="color:black;">
+                <th>Vùng sâu vùng xa</th>
+                <td>
+                    @if (@Model.VungSauVungXa == true)
+                    {
+                        <span>Có</span>
+                    }
+                    else
+                    {
+                        <span>Không</span>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TINH.TenTinh)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TINH.TenTinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TenHuyen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenHuyen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.VungSauVungXa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VungSauVungXa)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div class="form-actions">
+            <input type="submit" value="Xóa" class="btn btn-danger" />
+            <span>
+                @Html.ActionLink("Quay lại", "Index", new { id = Model.MaHuyen }, new { @class = "btn btn-primary" })
+            </span>
         </div>
     }
 </div>

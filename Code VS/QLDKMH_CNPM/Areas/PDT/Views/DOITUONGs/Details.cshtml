@@ -5,31 +5,27 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h3 class="text-left text-danger Controllerfont">THÔNG TIN ĐỐI TƯỢNG ƯU TIÊN</h3>
+<hr />
+<div class="generalFont" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e37df">
+                <th width="50%">Mã đối tượng ưu tiên</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaDoiTuong)</td>
+            </tr>
 
-<div>
-    <h4>DOITUONG</h4>
+            <tr class="bg-light" style="color:black;">
+                <th>Tên đối tượng ưu tiên</th>
+                <td>@Html.DisplayFor(model => model.TenDoiTuong)</td>
+            </tr>
+            <tr style="color: white; background-color:#4e37df">
+                <th>Tỉ lệ giảm học phí (%)</th>
+                <td>@Html.DisplayFor(model => model.TiLeGiamHocPhi)</td>
+            </tr>
+        </tbody>
+    </table>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenDoiTuong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenDoiTuong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TiLeGiamHocPhi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TiLeGiamHocPhi)
-        </dd>
-
-    </dl>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaDoiTuong }, new { @class = "btn btn-danger" })
+    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaDoiTuong }, new { @class = "btn btn-primary" })
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaDoiTuong }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

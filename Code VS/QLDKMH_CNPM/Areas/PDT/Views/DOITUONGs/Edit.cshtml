@@ -5,42 +5,42 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Edit</h2>
+<h3 class="text-left text-danger Controllerfont">SỬA THÔNG TIN ĐỐI TƯỢNG ƯU TIÊN</h3>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>DOITUONG</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.MaDoiTuong)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenDoiTuong, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TenDoiTuong, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenDoiTuong, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TiLeGiamHocPhi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TiLeGiamHocPhi, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TiLeGiamHocPhi, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+<div class="form-horizontal generalFont">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.MaDoiTuong)
+    <hr />
+    <div class="form-group">
+        <div class="control-label">Tên đối tượng ưu tiên</div>
+        <div>
+            @Html.EditorFor(model => model.TenDoiTuong, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenDoiTuong, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        <div class="control-label">Tỉ lệ giảm học phí (%)</div>
+        <div>
+            @Html.EditorFor(model => model.TiLeGiamHocPhi, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TiLeGiamHocPhi, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div>
+            <input type="submit" value="Lưu" class="btn btn-danger" />
+            <span>
+                @Html.ActionLink("Hủy", "Index", new { id = Model.MaDoiTuong }, new { @class = "btn btn-primary" })
+            </span>
+        </div>
+    </div>
+</div>
+
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+

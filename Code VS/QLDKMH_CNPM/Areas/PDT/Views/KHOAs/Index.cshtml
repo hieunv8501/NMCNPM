@@ -5,15 +5,18 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<a class="h3 mb-1 text-danger Controllerfont">
-    DANH SÁCH KHOA
-</a>
+<!--Page Heading-->
+<h3 class="mb-1 text-danger Controllerfont">DANH SÁCH KHOA</h3>
+
+<!--DataTable Showing-->
 <div class="bg-light card Controllerfont">
-    <div class="py-2">
-        <h3 class="font-weight-bold text-primary">
+    <div class="py-2 m-0">
+        <span>
             @Html.ActionLink("Thêm Khoa", "Create", null, new { @class = "btn btn-primary" })
+        </span>
+        <span style="float:right">
             @Html.ActionLink("Quản lý Ngành", "Index", "NGANHs", null, new { @class = "btn btn-primary" })
-        </h3>
+        </span>
     </div>
 
     <div id="dataTable_wrapper" class="dataTables_wrapper m-1 card-body m-1 p-1" style="background-color: white">
@@ -22,14 +25,14 @@
                 <table class="table table-bordered" id="dataTable">
                     <thead>
                         <tr>
-                            <th width="700px">Khoa</th>
+                            <th width="1000px">Khoa</th>
                             <th style="text-align:center">Thao tác</th>
                         </tr>
                     </thead>
 
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr style="font-weight: 100;">
                             <td>
                                 @Html.DisplayFor(modelItem => item.TenKhoa)
                             </td>

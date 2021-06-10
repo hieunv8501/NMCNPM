@@ -5,39 +5,42 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h3 class="text-left text-danger Controllerfont">THÔNG TIN HUYỆN</h3>
 
-<div>
-    <h4>HUYEN</h4>
+<hr />
+<div class="generalFont" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e37df">
+                <th width="50%">Mã huyện</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaHuyen)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tên huyện</th>
+                <td>@Html.DisplayFor(model => model.TenHuyen)</td>
+            </tr>
+            <tr style="color: white; background-color:#4e37df">
+                <th>Tên tỉnh</th>
+                <td>@Html.DisplayFor(model => model.TINH.TenTinh)</td>
+            </tr>
+            <tr class="bg-light" style="color:black;">
+                <th>Vùng sâu vùng xa</th>
+                <td>
+                    @if (@Model.VungSauVungXa == true)
+                    {
+                        <span>Có</span>
+                    }
+                    else
+                    {
+                        <span>Không</span>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TINH.TenTinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TINH.TenTinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TenHuyen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenHuyen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.VungSauVungXa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VungSauVungXa)
-        </dd>
-
-    </dl>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaHuyen }, new { @class = "btn btn-danger" })
+    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaHuyen }, new { @class = "btn btn-primary" })
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaHuyen }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

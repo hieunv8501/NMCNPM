@@ -5,48 +5,48 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Create</h2>
+<h3 class="text-left text-danger Controllerfont">THÊM MỚI THÔNG TIN ĐÔI TƯỢNG ƯU TIÊN</h3>
 
-@using (Html.BeginForm()) 
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>DOITUONG</h4>
+
+    <div class="form-horizontal card generalFont">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.MaDoiTuong, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaDoiTuong, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="control-label">
+                Mã đối tượng ưu tiên
+                @Html.EditorFor(model => model.MaDoiTuong, new { htmlAttributes = new { @maxlength = "4", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MaDoiTuong, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TenDoiTuong, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="control-label">
+                Tên đối tượng ưu tiên
                 @Html.EditorFor(model => model.TenDoiTuong, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TenDoiTuong, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TiLeGiamHocPhi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="control-label">
+                Tỉ lệ giảm học phí
                 @Html.EditorFor(model => model.TiLeGiamHocPhi, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TiLeGiamHocPhi, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @if (ViewBag.m == "Sai")
+        {
+            <div class="alert alert-danger">Không hợp lệ! Mời nhập lại... </div>
+        }
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="control-label">
+                <input type="submit" value="Thêm mới" class="btn btn-danger" />
+                @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-primary" })
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

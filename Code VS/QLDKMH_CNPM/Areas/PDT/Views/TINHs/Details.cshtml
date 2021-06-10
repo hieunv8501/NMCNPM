@@ -5,23 +5,24 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h3 class="text-left text-danger Controllerfont">THÔNG TIN TỈNH</h3>
 
-<div>
-    <h4>TINH</h4>
+<hr />
+<div class="generalFont" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e37df">
+                <th width="50%">Mã tỉnh</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaTinh)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tên tỉnh</th>
+                <td>@Html.DisplayFor(model => model.TenTinh)</td>
+            </tr>
+        </tbody>
+    </table>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenTinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenTinh)
-        </dd>
-
-    </dl>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaTinh }, new { @class = "btn btn-danger" })
+    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaTinh }, new { @class = "btn btn-primary" })
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaTinh }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

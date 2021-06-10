@@ -5,19 +5,14 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-@*<div class="header">*@
-    <h2 class="text-center bg-gradient-light get text-gray-900 Controllerfont">THÊM MỚI THÔNG TIN SINH VIÊN</h2>
-    @*<div class="progress-container">
-        <div class="progress-bar" id="myBar"></div>
-    </div>
-</div>*@
+<h3 class="text-left text-danger Controllerfont">THÊM MỚI THÔNG TIN SINH VIÊN</h3>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal card generalFont ">
+    <div class="form-horizontal card generalFont">
         @*<div style="color:white; font-weight:bold;">
                 <span class="bg-gradient-info p-1">SINH VIÊN</span>
             </div>*@
@@ -87,11 +82,15 @@
                 @Html.ValidationMessageFor(model => model.DOITUONG.TenDoiTuong, "", new { @class = "text-danger" })
             </div>
         </div>
+        @if (ViewBag.m == "Sai")
+        {
+            <div class="alert alert-danger">Không hợp lệ! Mời nhập lại... </div>
+        }
         <hr />
         <div class="form-group">
             <div class="col-md-offset-2">
-                <input type="submit" value="Thêm mới" class="btn btn-primary generalFont" />
-                @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-primary generalFont" })
+                <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-primary" })
                 <a class="btn btn-primary" href="~/PDT/PDT/PDTHome">Quay về trang chủ</a>
             </div>
         </div>

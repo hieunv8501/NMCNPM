@@ -5,29 +5,37 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<h3 class="text-left text-danger Controllerfont">XÓA THÔNG TIN TỈNH</h3>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>TINH</h4>
+<hr />
+
+@*<div style="color:white; font-weight:bold;">
+      <span class="bg-danger p-1">TỈNH</span>
+</div>*@
+
+<div class="generalFont" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e37df">
+                <th width="50%">Mã tỉnh</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaTinh)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tên tỉnh</th>
+                <td>@Html.DisplayFor(model => model.TenTinh)</td>
+            </tr>
+        </tbody>
+    </table>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenTinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenTinh)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Xóa" class="btn btn-danger" />
+            @Html.ActionLink("Quay lại", "Index", new { id = Model.MaTinh }, new { @class = "btn btn-primary" })
         </div>
     }
 </div>
+

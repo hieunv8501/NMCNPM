@@ -5,34 +5,33 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Edit</h2>
+<h3 class="text-left text-danger Controllerfont">SỬA THÔNG TIN KHOA</h3>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>KHOA</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.MaKhoa)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenKhoa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TenKhoa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenKhoa, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+<div class="form-horizontal generalFont">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.MaKhoa)
+    <hr />
+    <div class="form-group">
+        <div class="control-label">Tên khoa</div>
+        <div>
+            @Html.EditorFor(model => model.TenKhoa, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenKhoa, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <hr />
+    <div class="form-group">
+        <div>
+            <input type="submit" value="Lưu" class="btn btn-danger" />
+            <span>
+                @Html.ActionLink("Quay lại", "Index", new { id = Model.MaKhoa }, new { @class = "btn btn-primary" })
+            </span>
+        </div>
+    </div>
+</div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
