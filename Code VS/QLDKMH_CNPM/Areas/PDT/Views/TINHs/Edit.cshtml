@@ -11,7 +11,7 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal generalFont">
+<div class="form-horizontal generalFont" style="color: black;">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.MaTinh)
     <hr />

@@ -22,36 +22,36 @@
                 <table class="table table-bordered" id="dataTable">
                     <thead>
                         <tr>
-                            <th width="500px">Ngành</th>
-                            <th width="500px">Khoa</th>
+                            <th width="600px">Ngành</th>
+                            <th width="600px">Khoa</th>
                             <th style="text-align:center">Thao tác</th>
                         </tr>
                     </thead>
 
                     @foreach (var item in Model)
                     {
-                        <tr style="font-weight: 100;">
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TenNganh)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.KHOA.TenKhoa)
-                            </td>
-                            <td>
-                                <div class="container">
-                                    <div class="dropdown nav-item">
-                                        <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            Tùy chọn
-                                        </button>
-                                        <div class="dropdown-menu" style="text-align:center;" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="@Url.Action("Details", "NGANHs", new {area ="PDT", id = item.MaNganh})">Xem thông tin</a>
-                                            <a class="dropdown-item" href="@Url.Action("Edit", "NGANHs", new {area ="PDT", id = item.MaNganh})">Sửa thông tin</a>
-                                            <a class="dropdown-item" href="@Url.Action("Delete", "NGANHs", new {area ="PDT", id = item.MaNganh})">Xóa thông tin</a>
-                                        </div>
-                                    </div>
+                <tr style="font-weight: 100; color: black;">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenNganh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KHOA.TenKhoa)
+                    </td>
+                    <td>
+                        <div class="container">
+                            <div class="dropdown nav-item">
+                                <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Tùy chọn
+                                </button>
+                                <div class="dropdown-menu" style="text-align:center;" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="@Url.Action("Details", "NGANHs", new {area ="PDT", id = item.MaNganh})">Xem thông tin</a>
+                                    <a class="dropdown-item" href="@Url.Action("Edit", "NGANHs", new {area ="PDT", id = item.MaNganh})">Sửa thông tin</a>
+                                    <a class="dropdown-item" href="@Url.Action("Delete", "NGANHs", new {area ="PDT", id = item.MaNganh})">Xóa thông tin</a>
                                 </div>
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
                     }
 
                 </table>

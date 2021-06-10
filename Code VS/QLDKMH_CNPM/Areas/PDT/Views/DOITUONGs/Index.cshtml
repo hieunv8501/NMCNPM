@@ -10,7 +10,7 @@
 
 <!--DataTable Showing-->
 <div class="bg-light card Controllerfont">
-    <div class="py-2">
+    <div class="py-2 m-0">
         <span>
             @Html.ActionLink("Thêm Đối tượng", "Create", null, new { @class = "btn btn-primary" })
         </span>
@@ -22,15 +22,15 @@
                 <table class="table table-bordered" id="dataTable">
                     <thead>
                         <tr>
-                            <th width="500px">Đối tượng ưu tiên</th>
-                            <th width="500px">Tỉ lệ giảm học phí (%)</th>
+                            <th width="600px">Đối tượng ưu tiên</th>
+                            <th width="600px">Tỉ lệ giảm học phí (%)</th>
                             <th style="text-align:center">Thao tác</th>
                         </tr>
                     </thead>
 
                     @foreach (var item in Model)
                     {
-                        <tr style="font-weight: 100;">
+                        <tr style="font-weight: 100; color: black;">
                             <td>
                                 @Html.DisplayFor(modelItem => item.TenDoiTuong)
                             </td>

@@ -195,6 +195,7 @@
     <Content Include="Assets\css\bootstrap\mixins\_border-radius.css" />
     <Content Include="Assets\css\bootstrap\mixins\_screen-reader.css" />
     <Content Include="Assets\css\bootstrap\mixins\_visibility.css" />
+    <Content Include="Assets\css\PDTcss\SliderPDT.css" />
     <Content Include="Assets\css\bootstrap\utilities\_stretched-link.css" />
     <Content Include="Assets\css\bootstrap\_media.css" />
     <Content Include="Assets\css\LayoutAdmin.css" />
@@ -202,7 +203,11 @@
     <Content Include="Assets\css\sb-admin-2.min.css" />
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\css\w3.css" />
+    <Content Include="Content\img\15nam_UIT.jpg" />
+    <Content Include="Content\img\saudh_2021.png" />
+    <Content Include="Content\img\tuyendungUIT.png" />
     <Content Include="Assets\img\undraw_posting_photo.svg" />
+    <Content Include="Content\img\wallpaperPDT.png" />
     <Content Include="Assets\js\bootstrap.min.js" />
     <Content Include="Assets\js\demo\chart-area-demo.js" />
     <Content Include="Assets\js\demo\chart-bar-demo.js" />
@@ -2122,11 +2127,8 @@
     <Content Include="Areas\SV\Views\PHIEUTHUs\Details.cshtml" />
     <Content Include="Areas\SV\Views\PHIEUTHUs\Edit.cshtml" />
     <Content Include="Areas\SV\Views\PHIEUTHUs\Index.cshtml" />
-    <Content Include="Areas\SV\Views\SINHVIENs\Create.cshtml" />
-    <Content Include="Areas\SV\Views\SINHVIENs\Delete.cshtml" />
     <Content Include="Areas\SV\Views\SINHVIENs\Details.cshtml" />
     <Content Include="Areas\SV\Views\SINHVIENs\Edit.cshtml" />
-    <Content Include="Areas\SV\Views\SINHVIENs\Index.cshtml" />
     <Content Include="Areas\PDT\Views\web.config" />
     <Content Include="Areas\PDT\Views\Shared\PDTLayout.cshtml" />
     <Content Include="Areas\PDT\Views\PDT\PDTHome.cshtml" />

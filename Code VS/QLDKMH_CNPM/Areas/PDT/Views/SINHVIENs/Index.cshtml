@@ -10,10 +10,10 @@
 
 <!--DataTable Showing-->
 <div class="bg-light card Controllerfont">
-    <div class="py-2">
+    <div class="py-2 m-0">
         <span>
             @Html.ActionLink("Thêm Sinh viên", "Create", null, new { @class = "btn btn-primary" })
-       </span>
+        </span>
         <span style="float:right">
             @Html.ActionLink("Quản lý Huyện", "Index", "HUYENs", null, new { @class = "btn btn-primary" })
             @Html.ActionLink("Quản lý Tỉnh", "Index", "TINHs", null, new { @class = "btn btn-primary" })
@@ -21,7 +21,7 @@
         </span>
     </div>
 
-    <div id="dataTable_wrapper" class="dataTables_wrapper card m-1 p-1" style="background-color: white">
+    <div id="dataTable_wrapper" class="dataTables_wrapper card-body m-1 p-1" style="background-color: white">
         <div>
             <div id="dataTable_wrapper" class="dataTables_wrapper">
                 <!--id = dataTable shows number of entries; sort and search function-->
@@ -32,7 +32,7 @@
                             <th width="180px">Họ tên</th>
                             <th width="90px">Ngày sinh</th>
                             <th width="90px">Giới tính</th>
-                            <th width="370px">Quê quán</th>
+                            <th width="330px">Quê quán</th>
                             <th width="180px">Ngành</th>
                             <th style="text-align:center; width:fit-content">Thao tác</th>
                         </tr>
@@ -52,7 +52,7 @@
 
                     @foreach (var item in Model)
                     {
-                        <tr style="font-weight: 100;">
+                        <tr style="font-weight: 100; color:black;">
                             <td>
                                 @Html.DisplayFor(model => item.MaSV)
                             </td>
