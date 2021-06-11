@@ -4252,7 +4252,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
         }
 
 .card {
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;

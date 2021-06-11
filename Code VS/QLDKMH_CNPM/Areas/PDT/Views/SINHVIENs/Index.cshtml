@@ -6,18 +6,19 @@
 }
 
 <!--Page Heading-->
-<h3 class="mb-1 text-danger Controllerfont">DANH SÁCH SINH VIÊN</h3>
+<h3 class="mb-1 text-danger controllerStyle">DANH SÁCH SINH VIÊN</h3>
 
 <!--DataTable Showing-->
-<div class="bg-light card Controllerfont">
+<!--Thêm class="card" để scroll nội dung mà không scroll sidebar-->
+<div class="bg-light generalStyle">
     <div class="py-2 m-0">
         <span>
-            @Html.ActionLink("Thêm Sinh viên", "Create", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Thêm Sinh viên", "Create", null, new { @class = "btn btn-primary btnStyle" })
         </span>
         <span style="float:right">
-            @Html.ActionLink("Quản lý Huyện", "Index", "HUYENs", null, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Quản lý Tỉnh", "Index", "TINHs", null, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Quản lý Đối tượng", "Index", "DOITUONGs", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Quản lý Huyện", "Index", "HUYENs", null, new { @class = "btn btn-primary btnStyle" })
+            @Html.ActionLink("Quản lý Tỉnh", "Index", "TINHs", null, new { @class = "btn btn-primary btnStyle" })
+            @Html.ActionLink("Quản lý Đối tượng", "Index", "DOITUONGs", null, new { @class = "btn btn-primary btnStyle" })
         </span>
     </div>
 
@@ -25,7 +26,7 @@
         <div>
             <div id="dataTable_wrapper" class="dataTables_wrapper">
                 <!--id = dataTable shows number of entries; sort and search function-->
-                <table class="table table-bordered dataTable" id="dataTable">
+                <table class="table table-bordered dataTable dataStyle" id="dataTable">
                     <thead>
                         <tr>
                             <th width="40px">MSSV</th>
@@ -52,7 +53,7 @@
 
                     @foreach (var item in Model)
                     {
-                        <tr style="font-weight: 100; color:black;">
+                        <tr>
                             <td>
                                 @Html.DisplayFor(model => item.MaSV)
                             </td>
@@ -83,7 +84,7 @@
                                         <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                             Tùy chọn
                                         </button>
-                                        <div class="dropdown-menu" style="text-align:center;" aria-labelledby="navbarDropdownMenuLink">
+                                        <div class="dropdown-menu" style="text-align: center;" aria-labelledby="navbarDropdownMenuLink">
                                             <a class="dropdown-item" href="@Url.Action("Details", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Xem thông tin</a>
                                             <a class="dropdown-item" href="@Url.Action("Edit", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Sửa thông tin</a>
                                             <a class="dropdown-item" href="@Url.Action("Delete", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Xóa thông tin</a>

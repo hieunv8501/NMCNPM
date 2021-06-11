@@ -5,10 +5,10 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h3 class="text-left text-danger Controllerfont">THÔNG TIN TỈNH</h3>
+<h3 class="text-left text-danger controllerStyle">THÔNG TIN TỈNH</h3>
 
 <hr />
-<div class="generalFont" style="font-weight:100;">
+<div class="generalStyle" style="font-weight:100;">
     <table class="table" style="width: 100%;">
         <tbody>
             <tr style="color:white; background-color:#4e37df">
@@ -23,6 +23,6 @@
         </tbody>
     </table>
     <hr />
-    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaTinh }, new { @class = "btn btn-danger" })
-    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaTinh }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaTinh }, new { @class = "btn btn-danger btnStyle" })
+    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaTinh }, new { @class = "btn btn-primary btnStyle" })
 </div>

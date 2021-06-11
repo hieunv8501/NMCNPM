@@ -4515,7 +4515,7 @@ input[type="button"].btn-block {
         }
 
 .card {
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;

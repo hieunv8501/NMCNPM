@@ -5,14 +5,14 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h3 class="text-left text-danger Controllerfont">THÊM MỚI THÔNG TIN SINH VIÊN</h3>
+<h3 class="text-left text-danger controllerStyle">THÊM MỚI THÔNG TIN SINH VIÊN</h3>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal card generalFont" style="color: black;">
+    <div class="form-horizontal generalStyle" style="color: black;">
         @*<div style="color:white; font-weight:bold;">
                 <span class="bg-gradient-info p-1">SINH VIÊN</span>
             </div>*@
@@ -89,9 +89,9 @@
         <hr />
         <div class="form-group">
             <div class="col-md-offset-2">
-                <input type="submit" value="Thêm mới" class="btn btn-primary" />
-                @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-primary" })
-                <a class="btn btn-primary" href="~/PDT/PDT/PDTHome">Quay về trang chủ</a>
+                <input type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
+                @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-primary btnStyle" })
+                <a class="btn btn-primary btnStyle" href="~/PDT/PDT/PDTHome">Quay về trang chủ</a>
             </div>
         </div>
     </div>

@@ -5,14 +5,14 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h3 class="text-left text-danger Controllerfont">THÊM MỚI THÔNG TIN NGÀNH</h3>
+<h3 class="text-left text-danger controllerStyle">THÊM MỚI THÔNG TIN NGÀNH</h3>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal card generalFont" style="color: black;">
+    <div class="form-horizontal generalStyle" style="color: black;">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -46,8 +46,8 @@
 
         <div class="form-group">
             <div class="control-label">
-                <input type="submit" value="Thêm mới" class="btn btn-danger" />
-                @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-primary" })
+                <input type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
+                @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-primary btnStyle" })
             </div>
         </div>
     </div>

@@ -5,7 +5,7 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h3 class="text-left text-danger Controllerfont">XÓA THÔNG TIN TỈNH</h3>
+<h3 class="text-left text-danger controllerStyle">XÓA THÔNG TIN TỈNH</h3>
 
 <hr />
 
@@ -13,7 +13,7 @@
       <span class="bg-danger p-1">TỈNH</span>
 </div>*@
 
-<div class="generalFont" style="font-weight:100;">
+<div class="generalStyle" style="font-weight:100;">
     <table class="table" style="width: 100%;">
         <tbody>
             <tr style="color:white; background-color:#4e37df">
@@ -32,9 +32,9 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Xóa" class="btn btn-danger" />
-            @Html.ActionLink("Quay lại", "Index", new { id = Model.MaTinh }, new { @class = "btn btn-primary" })
+        <div class="form-actions">
+            <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
+            @Html.ActionLink("Quay lại", "Index", new { id = Model.MaTinh }, new { @class = "btn btn-primary btnStyle" })
         </div>
     }
 </div>

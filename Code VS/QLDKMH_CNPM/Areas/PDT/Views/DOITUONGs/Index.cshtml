@@ -6,20 +6,21 @@
 }
 
 <!--Page Heading-->
-<h3 class="mb-1 text-danger Controllerfont">DANH SÁCH ĐỐI TƯỢNG ƯU TIÊN</h3>
+<h3 class="mb-1 text-danger controllerStyle">DANH SÁCH ĐỐI TƯỢNG ƯU TIÊN</h3>
 
 <!--DataTable Showing-->
-<div class="bg-light card Controllerfont">
+<!--Thêm class="card" để scroll nội dung mà không scroll sidebar-->
+<div class="bg-light generalStyle">
     <div class="py-2 m-0">
         <span>
-            @Html.ActionLink("Thêm Đối tượng", "Create", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Thêm Đối tượng", "Create", null, new { @class = "btn btn-primary btnStyle" })
         </span>
     </div>
 
     <div id="dataTable_wrapper" class="dataTables_wrapper card-body m-1 p-1" style="background-color: white">
         <div>
             <div id="dataTable_wrapper" class="dataTables_wrapper">
-                <table class="table table-bordered" id="dataTable">
+                <table class="table table-bordered dataStyle dataTable" id="dataTable">
                     <thead>
                         <tr>
                             <th width="600px">Đối tượng ưu tiên</th>
@@ -30,7 +31,7 @@
 
                     @foreach (var item in Model)
                     {
-                        <tr style="font-weight: 100; color: black;">
+                        <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.TenDoiTuong)
                             </td>

@@ -6,9 +6,9 @@
 }
 
 
-<h3 class="text-left text-danger Controllerfont">XÓA THÔNG TIN HUYỆN</h3>
+<h3 class="text-left text-danger controllerStyle">XÓA THÔNG TIN HUYỆN</h3>
 <hr />
-<div class="generalFont" style="font-weight:100;">
+<div class="generalStyle" style="font-weight:100;">
     <table class="table" style="width: 100%;">
         <tbody>
             <tr style="color:white; background-color:#4e37df">
@@ -46,9 +46,9 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions">
-            <input type="submit" value="Xóa" class="btn btn-danger" />
+            <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
             <span>
-                @Html.ActionLink("Quay lại", "Index", new { id = Model.MaHuyen }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Quay lại", "Index", new { id = Model.MaHuyen }, new { @class = "btn btn-primary btnStyle" })
             </span>
         </div>
     }

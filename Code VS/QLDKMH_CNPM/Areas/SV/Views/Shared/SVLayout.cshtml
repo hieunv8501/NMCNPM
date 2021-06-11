@@ -20,6 +20,9 @@
 
     <!-- Custom styles for this page -->
     <link href="~/Assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <link href="~/Assets/css/AdminCSS.css" rel="stylesheet" />
+
     <style>
         .non-interactive {
             pointer-events: none;
@@ -27,7 +30,7 @@
     </style>
 </head>
 
-<body id="page-top">
+<body id="page-top" class="w3-sidebar">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -36,68 +39,82 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <li class="sidebar-brand-icon my-1 non-interactive" href="@Url.Action("SVHome", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">
+            <li class="sidebar-brand-icon non-interactive my-1" href="@Url.Action("SVHome", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("SVHome","SV") ">
                     <img id="img_logo" alt="UIT" style="width: 80px; height: 70px" src="@Url.Content("~/Content/img/uit_logo_removebg.png")" />
-                    <span style="color: blue; font-weight: 900;" class="embed-responsive">Nhập Môn Công Nghệ Phần Mềm</span>
+                    <h5 style="margin-top: 5px; color: black; font-weight: bolder; font-family: Calibri, sans-serif;" class="embed-responsive">Nhập Môn Công Nghệ Phần Mềm</h5>
                 </a>
             </li>
 
             <!-- Divider -->
-            <li><hr class="sidebar-divider my-0"></li>
+            <li><hr class="sidebar-divider py-0 my-0"></li>
 
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="@Url.Action("SVHome", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">
-                    <i class=""></i>
-                    <span>Trang chủ sinh viên</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <li><hr class="sidebar-divider"></li>
-
-            <!-- Heading -->
-            <li class="sidebar-heading">
-                Dịch vụ
-            </li>
 
             <li class="nav-item">
+                <a class="nav-link m-1 py-0 justify-content-center align-content-center align-items-center d-flex" href="@Url.Action("SVHome", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">
+                    <img id="img_logo" alt="SVHome" width="25" height="25" src="@Url.Content("~/Content/img/home.png")" />
+                </a>
+            </li>
+            <!--Divider-->
+            <li>
+                <hr class="sidebar-divider my-0" />
+            </li>
+
+            <!-- Heading -->
+            <li class="sidebar-heading active bg-gradient-light my-1" style="color: black; font-size: 12px">THÔNG TIN</li>
+
+            <li class="nav-item active zoom generalStyle sidebarSize" style="border-top: solid black 1px">
+                <a class="nav-link" href="#">Thông báo</a>
+            </li>
+
+            <li class="nav-item active zoom generalStyle sidebarSize">
+                <a class="nav-link" href="#">Sự kiện - Tin tức</a>
+            </li>
+
+            <li class="nav-item active zoom generalStyle sidebarSize">
+                <a class="nav-link" href="#">Kế hoạch năm</a>
+            </li>
+            <li class="nav-item active zoom generalStyle sidebarSize">
+                <a class="nav-link" href="#">Quy định - Hướng dẫn</a>
+            </li>
+            <li class="nav-item active zoom generalStyle sidebarSize">
                 <a class="nav-link" href="@Url.Action("Details", "SINHVIENs", new { id = ViewData["TenDangNhap"]})">Lý lịch sinh viên</a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item active zoom generalStyle sidebarSize">
                 <a class="nav-link" href="@Url.Action("Index", "CHUONGTRINHHOCs", new { id = ViewData["TenDangNhap"]})">Chương trình học</a>
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Học phần</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Học phần:</h6>
-                        <a class="collapse-item" href="@Url.Action("Create", "PHIEU_DKHP", new { id_sv = ViewData["TenDangNhap"]})">Đăng ký học phần</a>
-                        <a class="collapse-item" href="@Url.Action("Index", "PHIEU_DKHP", new { id = ViewData["TenDangNhap"]})">Thông tin ĐKHP</a>
+            <li class="nav-item active">
+                <div class="collapsed zoom" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+                    <a class="nav-link generalStyle sidebarSize" href="#">Đăng ký học phần</a>
+                </div>
+                <div id="collapse2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="collapse-inner rounded py-0">
+                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Index", "DS_MONHOC_MOs", new { id = ViewData["TenDangNhap"] })">Danh sách môn học mở</a>
+                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Create", "PHIEU_DKHP", new { id_sv = ViewData["TenDangNhap"]})">Đăng ký học phần</a>
+                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Index", "PHIEU_DKHP", new { id = ViewData["TenDangNhap"]})">Tra cứu thông tin ĐKHP</a>
                     </div>
                 </div>
+            </li>
 
+            <li class="nav-item active zoom generalStyle sidebarSize">
+                <a class="nav-link" href="@Url.Action("Index", "PHIEUTHUs", new { id = ViewData["TenDangNhap"] })">Thông tin phiếu thu</a>
             </li>
-            <li class="nav-item">
-                @Html.ActionLink("Thông tin phiếu thu", "Index", "PHIEUTHUs", new { id = ViewData["TenDangNhap"] }, new { @class = "nav-link" })
+
+            <li class="nav-item active generalStyle sidebarSize zoom" data-toggle="modal" data-target="#logoutModal">
+                <a class="nav-link" href="#">Đăng xuất</a>
             </li>
-            <li class="nav-item">
-                @Html.ActionLink("Đăng xuất", "Login", "Login", new { area = "Login" }, new { @class = "nav-link d-inline" })
-                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 d-inline"></i>
+
+            <li class="text-center d-none d-md-inline">
+                <button id="sidebarToggle" class="rounded-circle border-warning bg-gradient-primary zoom"></button>
             </li>
         </ul>
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
 
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" class="d-flex flex-column" style="position:relative;">
 
             <!-- Main Content -->
             <div id="content">
@@ -113,7 +130,7 @@
                     <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control bg-light border-0 small generalStyle sidebarSize" placeholder="Tìm kiếm..." aria-label="search">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
@@ -132,7 +149,7 @@
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
+                    <div class="copyright text-center my-auto generalStyle sidebarSize">
                         <span>Quản lý đăng ký môn học và thu học phí - Nhập môn Công nghệ Phần mềm</span>
                     </div>
                 </div>
@@ -155,15 +172,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title generalStyle" style="font-family: Arial, 'Segoe UI', sans-serif; color: black; font-weight:bold;" id="exampleModalLabel">Đăng xuất</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body generalStyle" style="font-family:Arial, 'Segoe UI', sans-serif; color: black">Bạn có thật sự muốn "Đăng xuất" ?</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-danger" style="font-family: Arial, 'Segoe UI', sans-serif;" href="login.html">Đăng xuất</a>
+                    <button class="btn btn-primary" style="font-family: Arial, 'Segoe UI', sans-serif;" type="button" data-dismiss="modal">Hủy</button>
+
                 </div>
             </div>
         </div>
