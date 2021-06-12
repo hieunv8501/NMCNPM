@@ -202,8 +202,10 @@
     <Content Include="Assets\css\sb-admin-2.css" />
     <Content Include="Assets\css\sb-admin-2.min.css" />
     <Content Include="Assets\css\style.css" />
+    <Content Include="Assets\css\SVcss\SVcss.css" />
     <Content Include="Assets\css\w3.css" />
     <Content Include="Content\img\15nam_UIT.jpg" />
+    <Content Include="Content\img\forum uit sinhvien.png" />
     <Content Include="Content\img\saudh_2021.png" />
     <Content Include="Content\img\tuyendungUIT.png" />
     <Content Include="Assets\img\undraw_posting_photo.svg" />
