@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using QLDKMH_CNPM.Models;
 
@@ -36,8 +35,11 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         }
 
         // GET: PDT/TINHs/Create
-        public ActionResult Create()
+        public ActionResult Create(int code = 0)
         {
+            ViewBag.m = "Dung";
+            if (code == 1)
+                ViewBag.m = "Sai";
             return View();
         }
 
@@ -48,14 +50,20 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaTinh,TenTinh")] TINH tINH)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.TINHs.Add(tINH);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.TINHs.Add(tINH);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(tINH);
             }
-
-            return View(tINH);
+            catch (Exception)
+            {
+                return RedirectToAction("Create", "TINHs", new { code = 1 });
+            }
         }
 
         // GET: PDT/TINHs/Edit/5

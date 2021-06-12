@@ -5,13 +5,13 @@
     Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml";
 }
 
-<h3 class="text-left text-danger Controllerfont">SỬA THÔNG TIN SINH VIÊN</h3>
+<h3 class="text-left text-danger controllerStyle">SỬA THÔNG TIN SINH VIÊN</h3>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <hr />
-    <div class="form-horizontal generalFont">
+    <div class="form-horizontal generalStyle">
         @*<div style="color:white; font-weight:bold;">
                 <span class="bg-danger p-1">SINH VIÊN</span>
         </div>*@
@@ -78,9 +78,9 @@
         <hr />
         <div class="form-group">
             <div>
-                <input type="submit" value="Lưu" class="btn btn-danger" />
+                <input type="submit" value="Lưu" class="btn btn-danger btnStyle" />
                 <span>
-                    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaSV }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Quay lại", "Details", new { id = Model.MaSV }, new { @class = "btn btn-primary btnStyle" })
                 </span>
             </div>
         </div>

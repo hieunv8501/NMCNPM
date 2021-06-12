@@ -36,8 +36,11 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         }
 
         // GET: PDT/KHOAs/Create
-        public ActionResult Create()
+        public ActionResult Create(int code = 0)
         {
+            ViewBag.m = "Dung";
+            if (code == 1)
+                ViewBag.m = "Sai";
             return View();
         }
 
@@ -48,14 +51,21 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaKhoa,TenKhoa")] KHOA kHOA)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.KHOAs.Add(kHOA);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.KHOAs.Add(kHOA);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            return View(kHOA);
+                return View(kHOA);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Create", "KHOAs", new { code = 1 });
+            }
         }
 
         // GET: PDT/KHOAs/Edit/5

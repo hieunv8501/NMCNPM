@@ -35,37 +35,12 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             }
             return View(sINHVIEN);
         }
-        public JsonResult GetHuyen(string id)
-        {
-            var ddlHuyen = db.HUYENs.Where(x => x.MaTinh == id).ToList();
-            List<SelectListItem> listHuyen = new List<SelectListItem>();
 
-            listHuyen.Add(new SelectListItem { Text = "-- Chọn Huyện --", Value = "0" });
-            if (ddlHuyen != null)
-            {
-                foreach (var x in ddlHuyen)
-                {
-                    listHuyen.Add(new SelectListItem { Text = x.TenHuyen, Value = x.MaHuyen.ToString() });
-                }
-            }
-            return Json(new SelectList(listHuyen, "Value", "Text", JsonRequestBehavior.AllowGet));
-        }
-      
-        ///// 
-        //// GET: PDT/PDT/PDTHome
-        //public ActionResult TurnBack()
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        return RedirectToAction("PDTHome", "PDT");
-        //    }
-        //    return RedirectToAction("PDTHome", "PDT");
-        //}
-        // GET: PDT/SINHVIENs/Create
-        public ActionResult Create(int id = 0)
+        // GET: PDT/SINHVIENs/Create/5
+        public ActionResult Create(int code = 0)
         {
             ViewBag.m = "Dung";
-            if (id == 1)
+            if (code == 1)
                 ViewBag.m = "Sai";
             ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong");
             ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen");
@@ -81,23 +56,34 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaSV,HoTen,NgaySinh,GioiTinh,MaNganh,MaDoiTuong,MaHuyen")] SINHVIEN sINHVIEN)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.SINHVIENs.Add(sINHVIEN);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.SINHVIENs.Add(sINHVIEN);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong", sINHVIEN.MaDoiTuong);
+                ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen", sINHVIEN.MaHuyen);
+                ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh");
+                ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", sINHVIEN.MaNganh);
+                return View(sINHVIEN);
             }
 
-            ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong", sINHVIEN.MaDoiTuong);
-            ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen", sINHVIEN.MaHuyen);
-            ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh");
-            ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", sINHVIEN.MaNganh);
-            return View(sINHVIEN);
+            catch (Exception)
+            {
+                return RedirectToAction("Create", "SINHVIENs", new { code = 1 });
+            }
         }
 
         // GET: PDT/SINHVIENs/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string id, int code = 0)
         {
+            ViewBag.m = "Dung";
+            if (code == 1)
+                ViewBag.m = "Sai";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -121,17 +107,24 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MaSV,HoTen,NgaySinh,GioiTinh,MaNganh,MaDoiTuong,MaHuyen")] SINHVIEN sINHVIEN)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(sINHVIEN).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(sINHVIEN).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong", sINHVIEN.MaDoiTuong);
+                ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen", sINHVIEN.MaHuyen);
+                ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh", sINHVIEN.HUYEN.MaTinh);
+                ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", sINHVIEN.MaNganh);
+                return View(sINHVIEN);
             }
-            ViewBag.MaDoiTuong = new SelectList(db.DOITUONGs, "MaDoiTuong", "TenDoiTuong", sINHVIEN.MaDoiTuong);
-            ViewBag.MaHuyen = new SelectList(db.HUYENs, "MaHuyen", "TenHuyen", sINHVIEN.MaHuyen);
-            ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh", sINHVIEN.HUYEN.MaTinh);
-            ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", sINHVIEN.MaNganh);
-            return View(sINHVIEN);
+            catch (Exception)
+            {
+                return RedirectToAction("Edit", "SINHVIENs", new { id = sINHVIEN.MaSV, code = 1 });
+            }
         }
 
         // GET: PDT/SINHVIENs/Delete/5
@@ -168,5 +161,22 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public JsonResult GetHuyen(string id)
+        {
+            var ddlHuyen = db.HUYENs.Where(x => x.MaTinh == id).ToList();
+            List<SelectListItem> listHuyen = new List<SelectListItem>();
+
+            listHuyen.Add(new SelectListItem { Text = "-- Chọn Huyện --", Value = "0" });
+            if (ddlHuyen != null)
+            {
+                foreach (var x in ddlHuyen)
+                {
+                    listHuyen.Add(new SelectListItem { Text = x.TenHuyen, Value = x.MaHuyen.ToString() });
+                }
+            }
+            return Json(new SelectList(listHuyen, "Value", "Text", JsonRequestBehavior.AllowGet));
+        }
     }
+
 }

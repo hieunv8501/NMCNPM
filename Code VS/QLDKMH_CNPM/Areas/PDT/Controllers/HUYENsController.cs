@@ -37,8 +37,11 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         }
 
         // GET: PDT/HUYENs/Create
-        public ActionResult Create()
+        public ActionResult Create(int code = 0)
         {
+            ViewBag.m = "Dung";
+            if (code == 1)
+                ViewBag.m = "Sai";
             ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh");
             return View();
         }
@@ -50,15 +53,22 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaHuyen,TenHuyen,MaTinh,VungSauVungXa")] HUYEN hUYEN)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.HUYENs.Add(hUYEN);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.HUYENs.Add(hUYEN);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh", hUYEN.MaTinh);
-            return View(hUYEN);
+                ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh", hUYEN.MaTinh);
+                return View(hUYEN);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Create", "HUYENs", new { code = 1 });
+            }
         }
 
         // GET: PDT/HUYENs/Edit/5
@@ -95,8 +105,12 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         }
 
         // GET: PDT/HUYENs/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string id, int code = 0)
         {
+
+            ViewBag.m = "Dung";
+            if (code == 1)
+                ViewBag.m = "Sai";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -114,10 +128,17 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            HUYEN hUYEN = db.HUYENs.Find(id);
-            db.HUYENs.Remove(hUYEN);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                HUYEN hUYEN = db.HUYENs.Find(id);
+                db.HUYENs.Remove(hUYEN);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Delete", "HUYENs", new { id, code = 1 });
+            }
         }
 
         protected override void Dispose(bool disposing)

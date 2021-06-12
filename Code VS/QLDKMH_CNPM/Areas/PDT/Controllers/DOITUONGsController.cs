@@ -36,8 +36,11 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         }
 
         // GET: PDT/DOITUONGs/Create
-        public ActionResult Create()
+        public ActionResult Create(int code = 0)
         {
+            ViewBag.m = "Dung";
+            if (code == 1)
+                ViewBag.m = "Sai";
             return View();
         }
 
@@ -48,14 +51,21 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaDoiTuong,TenDoiTuong,TiLeGiamHocPhi")] DOITUONG dOITUONG)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.DOITUONGs.Add(dOITUONG);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.DOITUONGs.Add(dOITUONG);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            return View(dOITUONG);
+                return View(dOITUONG);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Create", "DOITUONGs", new { code = 1 });
+            }
         }
 
         // GET: PDT/DOITUONGs/Edit/5
