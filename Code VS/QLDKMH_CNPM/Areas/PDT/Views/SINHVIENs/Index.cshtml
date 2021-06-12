@@ -22,7 +22,7 @@
         </span>
     </div>
 
-    <div id="dataTable_wrapper" class="dataTables_wrapper card-body m-1 p-1" style="background-color: white">
+    <div id="dataTable_wrapper" class="dataTables_wrapper card-body m-1 p-1" style="background-color: white;">
         <div>
             <div id="dataTable_wrapper" class="dataTables_wrapper">
                 <!--id = dataTable shows number of entries; sort and search function-->
@@ -54,29 +54,29 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>
+                            <td style="vertical-align:middle;">
                                 @Html.DisplayFor(model => item.MaSV)
                             </td>
-                            <td>
+                            <td style="vertical-align:middle;">
                                 @Html.DisplayFor(modelItem => item.HoTen)
                             </td>
-                            <td>
+                            <td style="vertical-align:middle;">
                                 @Html.DisplayFor(modelItem => item.NgaySinh.Day)/@Html.DisplayFor(modelItem => item.NgaySinh.Month)/@Html.DisplayFor(modelItem => item.NgaySinh.Year)
                                 @*Tuy vẫn chạy và hiển thị ra đúng mong muốn nhưng
                                     rất nhiều lỗi sẽ xuất hiện ở đoạn này nếu dùng câu lệnh ở dưới đây
                                     @Html.Label(@item.NgaySinh.ToString("dd/MM/yyyy"))*@
                             </td>
-                            <td>
+                            <td style="vertical-align:middle;">
                                 @Html.DisplayFor(modelItem => item.GioiTinh)
                             </td>
-                            <td>
+                            <td style="vertical-align:middle;">
                                 @Html.DisplayFor(modelItem => item.HUYEN.TenHuyen)
                                 - @Html.DisplayFor(modelItem => item.HUYEN.TINH.TenTinh)
                             </td>
-                            <td>
+                            <td style="vertical-align:middle;">
                                 @Html.DisplayFor(modelItem => item.NGANH.TenNganh)
                             </td>
-                            <td>
+                            <td style="vertical-align:middle;">
                                 <!--EFFECT 1: line with blue-->
 
                                 <div class="container">
@@ -111,4 +111,5 @@
             </div>
         </div>
     </div>
+
 </div>

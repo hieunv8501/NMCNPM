@@ -2263,11 +2263,12 @@ textarea.form-control {
     user-select: none;
     background-color: transparent;
     border: 1px solid transparent;
-    padding: .375rem .75rem;
+    padding: .3rem .5rem;
+    margin: .1rem .1rem;
     font-size: 1rem;
     line-height: 1.5;
     border-radius: .35rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
+    transition: color .15s ease-in-out,background-color .15s ease-in-out, border-color .15s ease-in-out,box-shadow .15s ease-in-out
 }
 
 @media (prefers-reduced-motion:reduce) {
