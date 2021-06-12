@@ -213,6 +213,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\img\15nam_UIT.jpg" />
+    <Content Include="Content\img\banner_uit_15.png" />
     <Content Include="Content\img\forum uit sinhvien.png" />
     <Content Include="Content\img\saudh_2021.png" />
     <Content Include="Content\img\tuyendungUIT.png" />
