@@ -80,17 +80,8 @@
                 <a class="nav-link" href="@Url.Action("Index", "CHUONGTRINHHOCs", new { area = "PDT" })">Chương trình học</a>
             </li>
 
-            <li class="nav-item active">
-                <div class="collapsed zoom" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                    <a class="nav-link generalStyle sidebarSize" href="#">Quản lý môn học</a>
-                </div>
-                <div id="collapse1" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="collapse-inner rounded py-0">
-                        @*<a class="collapse-item" href="@Url.Action("Index", "HKNHs", new { area = "PDT" })">Danh sách học kỳ</a>*@
-                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Index", "MONHOCs", new { area = "PDT" })">Danh sách môn học</a>
-                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("ListHK", "DS_MONHOC_MO", new { area = "PDT" })">Danh sách môn học mở</a>
-                    </div>
-                </div>
+            <li class="nav-item active zoom generalStyle sidebarSize">
+                <a class="nav-link generalStyle sidebarSize" href="@Url.Action("Index", "MONHOCs", new { area = "PDT" })">Quản lý môn học</a>
             </li>
 
             <li class="nav-item active">
@@ -100,6 +91,7 @@
                 <div id="collapse2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="collapse-inner rounded py-0">
                         @*<a class="collapse-item" href="@Url.Action("Index", "HKNHs", new { area = "PDT" })">Danh sách học kỳ</a>*@
+                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("ListHK", "DS_MONHOC_MO", new { area = "PDT" })">Danh sách môn học mở</a>
                         <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Index", "PHIEU_DKHP", new { area = "PDT" })">Đăng ký học phần</a>
                         <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("ListHK", "PHIEU_DKHP", new { area = "PDT" })">Tra cứu thông tin ĐKHP</a>
                     </div>
