@@ -1,0 +1,82 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.PHIEU_DKHP>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HKNH.MaHKNH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SINHVIEN.HoTen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayLap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TongTCLT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TongTCTH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TongTienDangKy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TongTienPhaiDong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TongTienDaDong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoTienConLai)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HKNH.MaHKNH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SINHVIEN.HoTen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayLap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TongTCLT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TongTCTH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TongTienDangKy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TongTienPhaiDong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TongTienDaDong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoTienConLai)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SoPhieuDKHP }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SoPhieuDKHP }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SoPhieuDKHP })
+        </td>
+    </tr>
+}
+
+</table>

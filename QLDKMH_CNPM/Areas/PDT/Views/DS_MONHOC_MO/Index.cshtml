@@ -1,0 +1,40 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.DS_MONHOC_MO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HKNH.MaHKNH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MONHOC.TenMonHoc)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HKNH.MaHKNH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MONHOC.TenMonHoc)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaMo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaMo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaMo })
+        </td>
+    </tr>
+}
+
+</table>
