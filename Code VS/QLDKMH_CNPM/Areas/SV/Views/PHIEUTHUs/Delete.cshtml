@@ -5,45 +5,49 @@
     Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2 class="text-center bg-white">Thông tin sinh viên</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3 class="alert-danger">Bạn có thật sự muốn xóa thông tin của phiếu thu học phí này?</h3>
 <div>
-    <h4>PHIEUTHU</h4>
+    <div style="color:white; font-weight:bold;">
+        <span class="bg-danger p-1">PHIẾU THU HỌC PHÍ</span>
+    </div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PHIEU_DKHP.MaSV)
-        </dt>
+</div>
+<div>
+    <table class="table" style="width:100%; font-weight:500;">
+        <tbody>
+            <tr>
+                <th style="color:white; background-color:#4e73df; width:600px">MSSV</th>
+                <td style="color:white; background-color:#4e73df;">@Html.DisplayFor(model => model.SoPhieuThu)</td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.PHIEU_DKHP.MaSV)
-        </dd>
+            <tr class="bg-light">
+                <th>Số Phiếu DKHP</th>
+                <td>@Html.DisplayFor(model => model.SoPhieuDKHP)</td>
+            </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayLap)
-        </dt>
+            <tr>
+                <th style="color:white; background-color:#4e73df;">Ngày lập</th>
+                <td style="color:white; background-color:#4e73df;">@Html.DisplayFor(model => model.NgayLap)</td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.NgayLap)
-        </dd>
+            <tr class="bg-light">
+                <th>Số tiền thu</th>
+                <td>@Html.DisplayFor(model => model.SoTienThu) </td>
+            </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SoTienThu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoTienThu)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+        </tbody>
+    </table>
+    <hr />
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+            <input type="submit" value="Xóa" class="btn btn-danger" />
+            <span>
+                @Html.ActionLink("Quay lại", "Index", new { id = Model.SoPhieuThu }, new { @class = "btn btn-primary", @style = "font-weight:500;" })
+            </span>
+        </div>}
 </div>

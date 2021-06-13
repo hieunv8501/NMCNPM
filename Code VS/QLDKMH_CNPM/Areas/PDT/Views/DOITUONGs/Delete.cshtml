@@ -32,6 +32,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions">
+            <h6 class="text-left text-danger controllerStyle">Bạn có muốn xóa thông tin loại đối tượng ưu tiên này?</h6>
             <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
             @Html.ActionLink("Quay lại", "Index", new { id = Model.MaDoiTuong }, new { @class = "btn btn-primary btnStyle" })
         </div>

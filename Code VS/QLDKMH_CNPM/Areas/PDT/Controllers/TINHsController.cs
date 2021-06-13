@@ -37,9 +37,9 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // GET: PDT/TINHs/Create
         public ActionResult Create(int code = 0)
         {
-            ViewBag.m = "Dung";
+            ViewBag.Message = "Dung";
             if (code == 1)
-                ViewBag.m = "Sai";
+                ViewBag.Message = "Sai";
             return View();
         }
 

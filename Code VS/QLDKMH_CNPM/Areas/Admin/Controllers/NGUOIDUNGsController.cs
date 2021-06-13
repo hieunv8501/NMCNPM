@@ -37,8 +37,11 @@ namespace QLDKMH_CNPM.Areas.Admin.Controllers
         }
 
         // GET: Admin/NGUOIDUNGs/Create
-        public ActionResult Create()
+        public ActionResult Create(int code = 0)
         {
+            ViewBag.Message = "Dung";
+            if (code == 1)
+                ViewBag.Message = "Sai";
             ViewBag.MaNhom = new SelectList(db.NHOMNGUOIDUNGs, "MaNhom", "TenNhom");
             return View();
         }
@@ -50,15 +53,22 @@ namespace QLDKMH_CNPM.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TenDangNhap,MatKhau,MaNhom")] NGUOIDUNG nGUOIDUNG)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.NGUOIDUNGs.Add(nGUOIDUNG);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.NGUOIDUNGs.Add(nGUOIDUNG);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            ViewBag.MaNhom = new SelectList(db.NHOMNGUOIDUNGs, "MaNhom", "TenNhom", nGUOIDUNG.MaNhom);
-            return View(nGUOIDUNG);
+                ViewBag.MaNhom = new SelectList(db.NHOMNGUOIDUNGs, "MaNhom", "TenNhom", nGUOIDUNG.MaNhom);
+                return View(nGUOIDUNG);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Create", "NGUOIDUNGs", new { code = 1 });
+            }
         }
 
         // GET: Admin/NGUOIDUNGs/Edit/5

@@ -19,10 +19,10 @@ namespace QLDKMH_CNPM.Models
         [StringLength(10)]
         public string MaChucNang { get; set; }
 
-        [StringLength(50)]
+        [StringLength(30)]
         public string TenChucNang { get; set; }
 
-        [StringLength(20)]
+        [StringLength(30)]
         public string TenManHinhDuocLoad { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

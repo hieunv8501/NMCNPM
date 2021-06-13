@@ -17,10 +17,10 @@ namespace QLDKMH_CNPM.Models
         }
 
         [Key]
-        [StringLength(10)]
-        public string MaNhom { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int MaNhom { get; set; }
 
-        [StringLength(50)]
+        [StringLength(30)]
         public string TenNhom { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

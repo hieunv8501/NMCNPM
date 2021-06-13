@@ -35,10 +35,6 @@ namespace QLDKMH_CNPM.Models
         {
             modelBuilder.Entity<CHUCNANG>()
                 .Property(e => e.MaChucNang)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CHUCNANG>()
-                .Property(e => e.TenManHinhDuocLoad)
                 .IsFixedLength()
                 .IsUnicode(false);
 
@@ -191,16 +187,6 @@ namespace QLDKMH_CNPM.Models
 
             modelBuilder.Entity<NGUOIDUNG>()
                 .Property(e => e.MatKhau)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<NGUOIDUNG>()
-                .Property(e => e.MaNhom)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<NHOMNGUOIDUNG>()
-                .Property(e => e.MaNhom)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<NHOMNGUOIDUNG>()

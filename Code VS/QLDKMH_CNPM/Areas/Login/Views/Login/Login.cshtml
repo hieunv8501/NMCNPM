@@ -53,14 +53,14 @@
                                         <div class="form-group">
                                             <label class="LoginAccStyle">TÊN ĐĂNG NHẬP</label>
                                             <label style="color:red;"><strong>(*)</strong></label>
-                                            <input id="idEmail" name="Username" type="text" placeholder="Tên đăng nhập" class="form-control form-control-user PlaceHolderStyle" />
+                                            <input id="idInputEmail" name="TenDangNhap" type="text" placeholder="Tên đăng nhập" class="form-control form-control-user" aria-describedby="emailHelp" />
                                             <p id="content" style="font-size: 14px;">Dùng tài khoản chứng thực</p>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="LoginAccStyle">MẬT KHẨU</label>
                                             <label style="color:red;"><strong>(*)</strong></label>
-                                            <input name="Password" type="password" placeholder="Mật khẩu" class="form-control form-control-user PlaceHolderStyle" />
+                                            <input id="idInputPassword" name="MatKhau" type="password" placeholder="Mật khẩu" class="form-control form-control-user" />
                                             <p id="content" style="font-size: 14px;">Mật khẩu chứng thực</p>
                                         </div>
 
@@ -72,26 +72,26 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-user btn-block btn-primary m-0 generalStyle font-weight-light"><strong>Đăng nhập</strong></button>
-                                        </div>
-
-                                        if (ViewBag.m == "Sai")
+                                        if (ViewBag.Message == "Sai")
                                         {
                                             <div class="alert-danger generalStyle sizeStyle" style="border:solid 1px red; color:red; text-align:center">Tên đăng nhập hoặc mật khẩu không đúng!</div>
                                         }
 
-                                        <div class="form-group m-0" style="font-size:smaller">
-                                            <a style="color:red;"><strong>(*)</strong></a>
-                                            <a class="generalStyle">Thông tin bắt buộc</a>
+                                        <div class="form-group">
+                                            <button type="submit" value="Đăng nhập" class="btn btn-user btn-block btn-primary m-0 generalStyle font-weight-light"><strong>Đăng nhập</strong></button>
                                         </div>
 
-                                        <hr class="m-0" />
-
-                                        <div class="text-center mt-2 generalStyle">
-                                            <a class="alert-light" style="font-size:smaller; font-weight: 300; text-decoration-line:none"  href="#">Quên mật khẩu</a>
-                                        </div>
                                     }
+                                    <div class="form-group m-0" style="font-size:smaller">
+                                        <a style="color:red;"><strong>(*)</strong></a>
+                                        <a class="generalStyle">Thông tin bắt buộc</a>
+                                    </div>
+
+                                    <hr class="m-0" />
+
+                                    <div class="text-center mt-2 generalStyle">
+                                        <a class="alert-light" style="font-size:smaller; font-weight: 300; text-decoration-line:none" href="#">Quên mật khẩu</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

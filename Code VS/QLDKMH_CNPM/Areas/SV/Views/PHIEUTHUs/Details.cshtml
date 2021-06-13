@@ -5,39 +5,35 @@
     Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h2 class="text-center bg-white">Thông tin phiếu thu học phí</h2>
 
-<div>
-    <h4>PHIEUTHU</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PHIEU_DKHP.MaSV)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PHIEU_DKHP.MaSV)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayLap)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgayLap)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoTienThu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoTienThu)
-        </dd>
-
-    </dl>
+<div style="color: white; font-weight: bold;">
+    <span class="bg-danger p-1">PHIẾU THU</span>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SoPhieuThu }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<hr />
+<table class="table" style="width:100%; font-weight:500;">
+    <tbody>
+        <tr>
+            <th style="color:white; background-color:#4e73df; width:600px">Số phiếu thu</th>
+            <td style="color:white; background-color:#4e73df;">@Html.DisplayFor(model => model.SoPhieuThu)</td>
+        </tr>
+
+        <tr class="bg-light">
+            <th>Số Phiếu DKHP</th>
+            <td>@Html.DisplayFor(model => model.SoPhieuDKHP)</td>
+        </tr>
+
+        <tr>
+            <th style="color:white; background-color:#4e73df;">Ngày lập</th>
+            <td style="color:white; background-color:#4e73df;">@Html.DisplayFor(model => model.NgayLap)</td>
+        </tr>
+
+        <tr class="bg-light">
+            <th>Số tiền thu</th>
+            <td>@Html.DisplayFor(model => model.SoTienThu) </td>
+        </tr>
+    </tbody>
+</table>
+<hr />
+@Html.ActionLink("Sửa", "Edit", new { id = Model.SoPhieuThu }, new { @class = "btn btn-danger", @style = "font-weight:500;" })
+@Html.ActionLink("Quay lại", "Index", new { id = Model.SoPhieuThu }, new { @class = "btn btn-primary", @style = "font-weight:500;" })

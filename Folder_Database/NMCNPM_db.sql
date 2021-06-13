@@ -3,6 +3,8 @@ go
 use CNPM_db
 go
 
+
+
 set dateformat DMY
 
 --create tables
@@ -151,9 +153,9 @@ CREATE TABLE DSSV_CHUAHOANTHANH_HP
 --Table CHUCNANG
 CREATE TABLE CHUCNANG
 (
-	MaChucNang varchar(10) primary key,
+	MaChucNang char(10) primary key,
 	TenChucNang nvarchar(50),
-	TenManHinhDuocLoad char(20)
+	TenManHinhDuocLoad nvarchar(20)
 )
 
 /*Dữ liệu của Table này do người xây dựng hệ thống nhập đầy đủ cho nó
@@ -164,24 +166,24 @@ người quản trị hệ thống (người có quyền cao nhất)*/
 --Table NHOMNGUOIDUNG
 CREATE TABLE NHOMNGUOIDUNG
 (
-	MaNhom char(10) primary key,
-	TenNhom nvarchar(50)
+	MaNhom int primary key,
+	TenNhom nvarchar(30)
 )
 
 --Table PHANQUYEN
 CREATE TABLE PHANQUYEN
 (
-	MaNhom char(10) references NHOMNGUOIDUNG(MaNhom),
-	MaChucNang varchar(10) references CHUCNANG(MaChucNang),
+	MaNhom int not null,
+	MaChucNang char(10) not null,
 	primary key(MaNhom, MaChucNang)
 )
 
 --TABLE NGUOIDUNG
 CREATE TABLE NGUOIDUNG
 (
-	TenDangNhap varchar(50) primary key,
+	TenDangNhap varchar(30) primary key,
 	MatKhau varchar(30) not null,
-	MaNhom char(10) references NHOMNGUOIDUNG(MaNhom)
+	MaNhom int not null
 )
 
 -- TẠO CÁC RÀNG BUỘC VỀ KHÓA NGOẠI
@@ -202,6 +204,9 @@ alter table CT_PHIEU_DKHP ADD CONSTRAINT FK_SoPhieuDKHP_PHIEU_DKHP FOREIGN KEY (
 alter table PHIEUTHU add constraint FK_PHIEUTHU_PHIEUDKHP foreign key (SoPhieuDKHP) references PHIEU_DKHP(SoPhieuDKHP)
 alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__HKNH foreign key (MaHKNH) references HKNH(MaHKNH)
 alter table DSSV_CHUAHOANTHANH_HP add constraint FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN foreign key (MaSV) references SINHVIEN(MaSV)
+alter table PHANQUYEN add constraint FK_PHANQUYEN_NHOMNGUOIDUNG foreign key (MaNhom) references NHOMNGUOIDUNG(MaNhom)
+alter table PHANQUYEN add constraint FK_PHANQUYEN_CHUCNANG foreign key (MaChucNang) references CHUCNANG(MaChucNang)
+alter table NGUOIDUNG add constraint FK_NGUOIDUNG_NHOMNGUOIDUNG foreign key (MaNhom) references NHOMNGUOIDUNG(MaNhom)
 
 -- TẠO CÁC RÀNG BUỘC CHECK
 alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
@@ -219,6 +224,7 @@ GO
 
 --TẠO CÁC TRIGGERS	
 --TRIGGER ON SINHVIEN
+--Tự động thêm tài khoản sinh viên vào bảng người dùng khi thêm mới sinh viên
 CREATE TRIGGER TRG_SINHVIEN_NGUOIDUNG
 ON SINHVIEN
 FOR INSERT
@@ -229,8 +235,47 @@ BEGIN
 	SELECT @TenDangNhap = MaSV 
 	FROM inserted
 
-	INSERT INTO NGUOIDUNG VALUES (@TenDangNhap, @TenDangNhap, 'SV')
+	INSERT INTO NGUOIDUNG VALUES (@TenDangNhap, @TenDangNhap, '3')
 END
+GO
+
+--Tự động xóa tài khoản sinh viên ở bảng người dùng khi xóa sinh viên ở bảng sinh viên
+CREATE TRIGGER SINHVIEN_NGUOIDUNG2
+ON SINHVIEN
+FOR DELETE
+AS
+BEGIN
+	DECLARE @TenDangNhap char(6)
+
+	SELECT @TenDangNhap = MaSV FROM deleted
+
+	delete from NGUOIDUNG where TenDangNhap = @TenDangNhap
+END
+
+--Trigger khi update đối tượng sẽ thay đổi tiền học phí.
+CREATE TRIGGER TG_SV_TTPD 
+ON SINHVIEN
+FOR UPDATE
+AS
+BEGIN
+	IF(SELECT MaDoiTuong FROM DELETED) <> (SELECT MaDoiTuong FROM INSERTED)
+		BEGIN
+		DECLARE @SoPhieuDKHP INT, @TiLeGiamHocPhi INT, @MaDoiTuong char(4)
+		SELECT @TiLeGiamHocPhi = TiLeGiamHocPhi FROM DOITUONG, INSERTED WHERE DOITUONG.MaDoiTuong = INSERTED.MaDoiTuong 
+		DECLARE CUR_SV CURSOR FOR SELECT SoPhieuDKHP FROM PHIEU_DKHP, INSERTED WHERE PHIEU_DKHP.MaSV = INSERTED.MaSV
+		OPEN CUR_SV
+		FETCH NEXT FROM CUR_SV INTO @SoPhieuDKHP
+		WHILE(@@FETCH_STATUS = 0)
+		BEGIN
+			UPDATE PHIEU_DKHP SET TongTienPhaiDong = TongTienDangKy - TongTienDangKy*@TiLeGiamHocPhi/100 WHERE SoPhieuDKHP = @SoPhieuDKHP
+			UPDATE PHIEU_DKHP SET SoTienConLai = TongTienPhaiDong WHERE SoPhieuDKHP = @SoPhieuDKHP
+			FETCH NEXT FROM CUR_SV INTO @SoPhieuDKHP
+		END
+		CLOSE CUR_SV
+		DEALLOCATE CUR_SV
+	END
+END
+GO
 
 --TRIGGER ON MONHOC
 -- Trigger tính số tín chỉ của MONHOC
@@ -268,95 +313,8 @@ BEGIN
 END
 GO
 
---TRIGGER ON PHIEU_DKHP
---Sinh viên chỉ có thể DKMH 1 lần/1 kỳ học.
-CREATE TRIGGER TRG_DKMH_1LAN1KY 
-ON PHIEU_DKHP
-FOR INSERT, UPDATE 
-AS
-BEGIN 
-	IF (
-		SELECT COUNT(*) 
-		FROM PHIEU_DKHP p, inserted 
-		WHERE p.MaSV = inserted.MaSV and p.MaHKNH = inserted.MaHKNH
-	) >= 2
-	BEGIN
-		PRINT N'Sinh viên chỉ có thể đăng ký môn học tối đa 1 lần/1 học kỳ'
-		ROLLBACK TRANSACTION
-	END
-END
-GO
-
---TRIGGER ON CT_PHIEU_DKHP
---Trigger tính số tín chỉ môn học sau khi thêm 1 vài CT_PHIEU_DKHP
-CREATE TRIGGER TRIG_TONGTINCHI 
-ON CT_PHIEU_DKHP
-FOR INSERT, UPDATE
-AS
-BEGIN
-	DECLARE @SOPHIEU INT, @MAMO CHAR(11), @SOTINCHILT INT, @SOTINCHITH INT
-	--LẤY THÔNG TIN CỦA CT_PHIEU_DKHP MỚI THÊM VÀO HOẶC MỚI UPDATE
-	SELECT @SOPHIEU = SoPhieuDKHP, @MAMO = MaMo FROM inserted
-	--TÌM SỐ TÍN CHỈ CỦA MÔN HỌC MỚI THÊM
-	SET @SOTINCHILT = 0
-	SET @SOTINCHITH = 0
-	SELECT @SOTINCHILT = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMO = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
-						WHERE C.MaLoaiMon = 'LT' AND B.MaMo = @MAMO
-	SELECT @SOTINCHITH = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMO = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
-						WHERE C.MaLoaiMon = 'TH' AND B.MaMo = @MAMO
-	--Tiến hành update lại số tín chỉ
-	UPDATE PHIEU_DKHP SET TongTCLT = TongTCLT + @SOTINCHILT WHERE SoPhieuDKHP = @SOPHIEU 
-	UPDATE PHIEU_DKHP SET TongTCTH = TongTCTH + @SOTINCHITH WHERE SoPhieuDKHP = @SOPHIEU 
-END
-GO
-
---Trigger tính số tín chỉ môn học sau khi xóa 1 vài CT_PHIEU_DKHP
-CREATE TRIGGER TRIG_TONGTINCHI2 
-ON CT_PHIEU_DKHP
-FOR DELETE
-AS
-BEGIN
-	DECLARE @SOPHIEU INT, @MAMO CHAR(11), @SOTINCHILT INT, @SOTINCHITH INT
-	--LẤY THÔNG TIN CỦA CT_PHIEU_DKHP MỚI THÊM VÀO HOẶC MỚI UPDATE
-	SELECT @SOPHIEU = SoPhieuDKHP, @MAMO = MaMo FROM deleted
-	--TÌM SỐ TÍN CHỈ CỦA MÔN HỌC MỚI XÓA
-	SELECT @SOTINCHILT = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMO = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
-						WHERE C.MaLoaiMon = 'LT' AND B.MaMo = @MAMO
-	SELECT @SOTINCHITH = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMO = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
-						WHERE C.MaLoaiMon = 'TH' AND B.MaMo = @MAMO
-	--Tiến hành update lại số tín chỉ
-	DECLARE @TONGTCLT_CU INT, @TONGTCTH_CU INT
-	SELECT @TONGTCLT_CU = TongTCLT from PHIEU_DKHP where SoPhieuDKHP = @SOPHIEU 
-	SELECT @TONGTCTH_CU = TongTCTH from PHIEU_DKHP where SoPhieuDKHP = @SOPHIEU
-	IF(@TONGTCLT_CU = @SOTINCHILT)
-		UPDATE PHIEU_DKHP SET TongTCLT = 0 WHERE SoPhieuDKHP = @SOPHIEU
-	ELSE UPDATE PHIEU_DKHP SET TongTCLT = TongTCLT - @SOTINCHILT WHERE SoPhieuDKHP = @SOPHIEU
-	IF(@TONGTCTH_CU = @SOTINCHITH)
-		UPDATE PHIEU_DKHP SET TongTCTH = 0 WHERE SoPhieuDKHP = @SOPHIEU
-	ELSE UPDATE PHIEU_DKHP SET TongTCTH = TongTCTH - @SOTINCHITH WHERE SoPhieuDKHP = @SOPHIEU 
-END
-GO
-
---Tính tổng tiền đăng ký và phải đóng trên PHIEU_DKHP
-CREATE TRIGGER TG_PDKHP_TTDK_TTPD 
-ON PHIEU_DKHP
-FOR INSERT, UPDATE
-AS
-BEGIN
-	DECLARE @SoTienMotTinChi_LT money, @SoTienMotTinChi_TH money, @TongTCLT INT, @TongTCTH INT, @SoPhieuDKHP INT, @TiLeGiamHocPhi INT
-	SELECT @SoTienMotTinChi_LT = SoTienMotTinChi FROM LOAIMONHOC WHERE MaLoaiMon = 'LT' 
-	SELECT @SoTienMotTinChi_TH = SoTienMotTinChi FROM LOAIMONHOC WHERE MaLoaiMon = 'TH'
-	SELECT @TongTCLT = TongTCLT, @TongTCTH = TongTCTH, @SoPhieuDKHP = SoPhieuDKHP FROM INSERTED
-	SELECT @TiLeGiamHocPhi = TiLeGiamHocPhi FROM DOITUONG, INSERTED, SINHVIEN 
-			WHERE DOITUONG.MaDoiTuong = SINHVIEN.MaDoiTuong AND SINHVIEN.MaSV = INSERTED.MaSV AND SoPhieuDKHP = @SoPhieuDKHP
-	UPDATE PHIEU_DKHP SET TongTienDangKy = @TongTCLT*@SoTienMotTinChi_LT + @TongTCTH*@SoTienMotTinChi_TH WHERE SoPhieuDKHP = @SoPhieuDKHP
-	UPDATE PHIEU_DKHP SET TongTienPhaiDong = TongTienDangKy - TongTienDangKy*@TiLeGiamHocPhi/100 WHERE SoPhieuDKHP = @SoPhieuDKHP
-	UPDATE PHIEU_DKHP SET SoTienConLai = TongTienPhaiDong WHERE SoPhieuDKHP = @SoPhieuDKHP
-END
-GO
-
 --TRIGGER ON LOAIMONHOC 
---Trigger khi update loại môn học sẽ thay dổi tiền học phí.
+--Trigger khi update tiền một tín chỉ ở loại môn học sẽ thay đổi tiền học phí chung.
 CREATE TRIGGER TG_LMH_TTDK_TTPD 
 ON LOAIMONHOC
 FOR UPDATE
@@ -385,6 +343,94 @@ BEGIN
 END
 GO
 
+--TRIGGER ON PHIEU_DKHP
+--Sinh viên chỉ có thể DKMH 1 lần/1 kỳ học.
+CREATE TRIGGER TRG_DKMH_1LAN1KY 
+ON PHIEU_DKHP
+FOR INSERT, UPDATE 
+AS
+BEGIN 
+	IF (
+		SELECT COUNT(*) 
+		FROM PHIEU_DKHP p, inserted 
+		WHERE p.MaSV = inserted.MaSV and p.MaHKNH = inserted.MaHKNH
+	) >= 2
+	BEGIN
+		PRINT N'Sinh viên chỉ có thể đăng ký môn học tối đa 1 lần/1 học kỳ'
+		ROLLBACK TRANSACTION
+	END
+END
+GO
+
+--Tính tổng tiền đăng ký và phải đóng trên PHIEU_DKHP
+CREATE TRIGGER TG_PDKHP_TTDK_TTPD 
+ON PHIEU_DKHP
+FOR INSERT, UPDATE
+AS
+BEGIN
+	DECLARE @SoTienMotTinChi_LT money, @SoTienMotTinChi_TH money, @TongTCLT INT, @TongTCTH INT, @SoPhieuDKHP INT, @TiLeGiamHocPhi INT
+	SELECT @SoTienMotTinChi_LT = SoTienMotTinChi FROM LOAIMONHOC WHERE MaLoaiMon = 'LT' 
+	SELECT @SoTienMotTinChi_TH = SoTienMotTinChi FROM LOAIMONHOC WHERE MaLoaiMon = 'TH'
+	SELECT @TongTCLT = TongTCLT, @TongTCTH = TongTCTH, @SoPhieuDKHP = SoPhieuDKHP FROM INSERTED
+	SELECT @TiLeGiamHocPhi = TiLeGiamHocPhi FROM DOITUONG, INSERTED, SINHVIEN 
+			WHERE DOITUONG.MaDoiTuong = SINHVIEN.MaDoiTuong AND SINHVIEN.MaSV = INSERTED.MaSV AND SoPhieuDKHP = @SoPhieuDKHP
+
+	UPDATE PHIEU_DKHP SET TongTienDangKy = @TongTCLT*@SoTienMotTinChi_LT + @TongTCTH*@SoTienMotTinChi_TH WHERE SoPhieuDKHP = @SoPhieuDKHP
+	UPDATE PHIEU_DKHP SET TongTienPhaiDong = TongTienDangKy - TongTienDangKy*@TiLeGiamHocPhi/100 WHERE SoPhieuDKHP = @SoPhieuDKHP
+	UPDATE PHIEU_DKHP SET SoTienConLai = TongTienPhaiDong - TongTienDaDong WHERE SoPhieuDKHP = @SoPhieuDKHP
+END
+GO
+
+--TRIGGER ON CT_PHIEU_DKHP
+--Trigger tính số tín chỉ môn học sau khi thêm, sửa 1 vài CT_PHIEU_DKHP////////////////////////////////////////////
+CREATE TRIGGER TRIG_TONGTINCHI 
+ON CT_PHIEU_DKHP
+FOR INSERT, UPDATE
+AS
+BEGIN
+	DECLARE @SOPHIEU INT, @MAMO CHAR(11), @SOTINCHILT INT, @SOTINCHITH INT
+	--LẤY THÔNG TIN CỦA CT_PHIEU_DKHP MỚI THÊM VÀO HOẶC MỚI UPDATE
+	SELECT @SOPHIEU = SoPhieuDKHP, @MAMO = MaMo FROM inserted
+	--TÌM SỐ TÍN CHỈ CỦA MÔN HỌC MỚI THÊM
+	SET @SOTINCHILT = 0
+	SET @SOTINCHITH = 0
+	SELECT @SOTINCHILT = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMO = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
+						WHERE C.MaLoaiMon = 'LT' AND B.MaMo = @MAMO
+	SELECT @SOTINCHITH = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMO = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
+						WHERE C.MaLoaiMon = 'TH' AND B.MaMo = @MAMO
+	--Tiến hành update lại số tín chỉ
+	UPDATE PHIEU_DKHP SET TongTCLT = TongTCLT + @SOTINCHILT WHERE SoPhieuDKHP = @SOPHIEU 
+	UPDATE PHIEU_DKHP SET TongTCTH = TongTCTH + @SOTINCHITH WHERE SoPhieuDKHP = @SOPHIEU 
+END
+GO
+
+--Trigger tính số tín chỉ môn học sau khi xóa 1 vài CT_PHIEU_DKHP////////////////////////////////////
+alter TRIGGER TRIG_TONGTINCHI2 
+ON CT_PHIEU_DKHP
+FOR DELETE
+AS
+BEGIN
+	DECLARE @SOPHIEU INT, @MAMO CHAR(11), @SOTINCHILT INT, @SOTINCHITH INT
+	--LẤY THÔNG TIN CỦA CT_PHIEU_DKHP MỚI XÓA
+	SELECT @SOPHIEU = SoPhieuDKHP, @MAMO = MaMo FROM deleted
+	--TÌM SỐ TÍN CHỈ CỦA MÔN HỌC MỚI XÓA
+	SELECT @SOTINCHILT = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMO = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
+						WHERE C.MaLoaiMon = 'LT' AND B.MaMo = @MAMO
+	SELECT @SOTINCHITH = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMO = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
+						WHERE C.MaLoaiMon = 'TH' AND B.MaMo = @MAMO
+	--Tiến hành update lại số tín chỉ
+	DECLARE @TONGTCLT_CU INT, @TONGTCTH_CU INT
+	SELECT @TONGTCLT_CU = TongTCLT from PHIEU_DKHP where SoPhieuDKHP = @SOPHIEU 
+	SELECT @TONGTCTH_CU = TongTCTH from PHIEU_DKHP where SoPhieuDKHP = @SOPHIEU
+	IF(@TONGTCLT_CU = @SOTINCHILT)
+		UPDATE PHIEU_DKHP SET TongTCLT = 0 WHERE SoPhieuDKHP = @SOPHIEU
+	ELSE UPDATE PHIEU_DKHP SET TongTCLT = TongTCLT - @SOTINCHILT WHERE SoPhieuDKHP = @SOPHIEU
+	IF(@TONGTCTH_CU = @SOTINCHITH)
+		UPDATE PHIEU_DKHP SET TongTCTH = 0 WHERE SoPhieuDKHP = @SOPHIEU
+	ELSE UPDATE PHIEU_DKHP SET TongTCTH = TongTCTH - @SOTINCHITH WHERE SoPhieuDKHP = @SOPHIEU 
+END
+GO
+
 --TRIGGER ON DOITUONG 
 --Trigger khi update tỉ lệ giảm học phí ở DOITUONG sẽ thay dổi tiền học phí của sinh viên.
 CREATE TRIGGER TG_DT_TTPD 
@@ -405,32 +451,6 @@ BEGIN
 	END
 	CLOSE CUR_DT
 	DEALLOCATE CUR_DT
-END
-GO
-
---TRIGGER ON SINHVIEN 
---Trigger khi update đối tượng sẽ thay đổi tiền học phí.
-CREATE TRIGGER TG_SV_TTPD 
-ON SINHVIEN
-FOR UPDATE
-AS
-BEGIN
-	IF(SELECT MaDoiTuong FROM DELETED) <> (SELECT MaDoiTuong FROM INSERTED)
-		BEGIN
-		DECLARE @SoPhieuDKHP INT, @TiLeGiamHocPhi INT, @MaDoiTuong char(4)
-		SELECT @TiLeGiamHocPhi = TiLeGiamHocPhi FROM DOITUONG, INSERTED WHERE DOITUONG.MaDoiTuong = INSERTED.MaDoiTuong 
-		DECLARE CUR_SV CURSOR FOR SELECT SoPhieuDKHP FROM PHIEU_DKHP, INSERTED WHERE PHIEU_DKHP.MaSV = INSERTED.MaSV
-		OPEN CUR_SV
-		FETCH NEXT FROM CUR_SV INTO @SoPhieuDKHP
-		WHILE(@@FETCH_STATUS = 0)
-		BEGIN
-			UPDATE PHIEU_DKHP SET TongTienPhaiDong = TongTienDangKy - TongTienDangKy*@TiLeGiamHocPhi/100 WHERE SoPhieuDKHP = @SoPhieuDKHP
-			UPDATE PHIEU_DKHP SET SoTienConLai = TongTienPhaiDong WHERE SoPhieuDKHP = @SoPhieuDKHP
-			FETCH NEXT FROM CUR_SV INTO @SoPhieuDKHP
-		END
-		CLOSE CUR_SV
-		DEALLOCATE CUR_SV
-	END
 END
 GO
 
@@ -456,14 +476,14 @@ BEGIN
 	END
 END
 GO
-GO
+
 --Trigger tự động cập nhật số tiền còn lại của bảng PHIEU_DKHP khi sinh viên nộp tiền (Lập phiếu thu học phí)
 CREATE TRIGGER PHIEUTHU_INSERT_PHIEU_DKHP_SOTIENCONLAI
 ON PHIEUTHU
 FOR INSERT
 AS
 BEGIN
-	DECLARE @SoPhieu int, @SoTienThuDuoc money
+	DECLARE @SoPhieu int , @SoTienThuDuoc money
 	SELECT @SoPhieu = SoPhieuDKHP, @SoTienThuDuoc = SoTienThu FROM inserted;
 	IF (@SoTienThuDuoc > (SELECT SoTienConLai FROM PHIEU_DKHP WHERE SoPhieuDKHP = @SoPhieu) OR @SoTienThuDuoc <= 0)
 	BEGIN
@@ -473,13 +493,13 @@ BEGIN
 	ELSE
 	BEGIN
 		UPDATE PHIEU_DKHP
-		SET SoTienConLai = SoTienConLai - @SoTienThuDuoc, TongTienDaDong = TongTienDaDong + @SoTienThuDuoc
+		SET  TongTienDaDong+= @SoTienThuDuoc
 		WHERE PHIEU_DKHP.SoPhieuDKHP = @SoPhieu
 	END
 END
 GO
 
---Trigger tự động cập nhật số tiền còn lại của bảng PHIEU_DKHP khi sửa phiếu thu học phí. (Lập phiếu thu học phí)
+--Trigger tự động cập nhật số tiền còn lại của bảng PHIEU_DKHP khi sửa phiếu thu học phí. (Sửa phiếu thu học phí)
 CREATE TRIGGER PHIEUTHU_UPDATE_PHIEU_DKHP_SOTIENCONLAI
 ON PHIEUTHU
 FOR UPDATE
@@ -488,7 +508,7 @@ BEGIN
 	DECLARE @SoPhieu int, @SoTienMoi money,@SoTienCu money
 	SELECT @SoPhieu = SoPhieuDKHP, @SoTienMoi = inserted.SoTienThu FROM inserted
 	SELECT @SoTienCu=deleted.SoTienThu FROM deleted WHERE deleted.SoPhieuDKHP=@SoPhieu
-	IF (@SoTienMoi > (@SoTienCu + (SELECT SoTienConLai FROM PHIEU_DKHP WHERE SoPhieuDKHP = @SoPhieu)) OR (@SoTienMoi < 0))
+	IF (@SoTienMoi > (@SoTienCu+(SELECT SoTienConLai FROM PHIEU_DKHP WHERE SoPhieuDKHP = @SoPhieu)) OR @SoTienMoi< 0)
 	BEGIN
 		PRINT N'Không thể cập nhật phiếu thu vì số tiền thu mới hơn số tiền cần phải đóng hoặc số tiền thu mới < 0'
 		ROLLBACK TRANSACTION
@@ -496,12 +516,13 @@ BEGIN
 	ELSE
 	BEGIN
 		UPDATE PHIEU_DKHP
-		SET SoTienConLai = SoTienConLai - (@SoTienMoi-@SoTienCu), TongTienDaDong = TongTienDaDong + (@SoTienMoi-@SoTienCu)
+		SET TongTienDaDong += (@SoTienMoi-@SoTienCu)
 		WHERE PHIEU_DKHP.SoPhieuDKHP = @SoPhieu
 	END
 END
 GO
---Trigger xóa PHIEUTHU
+
+--Trigger tự động cập nhật số tiền còn lại của bảng PHIEU_DKHP khi xóa phiếu thu học phí. (Xóa phiếu thu học phí)
 CREATE TRIGGER PHIEUTHU_DELETE
 ON PHIEUTHU
 FOR DELETE
@@ -512,6 +533,7 @@ BEGIN
 	FROM DELETED
 	
 	UPDATE PHIEU_DKHP
-	SET SoTienConLai = SoTienConLai + @SoTienThuDuoc, TongTienDaDong = TongTienDaDong - @SoTienThuDuoc
+	SET TongTienDaDong = TongTienDaDong - @SoTienThuDuoc
 	WHERE PHIEU_DKHP.SoPhieuDKHP = @SoPhieu
 END
+GO

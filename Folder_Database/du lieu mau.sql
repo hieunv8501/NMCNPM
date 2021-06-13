@@ -132,17 +132,17 @@ insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT005LT', N'
 insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT005TH', N'Nhập môn mạng máy tính', 'TH', '30')
 insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT012LT', N'Tổ chức Cấu trúc máy tính II', 'LT', '45')
 insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT012TH', N'Tổ chức Cấu trúc máy tính II', 'TH', '30')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA006', N'Giải tích', 'LT', '60')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA003', N'Đại số tuyến tính', 'LT', '45')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA004', N'Cấu trúc rời rạc', 'LT', '60')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA005', N'Xác suất thống kê', 'LT', '45')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS004', N'Kỹ năng nghề nghiệp', 'LT', '30')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT009', N'Giới thiệu ngành', 'LT', '30')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS007', N'Triết học Mác-Lênin', 'LT', '45')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS008', N'Kinh tế chính trị Mác-Lênin', 'LT', '30')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS009', N'Chủ nghĩa xã hội khoa học', 'LT', '30')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS003', N'Tư tưởng Hồ Chí Minh', 'LT', '30')
-insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS010', N'Lịch sử Đảng Cộng Sản Việt Nam', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA006LT', N'Giải tích', 'LT', '60')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA003LT', N'Đại số tuyến tính', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA004LT', N'Cấu trúc rời rạc', 'LT', '60')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('MA005LT', N'Xác suất thống kê', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS004LT', N'Kỹ năng nghề nghiệp', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('IT009LT', N'Giới thiệu ngành', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS007LT', N'Triết học Mác-Lênin', 'LT', '45')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS008LT', N'Kinh tế chính trị Mác-Lênin', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS009LT', N'Chủ nghĩa xã hội khoa học', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS003LT', N'Tư tưởng Hồ Chí Minh', 'LT', '30')
+insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SS010LT', N'Lịch sử Đảng Cộng Sản Việt Nam', 'LT', '30')
 insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SE104LT', N'Nhập môn công nghệ phần mềm', 'LT', '45')
 insert into MONHOC(MaMonHoc, TenMonHoc, MaLoaiMon, SoTiet) values ('SE104TH', N'Nhập môn công nghệ phần mềm', 'TH', '30')
 
@@ -163,55 +163,67 @@ insert into HKNH values (12122, 1, 2021, 2022, '29/12/2021')
 insert into HKNH values (22122, 2, 2021, 2022, '02/07/2022')
 
 -- du lieu table DS_MONHOC_MO
-insert into DS_MONHOC_MO values ('IT003LT.L27', 21920, 'IT003LT')
-insert into DS_MONHOC_MO values ('IT003TH.L27', 21920, 'IT003TH')
-insert into DS_MONHOC_MO values ('IT003LT.L28', 21920, 'IT003LT')
-insert into DS_MONHOC_MO values ('IT003TH.L28', 21920, 'IT003TH')
-insert into DS_MONHOC_MO values ('SS004LT.L20', 21920, 'SS004LT')
-insert into DS_MONHOC_MO values ('IT004LT.L22', 12021, 'IT004LT')
-insert into DS_MONHOC_MO values ('IT004TH.L22', 12021, 'IT004TH')
-insert into DS_MONHOC_MO values ('SE104LT.L22', 22021, 'SE104LT')
-insert into DS_MONHOC_MO values ('SE104TH.L22', 22021, 'SE104TH')
+insert into DS_MONHOC_MO values ('IT003LT_L27', 21920, 'IT003LT')
+insert into DS_MONHOC_MO values ('IT003TH_L27', 21920, 'IT003TH')
+insert into DS_MONHOC_MO values ('IT003LT_L28', 21920, 'IT003LT')
+insert into DS_MONHOC_MO values ('IT003TH_L28', 21920, 'IT003TH')
+insert into DS_MONHOC_MO values ('SS004LT_L20', 21920, 'SS004LT')
+insert into DS_MONHOC_MO values ('IT004LT_L22', 12021, 'IT004LT')
+insert into DS_MONHOC_MO values ('IT004TH_L22', 12021, 'IT004TH')
+insert into DS_MONHOC_MO values ('SE104LT_L22', 22021, 'SE104LT')
+insert into DS_MONHOC_MO values ('SE104TH_L22', 22021, 'SE104TH')
 
 -- du lieu table PHIEU_DKHP
-insert into PHIEU_DKHP values (1, '191512', '25/12/2019', 21920, 15, 4, 553000, 0, 0, 0)
-insert into PHIEU_DKHP values (2, '201011', '01/07/2020', 12021, 20, 4, 688000, 688000, 0, 688000)
+insert into PHIEU_DKHP(SoPhieuDKHP, MaSV, NgayLap, MaHKNH) values(1, 181108, '01/07/2020', '12021')
+insert into PHIEU_DKHP(SoPhieuDKHP, MaSV, NgayLap, MaHKNH) values(2, 192447, '01/04/2020', '21920')
 
+select * from PHIEU_DKHP
+delete from PHIEU_DKHP
 
 -- du lieu table CT_PHIEU_DKHP
-insert into CT_PHIEU_DKHP values (1, 'IT003LT.L27', null)
-insert into CT_PHIEU_DKHP values (1, 'SS004.L20', null)
-insert into CT_PHIEU_DKHP values (1, 'IT003LT.L28', null)
+insert into CT_PHIEU_DKHP values (1, 'IT003LT_L27', null)
+insert into CT_PHIEU_DKHP values (1, 'SS004LT_L20', null)
+insert into CT_PHIEU_DKHP values (1, 'IT003TH_L27', null)
+insert into CT_PHIEU_DKHP values (1, 'IT003LT_L28', null)
+insert into CT_PHIEU_DKHP values (2, 'IT004LT_L22', null)
+insert into CT_PHIEU_DKHP values (2, 'SE104LT_L22', null)
 
+select * from CT_PHIEU_DKHP 
+delete from CT_PHIEU_DKHP where MaMo = 'IT003LT_L27'
+
+select * from PHIEUTHU
+delete from PHIEUTHU
 -- du lieu table PHIEU_THU
-insert into PHIEUTHU values (1, 1, '25/12/2019', 0)
-insert into PHIEUTHU values (2, 2, '01/07/2020', 0)
-insert into PHIEUTHU values (1, 1, '25/12/2019', 1)
+insert into PHIEUTHU values (1, 1, '25/12/2019', 10000)
+insert into PHIEUTHU values (2, 2, '01/03/2020', 100000)
+insert into PHIEUTHU values (3, 2, '31/12/2020', 100000)
+insert into PHIEUTHU values (1, 1, '25/12/2019', 10000)
 
 -- du lieu table DSSV_CHUAHOANTHANH_HP
-insert into DSSV_CHUAHOANTHANH_HP values (21920, '191512', 553000)
-insert into DSSV_CHUAHOANTHANH_HP values (12021, '201011', 688000)
+insert into DSSV_CHUAHOANTHANH_HP values (21920, '191512', 0)
+insert into DSSV_CHUAHOANTHANH_HP values (12021, '201011', 0)
 
 --PHANQUYEN
 -- du lieu mau table CHUCNANG
-insert into CHUCNANG values ('CN01', N'Chức năng 1', 'Login')
-insert into CHUCNANG values ('CN02', N'Chức năng 2', 'PhanQuyen')
-insert into CHUCNANG values ('CN03', N'Chức năng 3', 'XemDanhSachSinhVien')
-insert into CHUCNANG values ('CN04', N'Chức năng 4', 'DangKyMonHoc')
+insert into CHUCNANG values ('CN01', N'Chức năng 1', 'Đăng nhập')
+insert into CHUCNANG values ('CN02', N'Chức năng 2', 'Tạo phân quyền')
+insert into CHUCNANG values ('CN03', N'Chức năng 3', 'Xóa phân quyền')
+insert into CHUCNANG values ('CN04', N'Chức năng 4', 'Tạo phiếu đăng ký học phần')
 
 -- du lieu table NHOMNGUOIDUNG
-insert into NHOMNGUOIDUNG values ('Admin', N'Admin')
-insert into NHOMNGUOIDUNG values ('PDT', N'Phòng đào tạo')
-insert into NHOMNGUOIDUNG values ('SV', N'Sinh viên')
+insert into NHOMNGUOIDUNG values ('1', N'Admin')
+insert into NHOMNGUOIDUNG values ('2', N'Phòng đào tạo')
+insert into NHOMNGUOIDUNG values ('3', N'Sinh viên')
 
 -- du lieu table NGUOIDUNG
-insert into NGUOIDUNG values ('admin01', 'admin01', 'Admin')
-insert into NGUOIDUNG values ('pdt01', 'pdt01', 'PDT')
+insert into NGUOIDUNG values ('admin01', '1', '1')
+insert into NGUOIDUNG values ('pdt01', '1', '2')
 
 -- du lieu table NGUOIDUNG
-insert into PHANQUYEN values('Admin', 'CN01')
-insert into PHANQUYEN values('Admin', 'CN02')
-insert into PHANQUYEN values('Admin', 'CN03')
-insert into PHANQUYEN values('PDT', 'CN01')
-insert into PHANQUYEN values('PDT', 'CN03')
-insert into PHANQUYEN values('SV', 'CN04')
+insert into PHANQUYEN values('1', 'CN01')
+insert into PHANQUYEN values('1', 'CN02')
+insert into PHANQUYEN values('1', 'CN03')
+insert into PHANQUYEN values('2', 'CN01')
+insert into PHANQUYEN values('2', 'CN04')
+insert into PHANQUYEN values('3', 'CN01')
+insert into PHANQUYEN values('3', 'CN04')

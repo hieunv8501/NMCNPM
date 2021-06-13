@@ -10,16 +10,14 @@ namespace QLDKMH_CNPM.Models
     public partial class NGUOIDUNG
     {
         [Key]
-        [StringLength(50)]
+        [StringLength(30)]
         public string TenDangNhap { get; set; }
 
         [Required]
         [StringLength(30)]
         public string MatKhau { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string MaNhom { get; set; }
+        public int MaNhom { get; set; }
 
         public virtual NHOMNGUOIDUNG NHOMNGUOIDUNG { get; set; }
     }

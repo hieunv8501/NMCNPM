@@ -39,9 +39,9 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // GET: PDT/HUYENs/Create
         public ActionResult Create(int code = 0)
         {
-            ViewBag.m = "Dung";
+            ViewBag.Message = "Dung";
             if (code == 1)
-                ViewBag.m = "Sai";
+                ViewBag.Message = "Sai";
             ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh");
             return View();
         }
@@ -108,9 +108,9 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         public ActionResult Delete(string id, int code = 0)
         {
 
-            ViewBag.m = "Dung";
+            ViewBag.Message = "Dung";
             if (code == 1)
-                ViewBag.m = "Sai";
+                ViewBag.Message = "Sai";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

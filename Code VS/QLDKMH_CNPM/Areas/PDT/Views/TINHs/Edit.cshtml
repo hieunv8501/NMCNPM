@@ -13,7 +13,7 @@
 
 <div class="form-horizontal generalStyle" style="color: black;">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.MaTinh)
+   
     <hr />
     <div class="form-group">
         <div class="control-label">Tên tỉnh</div>
@@ -26,9 +26,7 @@
     <div class="form-group">
         <div>
             <input type="submit" value="Lưu" class="btn btn-danger btnStyle" />
-            <span>
-                @Html.ActionLink("Quay lại", "Index", new { id = Model.MaTinh }, new { @class = "btn btn-primary btnStyle" })
-            </span>
+            @Html.ActionLink("Quay lại", "Index", new { id = Model.MaTinh }, new { @class = "btn btn-primary btnStyle" })
         </div>
     </div>
 </div>
