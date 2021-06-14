@@ -1,3 +1,5 @@
+C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.AssemblyReference.cache
+C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.CoreCompileInputs.cache
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\QLDKMH_CNPM.dll.config
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\QLDKMH_CNPM.dll
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\QLDKMH_CNPM.pdb
@@ -57,12 +59,6 @@ C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\System.Web.Web
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\System.Web.WebPages.Deployment.xml
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\System.Web.WebPages.Razor.xml
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\Antlr3.Runtime.pdb
-C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.CoreCompileInputs.cache
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.CopyComplete
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.dll
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.pdb
-C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.AssemblyReference.cache
-C:\Users\HieuNV\Desktop\NMCNPM\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.AssemblyReference.cache
-C:\Users\HieuNV\Desktop\NMCNPM\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.CoreCompileInputs.cache
-C:\Users\HieuNV\Desktop\NMCNPM\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.dll
-C:\Users\HieuNV\Desktop\NMCNPM\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.pdb

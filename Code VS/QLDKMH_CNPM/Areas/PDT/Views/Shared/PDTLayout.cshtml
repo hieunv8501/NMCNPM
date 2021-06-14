@@ -98,7 +98,7 @@
                         @*<a class="collapse-item" href="@Url.Action("Index", "HKNHs", new { area = "PDT" })">Danh sách học kỳ</a>*@
                         <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("ListHK", "DS_MONHOC_MO", new { area = "PDT" })">Danh sách môn học mở</a>
                         <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Index", "PHIEU_DKHP", new { area = "PDT" })">Đăng ký học phần</a>
-                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("ListHK", "PHIEU_DKHP", new { area = "PDT" })">Tra cứu thông tin ĐKHP</a>
+                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Index", "PHIEU_DKHP", new { area = "PDT" })">Tra cứu thông tin ĐKHP</a>
                     </div>
                 </div>
             </li>
@@ -108,7 +108,7 @@
             </li>
 
             <li class="nav-item active zoom generalStyle sidebarSize">
-                @Html.ActionLink("Báo cáo nợ học phí", "ListHK", "DSSV_CHUAHOANTHANH_HP", new { area = "PDT" }, new { @class = "nav-link" })
+                @Html.ActionLink("Báo cáo nợ học phí", "Index", "DSSV_CHUAHOANTHANH_HP", new { area = "PDT" }, new { @class = "nav-link" })
             </li>
 
             @*<li><hr class="sidebar-divider"></li>*@

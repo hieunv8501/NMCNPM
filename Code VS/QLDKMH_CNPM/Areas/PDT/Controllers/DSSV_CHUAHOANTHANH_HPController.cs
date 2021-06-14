@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QLDKMH_CNPM.Models;
-using LinqToSQLMvcApplication.Models;
 
 namespace QLDKMH_CNPM.Areas.PDT.Controllers
 {
@@ -15,7 +14,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
     {
          private CNPM_DBContext db = new CNPM_DBContext();
 
-        // GET: BAOCAOHOCPHI
+        // GET: PDT/DSSV_CHUAHOANTHANH_HP/Index/5
         public ActionResult Index()
         {
             IList<DS_model> DS = new List<DS_model>();

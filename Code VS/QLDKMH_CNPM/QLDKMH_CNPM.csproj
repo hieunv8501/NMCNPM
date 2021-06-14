@@ -166,6 +166,7 @@
     <Compile Include="Models\CT_PHIEU_DKHP.cs" />
     <Compile Include="Models\DOITUONG.cs" />
     <Compile Include="Models\DSSV_CHUAHOANTHANH_HP.cs" />
+    <Compile Include="Models\DS_Model.cs" />
     <Compile Include="Models\DS_MONHOC_MO.cs" />
     <Compile Include="Models\HKNH.cs" />
     <Compile Include="Models\HUYEN.cs" />

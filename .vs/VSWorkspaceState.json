@@ -1,6 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Code VS",
+    "\\Code VS\\QLDKMH_CNPM",
+    "\\Code VS\\QLDKMH_CNPM\\Areas",
+    "\\Code VS\\QLDKMH_CNPM\\Areas\\PDT",
+    "\\Code VS\\QLDKMH_CNPM\\Areas\\PDT\\Controllers",
+    "\\Code VS\\QLDKMH_CNPM\\Areas\\PDT\\Views",
+    "\\Code VS\\QLDKMH_CNPM\\Areas\\PDT\\Views\\LOAIMONHOCs",
+    "\\Code VS\\QLDKMH_CNPM\\Areas\\SV",
+    "\\Code VS\\QLDKMH_CNPM\\Areas\\SV\\Controllers"
   ],
+  "SelectedNode": "\\Code VS\\QLDKMH_CNPM\\Areas\\PDT\\Views\\LOAIMONHOCs\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }
