@@ -8,14 +8,14 @@ using System.Web;
 using System.Web.Mvc;
 using QLDKMH_CNPM.Models;
 
-namespace QLDKMH_CNPM.Controllers
+namespace QLDKMH_CNPM.Areas.SV.Controllers
 {
-    public class SINHVIENController : Controller
+    public class SINHVIENsController : Controller
     {
         private CNPM_DBContext db = new CNPM_DBContext();
 
         
-        // GET: SINHVIEN/Details/5
+        // GET: SV/SINHVIENs/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)

@@ -12,9 +12,7 @@
     @Html.AntiForgeryToken()
     <hr />
     <div class="form-horizontal generalStyle">
-        @*<div style="color:white; font-weight:bold;">
-                <span class="bg-danger p-1">SINH VIÊN</span>
-        </div>*@
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.MaSV)
         <hr />
@@ -45,14 +43,6 @@
         </div>
 
         <div class="form-group">
-            <div class="control-label">Tỉnh</div>
-            <div>
-                @Html.DropDownList("MaTinh", null, "-- Chọn lại tỉnh --", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.HUYEN.TINH.MaTinh, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             <div class="control-label">Huyện</div>
             <div>
                 @Html.DropDownList("MaHuyen", null, htmlAttributes: new { @class = "form-control" })
@@ -79,9 +69,7 @@
         <div class="form-group">
             <div>
                 <input type="submit" value="Lưu" class="btn btn-danger btnStyle" />
-                <span>
-                    @Html.ActionLink("Quay lại", "Details", new { id = Model.MaSV }, new { @class = "btn btn-primary btnStyle" })
-                </span>
+                @Html.ActionLink("Quay lại", "Details", new { id = Model.MaSV }, new { @class = "btn btn-primary btnStyle" })
             </div>
         </div>
     </div>

@@ -1,9 +1,7 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "SVHome";
     Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml";
 }
-
 <!DOCTYPE html>
 
 <html>
@@ -18,6 +16,13 @@
             <a class="h2" style="float:right; color:blue; font-weight:700; font-family:Cambria ; margin-top:0; float:right">TRANG CHỦ SINH VIÊN</a>
             <img src="~/Content/img/forum uit sinhvien.png" style="width:100%; height:100%;" />
         </div>
+    </div>
+    <br />
+    <div>
+        <p>
+            Chào mừng bạn đến với trang chủ của mình!
+            Sinh viên <strong>@ViewData["TenDangNhap"]</strong>
+        </p>
     </div>
 </body>
 

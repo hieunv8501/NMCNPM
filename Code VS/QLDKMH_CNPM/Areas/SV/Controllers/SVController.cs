@@ -14,6 +14,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
         public ActionResult SVHome(string TenDangNhap)
         {
             SINHVIEN sINHVIEN = db.SINHVIENs.FirstOrDefault(sv => sv.MaSV == TenDangNhap);
+
             ViewData["TenDangNhap"] = sINHVIEN.MaSV;
             return View();
         }

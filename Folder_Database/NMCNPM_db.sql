@@ -3,8 +3,6 @@ go
 use CNPM_db
 go
 
-
-
 set dateformat DMY
 
 --create tables
@@ -18,7 +16,7 @@ create table SINHVIEN
 	MaNganh char(4) not null,
 	MaDoiTuong char(4) not null,
 	MaHuyen char(4) not null
-)
+)	
 
 --table DOITUONG
 create table DOITUONG
@@ -103,12 +101,12 @@ CREATE TABLE PHIEU_DKHP
 	MaSV char(6) not null,
 	NgayLap smalldatetime not null,
 	MaHKNH int not null,
-	TongTCLT int DEFAULT 0,
-	TongTCTH int DEFAULT 0,
-	TongTienDangKy money DEFAULT 0,
-	TongTienPhaiDong money DEFAULT 0,
-	TongTienDaDong money DEFAULT 0,
-	SoTienConLai money DEFAULT 0
+	TongTCLT int DEFAULT 0 not null,
+	TongTCTH int DEFAULT 0 not null,
+	TongTienDangKy money DEFAULT 0 not null,
+	TongTienPhaiDong money DEFAULT 0 not null,
+	TongTienDaDong money DEFAULT 0 not null,
+	SoTienConLai money DEFAULT 0 not null
 )
 
 --table CT_PHIEU_DKHP
@@ -155,7 +153,7 @@ CREATE TABLE CHUCNANG
 (
 	MaChucNang char(10) primary key,
 	TenChucNang nvarchar(50),
-	TenManHinhDuocLoad nvarchar(20)
+	TenManHinhDuocLoad nvarchar(30)
 )
 
 /*Dữ liệu của Table này do người xây dựng hệ thống nhập đầy đủ cho nó
@@ -251,7 +249,7 @@ BEGIN
 
 	delete from NGUOIDUNG where TenDangNhap = @TenDangNhap
 END
-
+GO
 --Trigger khi update đối tượng sẽ thay đổi tiền học phí.
 CREATE TRIGGER TG_SV_TTPD 
 ON SINHVIEN
@@ -279,7 +277,6 @@ GO
 
 --TRIGGER ON MONHOC
 -- Trigger tính số tín chỉ của MONHOC
-GO
 CREATE TRIGGER TG_MH_STC
 ON MONHOC
 FOR INSERT, UPDATE
@@ -362,7 +359,7 @@ BEGIN
 END
 GO
 
---Tính tổng tiền đăng ký và phải đóng trên PHIEU_DKHP
+--Trigger tính lại tổng tiền đăng ký và phải đóng, số tiền còn lại trên PHIEU_DKHP khi thêm/sửa
 CREATE TRIGGER TG_PDKHP_TTDK_TTPD 
 ON PHIEU_DKHP
 FOR INSERT, UPDATE
@@ -376,16 +373,16 @@ BEGIN
 			WHERE DOITUONG.MaDoiTuong = SINHVIEN.MaDoiTuong AND SINHVIEN.MaSV = INSERTED.MaSV AND SoPhieuDKHP = @SoPhieuDKHP
 
 	UPDATE PHIEU_DKHP SET TongTienDangKy = @TongTCLT*@SoTienMotTinChi_LT + @TongTCTH*@SoTienMotTinChi_TH WHERE SoPhieuDKHP = @SoPhieuDKHP
-	UPDATE PHIEU_DKHP SET TongTienPhaiDong = TongTienDangKy - TongTienDangKy*@TiLeGiamHocPhi/100 WHERE SoPhieuDKHP = @SoPhieuDKHP
+	UPDATE PHIEU_DKHP SET TongTienPhaiDong = TongTienDangKy - (TongTienDangKy*@TiLeGiamHocPhi/100) WHERE SoPhieuDKHP = @SoPhieuDKHP
 	UPDATE PHIEU_DKHP SET SoTienConLai = TongTienPhaiDong - TongTienDaDong WHERE SoPhieuDKHP = @SoPhieuDKHP
 END
 GO
 
 --TRIGGER ON CT_PHIEU_DKHP
---Trigger tính số tín chỉ môn học sau khi thêm, sửa 1 vài CT_PHIEU_DKHP////////////////////////////////////////////
+--Trigger tính số tín chỉ môn học sau khi thêm CT_PHIEU_DKHP
 CREATE TRIGGER TRIG_TONGTINCHI 
 ON CT_PHIEU_DKHP
-FOR INSERT, UPDATE
+FOR INSERT
 AS
 BEGIN
 	DECLARE @SOPHIEU INT, @MAMO CHAR(11), @SOTINCHILT INT, @SOTINCHITH INT
@@ -394,9 +391,9 @@ BEGIN
 	--TÌM SỐ TÍN CHỈ CỦA MÔN HỌC MỚI THÊM
 	SET @SOTINCHILT = 0
 	SET @SOTINCHITH = 0
-	SELECT @SOTINCHILT = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMO = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
+	SELECT @SOTINCHILT = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMo = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
 						WHERE C.MaLoaiMon = 'LT' AND B.MaMo = @MAMO
-	SELECT @SOTINCHITH = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMO = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
+	SELECT @SOTINCHITH = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMo = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
 						WHERE C.MaLoaiMon = 'TH' AND B.MaMo = @MAMO
 	--Tiến hành update lại số tín chỉ
 	UPDATE PHIEU_DKHP SET TongTCLT = TongTCLT + @SOTINCHILT WHERE SoPhieuDKHP = @SOPHIEU 
@@ -404,30 +401,38 @@ BEGIN
 END
 GO
 
---Trigger tính số tín chỉ môn học sau khi xóa 1 vài CT_PHIEU_DKHP////////////////////////////////////
-alter TRIGGER TRIG_TONGTINCHI2 
+--Trigger tính số tín chỉ môn học sau khi xóa CT_PHIEU_DKHP
+CREATE TRIGGER TRIG_TONGTINCHI2 
 ON CT_PHIEU_DKHP
 FOR DELETE
 AS
 BEGIN
-	DECLARE @SOPHIEU INT, @MAMO CHAR(11), @SOTINCHILT INT, @SOTINCHITH INT
+	DECLARE @SOPHIEU INT, @MAMO CHAR(11), @SOTINCHI INT, @MALOAIMON CHAR(2), @TONGTCCU INT
 	--LẤY THÔNG TIN CỦA CT_PHIEU_DKHP MỚI XÓA
-	SELECT @SOPHIEU = SoPhieuDKHP, @MAMO = MaMo FROM deleted
+	SET @SOPHIEU = (SELECT SoPhieuDKHP FROM deleted)
+	SET @MAMO = (SELECT MaMo FROM deleted)
 	--TÌM SỐ TÍN CHỈ CỦA MÔN HỌC MỚI XÓA
-	SELECT @SOTINCHILT = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMO = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
-						WHERE C.MaLoaiMon = 'LT' AND B.MaMo = @MAMO
-	SELECT @SOTINCHITH = SoTinChi from (CT_PHIEU_DKHP A join DS_MONHOC_MO B ON A.MaMO = B.MaMo) JOIN MONHOC C ON B.MaMonHoc = C.MaMonHoc
-						WHERE C.MaLoaiMon = 'TH' AND B.MaMo = @MAMO
-	--Tiến hành update lại số tín chỉ
-	DECLARE @TONGTCLT_CU INT, @TONGTCTH_CU INT
-	SELECT @TONGTCLT_CU = TongTCLT from PHIEU_DKHP where SoPhieuDKHP = @SOPHIEU 
-	SELECT @TONGTCTH_CU = TongTCTH from PHIEU_DKHP where SoPhieuDKHP = @SOPHIEU
-	IF(@TONGTCLT_CU = @SOTINCHILT)
-		UPDATE PHIEU_DKHP SET TongTCLT = 0 WHERE SoPhieuDKHP = @SOPHIEU
-	ELSE UPDATE PHIEU_DKHP SET TongTCLT = TongTCLT - @SOTINCHILT WHERE SoPhieuDKHP = @SOPHIEU
-	IF(@TONGTCTH_CU = @SOTINCHITH)
-		UPDATE PHIEU_DKHP SET TongTCTH = 0 WHERE SoPhieuDKHP = @SOPHIEU
-	ELSE UPDATE PHIEU_DKHP SET TongTCTH = TongTCTH - @SOTINCHITH WHERE SoPhieuDKHP = @SOPHIEU 
+	set @MALOAIMON = (select b.MaLoaiMon from DS_MONHOC_MO a join MONHOC b on a.MaMonHoc = b.MaMonHoc where a.MaMo = @MAMO)
+	SET @SOTINCHI = (SELECT SoTinChi from DS_MONHOC_MO a join MONHOC b on a.MaMonHoc = b.MaMonHoc where a.MaMo = @MAMO)
+
+	IF(@MALOAIMON = 'LT')
+	BEGIN
+		SET @TONGTCCU = (SELECT TongTCLT from PHIEU_DKHP where SoPhieuDKHP = @SOPHIEU)
+		IF(@TONGTCCU = @SOTINCHI)
+		BEGIN
+			UPDATE PHIEU_DKHP SET TongTCLT = 0 WHERE SoPhieuDKHP = @SOPHIEU
+		END
+		ELSE UPDATE PHIEU_DKHP SET TongTCLT = TongTCLT - @SOTINCHI WHERE SoPhieuDKHP = @SOPHIEU
+	END
+	ELSE
+	BEGIN
+		SET @TONGTCCU = (SELECT TongTCTH from PHIEU_DKHP where SoPhieuDKHP = @SOPHIEU)
+		IF(@TONGTCCU = @SOTINCHI)
+		BEGIN
+			UPDATE PHIEU_DKHP SET TongTCTH = 0 WHERE SoPhieuDKHP = @SOPHIEU
+		END
+		ELSE UPDATE PHIEU_DKHP SET TongTCTH = TongTCTH - @SOTINCHI WHERE SoPhieuDKHP = @SOPHIEU
+	END
 END
 GO
 
@@ -537,3 +542,5 @@ BEGIN
 	WHERE PHIEU_DKHP.SoPhieuDKHP = @SoPhieu
 END
 GO
+
+--Trigger cập nhật danh sách sinh viên chưa hoàn thành học phí trước hạn đóng học phí của học kì năm học mà sinh viên đăng ký học phần
