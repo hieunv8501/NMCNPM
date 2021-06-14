@@ -13,5 +13,13 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         {
             return View();
         }
+        public ActionResult PDTmodule1()
+        {
+            return View();
+        }
+        public ActionResult PDTmodule2()
+        {
+            return View();
+        }
     }
 }

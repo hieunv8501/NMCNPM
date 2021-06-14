@@ -18,5 +18,33 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             ViewData["TenDangNhap"] = sINHVIEN.MaSV;
             return View();
         }
+        public ActionResult SVmodule0(string TenDangNhap)
+        {
+            SINHVIEN sINHVIEN = db.SINHVIENs.FirstOrDefault(sv => sv.MaSV == TenDangNhap);
+
+            ViewData["TenDangNhap"] = sINHVIEN.MaSV;
+            return View();
+        }
+        public ActionResult SVmodule1(string TenDangNhap)
+        {
+            SINHVIEN sINHVIEN = db.SINHVIENs.FirstOrDefault(sv => sv.MaSV == TenDangNhap);
+
+            ViewData["TenDangNhap"] = sINHVIEN.MaSV;
+            return View();
+        }
+        public ActionResult SVmodule2(string TenDangNhap)
+        {
+            SINHVIEN sINHVIEN = db.SINHVIENs.FirstOrDefault(sv => sv.MaSV == TenDangNhap);
+
+            ViewData["TenDangNhap"] = sINHVIEN.MaSV;
+            return View();
+        }
+        public ActionResult SVmodule3(string TenDangNhap)
+        {
+            SINHVIEN sINHVIEN = db.SINHVIENs.FirstOrDefault(sv => sv.MaSV == TenDangNhap);
+
+            ViewData["TenDangNhap"] = sINHVIEN.MaSV;
+            return View();
+        }
     }
 }

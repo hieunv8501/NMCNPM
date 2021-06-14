@@ -64,18 +64,18 @@
             <li class="sidebar-heading active bg-gradient-light my-1" style="color: black; font-size: 13px;">THÔNG TIN</li>
 
             <li class="nav-item active zoom generalStyle sidebarSize" style="border-top: solid black 1px">
-                <a class="nav-link" href="#">Thông báo</a>
+                <a class="nav-link" href="@Url.Action("SVmodule0", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">Thông báo</a>
             </li>
 
             <li class="nav-item active zoom generalStyle sidebarSize">
-                <a class="nav-link" href="#">Sự kiện - Tin tức</a>
+                <a class="nav-link" href="@Url.Action("SVmodule1", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">Sự kiện - Tin tức</a>
             </li>
 
             <li class="nav-item active zoom generalStyle sidebarSize">
-                <a class="nav-link" href="#">Kế hoạch năm</a>
+                <a class="nav-link" href="@Url.Action("SVmodule2", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">Kế hoạch năm</a>
             </li>
             <li class="nav-item active zoom generalStyle sidebarSize">
-                <a class="nav-link" href="#">Quy định - Hướng dẫn</a>
+                <a class="nav-link" href="@Url.Action("SVmodule3", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">Quy định - Hướng dẫn</a>
             </li>
             <li class="nav-item active zoom generalStyle sidebarSize">
                 <a class="nav-link" href="@Url.Action("Details", "SINHVIENs", new { id = ViewData["TenDangNhap"]})">Lý lịch sinh viên</a>

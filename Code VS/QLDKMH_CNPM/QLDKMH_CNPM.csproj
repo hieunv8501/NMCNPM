@@ -213,6 +213,9 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\img\15nam_UIT.jpg" />
+    <Content Include="Content\img\2018-2019.png" />
+    <Content Include="Content\img\2019-2020.jpg" />
+    <Content Include="Content\img\2020-2021.jpg" />
     <Content Include="Content\img\banner_uit_15.png" />
     <Content Include="Content\img\btnupload.PNG" />
     <Content Include="Content\img\forum uit sinhvien.png" />
@@ -2266,6 +2269,12 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\SV\Views\NGUOIDUNGs\Edit.cshtml" />
+    <Content Include="Areas\PDT\Views\PDT\PDTmodule1.cshtml" />
+    <Content Include="Areas\PDT\Views\PDT\PDTmodule2.cshtml" />
+    <Content Include="Areas\SV\Views\SV\SVmodule2.cshtml" />
+    <Content Include="Areas\SV\Views\SV\SVmodule1.cshtml" />
+    <Content Include="Areas\SV\Views\SV\SVmodule0.cshtml" />
+    <Content Include="Areas\SV\Views\SV\SVmodule3.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
