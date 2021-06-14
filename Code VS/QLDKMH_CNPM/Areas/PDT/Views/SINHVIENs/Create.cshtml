@@ -60,9 +60,9 @@
     @Html.AntiForgeryToken()
 
     @*if (ViewBag.Message == "Sai")
-    {
-        <div class="alert alert-danger">File excel tải lên không hợp lệ! Hãy tải lại... </div>
-    }*@
+        {
+            <div class="alert alert-danger">File excel tải lên không hợp lệ! Hãy tải lại... </div>
+        }*@
     <p class="generalStyle" style="color:black"><strong>Tải lên thông tin sinh viên qua file Excel</strong></p>
     <div class="form-group">
         <div class="upload">
@@ -85,7 +85,10 @@
             </div>*@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <p class="generalStyle"><strong>Nhập thủ công thông tin sinh viên</strong></p>
-
+        @if (ViewBag.Message == "Sai")
+        {
+            <div class="alert alert-danger">Không hợp lệ! Mời nhập lại... </div>
+        }
         <div class="form-group">
             <div class="control-label">Mã sinh viên</div>
             <div>
@@ -151,10 +154,7 @@
             </div>
         </div>
 
-        @if (ViewBag.Message == "Sai")
-        {
-            <div class="alert alert-danger">Không hợp lệ! Mời nhập lại... </div>
-        }
+
         <hr />
         <div class="form-group">
             <div class="control-label">

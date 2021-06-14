@@ -2164,15 +2164,10 @@
     <Content Include="Areas\SV\Views\web.config" />
     <Content Include="Areas\SV\Views\Shared\SVLayout.cshtml" />
     <Content Include="Areas\SV\Views\SV\SVHome.cshtml" />
-    <Content Include="Areas\SV\Views\CHUONGTRINHHOCs\Create.cshtml" />
-    <Content Include="Areas\SV\Views\CHUONGTRINHHOCs\Delete.cshtml" />
     <Content Include="Areas\SV\Views\CHUONGTRINHHOCs\Details.cshtml" />
     <Content Include="Areas\SV\Views\CHUONGTRINHHOCs\Edit.cshtml" />
     <Content Include="Areas\SV\Views\CHUONGTRINHHOCs\Index.cshtml" />
-    <Content Include="Areas\SV\Views\PHIEUTHUs\Create.cshtml" />
-    <Content Include="Areas\SV\Views\PHIEUTHUs\Delete.cshtml" />
     <Content Include="Areas\SV\Views\PHIEUTHUs\Details.cshtml" />
-    <Content Include="Areas\SV\Views\PHIEUTHUs\Edit.cshtml" />
     <Content Include="Areas\SV\Views\PHIEUTHUs\Index.cshtml" />
     <Content Include="Areas\SV\Views\SINHVIENs\Details.cshtml" />
     <Content Include="Areas\SV\Views\SINHVIENs\Edit.cshtml" />
