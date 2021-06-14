@@ -5,47 +5,44 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h3 class="text-left text-danger controllerStyle">THÔNG TIN MÔN HỌC</h3>
+<hr />
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e37df">
+                <th width="50%">Mã môn học</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaMonHoc)</td>
+            </tr>
 
-<div>
-    <h4>MONHOC</h4>
+            <tr class="bg-light" style="color:black;">
+                <th>Tên môn học</th>
+                <td>@Html.DisplayFor(model => model.TenMonHoc)</td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e37df">
+                <th>Loại môn học</th>
+                <td>
+                    @Html.DisplayFor(model => model.LOAIMONHOC.TenLoaiMon)
+                </td>
+            </tr>
+
+            <tr class="bg-light" style="color: black;">
+                <th>Số tiết</th>
+                <td>
+                    @Html.DisplayFor(model => model.SoTiet)
+                </td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e37df">
+                <th>Số tín chỉ</th>
+                <td>
+                    @Html.DisplayFor(model => model.SoTinChi)
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.LOAIMONHOC.TenLoaiMon)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LOAIMONHOC.TenLoaiMon)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TenMonHoc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenMonHoc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoTiet)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoTiet)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoTinChi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoTinChi)
-        </dd>
-
-    </dl>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaMonHoc }, new { @class = "btn btn-danger btnStyle" })
+    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaMonHoc }, new { @class = "btn btn-primary btnStyle" })
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaMonHoc }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

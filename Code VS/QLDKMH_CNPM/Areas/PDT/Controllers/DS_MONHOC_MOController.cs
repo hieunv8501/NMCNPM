@@ -13,12 +13,19 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
     public class DS_MONHOC_MOController : Controller
     {
         private CNPM_DBContext db = new CNPM_DBContext();
+        public ActionResult ListHK()
+        {
+            return View(db.HKNHs.ToList());
+        }
 
         // GET: PDT/DS_MONHOC_MO
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            var dS_MONHOC_MO = db.DS_MONHOC_MO.Include(d => d.HKNH).Include(d => d.MONHOC);
-            return View(dS_MONHOC_MO.ToList());
+            ViewBag.MaHKNH = db.HKNHs.Find(id).MaHKNH;
+            ViewBag.HocKy = db.HKNHs.Find(id).HocKy;
+            ViewBag.Nam1 = db.HKNHs.Find(id).Nam1;
+            ViewBag.Nam2 = db.HKNHs.Find(id).Nam2;
+            return View(db.DS_MONHOC_MO.Where(x => x.MaHKNH == id).ToList());
         }
 
         // GET: PDT/DS_MONHOC_MO/Details/5
@@ -37,10 +44,14 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         }
 
         // GET: PDT/DS_MONHOC_MO/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
             ViewBag.MaHKNH = new SelectList(db.HKNHs, "MaHKNH", "MaHKNH");
             ViewBag.MaMonHoc = new SelectList(db.MONHOCs, "MaMonHoc", "TenMonHoc");
+            ViewBag.MaHKNH = db.HKNHs.Find(id).MaHKNH;
+            ViewBag.HocKy = db.HKNHs.Find(id).HocKy;
+            ViewBag.Nam1 = db.HKNHs.Find(id).Nam1;
+            ViewBag.Nam2 = db.HKNHs.Find(id).Nam2;
             return View();
         }
 
@@ -49,13 +60,14 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaMo,MaHKNH,MaMonHoc")] DS_MONHOC_MO dS_MONHOC_MO)
+        public ActionResult Create(int id, [Bind(Include = "MaMo,MaHKNH,MaMonHoc")] DS_MONHOC_MO dS_MONHOC_MO)
         {
             if (ModelState.IsValid)
             {
+                dS_MONHOC_MO.MaHKNH = id;
                 db.DS_MONHOC_MO.Add(dS_MONHOC_MO);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = dS_MONHOC_MO.MaHKNH });
             }
 
             ViewBag.MaHKNH = new SelectList(db.HKNHs, "MaHKNH", "MaHKNH", dS_MONHOC_MO.MaHKNH);
@@ -121,7 +133,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             DS_MONHOC_MO dS_MONHOC_MO = db.DS_MONHOC_MO.Find(id);
             db.DS_MONHOC_MO.Remove(dS_MONHOC_MO);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = dS_MONHOC_MO.MaHKNH });
         }
 
         protected override void Dispose(bool disposing)

@@ -1,52 +1,41 @@
 ﻿@model QLDKMH_CNPM.Models.DS_MONHOC_MO
 
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+@{ ViewBag.Title = "Create";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
 }
 
-<h2>Create</h2>
+<h3 class="text-left text-danger controllerStyle">THÊM MÔN HỌC MỞ</h3>
 
-@using (Html.BeginForm()) 
+<h4 class="text-left text-danger controllerStyle">
+    Học kỳ: @ViewBag.HocKy | Năm học: @ViewBag.Nam1 - @ViewBag.Nam2
+</h4>
+
+@using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>DS_MONHOC_MO</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaMo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaMo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaMo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaHKNH, "MaHKNH", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaHKNH", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MaHKNH, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaMonHoc, "MaMonHoc", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaMonHoc", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MaMonHoc, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+@Html.AntiForgeryToken()
+<div class="form-horizontal generalStyle">
+<hr />
+    <div class="form-group">
+        <div class="control-label">Mã môn học mở</div>
+        <div>
+            @Html.EditorFor(model => model.MaMo, new { htmlAttributes = new { @maxlength = "11", @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MaMo, "", new { @class = "text-danger" })
         </div>
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="form-group">
+        <div class="control-label">Tên môn học</div>
+        <div>
+            @Html.DropDownList("MaMonHoc", null, "-- Chọn môn học mở trong học kỳ này --", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MONHOC.TenMonHoc, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2">
+            <input type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
+            @Html.ActionLink("Hủy", "Index", new { id = ViewBag.MaHKNH }, new { @class = "btn btn-primary btnStyle" })
+        </div>
+    </div>
 </div>
+ }

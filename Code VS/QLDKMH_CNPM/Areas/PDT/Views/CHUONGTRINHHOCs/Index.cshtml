@@ -1,52 +1,46 @@
-﻿@model IEnumerable<QLDKMH_CNPM.Models.CHUONGTRINHHOC>
+﻿@model IEnumerable<QLDKMH_CNPM.Models.NGANH>
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
-}
+@{ ViewBag.Title = "Index";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
 
-<h2>Index</h2>
+<h3 class="mb-1 text-danger controllerStyle">CHƯƠNG TRÌNH HỌC CÁC NGÀNH</h3>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MONHOC.TenMonHoc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NGANH.TenNganh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HocKy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GhiChu)
-        </th>
-        <th></th>
-    </tr>
+<div class="bg-light card generalStyle">
+    <div class="py-2 m-0">
+        <span style="float: right">
+            @Html.ActionLink("Quản lý Ngành", "Index", "NGANHs", null, new { @class = "btn btn-primary btnStyle" })
+        </span>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MONHOC.TenMonHoc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NGANH.TenNganh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HocKy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GhiChu)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white">
+        <div>
+            <div id="dataTable_wrapper" class="dataTables_wrapper">
+                <table class="table table-bordered dataTable dataStyle" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th width="40%">Mã ngành</th>
+                            <th width="40%">Tên ngành</th>
+                            <th width="30%" style="text-align:center">Chương trình học</th>
+                        </tr>
+                    </thead>
 
-</table>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.MaNganh)
+                            </td>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.TenNganh)
+                            </td>
+                            <td style="text-align: center">
+                                <a href="@Url.Action("Details", "CHUONGTRINHHOCs", new {area ="PDT", id = item.MaNganh})">Xem chương trình học</a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

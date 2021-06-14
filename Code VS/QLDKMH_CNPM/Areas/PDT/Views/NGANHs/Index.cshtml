@@ -9,18 +9,17 @@
 <h3 class="mb-1 text-danger controllerStyle">DANH SÁCH NGÀNH</h3>
 
 <!--DataTable Showing-->
-<!--DataTable Showing-->
 <div class="bg-light generalStyle">
     <div class="py-2 m-0">
-        <h3 class="font-weight-bold text-primary">
+        <span>
             @Html.ActionLink("Thêm Ngành", "Create", null, new { @class = "btn btn-primary btnStyle" })
-        </h3>
+        </span>
     </div>
 
-    <div id="dataTable_wrapper" class="dataTables_wrapper m-1 card-body m-1 p-1" style="background-color: white">
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white">
         <div>
             <div id="dataTable_wrapper" class="dataTables_wrapper">
-                <table class="table table-bordered dataStyle" id="dataTable">
+                <table class="table table-bordered dataTable dataStyle" id="dataTable">
                     <thead>
                         <tr>
                             <th width="50%">Ngành</th>

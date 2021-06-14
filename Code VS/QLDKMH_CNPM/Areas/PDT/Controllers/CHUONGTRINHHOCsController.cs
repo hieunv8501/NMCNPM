@@ -17,30 +17,29 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // GET: PDT/CHUONGTRINHHOCs
         public ActionResult Index()
         {
-            var cHUONGTRINHHOCs = db.CHUONGTRINHHOCs.Include(c => c.MONHOC).Include(c => c.NGANH);
-            return View(cHUONGTRINHHOCs.ToList());
+            return View(db.NGANHs.ToList());
         }
 
         // GET: PDT/CHUONGTRINHHOCs/Details/5
         public ActionResult Details(string id)
         {
+            ViewBag.TenNganh = db.NGANHs.Find(id).TenNganh;
+            ViewBag.MaNganh = db.NGANHs.Find(id).MaNganh;
+
+            return View(db.CHUONGTRINHHOCs.Where(x => x.MaNganh == id).ToList());
+        }
+
+        // GET: PDT/CHUONGTRINHHOCs/Create
+        public ActionResult Create(string id)
+        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CHUONGTRINHHOC cHUONGTRINHHOC = db.CHUONGTRINHHOCs.Find(id);
-            if (cHUONGTRINHHOC == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cHUONGTRINHHOC);
-        }
-
-        // GET: PDT/CHUONGTRINHHOCs/Create
-        public ActionResult Create()
-        {
             ViewBag.MaMonHoc = new SelectList(db.MONHOCs, "MaMonHoc", "TenMonHoc");
-            ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh");
+            ViewBag.MaNganh = db.NGANHs.Find(id).MaNganh;
+            ViewBag.TenNganh = db.NGANHs.Find(id).TenNganh;
+
             return View();
         }
 
@@ -49,34 +48,34 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaNganh,MaMonHoc,HocKy,GhiChu")] CHUONGTRINHHOC cHUONGTRINHHOC)
+        public ActionResult Create(string id, [Bind(Include = "MaNganh,MaMonHoc,HocKy,GhiChu")] CHUONGTRINHHOC cHUONGTRINHHOC)
         {
             if (ModelState.IsValid)
             {
+                cHUONGTRINHHOC.MaNganh = id;
                 db.CHUONGTRINHHOCs.Add(cHUONGTRINHHOC);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.Message = "Your application description page.";
+                return RedirectToAction("Details", new { id = cHUONGTRINHHOC.MaNganh });
             }
 
-            ViewBag.MaMonHoc = new SelectList(db.MONHOCs, "MaMonHoc", "TenMonHoc", cHUONGTRINHHOC.MaMonHoc);
-            ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", cHUONGTRINHHOC.MaNganh);
+            ViewBag.MaMonHoc = new SelectList(db.MONHOCs, "MaMonHoc", "TenMonHoc");
+            ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh");
             return View(cHUONGTRINHHOC);
         }
 
         // GET: PDT/CHUONGTRINHHOCs/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string id_1, string id_2)
         {
-            if (id == null)
+            if (id_1 == null || id_2 == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CHUONGTRINHHOC cHUONGTRINHHOC = db.CHUONGTRINHHOCs.Find(id);
+            CHUONGTRINHHOC cHUONGTRINHHOC = db.CHUONGTRINHHOCs.Find(id_1, id_2);
             if (cHUONGTRINHHOC == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MaMonHoc = new SelectList(db.MONHOCs, "MaMonHoc", "TenMonHoc", cHUONGTRINHHOC.MaMonHoc);
-            ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", cHUONGTRINHHOC.MaNganh);
             return View(cHUONGTRINHHOC);
         }
 
@@ -91,21 +90,19 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             {
                 db.Entry(cHUONGTRINHHOC).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = cHUONGTRINHHOC.MaNganh });
             }
-            ViewBag.MaMonHoc = new SelectList(db.MONHOCs, "MaMonHoc", "TenMonHoc", cHUONGTRINHHOC.MaMonHoc);
-            ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", cHUONGTRINHHOC.MaNganh);
             return View(cHUONGTRINHHOC);
         }
 
         // GET: PDT/CHUONGTRINHHOCs/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string id_1, string id_2)
         {
-            if (id == null)
+            if (id_1 == null || id_2 == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CHUONGTRINHHOC cHUONGTRINHHOC = db.CHUONGTRINHHOCs.Find(id);
+            CHUONGTRINHHOC cHUONGTRINHHOC = db.CHUONGTRINHHOCs.Find(id_1, id_2);
             if (cHUONGTRINHHOC == null)
             {
                 return HttpNotFound();
@@ -116,12 +113,12 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // POST: PDT/CHUONGTRINHHOCs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult Delete(string id_1, string id_2, FormCollection collection)
         {
-            CHUONGTRINHHOC cHUONGTRINHHOC = db.CHUONGTRINHHOCs.Find(id);
+            CHUONGTRINHHOC cHUONGTRINHHOC = db.CHUONGTRINHHOCs.Find(id_1, id_2);
             db.CHUONGTRINHHOCs.Remove(cHUONGTRINHHOC);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", new { id = cHUONGTRINHHOC.MaNganh });
         }
 
         protected override void Dispose(bool disposing)

@@ -1,4 +1,3 @@
-C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.AssemblyReference.cache
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.CoreCompileInputs.cache
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\QLDKMH_CNPM.dll.config
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\QLDKMH_CNPM.dll
@@ -62,3 +61,10 @@ C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\Antlr3.Runtime
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.CopyComplete
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.dll
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.pdb
+C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.AssemblyReference.cache

@@ -5,64 +5,52 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Create</h2>
+<h3 class="text-left text-danger controllerStyle">THÊM MỚI THÔNG TIN MÔN HỌC</h3>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>MONHOC</h4>
+
+    <div class="form-horizontal generalStyle" style="color: black;">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.MaMonHoc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaMonHoc, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="control-label">Mã môn học</div>
+            <div>
+                @Html.EditorFor(model => model.MaMonHoc, new { htmlAttributes = new { @maxlength = "7", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MaMonHoc, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TenMonHoc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="control-label">Tên môn học</div>
+            <div>
                 @Html.EditorFor(model => model.TenMonHoc, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TenMonHoc, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MaLoaiMon, "MaLoaiMon", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaLoaiMon", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MaLoaiMon, "", new { @class = "text-danger" })
+            <div class="control-label col-md-2">Loại môn học</div>
+            <div>
+                @Html.DropDownList("MaLoaiMon", null, "-- Chọn loại môn hoc --", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LOAIMONHOC.TenLoaiMon, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SoTiet, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="control-label col-md-2">Số tiết</div>
+            <div>
                 @Html.EditorFor(model => model.SoTiet, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SoTiet, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <hr />
         <div class="form-group">
-            @Html.LabelFor(model => model.SoTinChi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SoTinChi, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SoTinChi, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-offset-2">
+                <input type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
+                @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-primary btnStyle" })
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

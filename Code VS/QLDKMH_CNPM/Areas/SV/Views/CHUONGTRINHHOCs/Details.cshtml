@@ -1,51 +1,61 @@
-﻿@model QLDKMH_CNPM.Models.CHUONGTRINHHOC
+﻿@model IEnumerable<QLDKMH_CNPM.Models.CHUONGTRINHHOC>
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h2 class="mb-1 text-danger controllerStyle">
+    CHƯƠNG TRÌNH HỌC
+</h2>
+<hr />
+<h4 class="text-danger controllerStyle">
+    Ngành: @ViewBag.TenNganh
+</h4>
 
-<div>
-    <h4>CHUONGTRINHHOC</h4>
+<div class="bg-light card generalStyle">
+    <div id="dataTable_wrapper" class="dataTables_wrapper m-1 card-body m-1 p-1" style="background-color: white">
+        <div>
+            <div id="dataTable_wrapper" class="dataTables_wrapper">
+                <table class="table table-bordered dataStyle" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>Học kỳ</th>
+                            <th>Mã môn học</th>
+                            <th>Tên môn học</th>
+                            <th>Số tín chỉ</th>
+                            <th>Ghi chú</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th>
+                                @Html.DisplayFor(model => item.HocKy)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => item.MaMonHoc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.MONHOC.TenMonHoc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.MONHOC.SoTinChi)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.GhiChu)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        </div>
+    </div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.MONHOC.TenMonHoc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MONHOC.TenMonHoc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NGANH.TenNganh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NGANH.TenNganh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HocKy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HocKy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GhiChu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GhiChu)
-        </dd>
-
-    </dl>
+    <div class="form-group">
+        <div>
+            <a class="btn btn-primary btnStyle" href="~/SV/CHUONGTRINHHOCs/Index/">Quay lại</a>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

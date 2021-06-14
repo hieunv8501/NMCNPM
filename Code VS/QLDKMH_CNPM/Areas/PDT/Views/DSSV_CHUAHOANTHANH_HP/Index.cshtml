@@ -8,15 +8,14 @@
 <h3 class="mb-1 text-danger controllerStyle">DANH SÁCH SINH VIÊN CHƯA HOÀN THÀNH HỌC PHÍ</h3>
 
 <!--DataTable Showing-->
-<div class="bg-light generalStyle">
+<div class="bg-light card generalStyle">
     <div class="py-2 m-0">
     </div>
-    <div class="card-body">
-        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-            <div class="col-sm-12">
-                <!--id = dataTable shows number of entries; sort and search function-->
-                <table class="table table-bordered" id="dataTable" width="100%" style="text-align:center">
-                    <thead class="alert-light">
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white">
+        <div>
+            <div id="dataTable_wrapper" class="dataTables_wrapper">
+                <table class="table table-bordered dataStyle dataTable" id="dataTable">
+                    <thead>
                         <tr>
                             <th>Mã học kỳ - năm học</th>
                             <th>MSSV</th>
@@ -26,11 +25,11 @@
                             <th>Năm bắt đầu</th>
                             <th>Năm kết thúc</th>
                             <th>Số tiền còn lại</th>
-                            <th style="width:100px;">Thao tác</th>
+                            <th style="text-align: center">Thao tác</th>
                         </tr>
                     </thead>
                     <!--This is for footer line-->
-                    <tfoot class="alert-light">
+                    <tfoot>
                         <tr>
                             <th>Mã học kỳ - năm học</th>
                             <th>MSSV</th>
@@ -90,15 +89,15 @@
 
                                 <!--EFFECT 2: line with gray-->
                                 <!--<div class="dropdown">
-                                    <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:600;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        Tùy chọn
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ; font-weight:600;" href="@Url.Action("Details", "SINHVIEN", new {id = item.MaSV})">Xem thông tin</a>
-                                        <a class="dropdown-item" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ; font-weight:600;" href="@Url.Action("Edit", "SINHVIEN", new {id = item.MaSV})">Sửa thông tin</a>
-                                        <a class="dropdown-item" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ; font-weight:600;" href="@Url.Action("Delete", "SINHVIEN", new {id = item.MaSV})">Xóa thông tin</a>
-                                    </div>
-                                </div>-->
+                            <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:600;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Tùy chọn
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ; font-weight:600;" href="@Url.Action("Details", "SINHVIEN", new {id = item.MaSV})">Xem thông tin</a>
+                                <a class="dropdown-item" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ; font-weight:600;" href="@Url.Action("Edit", "SINHVIEN", new {id = item.MaSV})">Sửa thông tin</a>
+                                <a class="dropdown-item" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ; font-weight:600;" href="@Url.Action("Delete", "SINHVIEN", new {id = item.MaSV})">Xóa thông tin</a>
+                            </div>
+                        </div>-->
                             </td>
                         </tr>
                     }

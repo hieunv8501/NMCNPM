@@ -10,32 +10,32 @@
 
 <!--DataTable Showing-->
 <!--Thêm class="card" để scroll nội dung mà không scroll sidebar-->
-<div class="bg-light generalStyle">
+<div class="bg-light card generalStyle">
     <div class="py-2 m-0">
         <span>
             @Html.ActionLink("Thêm Đối tượng", "Create", null, new { @class = "btn btn-primary btnStyle" })
         </span>
     </div>
 
-    <div id="dataTable_wrapper" class="dataTables_wrapper card-body m-1 p-1" style="background-color: white">
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white">
         <div>
             <div id="dataTable_wrapper" class="dataTables_wrapper">
                 <table class="table table-bordered dataStyle dataTable" id="dataTable">
                     <thead>
                         <tr>
-                            <th width="600px">Đối tượng ưu tiên</th>
-                            <th width="600px">Tỉ lệ giảm học phí (%)</th>
-                            <th style="text-align:center">Thao tác</th>
+                            <th width="50%">Đối tượng ưu tiên</th>
+                            <th width="50%">Tỉ lệ giảm học phí (%)</th>
+                            <th style="text-align: center">Thao tác</th>
                         </tr>
                     </thead>
 
                     @foreach (var item in Model)
-                    {
+                    {              
                         <tr>
-                            <td style ="vertical-align:middle;">
+                            <td style ="vertical-align: middle;">
                                 @Html.DisplayFor(modelItem => item.TenDoiTuong)
                             </td>
-                            <td style ="vertical-align:middle;">
+                            <td style ="vertical-align: middle;">
                                 @Html.DisplayFor(modelItem => item.TiLeGiamHocPhi)
                             </td>
                             <td>
