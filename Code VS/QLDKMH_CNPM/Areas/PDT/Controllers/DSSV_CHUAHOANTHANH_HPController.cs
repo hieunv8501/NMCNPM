@@ -7,20 +7,37 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QLDKMH_CNPM.Models;
+using LinqToSQLMvcApplication.Models;
 
 namespace QLDKMH_CNPM.Areas.PDT.Controllers
 {
     public class DSSV_CHUAHOANTHANH_HPController : Controller
     {
-        private CNPM_DBContext db = new CNPM_DBContext();
+         private CNPM_DBContext db = new CNPM_DBContext();
 
-        // GET: PDT/DSSV_CHUAHOANTHANH_HP
+        // GET: BAOCAOHOCPHI
         public ActionResult Index()
         {
-            var dSSV_CHUAHOANTHANH_HP = db.DSSV_CHUAHOANTHANH_HP.Include(d => d.HKNH).Include(d => d.SINHVIEN);
-            return View(dSSV_CHUAHOANTHANH_HP.ToList());
+            IList<DS_model> DS = new List<DS_model>();
+            var model = from a in db.DSSV_CHUAHOANTHANH_HP
+                        join b in db.SINHVIENs on a.MaSV equals b.MaSV
+                        join c in db.HKNHs on a.MaHKNH equals c.MaHKNH
+                        join d in db.PHIEU_DKHP on a.MaSV equals d.MaSV
+                        where d.SoTienConLai > 0
+                        select new DS_model()
+                        {
+                            MaHKNH = a.MaHKNH,
+                            MaSV = b.MaSV,
+                            HoTen = b.HoTen,
+                            MaNganh = b.MaNganh,
+                            HocKy = c.HocKy,
+                            Nam1 = c.Nam1,
+                            Nam2 = c.Nam2,
+                            SoTienConLai = (decimal)d.SoTienConLai
+                        };
+            DS = model.ToList();
+            return View(DS);
         }
-
         // GET: PDT/DSSV_CHUAHOANTHANH_HP/Details/5
         public ActionResult Details(int? id)
         {

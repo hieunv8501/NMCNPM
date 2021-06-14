@@ -62,3 +62,7 @@ C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_C
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.dll
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.pdb
 C:\Users\HieuNV\Desktop\NMCNPM DoAn_local\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.AssemblyReference.cache
+C:\Users\HieuNV\Desktop\NMCNPM\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.AssemblyReference.cache
+C:\Users\HieuNV\Desktop\NMCNPM\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.csproj.CoreCompileInputs.cache
+C:\Users\HieuNV\Desktop\NMCNPM\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.dll
+C:\Users\HieuNV\Desktop\NMCNPM\Code VS\QLDKMH_CNPM\obj\Debug\QLDKMH_CNPM.pdb
