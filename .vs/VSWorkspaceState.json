@@ -3,9 +3,11 @@
     "",
     "\\Code VS",
     "\\Code VS\\QLDKMH_CNPM",
+    "\\Code VS\\QLDKMH_CNPM\\Areas",
+    "\\Code VS\\QLDKMH_CNPM\\Areas\\PDT",
     "\\Code VS\\QLDKMH_CNPM\\Areas\\PDT\\Views",
-    "\\Code VS\\QLDKMH_CNPM\\Areas\\SV\\Controllers"
+    "\\Code VS\\QLDKMH_CNPM\\Areas\\PDT\\Views\\PDT"
   ],
-  "SelectedNode": "\\Code VS\\QLDKMH_CNPM\\Areas",
+  "SelectedNode": "\\Code VS\\QLDKMH_CNPM\\Areas\\PDT",
   "PreviewInSolutionExplorer": false
 }
