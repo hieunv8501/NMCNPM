@@ -50,6 +50,15 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=5.6.4.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>packages\EPPlus.5.6.4\lib\net45\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqToExcel, Version=1.10.1.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
+      <HintPath>packages\LinqToExcel_x64.1.10.1\lib\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -57,17 +66,43 @@
       <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Mvc.JQuery.DataTables, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Mvc.JQuery.DataTables.1.5.56\lib\net451\Mvc.JQuery.DataTables.dll</HintPath>
+    </Reference>
+    <Reference Include="Mvc.JQuery.DataTables.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Mvc.JQuery.DataTables.Common.1.5.56\lib\net451\Mvc.JQuery.DataTables.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>packages\LinqToExcel_x64.1.10.1\lib\Remotion.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>packages\LinqToExcel_x64.1.10.1\lib\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>packages\LinqToExcel_x64.1.10.1\lib\Remotion.Interfaces.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=0f07ec44de6ac832, processorArchitecture=MSIL">
+      <HintPath>packages\System.Linq.Dynamic.Core.1.0.7.5\lib\net46\System.Linq.Dynamic.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -210,6 +245,7 @@
     <Content Include="Assets\css\sb-admin-2.min.css" />
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\css\SVcss\SVcss.css" />
+    <Content Include="Assets\css\UploadFile.css" />
     <Content Include="Assets\css\w3.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
     <Content Include="Content\bootstrap-grid.rtl.min.css" />
@@ -2243,9 +2279,6 @@
     <Content Include="Areas\PDT\Views\HKNHs\Index.cshtml" />
     <Content Include="Areas\PDT\Views\CT_PHIEU_DKHP\Create.cshtml" />
     <Content Include="Areas\PDT\Views\CT_PHIEU_DKHP\Delete.cshtml" />
-    <Content Include="Areas\PDT\Views\CT_PHIEU_DKHP\Details.cshtml" />
-    <Content Include="Areas\PDT\Views\CT_PHIEU_DKHP\Edit.cshtml" />
-    <Content Include="Areas\PDT\Views\CT_PHIEU_DKHP\Index.cshtml" />
     <Content Include="Areas\PDT\Views\DS_MONHOC_MO\Create.cshtml" />
     <Content Include="Areas\PDT\Views\DS_MONHOC_MO\Delete.cshtml" />
     <Content Include="Areas\PDT\Views\DS_MONHOC_MO\Details.cshtml" />
@@ -2254,7 +2287,6 @@
     <Content Include="Areas\PDT\Views\PHIEU_DKHP\Create.cshtml" />
     <Content Include="Areas\PDT\Views\PHIEU_DKHP\Delete.cshtml" />
     <Content Include="Areas\PDT\Views\PHIEU_DKHP\Details.cshtml" />
-    <Content Include="Areas\PDT\Views\PHIEU_DKHP\Edit.cshtml" />
     <Content Include="Areas\PDT\Views\PHIEU_DKHP\Index.cshtml" />
     <Content Include="Areas\PDT\Views\DSSV_CHUAHOANTHANH_HP\Create.cshtml" />
     <Content Include="Areas\PDT\Views\DSSV_CHUAHOANTHANH_HP\Delete.cshtml" />
@@ -2263,13 +2295,8 @@
     <Content Include="Areas\PDT\Views\DSSV_CHUAHOANTHANH_HP\Index.cshtml" />
     <Content Include="Areas\SV\Views\CT_PHIEU_DKHP\Create.cshtml" />
     <Content Include="Areas\SV\Views\CT_PHIEU_DKHP\Delete.cshtml" />
-    <Content Include="Areas\SV\Views\CT_PHIEU_DKHP\Details.cshtml" />
-    <Content Include="Areas\SV\Views\CT_PHIEU_DKHP\Edit.cshtml" />
-    <Content Include="Areas\SV\Views\CT_PHIEU_DKHP\Index.cshtml" />
     <Content Include="Areas\SV\Views\PHIEU_DKHP\Create.cshtml" />
-    <Content Include="Areas\SV\Views\PHIEU_DKHP\Delete.cshtml" />
     <Content Include="Areas\SV\Views\PHIEU_DKHP\Details.cshtml" />
-    <Content Include="Areas\SV\Views\PHIEU_DKHP\Edit.cshtml" />
     <Content Include="Areas\SV\Views\PHIEU_DKHP\Index.cshtml" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -2285,6 +2312,7 @@
     <Content Include="Areas\SV\Views\SV\SVmodule0.cshtml" />
     <Content Include="Areas\SV\Views\SV\SVmodule3.cshtml" />
     <Content Include="Areas\PDT\Views\DS_MONHOC_MO\ListHK.cshtml" />
+    <Content Include="Areas\PDT\Views\PHIEU_DKHP\TraCuu.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

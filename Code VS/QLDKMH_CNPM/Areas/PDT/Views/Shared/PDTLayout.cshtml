@@ -98,7 +98,7 @@
                         @*<a class="collapse-item" href="@Url.Action("Index", "HKNHs", new { area = "PDT" })">Danh sách học kỳ</a>*@
                         <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("ListHK", "DS_MONHOC_MO", new { area = "PDT" })">Danh sách môn học mở</a>
                         <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Index", "PHIEU_DKHP", new { area = "PDT" })">Đăng ký học phần</a>
-                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Index", "PHIEU_DKHP", new { area = "PDT" })">Tra cứu thông tin ĐKHP</a>
+                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("TraCuu", "PHIEU_DKHP", new { area = "PDT" })">Tra cứu thông tin ĐKHP</a>
                     </div>
                 </div>
             </li>
@@ -290,9 +290,10 @@
             <!-- End of Main Content-->
             <!--Footer-->
 
-            <footer class="sticky-footer" style="height: 15px; background-color: #ffffff" >
+            <footer class="sticky-footer" style="height: 15px; background-color: #ffffff">
                 <div class="container">
-                    <div class="copyright text-center generalStyle">Quản lý Đăng ký môn học & Thu học phí - Nhập môn Công nghệ Phần mềm
+                    <div class="copyright text-center generalStyle">
+                        Quản lý Đăng ký môn học & Thu học phí - Nhập môn Công nghệ Phần mềm
                     </div>
                 </div>
             </footer>
@@ -345,7 +346,5 @@
 
     <!-- For datetimepicker-->
     <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-
 </body>
-
 </html>

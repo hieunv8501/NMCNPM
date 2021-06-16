@@ -5,87 +5,100 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h3 class="mb-1 text-left text-danger controllerStyle">CHI TIẾT PHIẾU ĐKHP</h3>
 
-<div>
-    <h4>PHIEU_DKHP</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.HKNH.MaHKNH)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HKNH.MaHKNH)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SINHVIEN.HoTen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SINHVIEN.HoTen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayLap)
-        </dt>
-
-        <dd>
+<table class="table table-borderless generalStyle" style="color: black;">
+    <tr>
+        <td>
+            <span>Số phiếu: </span>
+            @Html.DisplayFor(model => model.SoPhieuDKHP)
+        </td>
+        <td>
+            <span>Ngày lập: </span>
             @Html.DisplayFor(model => model.NgayLap)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TongTCLT)
-        </dt>
-
-        <dd>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span>MSSV: </span>
+            @Html.DisplayFor(model => model.MaSV)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span>Học kỳ: </span>HK
+            @Html.DisplayFor(model => model.HKNH.HocKy)
+        </td>
+        <td>
+            <span>Năm học: </span>
+            @Html.DisplayFor(model => model.HKNH.Nam1) - @Html.DisplayFor(model => model.HKNH.Nam2)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span>Tổng số tín chỉ lý thuyết: </span>
             @Html.DisplayFor(model => model.TongTCLT)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TongTCTH)
-        </dt>
-
-        <dd>
+        </td>
+        <td>
+            <span>Tổng số tín chỉ thực hành: </span>
             @Html.DisplayFor(model => model.TongTCTH)
-        </dd>
+        </td>
+    </tr>
+</table>
+<h7 class="text-left text-danger generalStyle" style="font-weight:500">MÔN HỌC ĐÃ ĐĂNG KÝ</h7>
+<div class="bg-light card generalStyle">
+    <div class="mt-0 py-2" >
+        <span>
+            @Html.ActionLink("Đăng ký thêm môn học", "Create", "CT_PHIEU_DKHP", null, new { @class = "btn btn-primary btnStyle" })
+        </span>
+    </div>
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white;">
+        <div>
+            <div id="dataTable_wrapper">
+                <!--id = dataTable shows number of entries; sort and search function-->
+                <table class="table table-bordered dataTable dataStyle" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>Mã môn học</th>
+                            <th>Tên môn học</th>
+                            <th>Số tín chỉ </th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TongTienDangKy)
-        </dt>
+                    <tfoot>
+                        <tr>
+                            <th>Mã môn học</th>
+                            <th>Tên môn học</th>
+                            <th>Số tín chỉ </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
 
-        <dd>
-            @Html.DisplayFor(model => model.TongTienDangKy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TongTienPhaiDong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TongTienPhaiDong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TongTienDaDong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TongTienDaDong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoTienConLai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoTienConLai)
-        </dd>
-
-    </dl>
+                    @foreach (var item in ViewBag.CT_PHIEU_DKHPandDS_MONHOC_MO)
+                    {
+                        <tr>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MaMonHoc
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MONHOC.TenMonHoc
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MONHOC.SoTiet
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Html.ActionLink("Xóa môn học", "Delete", "CT_PHIEU_DKHP", new { @id_Phieu_DKHP = item.SoPhieuDKHP, @id_MonHocMo = item.MaMo }, new { @class = "btn btn-outline-danger btnStyle alert-primary", @style = "font-weight:500; font-size:small" })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr />
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SoPhieuDKHP }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@Html.ActionLink("Quay lại", "Index", new { id = Model.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle generalStyle" })
+
+
+

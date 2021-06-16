@@ -5,48 +5,74 @@
     Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml";
 }
 
-<h2>Create</h2>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="~/scripts/jquery-3.4.1.min.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+        $('#checkBoxAll').click(function () {
+            if ($(this).is(":checked")) {
+                $(".chkCheckBoxId").prop("checked", true)
+            }
+            else {
+                $(".chkCheckBoxId").prop("checked", false)
+            }
+        });
+    });
+</script>
 
-@using (Html.BeginForm()) 
+<h3 class="text-left text-danger controllerStyle">ĐĂNG KÝ THÊM MÔN HỌC</h3>
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>CT_PHIEU_DKHP</h4>
+
+    <div class="form-horizontal generalStyle">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.SoPhieuDKHP, "SoPhieuDKHP", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("SoPhieuDKHP", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SoPhieuDKHP, "", new { @class = "text-danger" })
+            <div class="control-label">Số phiếu đăng ký</div>
+            <div>
+                <div class="form-control">@ViewBag.SoPhieuDKHP</div>
+                @*@Html.HiddenFor(model => model.SoPhieuDKHP)*@
+                @*@Html.EditorFor(m => m.SoPhieuDK, new { htmlAttributes = new { @class = "form-control" } })*@
+                @*@Html.ValidationMessageFor(model => model.SoPhieuDK, "", new { @class = "text-danger" })*@
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.MaMo, "MaMo", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaMo", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MaMo, "", new { @class = "text-danger" })
+            <div id="dataTable_wrapper" name="ID" class="dataTables_wrapper card-body pre-scrollable bg-white m-1 p-1">
+                <div>
+                    <div id="dataTable_wrapper" class="dataTables_wrapper">
+                        <table class="table table-bordered dataTable dataStyle" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th width="10%"><input type="checkbox" id="checkBoxAll" class="custom-checkbox"></th>
+                                    <th width="80%">Tên môn học</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.ListMonHoc)
+                                {
+                                    <tr value="@item.MaMo">
+                                        <td>
+                                            <input type="checkbox" name="ID" value="@item.MaMo" class="custom-checkbox chkCheckBoxId" />
+                                        </td>
+                                        <td>@item.DS_MONHOC_MO.MONHOC.TenMonHoc</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @Html.ValidationMessageFor(model => model.MaMo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GhiChu, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div>
+                <div class="control-label">
+                    <input type="submit" value="Đăng ký" class="btn btn-primary btnStyle" />
+                    @Html.ActionLink("Quay lại", "Details", "PHIEU_DKHP", new { @id = ViewBag.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle" })
+                </div>
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

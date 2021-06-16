@@ -28,21 +28,21 @@ namespace QLDKMH_CNPM.Models
 
         public int MaHKNH { get; set; }
 
-        public int? TongTCLT { get; set; }
+        public int TongTCLT { get; set; }
 
-        public int? TongTCTH { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal? TongTienDangKy { get; set; }
+        public int TongTCTH { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal? TongTienPhaiDong { get; set; }
+        public decimal TongTienDangKy { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal? TongTienDaDong { get; set; }
+        public decimal TongTienPhaiDong { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal? SoTienConLai { get; set; }
+        public decimal TongTienDaDong { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal SoTienConLai { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_PHIEU_DKHP> CT_PHIEU_DKHP { get; set; }
