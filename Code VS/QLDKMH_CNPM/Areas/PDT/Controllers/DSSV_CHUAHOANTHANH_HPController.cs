@@ -12,31 +12,60 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
 {
     public class DSSV_CHUAHOANTHANH_HPController : Controller
     {
-         private CNPM_DBContext db = new CNPM_DBContext();
+        private CNPM_DBContext db = new CNPM_DBContext();
 
         // GET: PDT/DSSV_CHUAHOANTHANH_HP/Index/5
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            IList<DS_model> DS = new List<DS_model>();
-            var model = from a in db.DSSV_CHUAHOANTHANH_HP
-                        join b in db.SINHVIENs on a.MaSV equals b.MaSV
-                        join c in db.HKNHs on a.MaHKNH equals c.MaHKNH
-                        join d in db.PHIEU_DKHP on a.MaSV equals d.MaSV
-                        where d.SoTienConLai > 0
-                        select new DS_model()
+            var danhsach = db.DSSV_CHUAHOANTHANH_HP.Include(b => b.SINHVIEN);
+
+            List<DSSV_CHUAHOANTHANH_HP> dSSV_CHUAHOANTHANH_HP = db.DSSV_CHUAHOANTHANH_HP.ToList();
+            List<SINHVIEN> sINHVIEN = db.SINHVIENs.ToList();
+            List<HKNH> hKNH = db.HKNHs.ToList();
+            List<PHIEU_DKHP> pHIEU_DKHP = db.PHIEU_DKHP.ToList();
+
+            var model1 = from a in dSSV_CHUAHOANTHANH_HP
+                        join b in sINHVIEN on a.MaSV equals b.MaSV into table_temp1
+                        from b in table_temp1.ToList()
+                        join c in hKNH on a.MaHKNH equals c.MaHKNH into table_temp2
+                        from c in table_temp2.ToList()
+                        select new DSSV_CHUAHOANTHANH_HP
                         {
-                            MaHKNH = a.MaHKNH,
-                            MaSV = b.MaSV,
-                            HoTen = b.HoTen,
-                            MaNganh = b.MaNganh,
-                            HocKy = c.HocKy,
-                            Nam1 = c.Nam1,
-                            Nam2 = c.Nam2,
-                            SoTienConLai = (decimal)d.SoTienConLai
+                            HKNH = c,
+                            SINHVIEN = b,
+                            SoTienConLai = a.SoTienConLai
                         };
-            DS = model.ToList();
-            return View(DS);
+
+            if (id == 0)
+            {
+                ViewBag.KIEMTRA = danhsach.ToList();
+                return View(model1.ToList());
+            }
+            var model2 = from p in pHIEU_DKHP
+                         join h in hKNH on p.MaHKNH equals h.MaHKNH into table_temp1
+                         where (p.MaHKNH == id) & p.SoTienConLai > 0
+                         from h in table_temp1.ToList()
+                         select new DSSV_CHUAHOANTHANH_HP
+                         {
+                             PHIEU_DKHP = p,
+                             HKNH = h
+                         };
+
+            ViewBag.Message = id;
+            if (model2.Count() == 0)
+                return RedirectToAction("ListHK", new { code = 1 });
+
+            return View(model2.ToList());
         }
+
+        public ActionResult ListHK(int code = 0)
+        {
+            ViewBag.Message = "";
+            if (code == 1)
+                ViewBag.Message = "Học kỳ này không có sinh viên nợ học phí";
+            return View(db.HKNHs.ToList());
+        }
+
         // GET: PDT/DSSV_CHUAHOANTHANH_HP/Details/5
         public ActionResult Details(int? id)
         {
