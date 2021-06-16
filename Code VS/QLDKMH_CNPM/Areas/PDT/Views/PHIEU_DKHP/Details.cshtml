@@ -15,7 +15,7 @@
         </td>
         <td>
             <span>Ngày lập: </span>
-            @Html.DisplayFor(model => model.NgayLap)
+            @Html.DisplayFor(model => model.NgayLap.Day)/ @Html.DisplayFor(model => model.NgayLap.Month)/@Html.DisplayFor(model => model.NgayLap.Month)
         </td>
     </tr>
     <tr>
@@ -47,9 +47,17 @@
 </table>
 <h7 class="text-left text-danger generalStyle" style="font-weight:500">MÔN HỌC ĐÃ ĐĂNG KÝ</h7>
 <div class="bg-light card generalStyle">
-    <div class="mt-0 py-2" >
+    <div class="mt-0 py-2">
         <span>
-            @Html.ActionLink("Đăng ký thêm môn học", "Create", "CT_PHIEU_DKHP", null, new { @class = "btn btn-primary btnStyle" })
+            @Html.ActionLink("Đăng ký thêm môn học", "Create", "CT_PHIEU_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP,HKNH=Model.MaHKNH }, new { @class = "btn btn-primary btnStyle" })
+        </span>
+        <span style="float:right">
+            @* Nếu chưa đăng kí môn nào thì sẽ ẩn nút xóa. *@
+            @if (Model.TongTCLT != 0 || Model.TongTCTH != 0)
+            {
+                @Html.ActionLink("Xóa môn học đã đăng ký", "Delete", "CT_Phieu_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle" })
+                <a class="dropdown-item" href="@Url.Action("Delete", "CT_Phieu_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP })">Xóa môn học</a>
+            }
         </span>
     </div>
     <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white;">
@@ -71,7 +79,6 @@
                             <th>Mã môn học</th>
                             <th>Tên môn học</th>
                             <th>Số tín chỉ </th>
-                            <th></th>
                         </tr>
                     </tfoot>
 
@@ -86,9 +93,6 @@
                             </td>
                             <td style="vertical-align:middle;">
                                 @item.DS_MONHOC_MO.MONHOC.SoTiet
-                            </td>
-                            <td style="vertical-align:middle;">
-                                @Html.ActionLink("Xóa môn học", "Delete", "CT_PHIEU_DKHP", new { @id_Phieu_DKHP = item.SoPhieuDKHP, @id_MonHocMo = item.MaMo }, new { @class = "btn btn-outline-danger btnStyle alert-primary", @style = "font-weight:500; font-size:small" })
                             </td>
                         </tr>
                     }

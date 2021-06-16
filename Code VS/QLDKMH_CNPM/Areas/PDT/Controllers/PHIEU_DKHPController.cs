@@ -143,7 +143,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         //}
 
         // GET: PDT/PHIEU_DKHP/Delete/5
-        public ActionResult Delete(int? id)
+         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -154,18 +154,25 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.id = id;
             return View(pHIEU_DKHP);
         }
 
-        // POST: PDT/PHIEU_DKHP/Delete/5
+        // POST: PDT/CT_PHIEU_DKHP/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
-            db.PHIEU_DKHP.Remove(pHIEU_DKHP);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+        public ActionResult Delete(FormCollection formCollection)
+            {
+            string[] ids = formCollection["MaMo"].Split(new char[]{ ',' });
+            
+            string id =formCollection["SoPhieuDKHP"];
+            foreach (string MaMonHoc in ids)  
+            {  
+                var MonHoc = this.db.CT_PHIEU_DKHP.Find(int.Parse(id),MaMonHoc);  
+                this.db.CT_PHIEU_DKHP.Remove(MonHoc);  
+                this.db.SaveChanges();  
+            }
+            return RedirectToAction("Details","Phieu_DKHP",new { id=int.Parse(id)});
         }
         public ActionResult TraCuu(int? SoPhieuDKHP, string MSSV, int? mhknh, int? day, int? month, int? year)
         {

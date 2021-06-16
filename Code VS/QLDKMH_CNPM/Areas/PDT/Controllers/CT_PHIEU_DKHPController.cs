@@ -39,8 +39,9 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         //}
 
         // GET: PDT/CT_PHIEU_DKHP/Create
-        public ActionResult Create(int id = 0, int HKNH = 0)
+        public ActionResult Create(int id,int HKNH)
         {
+            
             CT_PHIEU_DKHP cT_PHIEU_DKHP = new CT_PHIEU_DKHP();
             ViewBag.MaMo = db.DS_MONHOC_MO.Where(x => x.MaHKNH == HKNH).ToList();
             //ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHP, "SoPhieuDKHP", "MaSV");
@@ -132,41 +133,46 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         //        }
 
         // GET: PDT/CT_PHIEU_DKHP/Delete/5
-        public ActionResult Delete(int id_PhieuDKHP, string id_MaMo, int id = 0)
+        
+        public ActionResult Delete(int? id)
         {
             ViewBag.Message = "Dung";
-            if (id == 1)
-                ViewBag.Message = "Sai";
-            if (id_PhieuDKHP < 0 || id_MaMo == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CT_PHIEU_DKHP cT_PHIEUDK = db.CT_PHIEU_DKHP.Where(x => x.SoPhieuDKHP == id_PhieuDKHP).Where(x => x.MaMo == id_MaMo).FirstOrDefault();
-            if (cT_PHIEUDK == null)
+            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
+            if (pHIEU_DKHP == null)
             {
                 return HttpNotFound();
             }
-            return View(cT_PHIEUDK);
+            ViewBag.id = id;
+            return View(pHIEU_DKHP);
         }
-
         // POST: CT_PHIEUDK/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id_PhieuDKHP, string id_MaMo)
+        public ActionResult Delete(FormCollection formCollection)
         {
             try
             {
-                CT_PHIEU_DKHP cT_PHIEU_DKHP = db.CT_PHIEU_DKHP.Where(x => x.SoPhieuDKHP == id_PhieuDKHP).Where(x => x.MaMo == id_MaMo).FirstOrDefault();
-                db.CT_PHIEU_DKHP.Remove(cT_PHIEU_DKHP);
-                db.SaveChanges();
-                return RedirectToAction("Details", "PHIEU_DKHP", new { @id = id_PhieuDKHP });
+                string[] ids = formCollection["MaMo"].Split(new char[] { ',' });
+
+                string id = formCollection["SoPhieuDKHP"];
+                foreach (string MaMonHoc in ids)
+                {
+                    var MonHoc = this.db.CT_PHIEU_DKHP.Find(int.Parse(id), MaMonHoc);
+                    this.db.CT_PHIEU_DKHP.Remove(MonHoc);
+                    this.db.SaveChanges();
+                }
+                return RedirectToAction("Details", "Phieu_DKHP", new { id = int.Parse(id) });
             }
             catch (Exception)
             {
-                return RedirectToAction("Delete", "CT_PHIEU_DKHP", new { @id_PhieuDKHP = id_PhieuDKHP, @id_MaMo = id_MaMo, id = 1 });
+                ViewBag.Message = "Sai";
+                return RedirectToAction("Details", "Phieu_DKHP", new { id = int.Parse(formCollection["SoPhieuDKHP"]) });
             }
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -24,6 +24,7 @@ namespace QLDKMH_CNPM.Models
         public string MaSV { get; set; }
 
         [Column(TypeName = "smalldatetime")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime NgayLap { get; set; }
 
         public int MaHKNH { get; set; }
