@@ -161,25 +161,19 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // POST: PDT/CT_PHIEU_DKHP/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(FormCollection formCollection)
-            {
-            string[] ids = formCollection["MaMo"].Split(new char[]{ ',' });
-            
-            string id =formCollection["SoPhieuDKHP"];
-            foreach (string MaMonHoc in ids)  
-            {  
-                var MonHoc = this.db.CT_PHIEU_DKHP.Find(int.Parse(id),MaMonHoc);  
-                this.db.CT_PHIEU_DKHP.Remove(MonHoc);  
-                this.db.SaveChanges();  
-            }
-            return RedirectToAction("Details","Phieu_DKHP",new { id=int.Parse(id)});
-        }
-        public ActionResult TraCuu(int? SoPhieuDKHP, string MSSV, int? mhknh, int? day, int? month, int? year)
+        public ActionResult DeleteConfirmed(int id)
         {
-            var pHIEU_DKHP = db.PHIEU_DKHP.Where(x => (x.SoPhieuDKHP == SoPhieuDKHP || SoPhieuDKHP == null) && (x.MaSV == MSSV || MSSV == "" || MSSV == null) && (x.HKNH.HocKy == mhknh || mhknh == null) && (x.NgayLap.Day == day || day == null) && (x.NgayLap.Month == month || month == null) && (x.NgayLap.Year == year || year == null));
+            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
+            db.PHIEU_DKHP.Remove(pHIEU_DKHP);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult TraCuu(int? SoPhieuDKHP, string MSSV, int? MHKNH, int? Day, int? Month, int? Year,int ? TinhTrang)
+        {
+            ViewBag.HocKyNamHoc = db.HKNHs;
+            var pHIEU_DKHP = db.PHIEU_DKHP.Where(x => (x.SoPhieuDKHP == SoPhieuDKHP || SoPhieuDKHP == null) && (x.MaSV == MSSV || MSSV == "" || MSSV == null) && (x.HKNH.MaHKNH == MHKNH || MHKNH == null) && (x.NgayLap.Day == Day || Day == null) && (x.NgayLap.Month == Month || Month == null) && (x.NgayLap.Year == Year || Year == null)&&((TinhTrang==1)?(x.SoTienConLai==0):(x.SoTienConLai>0))||TinhTrang==null);
             return View(pHIEU_DKHP.ToList());
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

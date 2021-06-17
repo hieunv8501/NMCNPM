@@ -56,7 +56,6 @@
             @if (Model.TongTCLT != 0 || Model.TongTCTH != 0)
             {
                 @Html.ActionLink("Xóa môn học đã đăng ký", "Delete", "CT_Phieu_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle" })
-                <a class="dropdown-item" href="@Url.Action("Delete", "CT_Phieu_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP })">Xóa môn học</a>
             }
         </span>
     </div>
@@ -69,8 +68,9 @@
                         <tr>
                             <th>Mã môn học</th>
                             <th>Tên môn học</th>
-                            <th>Số tín chỉ </th>
-                            <th></th>
+                            <th>Loại môn học</th>
+                            <th>Số tiết </th>
+                            <th>Số tín chỉ</th>
                         </tr>
                     </thead>
 
@@ -78,23 +78,31 @@
                         <tr>
                             <th>Mã môn học</th>
                             <th>Tên môn học</th>
+                            <th>Loại môn học</th>
+                            <th>Số tiết</th>
                             <th>Số tín chỉ </th>
                         </tr>
                     </tfoot>
 
                     @foreach (var item in ViewBag.CT_PHIEU_DKHPandDS_MONHOC_MO)
                     {
-                        <tr>
-                            <td style="vertical-align:middle;">
-                                @item.DS_MONHOC_MO.MaMonHoc
-                            </td>
-                            <td style="vertical-align:middle;">
-                                @item.DS_MONHOC_MO.MONHOC.TenMonHoc
-                            </td>
-                            <td style="vertical-align:middle;">
-                                @item.DS_MONHOC_MO.MONHOC.SoTiet
-                            </td>
-                        </tr>
+                <tr>
+                    <td style="vertical-align:middle;">
+                        @item.DS_MONHOC_MO.MaMonHoc
+                    </td>
+                    <td style="vertical-align:middle;">
+                        @item.DS_MONHOC_MO.MONHOC.TenMonHoc
+                    </td>
+                    <td style="vertical-align:middle;">
+                        @item.DS_MONHOC_MO.MONHOC.LOAIMONHOC.TenLoaiMon
+                    </td>
+                    <td style="vertical-align:middle;">
+                        @item.DS_MONHOC_MO.MONHOC.SoTiet
+                    </td>
+                    <td style="vertical-align:middle;">
+                        @item.DS_MONHOC_MO.MONHOC.SoTinChi
+                    </td>
+                </tr>
                     }
                 </table>
             </div>

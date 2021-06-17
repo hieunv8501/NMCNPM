@@ -78,7 +78,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(FormCollection formCollection)
         {
-            string[] ids = formCollection["ID"]?.Split(new char[] { ',' });
+            string[] ids = formCollection["MaMo"]?.Split(new char[] { ',' });
             if (ids == null)
                 return RedirectToAction("Details", "PHIEU_DKHP", new { @id = _SoPhieuDKHP });
             foreach (string id in ids)

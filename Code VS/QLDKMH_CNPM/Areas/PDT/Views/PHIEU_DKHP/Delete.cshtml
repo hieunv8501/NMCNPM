@@ -5,93 +5,70 @@
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<h3 class="text-left text-danger controllerStyle">XÓA PHIẾU ĐĂNG KÍ HỌC PHẦN</h3>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>PHIEU_DKHP</h4>
+<hr />
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e73df;">
+                <th width="50%">Số phiếu DKHP</th>
+                <td width="50%">@Html.DisplayFor(model => model.SoPhieuDKHP)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>MSSV</th>
+                <td>@Html.DisplayFor(model => model.MaSV)</td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Học kì</th>
+                <td>HK @Html.DisplayFor(model => model.HKNH.HocKy) </td>
+            </tr>
+            <tr class="bg-light" style="color:black;">
+                <th>Ngày lập</th>
+                <td>@Html.DisplayFor(model => model.NgayLap.Day)/@Html.DisplayFor(model => model.NgayLap.Month)/@Html.DisplayFor(model => model.NgayLap.Year) </td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Tổng tín chỉ lí thuyết</th>
+                <td>@Html.DisplayFor(model => model.TongTCLT) </td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tổng tín chỉ thực hành</th>
+                <td>@Html.DisplayFor(model => model.TongTCTH) </td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Tổng tiền đã đăng kí(vnđ)</th>
+                <td>@Html.DisplayFor(model => model.TongTienDangKy)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tổng tiền phải đóng(vnđ)</th>
+                <td>@Html.DisplayFor(model => model.TongTienPhaiDong)</td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Tổng tiền đã đóng</th>
+                <td>@Html.DisplayFor(model => model.TongTienDaDong)</td>
+            </tr>
+            <tr class="bg-light" style="color:black;">
+                <th>Số tiền còn lại(vnđ)</th>
+                <td>@Html.DisplayFor(model => model.SoTienConLai)</td>
+            </tr>
+        </tbody>
+    </table>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.HKNH.MaHKNH)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.HKNH.MaHKNH)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SINHVIEN.HoTen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SINHVIEN.HoTen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayLap)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgayLap)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TongTCLT)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TongTCLT)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TongTCTH)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TongTCTH)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TongTienDangKy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TongTienDangKy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TongTienPhaiDong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TongTienPhaiDong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TongTienDaDong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TongTienDaDong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoTienConLai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoTienConLai)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div class="form-actions">
+            <h6 class="text-left text-danger controllerStyle">Bạn có muốn xóa phiếu thu này?</h6>
+            <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
+            @Html.ActionLink("Quay lại", "Details", new { id = Model.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle" })
         </div>
     }
 </div>
