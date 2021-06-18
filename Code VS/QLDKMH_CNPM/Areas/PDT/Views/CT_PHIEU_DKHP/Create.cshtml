@@ -24,55 +24,94 @@
 
 <h3 class="text-left text-danger controllerStyle">ĐĂNG KÝ THÊM MÔN HỌC</h3>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal generalStyle">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <div class="control-label">Số phiếu đăng ký</div>
-            <div>
-                <div class="form-control">@ViewBag.SoPhieuDKHP</div>
-                @*@Html.HiddenFor(model => model.SoPhieuDKHP)*@
-                @*@Html.EditorFor(m => m.SoPhieuDK, new { htmlAttributes = new { @class = "form-control" } })*@
-                @*@Html.ValidationMessageFor(model => model.SoPhieuDK, "", new { @class = "text-danger" })*@
-            </div>
+<div class="form-horizontal generalStyle" style="color: black;">
+    <div id="dataTable_wrapper">
+        <div class="card-header bg-primary text-white" style="text-align: left">
+            Danh sách môn học có thể đăng kí.
         </div>
-        <div class="form-group">
-            <div id="dataTable_wrapper" name="ID" class="dataTables_wrapper card-body pre-scrollable bg-white m-1 p-1">
-                <div>
-                    <div id="dataTable_wrapper" class="dataTables_wrapper">
-                        <table class="table table-bordered dataTable dataStyle" id="dataTable">
-                            <thead>
-                                <tr>
-                                    <th width="10%"><input type="checkbox" id="checkBoxAll" class="custom-checkbox"></th>
-                                    <th width="80%">Tên môn học</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in ViewBag.ListMonHoc)
-                                {
-                                    <tr value="@item.MaMo">
-                                        <td>
-                                            <input type="checkbox" name="ID" value="@item.MaMo" class="custom-checkbox chkCheckBoxId" />
-                                        </td>
-                                        <td>@item.DS_MONHOC_MO.MONHOC.TenMonHoc</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                        @Html.ValidationMessageFor(model => model.MaMo, "", new { @class = "text-danger" })
+        <div class="class=" form-horizontal generalStyle" style="color: black;">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal generalStyle">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="control-label">Số phiếu đăng ký</div>
+                        <div>
+                            <div class="form-control"readonly>@ViewBag.SoPhieuDKHP</div>
+                            @*@Html.HiddenFor(model => model.SoPhieuDKHP)*@
+                            @*@Html.EditorFor(m => m.SoPhieuDK, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @*@Html.ValidationMessageFor(model => model.SoPhieuDK, "", new { @class = "text-danger" })*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="dataTable_wrapper" name="ID" class="dataTables_wrapper card-body pre-scrollable bg-white m-1 p-1">
+                            <div>
+                                <div id="dataTable_wrapper" class="dataTables_wrapper">
+                                    <table class="table table-bordered dataTable dataStyle" id="dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th><input type="checkbox" id="checkBoxAll" class="custom-checkbox" />Chọn</th>
+                                                <th>Mã môn học</th>
+                                                <th> Mã môn học mở</th>
+                                                <th>Tên môn học</th>
+                                                <th>Loại môn</th>
+                                                <th>Số tiết</th>
+                                                <th>Số tín chỉ</th>
+                                                <th>Ghi chú</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.ListMonHoc)
+                                            {
+                                            <tr value="@item.MaMo">
+                                                <td><input type="checkbox" name="MaMo" value="@item.MaMo" class="custom-checkbox chkCheckBoxId" /></td>
+                                                <td>@item.DS_MONHOC_MO.MONHOC.MaMonHoc</td>
+                                                <td>@item.MaMo</td>
+                                                <td>@item.DS_MONHOC_MO.MONHOC.TenMonHoc</td>
+                                                <td>@item.DS_MONHOC_MO.MONHOC.MaLoaiMon</td>
+                                                <td>@item.DS_MONHOC_MO.MONHOC.SoTiet</td>
+                                                <td>@item.DS_MONHOC_MO.MONHOC.SoTinChi</td>
+                                                <td>@item.GhiChu</td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    @Html.ValidationMessageFor(model => model.MaMo, "", new { @class = "text-danger" })
+                                    <hr />
+                                    <div class="form-group">
+                                        <div class="control-label">
+                                            <input id="btnNew" type="submit" value="Đăng ký các môn đã chọn" class="btn btn-primary btnStyle" />
+                                            <input type="button" value="Hủy" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-            <div>
-                <div class="control-label">
-                    <input type="submit" value="Đăng ký" class="btn btn-primary btnStyle" />
-                    @Html.ActionLink("Quay lại", "Details", "PHIEU_DKHP", new { @id = ViewBag.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle" })
+            }
+        </div><hr />
+        <div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                        <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                            <span class="generalStyle" aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body generalStyle" style="color: black;">Thoát khi chưa lưu?</div>
+                    <div class="modal-footer generalStyle">
+                        <a class="btn btn-danger btnStyle" href="@Url.Action("Details", "Phieu_DKHP", new { area = "PDT",id=ViewBag.SoPhieuDKHP})">Đồng ý</a>
+                        <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-}
+</div>
+<hr />
