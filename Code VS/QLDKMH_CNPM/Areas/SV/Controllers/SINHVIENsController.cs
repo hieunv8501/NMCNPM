@@ -14,7 +14,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
     {
         private CNPM_DBContext db = new CNPM_DBContext();
 
-        
+        //Hàm xem thông tin chi tiết của 1 sinh viên khi có được xác thực đăng nhập
         // GET: SV/SINHVIENs/Details/5
         public ActionResult Details(string id)
         {
@@ -22,6 +22,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //Tìm id (MSSV) và trả về view data
             SINHVIEN sINHVIEN = db.SINHVIENs.Find(id);
             ViewData["TenDangNhap"] = sINHVIEN.MaSV;
             if (sINHVIEN == null)
@@ -30,7 +31,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             }
             return View(sINHVIEN);
         }
-       
+        //Hàm sửa thông tin SV
         // GET: SINHVIEN/Edit/5
         public ActionResult Edit(string id)
         {
