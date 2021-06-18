@@ -17,6 +17,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // GET: PDT/NGANHs
         public ActionResult Index()
         {
+            //Load những index có cùng mã khoa
             var nGANHs = db.NGANHs.Include(n => n.KHOA);
             return View(nGANHs.ToList());
         }
@@ -24,6 +25,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // GET: PDT/NGANHs/Details/5
         public ActionResult Details(string id)
         {
+            //Load thông tin ngành dựa vào mã ngành
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -36,6 +38,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             return View(nGANH);
         }
 
+        //Hàm tạo mới thông tin ngành
         // GET: PDT/NGANHs/Create
         public ActionResult Create()
         {
@@ -60,7 +63,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             ViewBag.MaKhoa = new SelectList(db.KHOAs, "MaKhoa", "TenKhoa", nGANH.MaKhoa);
             return View(nGANH);
         }
-
+        //Hàm sửa thông tin ngành
         // GET: PDT/NGANHs/Edit/5
         public ActionResult Edit(string id)
         {
@@ -94,6 +97,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             return View(nGANH);
         }
 
+        //Hàm xóa thông tin ngành
         // GET: PDT/NGANHs/Delete/5
         public ActionResult Delete(string id)
         {

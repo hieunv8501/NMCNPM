@@ -13,13 +13,13 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
     public class DOITUONGsController : Controller
     {
         private CNPM_DBContext db = new CNPM_DBContext();
-
+        //Hàm load danh sách đối tượng ưu tiên
         // GET: PDT/DOITUONGs
         public ActionResult Index()
         {
             return View(db.DOITUONGs.ToList());
         }
-
+        //Hàm load thông tin chi tiết đối tượng ưu tiên
         // GET: PDT/DOITUONGs/Details/5
         public ActionResult Details(string id)
         {
@@ -34,7 +34,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             }
             return View(dOITUONG);
         }
-
+        //Hàm tạo mới thông tin đối tượng ưu tiên, dúng thì lưu lại, sai thì thông báo và nhập lại
         // GET: PDT/DOITUONGs/Create
         public ActionResult Create(int code = 0)
         {
@@ -67,7 +67,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                 return RedirectToAction("Create", "DOITUONGs", new { code = 1 });
             }
         }
-
+        //Hàm sửa thông tin chi tiết đối tượng ưu tiên
         // GET: PDT/DOITUONGs/Edit/5
         public ActionResult Edit(string id)
         {
@@ -98,7 +98,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             }
             return View(dOITUONG);
         }
-
+        //Hàm xóa thông tin chi tiết đối tượng ưu tiên
         // GET: PDT/DOITUONGs/Delete/5
         public ActionResult Delete(string id)
         {

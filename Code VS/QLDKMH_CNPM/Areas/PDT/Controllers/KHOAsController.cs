@@ -17,9 +17,11 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // GET: PDT/KHOAs
         public ActionResult Index()
         {
+            //Hàm load danh sách khoa
             return View(db.KHOAs.ToList());
         }
 
+        //Hàm load chi tiết khoa
         // GET: PDT/KHOAs/Details/5
         public ActionResult Details(string id)
         {
@@ -35,6 +37,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             return View(kHOA);
         }
 
+        //Hàm tạo mới khoa, nếu đúng thì lưu lại, sai thì thông báo và nhập lại
         // GET: PDT/KHOAs/Create
         public ActionResult Create(int code = 0)
         {
@@ -68,6 +71,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             }
         }
 
+        //Hàm sửa thông tin khoa, nếu đúng thì lưu lại, sai thì thông báo và nhập lại
         // GET: PDT/KHOAs/Edit/5
         public ActionResult Edit(string id)
         {
@@ -98,7 +102,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             }
             return View(kHOA);
         }
-
+        //Hàm xóa thông tin khoa, rồi lưu lại
         // GET: PDT/KHOAs/Delete/5
         public ActionResult Delete(string id)
         {

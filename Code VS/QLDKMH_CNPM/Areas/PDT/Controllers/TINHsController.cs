@@ -83,6 +83,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // GET: PDT/TINHs/Create
         public ActionResult Create(int code = 0)
         {
+            //Kiểm tra thông tin nhập vào đúng chưa, nếu chưa thì thông báo và yêu cầu nhập lại
             ViewBag.Message = "Dung";
             if (code == 1)
                 ViewBag.Message = "Sai";
@@ -106,12 +107,13 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                 }
                 return View(tINH);
             }
+            //Kiểm tra thông tin nhập vào đúng chưa, nếu chưa thì thông báo và yêu cầu nhập lại
             catch (Exception)
             {
                 return RedirectToAction("Create", "TINHs", new { code = 1 });
             }
         }
-
+        //Hàm sửa thông tin nhập
         // GET: PDT/TINHs/Edit/5
         public ActionResult Edit(string id)
         {
@@ -142,7 +144,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             }
             return View(tINH);
         }
-
+        //Hàm xóa thông tin
         // GET: PDT/TINHs/Delete/5
         public ActionResult Delete(string id)
         {

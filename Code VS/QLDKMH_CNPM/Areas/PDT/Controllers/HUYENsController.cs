@@ -14,6 +14,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
     {
         private CNPM_DBContext db = new CNPM_DBContext();
 
+        //Hàm load danh sách huyện có cùng mã tỉnh
         // GET: PDT/HUYENs
         public ActionResult Index()
         {
@@ -21,6 +22,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             return View(hUYENs.ToList());
         }
 
+        //Hàm load thông tin chi tiết một huyện
         // GET: PDT/HUYENs/Details/5
         public ActionResult Details(string id)
         {
@@ -35,7 +37,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             }
             return View(hUYEN);
         }
-
+        //Hàm tạo mới huyện, đúng thì lưu lại, sai thì thông báo và yêu cầu nhập lại
         // GET: PDT/HUYENs/Create
         public ActionResult Create(int code = 0)
         {
@@ -70,7 +72,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                 return RedirectToAction("Create", "HUYENs", new { code = 1 });
             }
         }
-
+        //Hàm sửa thông tin huyện
         // GET: PDT/HUYENs/Edit/5
         public ActionResult Edit(string id)
         {
@@ -103,7 +105,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             ViewBag.MaTinh = new SelectList(db.TINHs, "MaTinh", "TenTinh", hUYEN.MaTinh);
             return View(hUYEN);
         }
-
+        //Hàm xóa thông tin huyện
         // GET: PDT/HUYENs/Delete/5
         public ActionResult Delete(string id, int code = 0)
         {
