@@ -77,6 +77,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //Xem chi tiết sinh viên
             SINHVIEN sINHVIEN = db.SINHVIENs.Find(id);
             if (sINHVIEN == null)
             {
@@ -85,12 +86,17 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             return View(sINHVIEN);
         }
 
+        //Đây là function để khi ta chọn được Tỉnh ở combobox dropdownlist thì sẽ load dữ liệu lên combobox dropdownlist của Huyện
         public JsonResult GetHuyen(string id)
         {
+            //Tìm những huyện có cùng mã tỉnh
             var ddlHuyen = db.HUYENs.Where(x => x.MaTinh == id).ToList();
-            List<SelectListItem> listHuyen = new List<SelectListItem>();
 
+            //Tạo mới list Huyện
+            List<SelectListItem> listHuyen = new List<SelectListItem>();
             listHuyen.Add(new SelectListItem { Text = "-- Chọn Huyện --", Value = "0" });
+
+            //Add từng huyện trong ddlHuyen vào trong listHuyen
             if (ddlHuyen != null)
             {
                 foreach (var x in ddlHuyen)
@@ -98,13 +104,12 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                     listHuyen.Add(new SelectListItem { Text = x.TenHuyen, Value = x.MaHuyen.ToString() });
                 }
             }
+            //Trả về kết quả
             return Json(new SelectList(listHuyen, "Value", "Text", JsonRequestBehavior.AllowGet));
         }
 
-        // GET: DateTimePicker
-
-
         // GET: PDT/SINHVIENs/Create/5
+        //Phương thức GET giao diện tạo mới sinh viên
         public ActionResult Create(int code = 0)
         {
             ViewBag.Message = "Dung";
@@ -121,10 +126,12 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // POST: PDT/SINHVIENs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //Phương thức POST giao diện tạo mới sinh viên
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaSV,HoTen,NgaySinh,GioiTinh,MaNganh,MaDoiTuong,MaHuyen")] SINHVIEN sINHVIEN)
         {
+            //Gọi hàm nhập thông tin SV bởi các trường dữ liệu nếu đúng thì trả về Index
             try
             {
                 if (ModelState.IsValid)
@@ -140,6 +147,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                 ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", sINHVIEN.MaNganh);
                 return View(sINHVIEN);
             }
+            // Gọi hàm nhập thông tin SV bởi các trường dữ liệu, nếu sai thì thông báo và nhập lại
             catch (Exception)
             {
                 return RedirectToAction("Create", "SINHVIENs", new { code = 1 });
@@ -147,6 +155,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         }
 
         // GET: PDT/SINHVIENs/Edit/5
+        //  Gọi hàm sửathông tin SV bởi các trường dữ liệu với method GET
         public ActionResult Edit(string id, int code = 0)
         {
             ViewBag.Message = "Dung";
@@ -171,10 +180,12 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // POST: PDT/SINHVIENs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Gọi hàm sửathông tin SV bởi các trường dữ liệu với method POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MaSV,HoTen,NgaySinh,GioiTinh,MaNganh,MaDoiTuong,MaHuyen")] SINHVIEN sINHVIEN)
         {
+            //Gọi sửa thông tin SV bởi các trường dữ liệu với method POST, nếu đúng trả về Index
             try
             {
                 if (ModelState.IsValid)
@@ -189,12 +200,13 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                 ViewBag.MaNganh = new SelectList(db.NGANHs, "MaNganh", "TenNganh", sINHVIEN.MaNganh);
                 return View(sINHVIEN);
             }
+            //Gọi sửa thông tin SV bởi các trường dữ liệu với method POST, nếu sai thì thông báo và nhập lại
             catch (Exception)
             {
                 return RedirectToAction("Edit", "SINHVIENs", new { id = sINHVIEN.MaSV, code = 1 });
             }
         }
-
+        //Gọi hàm xóa thông tin SV bởi các trường dữ liệu với method GET, sau đó thì lưu lại với method POST
         // GET: PDT/SINHVIENs/Delete/5
         public ActionResult Delete(string id)
         {
