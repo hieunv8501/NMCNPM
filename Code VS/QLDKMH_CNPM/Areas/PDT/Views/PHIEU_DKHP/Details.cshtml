@@ -1,9 +1,7 @@
 ﻿@model QLDKMH_CNPM.Models.PHIEU_DKHP
 
-@{
-    ViewBag.Title = "Details";
-    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
-}
+@{ ViewBag.Title = "Details";
+                Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
 
 <h3 class="mb-1 text-left text-danger controllerStyle">CHI TIẾT PHIẾU ĐKHP</h3>
 
@@ -15,7 +13,7 @@
         </td>
         <td>
             <span>Ngày lập: </span>
-            @Html.DisplayFor(model => model.NgayLap.Day)/ @Html.DisplayFor(model => model.NgayLap.Month)/@Html.DisplayFor(model => model.NgayLap.Year)
+            @Html.DisplayFor(model => model.NgayLap.Day)/@Html.DisplayFor(model => model.NgayLap.Month)/@Html.DisplayFor(model => model.NgayLap.Year)
         </td>
     </tr>
     <tr>
@@ -26,7 +24,7 @@
     </tr>
     <tr>
         <td>
-            <span>Học kỳ: </span>HK
+            <span>Học kỳ: </span>
             @Html.DisplayFor(model => model.HKNH.HocKy)
         </td>
         <td>
@@ -49,14 +47,13 @@
 <div class="bg-light card generalStyle">
     <div class="mt-0 py-2">
         <span>
-            @Html.ActionLink("Đăng ký thêm môn học", "Create", "CT_PHIEU_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP,HKNH=Model.MaHKNH }, new { @class = "btn btn-primary btnStyle" })
+            @Html.ActionLink("Đăng ký thêm môn học", "Create", "CT_PHIEU_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP, HKNH = Model.MaHKNH }, new { @class = "btn btn-primary btnStyle" })
         </span>
         <span style="float:right">
             @* Nếu chưa đăng kí môn nào thì sẽ ẩn nút xóa. *@
             @if (Model.TongTCLT != 0 || Model.TongTCTH != 0)
             {
-                @Html.ActionLink("Xóa môn học đã đăng ký", "Delete", "CT_Phieu_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle" })
-            }
+@Html.ActionLink("Xóa môn học đã đăng ký", "Delete", "CT_Phieu_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle" })            }
         </span>
     </div>
     <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white;">
@@ -86,24 +83,24 @@
 
                     @foreach (var item in ViewBag.CT_PHIEU_DKHPandDS_MONHOC_MO)
                     {
-                <tr>
-                    <td style="vertical-align:middle;">
-                        @item.DS_MONHOC_MO.MaMonHoc
-                    </td>
-                    <td style="vertical-align:middle;">
-                        @item.DS_MONHOC_MO.MONHOC.TenMonHoc
-                    </td>
-                    <td style="vertical-align:middle;">
-                        @item.DS_MONHOC_MO.MONHOC.LOAIMONHOC.TenLoaiMon
-                    </td>
-                    <td style="vertical-align:middle;">
-                        @item.DS_MONHOC_MO.MONHOC.SoTiet
-                    </td>
-                    <td style="vertical-align:middle;">
-                        @item.DS_MONHOC_MO.MONHOC.SoTinChi
-                    </td>
-                </tr>
-                    }
+                        <tr>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MaMonHoc
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MONHOC.TenMonHoc
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MONHOC.LOAIMONHOC.TenLoaiMon
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MONHOC.SoTiet
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MONHOC.SoTinChi
+                            </td>
+                        </tr>
+                     }
                 </table>
             </div>
         </div>

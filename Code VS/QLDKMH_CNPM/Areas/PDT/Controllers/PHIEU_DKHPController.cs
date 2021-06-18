@@ -94,7 +94,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                 {
                     db.PHIEU_DKHP.Add(pHIEU_DKHP);
                     db.SaveChanges();
-                    return RedirectToAction("Create", "CT_PHIEU_DKHP", new { @id = pHIEU_DKHP.SoPhieuDKHP, @HocKyNamHoc = pHIEU_DKHP.MaHKNH });
+                    return RedirectToAction("Create", "CT_PHIEU_DKHP", new { id = pHIEU_DKHP.SoPhieuDKHP, HKNH = pHIEU_DKHP.MaHKNH });
                 }
 
                 ViewBag.MaHKNH = new SelectList(db.HKNHs, "MaHKNH", "HocKy", pHIEU_DKHP.MaHKNH);

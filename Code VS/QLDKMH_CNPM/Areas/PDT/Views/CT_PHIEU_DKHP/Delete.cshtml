@@ -4,13 +4,14 @@
     ViewBag.Title = "Delete";
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
-<h3 class="text-left text-danger controllerStyle">XÓA MÔN HỌC</h3>
-<div class="form-horizontal generalStyle" style="color: black;">
+<h3 class="text-left text-danger controllerStyle generalStyle">XÓA MÔN HỌC</h3>
+<div class="form-horizontal generalStyle">
     <div id="dataTable_wrapper">
-        <div class="card-header bg-primary text-white" style="text-align: left">
+        <p class="card-header bg-primary text-white" style="text-align: left">
             Danh sách môn học đã đăng ký
-        </div>
-        <div class="class=" form-horizontal generalStyle" style="color: black;">
+        </p>
+        <hr/>
+        <div class="form-horizontal generalStyle" style="color: black;">
             @using (Html.BeginForm("Delete", "CT_PHIEU_DKHP", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
@@ -50,11 +51,11 @@
                         }
                     </tbody>
                 </table>
-                <hr />
-                <div class="form-group">
+                <hr />  
+                <div class="form-group generalStyle">
                     <div class="control-label">
-                        <input id="btnNew" type="submit" value="Xóa các môn đã chọn" class="btn btn-primary btnStyle" />
-                        <input type="button" value="Hủy" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+                        <input id="btnNew" type="submit" value="Xóa" class="btn btn-danger btnStyle" />
+                        <input type="button" value="Hủy" class="btn btn-primary generalStyle" data-toggle="modal" data-target="#AlertModal1" />
                     </div>
                 </div>
             }
@@ -73,8 +74,8 @@
             </div>
             <div class="modal-body generalStyle" style="color: black;">Thoát khi chưa lưu?</div>
             <div class="modal-footer generalStyle">
-                <a class="btn btn-danger btnStyle" href="@Url.Action("Details", "Phieu_DKHP", new { area = "PDT", id=Model.SoPhieuDKHP })">Đồng ý</a>
-                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+                <a class="btn btn-danger btnStyle generalStyle" href="@Url.Action("Details", "Phieu_DKHP", new { area = "PDT", id=Model.SoPhieuDKHP })">Đồng ý</a>
+                <button class="btn btn-primary btnStyle generalStyle" type="button" data-dismiss="modal">Hủy</button>
             </div>
         </div>
     </div>
