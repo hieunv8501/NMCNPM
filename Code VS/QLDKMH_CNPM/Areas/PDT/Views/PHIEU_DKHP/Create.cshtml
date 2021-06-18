@@ -16,8 +16,9 @@
         <div class="form-group">
             <div class="control-label">Số Phiếu ĐKHP</div>
             <div>
-                <div class="form-control">@ViewBag.SoPhieuDKHP</div>
-                @Html.HiddenFor(m => m.SoPhieuDKHP)
+                <div class="form-control" readonly>@ViewBag.SoPhieuDKHP</div>
+                @Html.HiddenFor(model => model.SoPhieuDKHP)
+                @Html.ValidationMessageFor(model => model.SoPhieuDKHP, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -32,8 +33,8 @@
         <div class="form-group">
             <div class="control-label">Ngày lập phiếu đăng ký</div>
             <div class="form-control">
-                @ViewBag.NgayLap.Day/ @ViewBag.NgayLap.Month/ @ViewBag.NgayLap.Year
-                @Html.HiddenFor(m => m.NgayLap)
+                @Html.DisplayFor(model => model.NgayLap.Day)/ @Html.DisplayFor(model => model.NgayLap.Month)/ @Html.DisplayFor(model => model.NgayLap.Year)
+                @Html.HiddenFor(model => model.NgayLap)
             </div>
         </div>
 

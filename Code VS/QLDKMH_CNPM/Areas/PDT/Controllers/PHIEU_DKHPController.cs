@@ -72,12 +72,12 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             pHIEU_DKHP.TongTienPhaiDong = 0;
             pHIEU_DKHP.TongTienDaDong = 0;
             pHIEU_DKHP.SoTienConLai = 0;
-            //ViewBag.TongTCLT = pHIEU_DKHP.TongTCLT;
-            //ViewBag.TongTCTH = pHIEU_DKHP.TongTCTH;
-            //ViewBag.TongTienDangKy = pHIEU_DKHP.TongTienDangKy;
-            //ViewBag.TongTienPhaiDong = pHIEU_DKHP.TongTienPhaiDong;
-            //ViewBag.TongTienDaDong = pHIEU_DKHP.TongTienDaDong;
-            //ViewBag.SoTienConLai = pHIEU_DKHP.SoTienConLai;
+            ViewBag.TongTCLT = pHIEU_DKHP.TongTCLT;
+            ViewBag.TongTCTH = pHIEU_DKHP.TongTCTH;
+            ViewBag.TongTienDangKy = pHIEU_DKHP.TongTienDangKy;
+            ViewBag.TongTienPhaiDong = pHIEU_DKHP.TongTienPhaiDong;
+            ViewBag.TongTienDaDong = pHIEU_DKHP.TongTienDaDong;
+            ViewBag.SoTienConLai = pHIEU_DKHP.SoTienConLai;
             return View(pHIEU_DKHP);
         }
 
@@ -143,7 +143,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         //}
 
         // GET: PDT/PHIEU_DKHP/Delete/5
-         public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -168,11 +168,20 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public ActionResult TraCuu(int? SoPhieuDKHP, string MSSV, int? MHKNH, int? Day, int? Month, int? Year,int ? TinhTrang)
+        public ActionResult TraCuu(int? SoPhieuDKHP, string MSSV, int? MHKNH, int? Day, int? Month, int? Year, int? TinhTrang)
         {
             ViewBag.HocKyNamHoc = db.HKNHs;
-            var pHIEU_DKHP = db.PHIEU_DKHP.Where(x => (x.SoPhieuDKHP == SoPhieuDKHP || SoPhieuDKHP == null) && (x.MaSV == MSSV || MSSV == "" || MSSV == null) && (x.HKNH.MaHKNH == MHKNH || MHKNH == null) && (x.NgayLap.Day == Day || Day == null) && (x.NgayLap.Month == Month || Month == null) && (x.NgayLap.Year == Year || Year == null)&&((TinhTrang==1)?(x.SoTienConLai==0):(x.SoTienConLai>0))||TinhTrang==null);
-            return View(pHIEU_DKHP.ToList());
+            //Nếu người dùng không nhập gì thì không hiện gì cả
+            if (SoPhieuDKHP == null && (MSSV == null || MSSV == "") && MHKNH == null && Day == null && Month == null && Year == null && TinhTrang == null)
+            {
+                var EmtyList = new List<PHIEU_DKHP>();
+                return View(EmtyList);
+            }
+            else
+            {
+                var pHIEU_DKHP = db.PHIEU_DKHP.Where(x => (x.SoPhieuDKHP == SoPhieuDKHP || SoPhieuDKHP == null) && (x.MaSV == MSSV || MSSV == "" || MSSV == null) && (x.HKNH.MaHKNH == MHKNH || MHKNH == null) && (x.NgayLap.Day == Day || Day == null) && (x.NgayLap.Month == Month || Month == null) && (x.NgayLap.Year == Year || Year == null) && (((TinhTrang == 1) ? (x.SoTienConLai == 0) : (x.SoTienConLai > 0)) || TinhTrang == null));
+                return View(pHIEU_DKHP.ToList());
+            }
         }
         protected override void Dispose(bool disposing)
         {
