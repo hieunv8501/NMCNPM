@@ -2314,8 +2314,13 @@
     <Content Include="Areas\PDT\Views\DS_MONHOC_MO\ListHK.cshtml" />
     <Content Include="Areas\PDT\Views\PHIEU_DKHP\TraCuu.cshtml" />
     <Content Include="Areas\PDT\Views\DSSV_CHUAHOANTHANH_HP\ListHK.cshtml" />
+<<<<<<< HEAD
     <Content Include="Areas\SV\Views\DS_MONHOC_MO\Index.cshtml" />
     <Content Include="Areas\SV\Views\DS_MONHOC_MO\ListHK.cshtml" />
+=======
+    <Content Include="Areas\SV\Views\DS_MONHOC_MO\ListHK.cshtml" />
+    <Content Include="Areas\SV\Views\DS_MONHOC_MO\Index.cshtml" />
+>>>>>>> 345e069568913a8d11805816bbe0f1793a934c93
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

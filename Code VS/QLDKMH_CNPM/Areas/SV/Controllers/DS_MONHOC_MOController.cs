@@ -25,4 +25,8 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             return View(db.DS_MONHOC_MO.Where(x => x.MaHKNH == id).ToList());
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 345e069568913a8d11805816bbe0f1793a934c93
