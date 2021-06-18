@@ -194,6 +194,7 @@
     <Compile Include="Areas\PDT\PDTAreaRegistration.cs" />
     <Compile Include="Areas\SV\Controllers\CHUONGTRINHHOCsController.cs" />
     <Compile Include="Areas\SV\Controllers\CT_PHIEU_DKHPController.cs" />
+    <Compile Include="Areas\SV\Controllers\DS_MONHOC_MOController.cs" />
     <Compile Include="Areas\SV\Controllers\NGUOIDUNGsController.cs" />
     <Compile Include="Areas\SV\Controllers\PHIEUTHUsController.cs" />
     <Compile Include="Areas\SV\Controllers\PHIEU_DKHPController.cs" />
@@ -2313,6 +2314,8 @@
     <Content Include="Areas\PDT\Views\DS_MONHOC_MO\ListHK.cshtml" />
     <Content Include="Areas\PDT\Views\PHIEU_DKHP\TraCuu.cshtml" />
     <Content Include="Areas\PDT\Views\DSSV_CHUAHOANTHANH_HP\ListHK.cshtml" />
+    <Content Include="Areas\SV\Views\DS_MONHOC_MO\Index.cshtml" />
+    <Content Include="Areas\SV\Views\DS_MONHOC_MO\ListHK.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

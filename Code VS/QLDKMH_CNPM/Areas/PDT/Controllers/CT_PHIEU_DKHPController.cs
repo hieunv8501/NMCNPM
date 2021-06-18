@@ -39,7 +39,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         //}
 
         // GET: PDT/CT_PHIEU_DKHP/Create
-        public ActionResult Create(int id,int HKNH)
+        public ActionResult Create(int id, int HKNH)
         {
             
             CT_PHIEU_DKHP cT_PHIEU_DKHP = new CT_PHIEU_DKHP();
@@ -56,9 +56,6 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                 ct_phieu_dkhp.SoPhieuDKHP = id;
                 ct_phieu_dkhp.MaMo = item.MaMo;
                 ct_phieu_dkhp.GhiChu = null;
-                //ct.IsCheck = 0;
-                //if (item.MaMo == "0001")
-                //ct.IsCheck = 1;
                 ct_phieu_dkhp.DS_MONHOC_MO = db.DS_MONHOC_MO.Where(x => x.MaMo == ct_phieu_dkhp.MaMo).FirstOrDefault();
                 if (DS_MONHOC_DA_DK.Where(x => x.MaMo == item.MaMo).Count() == 0)
                     dS_MONHOC_CT_PHIEUDKHP.Add(ct_phieu_dkhp);
