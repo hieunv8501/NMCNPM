@@ -32,7 +32,7 @@
         <div class="form-group">
             <div class="control-label">Ngày lập phiếu đăng ký</div>
             <div class="form-control">
-                @ViewBag.NgayLap
+                @ViewBag.NgayLap.Day/ @ViewBag.NgayLap.Month/ @ViewBag.NgayLap.Year
                 @Html.HiddenFor(m => m.NgayLap)
             </div>
         </div>
@@ -59,7 +59,6 @@
             <div class="control-label">
                 <input id="btnNew" type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
                 <input type="button" value="Hủy" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
-                <input type="button" value="Quay về trang chủ" class="btn btn-primary btnStyle" data-toggle="modal" data-target="#AlertModal2" />
             </div>
         </div>
 
@@ -85,24 +84,6 @@
     </div>
 </div>
 
-<!--Cảnh báo thoát để về trang chủ-->
-<div class="modal fade" id="AlertModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
-                <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
-                    <span class="generalStyle" aria-hidden="true">x</span>
-                </button>
-            </div>
-            <div class="modal-body generalStyle" style="color: black;">Quay về trang chủ?</div>
-            <div class="modal-footer generalStyle">
-                <a class="btn btn-danger btnStyle" href="~/PDT/PDT/PDTHome">Đồng ý</a>
-                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!--Javascript để gọi datetimepicker trong Ngày tháng-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

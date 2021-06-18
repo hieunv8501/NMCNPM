@@ -8,64 +8,83 @@
 <h4 class="mb-1 text-left text-primary controllerStyle">Tiêu chuẩn tra cứu</h4>
 @using (Html.BeginForm("TraCuu", "PHIEU_DKHP", FormMethod.Get))
 {
-<table class="generalStyle" style="color:black; font-size:1rem;">
-    <tr >
-        <td>
-            <div class="control-label">Số phiếu ĐKHP</div>
-        </td>
-        <td>
-            @Html.TextBox("SoPhieuDKHP")
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <div class="control-label">Mã số sinh viên</div>
-        </td>
-        <td>
-            @Html.TextBox("MSSV")
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <div class="control-label ">Học kì - năm học</div>
-        </td>
-        <td>
-            @Html.TextBox("mhknh")
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <div class="control-label ">Ngày</div>
-        </td>
-        <td>
-            @Html.TextBox("day")
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <div class="control-label">Tháng</div>
-        </td>
-        <td>
-            @Html.TextBox("month")
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <div class="control-label ">Năm</div>
-        </td>
-        <td>
-            @Html.TextBox("year")
-        </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>
-            <button type="submit" value="Tra cứu" style = "background: #4e73e0; ">
-                <i class="fa fa-search"> Tra cứu</i>
-            </button>
-        </td>
-    </tr>
-</table>}
+    <table class="generalStyle" style="color:black; font-size:1rem;">
+        <tr>
+            <td>
+                <div class="control-label">Số phiếu ĐKHP</div>
+            </td>
+            <td>
+                @Html.TextBox("SoPhieuDKHP", null, new { @class = "form-control" })
+            </td>
+            <td class="col-md-4"></td>
+            <td>
+                <div class="control-label ">Ngày</div>
+            </td>
+            <td>
+                @Html.TextBox("Day", null, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="control-label">Mã số sinh viên</div>
+            </td>
+            <td>
+                @Html.TextBox("MSSV", null, new { @class = "form-control" })
+            </td>
+            <td class="col-md-4"></td>
+            <td>
+                <div class="control-label">Tháng</div>
+            </td>
+            <td>
+                @Html.TextBox("Month", null, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="control-label ">Học kì - năm học</div>
+            </td>
+            <td>
+
+                <div>
+                    <select id="MHKNH" name="MHKNH" class="form-control dropdown-toggle">
+                        <option disabled selected style="display:none">  </option>
+                        @foreach (var item in ViewBag.HocKyNamHoc)
+                        {
+                            <option value="@item.MaHKNH">HK @item.HocKy Năm học @item.Nam1 - @item.Nam2</option>
+                        }
+                    </select>
+                </div>
+            </td>
+            <td class="col-md-4"></td>
+            <td>
+                <div class="control-label ">Năm</div>
+            </td>
+            <td>
+                @Html.TextBox("Year", null, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="control-label">Tình trạng học phí</div>
+            </td>
+            <td>
+                <select id="MHKNH" name="TinhTrang" class="form-control">
+                    <option disabled selected style="display:none">  </option>
+                    <option value="1">Đã hoàn thành</option>
+                    <option value="0">Chưa hoàn thành</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="text-align:center">
+                <button type="submit" value="Tra cứu" class=" btn btn-primary">
+                    <i class="fa fa-search"> Tra cứu</i>
+                </button>
+            </td>
+        </tr>
+    </table>}
 
 <div class="bg-light card generalStyle">
     <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1 " style="background-color: white;">
@@ -85,7 +104,7 @@
                                 Họ Tên
                             </th>
                             <th>
-                                Mã học kỳ
+                                Học kỳ -Năm học
                             </th>
                             <th>
                                 Ngày lập
@@ -108,6 +127,9 @@
                             <th>
                                 Số tiền còn lại
                             </th>
+                            <th>
+                                Tình trạng học phí.
+                            </th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -116,12 +138,12 @@
                     {
                         <tr>
                             <td colspan="3" style="color:red">Không tìm thấy phiếu thu nào</td>
-                        </tr> 
+                        </tr>
                     }
                     else
                     {
                         foreach (var item in Model)
-                       {
+                        {
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.SoPhieuDKHP)
@@ -133,7 +155,7 @@
                                     @Html.DisplayFor(modelItem => item.SINHVIEN.HoTen)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.HKNH.MaHKNH)
+                                    HK @Html.DisplayFor(modelItem => item.HKNH.HocKy) Năm học: @Html.DisplayFor(modelItem => item.HKNH.Nam1)-@Html.DisplayFor(modelItem => item.HKNH.Nam2)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.NgayLap.Day)/@Html.DisplayFor(modelItem => item.NgayLap.Month)/@Html.DisplayFor(modelItem => item.NgayLap.Year)
@@ -157,15 +179,32 @@
                                     @Html.DisplayFor(modelItem => item.SoTienConLai)
                                 </td>
                                 <td>
+                                    @if ((item.SoTienConLai) > 0)
+                                    {
+                                        <p>Chưa hoàn thành</p>
+                                    }
+                                    else if ((item.SoTienConLai) == 0)
+                                    {
+
+
+                                        <p>Đã hoàn thành </p>
+                                    }
+                                    else
+                                    {
+                                        <p>Không xác định</p>
+                                    }
+
+                                </td>
+                                <td>
                                     <div class="container">
                                         <div class="dropdown nav-item">
                                             <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 Tùy chọn
                                             </button>
                                             <div class="dropdown-menu" style="text-align:center" aria-labelledby="navbarDropdownMenuLink">
-                                                <a class="dropdown-item" href="@Url.Action("Details", "PHIEU_DKHPs", new { id = item.SoPhieuDKHP})">Xem thông tin</a>
-                                                <a class="dropdown-item" href="@Url.Action("Edit", "PHIEU_DKHPs", new { id = item.SoPhieuDKHP})">Sửa thông tin</a>
-                                                <a class="dropdown-item" href="@Url.Action("Delete", "PHIEU_DKHP", new { id = item.SoPhieuDKHP})">Xóa thông tin</a>
+                                                <a class="dropdown-item" href="@Url.Action("Details", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP })">Xem thông tin</a>
+                                                @*<a class="dropdown-item" href="@Url.Action("Delete", "CT_Phieu_DKHP", new { area = "PDT", id = item.SoPhieuDKHP })">Xóa môn học</a>*@
+                                                <a class="dropdown-item" href="@Url.Action("Delete", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP })">Xóa phiếu ĐKHP</a>
                                             </div>
                                         </div>
                                     </div>
@@ -178,3 +217,31 @@
         </div>
     </div>
 </div>
+<!--Javascript để gọi datetimepicker trong Ngày tháng-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.datetimepicker').datepicker({
+            closeText: "Đóng",
+            prevText: "Trước",
+            nextText: "Sau",
+            currentText: "Hôm nay",
+            monthNames: ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"],
+            monthNamesShort: ["Một", "Hai", "Ba", "Bốn", "Năm", "Sáu", "Bảy", "Tám", "Chín", "Mười", "Mười một", "Mười hai"],
+            dayNames: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
+            dayNamesShort: ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
+            dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+            weekHeader: "Tuần",
+            dateFormat: "dd/mm/yy",
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: "",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:+0",
+            showButtonPanel: true
+        });
+    });
+</script>

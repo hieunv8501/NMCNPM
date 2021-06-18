@@ -143,7 +143,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         //}
 
         // GET: PDT/PHIEU_DKHP/Delete/5
-        public ActionResult Delete(int? id)
+         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -154,10 +154,11 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.id = id;
             return View(pHIEU_DKHP);
         }
 
-        // POST: PDT/PHIEU_DKHP/Delete/5
+        // POST: PDT/CT_PHIEU_DKHP/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -167,12 +168,12 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public ActionResult TraCuu(int? SoPhieuDKHP, string MSSV, int? mhknh, int? day, int? month, int? year)
+        public ActionResult TraCuu(int? SoPhieuDKHP, string MSSV, int? MHKNH, int? Day, int? Month, int? Year,int ? TinhTrang)
         {
-            var pHIEU_DKHP = db.PHIEU_DKHP.Where(x => (x.SoPhieuDKHP == SoPhieuDKHP || SoPhieuDKHP == null) && (x.MaSV == MSSV || MSSV == "" || MSSV == null) && (x.HKNH.HocKy == mhknh || mhknh == null) && (x.NgayLap.Day == day || day == null) && (x.NgayLap.Month == month || month == null) && (x.NgayLap.Year == year || year == null));
+            ViewBag.HocKyNamHoc = db.HKNHs;
+            var pHIEU_DKHP = db.PHIEU_DKHP.Where(x => (x.SoPhieuDKHP == SoPhieuDKHP || SoPhieuDKHP == null) && (x.MaSV == MSSV || MSSV == "" || MSSV == null) && (x.HKNH.MaHKNH == MHKNH || MHKNH == null) && (x.NgayLap.Day == Day || Day == null) && (x.NgayLap.Month == Month || Month == null) && (x.NgayLap.Year == Year || Year == null)&&((TinhTrang==1)?(x.SoTienConLai==0):(x.SoTienConLai>0))||TinhTrang==null);
             return View(pHIEU_DKHP.ToList());
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
