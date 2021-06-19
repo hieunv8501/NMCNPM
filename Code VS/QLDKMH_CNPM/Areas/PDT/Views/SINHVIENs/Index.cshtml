@@ -93,7 +93,7 @@
                                 @Html.DisplayFor(modelItem => item.NGANH.TenNganh)
                             </td>
                             <td style="vertical-align:middle;">
-                                <!--EFFECT 1: line with blue-->
+                <!--EFFECT 1: line with blue-->
 
                                 <div class="container">
                                     <div class="dropdown nav-item">
@@ -108,21 +108,21 @@
                                     </div>
                                 </div>
 
-                                <!--EFFECT 2: line with gray-->
-                                <!--<div class="dropdown">
-                                <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Tùy chọn
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item Controllerfont" href="@Url.Action("Details", "SINHVIENs", new {area = "PDT", id = item.MaSV})">Xem thông tin</a>
-                                    <a class="dropdown-item Controllerfont" href="@Url.Action("Edit", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Sửa thông tin</a>
-                                    <a class="dropdown-item Controllerfont" href="@Url.Action("Delete", "SINHVIENs", new { area = "PDT", id = item.MaSV})">Xóa thông tin</a>
-                                </div>
-                                </div>-->
+                <!--EFFECT 2: line with gray-->
+                <!--<div class="dropdown">
+                <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Tùy chọn
+                </button>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item Controllerfont" href="@Url.Action("Details", "SINHVIENs", new {area = "PDT", id = item.MaSV})">Xem thông tin</a>
+                    <a class="dropdown-item Controllerfont" href="@Url.Action("Edit", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Sửa thông tin</a>
+                    <a class="dropdown-item Controllerfont" href="@Url.Action("Delete", "SINHVIENs", new { area = "PDT", id = item.MaSV})">Xóa thông tin</a>
+                </div>
+                </div>-->
 
                             </td>
                         </tr>
-                    }
+                     }
                 </table>
             </div>
         </div>
@@ -146,4 +146,5 @@
         else {
             alert("Vui lòng chọn file Excel để tải lên");
         }
-    });</script>
+    });
+</script>
