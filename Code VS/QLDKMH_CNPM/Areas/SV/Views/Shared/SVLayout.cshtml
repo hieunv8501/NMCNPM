@@ -84,21 +84,21 @@
             <li class="nav-item active zoom generalStyle sidebarSize">
                 <a class="nav-link" href="@Url.Action("Index", "CHUONGTRINHHOCs", new { id = ViewData["TenDangNhap"]})">Chương trình học</a>
             </li>
-
+           
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <div class="collapsed zoom" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                    <a class="nav-link generalStyle sidebarSize" href="#">Đăng ký học phần</a>
-                </div>
-                <div id="collapse2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="collapse-inner rounded py-0">
-                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Index", "DS_MONHOC_MOs", new { id = ViewData["TenDangNhap"] })">Danh sách môn học mở</a>
+            <li class="nav-item btn btn-primary p-0" style="border: none">
+                <a class="nav-link collapsed zoom" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                    <span class="generalStyle active getfontStyle" style="font-size:12px; color:white">Đăng ký học phần</span>
+                </a>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="py-2 collapse-inner rounded">
+                        <h6 class="collapse-header"></h6>
+                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("ListHK", "DS_MONHOC_MO", new { id = ViewData["TenDangNhap"] })">Danh sách môn học mở</a>
                         <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Create", "PHIEU_DKHP", new { id_sv = ViewData["TenDangNhap"]})">Đăng ký học phần</a>
-                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Index", "PHIEU_DKHP", new { id = ViewData["TenDangNhap"]})">Tra cứu thông tin ĐKHP</a>
+                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("IndexSV", "PHIEU_DKHP", new { id = ViewData["TenDangNhap"]})">Thông tin ĐKHP</a>
                     </div>
                 </div>
             </li>
-
             <li class="nav-item active zoom generalStyle sidebarSize">
                 <a class="nav-link" href="@Url.Action("Index", "PHIEUTHUs", new { id = ViewData["TenDangNhap"] })">Thông tin phiếu thu</a>
             </li>

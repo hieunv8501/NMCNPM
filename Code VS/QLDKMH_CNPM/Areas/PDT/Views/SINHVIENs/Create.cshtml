@@ -14,10 +14,12 @@
     <div class="form-horizontal generalStyle" style="color: black;">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <p class="generalStyle"><strong>Nhập thủ công thông tin sinh viên</strong></p>
-        if (ViewBag.Message == "Sai")
+
+        @if (@ViewBag.Message == "Sai")
         {
             <div class="alert alert-danger">Không hợp lệ! Mời nhập lại... </div>
         }
+
         <div class="form-group">
             <div class="control-label">Mã sinh viên</div>
             <div>

@@ -13,11 +13,14 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
     public class PHIEU_DKHPController : Controller
     {
         private CNPM_DBContext db = new CNPM_DBContext();
+        private string TenDangNhap;
 
         // GET: SV/PHIEU_DKHP
-        public ActionResult Index()
+        public ActionResult IndexSV(string id)
         {
-            var pHIEU_DKHP = db.PHIEU_DKHP.Include(p => p.HKNH).Include(p => p.SINHVIEN);
+            TenDangNhap = id;
+            ViewData["TenDangNhap"] = id;
+            var pHIEU_DKHP = db.PHIEU_DKHP.Include(p => p.HKNH).Include(p => p.SINHVIEN).Where(p => p.MaSV == id);
             return View(pHIEU_DKHP.ToList());
         }
 
@@ -33,19 +36,22 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["TenDangNhap"] = pHIEU_DKHP.MaSV;
             ViewBag.CT_PHIEU_DKHPandDS_MONHOC_MO = db.CT_PHIEU_DKHP.Where(m => m.SoPhieuDKHP == id).ToList();
             return View(pHIEU_DKHP);
         }
 
         // GET: SV/PHIEU_DKHP/Create
-        public ActionResult Create(int code = 1)
+        public ActionResult Create(string id_sv, int code = 0)
         {
             ViewBag.Message = "Dung";
             if (code == 1)
                 ViewBag.Message = "Sai";
 
-            ViewBag.MaSV = new SelectList(db.SINHVIENs, "MaSV", "MaSV");
-            ViewBag.HocKyNamHoc = db.HKNHs;
+            TenDangNhap = id_sv;
+            ViewData["TenDangNhap"] = id_sv;
+            ViewBag.MaSV = db.SINHVIENs.Find(id_sv); //Tìm sinh viên có mã sv tương ứng
+            ViewBag.HocKyNamHoc = db.HKNHs; // Lấy hết thông tin học kỳ năm học vào viewbag
             int sOPHIEUDKHP = 1;
             if (db.PHIEU_DKHP.Count() != 0)
             {
@@ -60,10 +66,12 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             //{
             //    pHIEU_DKHP.SoPhieuDKHP = db.PHIEU_DKHP.Max(x => x.SoPhieuDKHP) + 1;
             //}
+
             ViewBag.SoPhieuDKHP = sOPHIEUDKHP;
             PHIEU_DKHP pHIEU_DKHP = new PHIEU_DKHP();
-            pHIEU_DKHP.SoPhieuDKHP = ViewBag.SoPhieuDKHP;
-            pHIEU_DKHP.NgayLap = DateTime.Now;
+            pHIEU_DKHP.MaSV = ViewBag.MaSV.MaSV; //Gán mặc định sv khi lập bc dựa vào id_sv đầu vào
+            pHIEU_DKHP.SoPhieuDKHP = ViewBag.SoPhieuDKHP; //Tạo id tự tăng cho phiếu đk
+            pHIEU_DKHP.NgayLap = DateTime.Now; //Gán ngày đk mặc định là hôm nay
             ViewBag.NgayLap = pHIEU_DKHP.NgayLap;
 
             pHIEU_DKHP.TongTCLT = 0;
@@ -94,7 +102,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
                 {
                     db.PHIEU_DKHP.Add(pHIEU_DKHP);
                     db.SaveChanges();
-                    return RedirectToAction("Create", "CT_PHIEU_DKHP", new { @id = pHIEU_DKHP.SoPhieuDKHP, @HocKyNamHoc = pHIEU_DKHP.MaHKNH });
+                    return RedirectToAction("Create", "CT_PHIEU_DKHP", new { id = pHIEU_DKHP.SoPhieuDKHP, HKNH = pHIEU_DKHP.MaHKNH, mssv = pHIEU_DKHP.MaSV });
                 }
 
                 ViewBag.MaHKNH = new SelectList(db.HKNHs, "MaHKNH", "HocKy", pHIEU_DKHP.MaHKNH);
@@ -103,7 +111,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             }
             catch (Exception)
             {
-                return RedirectToAction("Create", "PHIEU_DKHP", new { code = 1 });
+                return RedirectToAction("Create", "PHIEU_DKHP", new { id_sv = pHIEU_DKHP.MaSV, code = 1 });
             }
         }
 
@@ -142,31 +150,31 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
         //    return View(pHIEU_DKHP);
         //}
 
-        // GET: SV/PHIEU_DKHP/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
-            if (pHIEU_DKHP == null)
-            {
-                return HttpNotFound();
-            }
-            return View(pHIEU_DKHP);
-        }
+        //// GET: SV/PHIEU_DKHP/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
+        //    if (pHIEU_DKHP == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(pHIEU_DKHP);
+        //}
 
-        // POST: SV/PHIEU_DKHP/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
-            db.PHIEU_DKHP.Remove(pHIEU_DKHP);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: SV/PHIEU_DKHP/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
+        //    db.PHIEU_DKHP.Remove(pHIEU_DKHP);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
         public ActionResult TraCuu(int? SoPhieuDKHP, string MSSV, int? mhknh, int? day, int? month, int? year)
         {
             var pHIEU_DKHP = db.PHIEU_DKHP.Where(x => (x.SoPhieuDKHP == SoPhieuDKHP || SoPhieuDKHP == null) && (x.MaSV == MSSV || MSSV == "" || MSSV == null) && (x.HKNH.HocKy == mhknh || mhknh == null) && (x.NgayLap.Day == day || day == null) && (x.NgayLap.Month == month || month == null) && (x.NgayLap.Year == year || year == null));

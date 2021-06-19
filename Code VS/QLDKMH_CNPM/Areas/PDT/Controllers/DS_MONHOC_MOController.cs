@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OfficeOpenXml;
 using QLDKMH_CNPM.Models;
 
 namespace QLDKMH_CNPM.Areas.PDT.Controllers
@@ -16,6 +17,48 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         public ActionResult ListHK()
         {
             return View(db.HKNHs.ToList());
+        }
+
+        //Đây là chức năng hỗ trợ import thông tin bằng định dạng file Excel
+        [HttpPost]
+        public ActionResult Upload(FormCollection formCollection)
+        {
+            var dS_MONHOC_MO = new List<DS_MONHOC_MO>();
+            if (Request != null)
+            {
+                HttpPostedFileBase file = Request.Files["UploadedFile"];
+                if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                {
+                    string fileName = file.FileName;
+                    string fileContentType = file.ContentType;
+                    byte[] fileBytes = new byte[file.ContentLength];
+                    var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var currentSheet = package.Workbook.Worksheets;
+                        var workSheet = currentSheet.First();
+                        var SL_Col = workSheet.Dimension.End.Column;
+                        var SL_Row = workSheet.Dimension.End.Row;
+                        for (int iRow = 2; iRow <= SL_Row; iRow++)
+                        {
+                            var ds_mo = new DS_MONHOC_MO();
+                            ds_mo.MaMo = workSheet.Cells[iRow, 1].Value.ToString();
+                            ds_mo.MaHKNH = Convert.ToInt32(workSheet.Cells[iRow, 2].Value.ToString());
+                            ds_mo.MaMonHoc = workSheet.Cells[iRow, 3].Value.ToString();
+                            dS_MONHOC_MO.Add(ds_mo);
+                        }
+                    }
+                }
+            }
+            using (CNPM_DBContext excelImport = new CNPM_DBContext())
+            {
+                foreach (var item in dS_MONHOC_MO)
+                {
+                    excelImport.DS_MONHOC_MO.Add(item);
+                }
+                excelImport.SaveChanges();
+            }
+            return RedirectToAction("Index", "DS_MONHOC_MO");
         }
 
         // GET: PDT/DS_MONHOC_MO
