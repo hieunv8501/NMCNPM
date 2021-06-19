@@ -31,7 +31,7 @@
                                 @Html.DisplayFor(modelItem => item.TenNganh)
                             </td>
                             <td style="text-align: center">
-                                <a href="@Url.Action("Details", "CHUONGTRINHHOCs", new { area = "SV", id = item.MaNganh })">Xem chương trình học</a>
+                                <a href="@Url.Action("Details", "CHUONGTRINHHOCs", new { area = "SV", id = item.MaNganh, id_2 = ViewData["TenDangNhap"] })">Xem chương trình học</a>
                             </td>
                         </tr>
                     }

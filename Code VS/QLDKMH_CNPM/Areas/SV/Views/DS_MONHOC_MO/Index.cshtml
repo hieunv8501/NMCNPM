@@ -1,11 +1,10 @@
 ﻿@model IEnumerable<QLDKMH_CNPM.Models.DS_MONHOC_MO>
-@{
+@{ 
     ViewBag.Title = "Index";
-    Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml";
+   Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml"; 
 }
 
 <h3 class="mb-1 text-danger controllerStyle">DANH SÁCH MÔN HỌC MỞ</h3>
-
 
 <h4 class="text-danger controllerStyle">
     Học kỳ: @ViewBag.HocKy | Năm học: @ViewBag.Nam1 - @ViewBag.Nam2
@@ -36,39 +35,21 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.MONHOC.TenMonHoc)
                             </td>
-                            @*<td>
-<<<<<<< HEAD
-                                        EFFECT 1: line with blue
-                                        <div class="container">
-                                            <div class="dropdown nav-item">
-                                                <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                    Tùy chọn
-                                                </button>
-                                                <div class="dropdown-menu" style="text-align:center" aria-labelledby="navbarDropdownMenuLink">
-                                                    <a class="dropdown-item" href="@Url.Action("Details", "DS_MONHOC_MO", new { id = item.MaMo})">Xem thông tin</a>
-                                                    <a class="dropdown-item" href="@Url.Action("Edit", "DS_MONHOC_MO", new { id = item.MaMo})">Sửa thông tin</a>
-                                                    <a class="dropdown-item" href="@Url.Action("Delete", "DS_MONHOC_MO", new { id = item.MaMo})">Xóa thông tin</a>
+                                @*<td>
+                                            EFFECT 1: line with blue
+                                            <div class="container">
+                                                <div class="dropdown nav-item">
+                                                    <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Tùy chọn
+                                                    </button>
+                                                    <div class="dropdown-menu" style="text-align:center" aria-labelledby="navbarDropdownMenuLink">
+                                                        <a class="dropdown-item" href="@Url.Action("Details", "DS_MONHOC_MO", new { id = item.MaMo})">Xem thông tin</a>
+                                                        <a class="dropdown-item" href="@Url.Action("Edit", "DS_MONHOC_MO", new { id = item.MaMo})">Sửa thông tin</a>
+                                                        <a class="dropdown-item" href="@Url.Action("Delete", "DS_MONHOC_MO", new { id = item.MaMo})">Xóa thông tin</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                 </td>*@
-=======
-                                    EFFECT 1: line with blue
-
-                                    <div class="container">
-                                        <div class="dropdown nav-item">
-                                            <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                Tùy chọn
-                                            </button>
-                                            <div class="dropdown-menu" style="text-align:center" aria-labelledby="navbarDropdownMenuLink">
-                                                <a class="dropdown-item" href="@Url.Action("Details", "DS_MONHOC_MO", new { id = item.MaMo})">Xem thông tin</a>
-                                                <a class="dropdown-item" href="@Url.Action("Edit", "DS_MONHOC_MO", new { id = item.MaMo})">Sửa thông tin</a>
-                                                <a class="dropdown-item" href="@Url.Action("Delete", "DS_MONHOC_MO", new { id = item.MaMo})">Xóa thông tin</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </td>*@
->>>>>>> 345e069568913a8d11805816bbe0f1793a934c93
                         </tr>
                     }
                 </table>
@@ -77,11 +58,7 @@
     </div>
     <div class="form-group">
         <div>
-            <a class="btn btn-primary btnStyle" href="~/SV/DS_MONHOC_MO/ListHK/">Quay lại</a>
+            <a class="btn btn-primary btnStyle" href="@Url.Action("ListHK", "DS_MONHOC_MO", new { area = "SV", id = ViewData["TenDangNhap"] })">Quay lại</a>
         </div>
     </div>
-<<<<<<< HEAD
 </div>
-=======
-</div>
->>>>>>> 345e069568913a8d11805816bbe0f1793a934c93

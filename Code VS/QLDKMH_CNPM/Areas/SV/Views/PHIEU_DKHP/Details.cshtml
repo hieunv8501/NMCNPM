@@ -1,8 +1,8 @@
 ﻿@model QLDKMH_CNPM.Models.PHIEU_DKHP
 
-@{
+@{ 
     ViewBag.Title = "Details";
-    Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml";
+    Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml"; 
 }
 
 <h3 class="mb-1 text-left text-danger controllerStyle">CHI TIẾT PHIẾU ĐKHP</h3>
@@ -15,7 +15,7 @@
         </td>
         <td>
             <span>Ngày lập: </span>
-            @Html.DisplayFor(model => model.NgayLap)
+            @Html.DisplayFor(model => model.NgayLap.Day)/@Html.DisplayFor(model => model.NgayLap.Month)/@Html.DisplayFor(model => model.NgayLap.Year)
         </td>
     </tr>
     <tr>
@@ -26,7 +26,7 @@
     </tr>
     <tr>
         <td>
-            <span>Học kỳ: </span>HK
+            <span>Học kỳ: </span>
             @Html.DisplayFor(model => model.HKNH.HocKy)
         </td>
         <td>
@@ -51,6 +51,13 @@
         <span>
             @Html.ActionLink("Đăng ký thêm môn học", "Create", "CT_PHIEU_DKHP", null, new { @class = "btn btn-primary btnStyle" })
         </span>
+        <span style="float:right">
+            @* Nếu chưa đăng kí môn nào thì sẽ ẩn nút xóa. *@
+            @if (Model.TongTCLT != 0 || Model.TongTCTH != 0)
+            {
+                 @Html.ActionLink("Xóa môn học đã đăng ký", "Delete", "CT_PHIEU_DKHP", new { area = "SV", id = Model.SoPhieuDKHP, id_2 = ViewData["TenDangNhap"] }, new { @class = "btn btn-primary btnStyle" })
+            }
+        </span>
     </div>
     <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white;">
         <div>
@@ -61,7 +68,7 @@
                         <tr>
                             <th>Mã môn học</th>
                             <th>Tên môn học</th>
-                            <th>Số tín chỉ </th>
+                            <th>Số tín chỉ</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -85,20 +92,17 @@
                                 @item.DS_MONHOC_MO.MONHOC.TenMonHoc
                             </td>
                             <td style="vertical-align:middle;">
-                                @item.DS_MONHOC_MO.MONHOC.SoTiet
-                            </td>
-                            <td style="vertical-align:middle;">
-                                @Html.ActionLink("Xóa môn học", "Delete", "CT_PHIEU_DKHP", new { @id_Phieu_DKHP = item.SoPhieuDKHP, @id_MonHocMo = item.MaMo }, new { @class = "btn btn-outline-danger btnStyle alert-primary", @style = "font-weight:500; font-size:small" })
+                                @item.DS_MONHOC_MO.MONHOC.SoTinChi
                             </td>
                         </tr>
-                    }
+}
                 </table>
             </div>
         </div>
     </div>
     <hr />
 </div>
-@Html.ActionLink("Quay lại", "Index", new { id = Model.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle generalStyle" })
+@Html.ActionLink("Quay lại", "IndexSV", new { id = ViewData["TenDangNhap"] }, new { @class = "btn btn-primary btnStyle generalStyle" })
 
 
 
