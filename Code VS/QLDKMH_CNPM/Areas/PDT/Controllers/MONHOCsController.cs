@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OfficeOpenXml;
 using QLDKMH_CNPM.Models;
 
 namespace QLDKMH_CNPM.Areas.PDT.Controllers
@@ -19,6 +20,50 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         {
             var mONHOCs = db.MONHOCs.Include(m => m.LOAIMONHOC);
             return View(mONHOCs.ToList());
+        }
+
+        //Đây là chức năng hỗ trợ import thông tin bằng định dạng file Excel
+        [HttpPost]
+        public ActionResult Upload(FormCollection formCollection)
+        {
+            var mONHOC = new List<MONHOC>();
+            if (Request != null)
+            {
+                HttpPostedFileBase file = Request.Files["UploadedFile"];
+                if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                {
+                    string fileName = file.FileName;
+                    string fileContentType = file.ContentType;
+                    byte[] fileBytes = new byte[file.ContentLength];
+                    var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var currentSheet = package.Workbook.Worksheets;
+                        var workSheet = currentSheet.First();
+                        var SL_Col = workSheet.Dimension.End.Column;
+                        var SL_Row = workSheet.Dimension.End.Row;
+                        for (int iRow = 2; iRow <= SL_Row; iRow++)
+                        {
+                            var mh = new MONHOC();
+                            mh.MaMonHoc = workSheet.Cells[iRow, 1].Value.ToString();
+                            mh.TenMonHoc = workSheet.Cells[iRow, 2].Value.ToString();
+                            mh.MaLoaiMon = workSheet.Cells[iRow, 3].Value.ToString();
+                            mh.SoTiet = Convert.ToInt32(workSheet.Cells[iRow, 4].Value.ToString());
+                            mh.SoTinChi = Convert.ToInt32(workSheet.Cells[iRow, 5].Value.ToString());
+                            mONHOC.Add(mh);
+                        }
+                    }
+                }
+            }
+            using (CNPM_DBContext excelImport = new CNPM_DBContext())
+            {
+                foreach (var item in mONHOC)
+                {
+                    excelImport.MONHOCs.Add(item);
+                }
+                excelImport.SaveChanges();
+            }
+            return RedirectToAction("Index", "MONHOCs");
         }
 
         // GET: PDT/MONHOCs/Details/5
