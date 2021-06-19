@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "SVHome";
+    Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <title>Trang chủ sinh viên</title>
+</head>
+
+<body>
+    <div>
+        <div>
+            <a class="h2" style="float:right; color:blue; font-weight:700; font-family:Cambria ; margin-top:0; float:right">TRANG CHỦ SINH VIÊN</a>
+            <img src="~/Content/img/forum uit sinhvien.png" style="width:100%; height:100%;" />
+        </div>
+    </div>
+    <br />
+    <div>
+        <span class="generalStyle text-dark font-weight-bold">
+            Chào mừng bạn đến với trang chủ của mình! Sinh viên @ViewData["TenDangNhap"]
+        </span>
+    </div>
+</body>
+
+</html>
+

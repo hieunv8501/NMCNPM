@@ -1,0 +1,64 @@
+﻿@model QLDKMH_CNPM.Models.MONHOC
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h3 class="text-left text-danger controllerStyle">SỬA THÔNG TIN MÔN HỌC</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal generalStyle" style="color: black;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MaMonHoc)
+        <hr />
+        <div class="form-group">
+            <div class="control-label">Tên môn học</div>
+            <div>
+                @Html.EditorFor(model => model.TenMonHoc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenMonHoc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label">Loại môn học</div>
+            <div>
+                @Html.DropDownList("MaLoaiMon", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LOAIMONHOC.TenLoaiMon, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label">Số tiết</div>
+            <div>
+                @Html.EditorFor(model => model.SoTiet, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoTiet, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <div>
+                <input type="submit" value="Lưu" class="btn btn-danger btnStyle" />
+                <span onclick="return confirm('Bạn chưa lưu, bạn có muốn thoát ra không?')">
+                    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-primary btnStyle" })
+                </span>
+            </div>
+        </div>
+    </div>
+}
+
+@*<script type="text/javascript" >
+
+        document.getElementById('QL').addEventListener("click",
+            () => {
+                var result = window.confirm("Bạn chưa lưu, bạn có muốn thoát ra không?");
+                if (result) {
+                    var href = window.location.href.split(window.location.pathname)[0];
+                    window.location.href = href +"/PDT/MONHOCs/Index/";
+                }
+            }
+        );
+
+    </script>*@
