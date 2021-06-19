@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OfficeOpenXml;
 using QLDKMH_CNPM.Models;
 
 namespace QLDKMH_CNPM.Areas.PDT.Controllers
@@ -20,6 +21,49 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         {
             var hUYENs = db.HUYENs.Include(h => h.TINH);
             return View(hUYENs.ToList());
+        }
+
+
+        //Đây là chức năng hỗ trợ import thông tin bằng định dạng file Excel
+        [HttpPost]
+        public ActionResult Upload(FormCollection formCollection)
+        {
+            var hUYEN = new List<HUYEN>();
+            if (Request != null)
+            {
+                HttpPostedFileBase file = Request.Files["UploadedFile"];
+                if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                {
+                    string fileName = file.FileName;
+                    string fileContentType = file.ContentType;
+                    byte[] fileBytes = new byte[file.ContentLength];
+                    var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        var currentSheet = package.Workbook.Worksheets;
+                        var workSheet = currentSheet.First();
+                        var SL_Col = workSheet.Dimension.End.Column;
+                        var SL_Row = workSheet.Dimension.End.Row;
+                        for (int iRow = 2; iRow <= SL_Row; iRow++)
+                        {
+                            var huyen = new HUYEN();
+                            huyen.MaHuyen = workSheet.Cells[iRow, 1].Value.ToString();
+                            huyen.TenHuyen = workSheet.Cells[iRow, 2].Value.ToString();
+                            huyen.MaTinh = workSheet.Cells[iRow, 3].Value.ToString();
+                            hUYEN.Add(huyen);
+                        }
+                    }
+                }
+            }
+            using (CNPM_DBContext excelImport = new CNPM_DBContext())
+            {
+                foreach (var item in hUYEN)
+                {
+                    excelImport.HUYENs.Add(item);
+                }
+                excelImport.SaveChanges();
+            }
+            return RedirectToAction("Index", "HUYENs");
         }
 
         //Hàm load thông tin chi tiết một huyện
