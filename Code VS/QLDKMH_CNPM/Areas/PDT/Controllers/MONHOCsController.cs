@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using OfficeOpenXml;
 using QLDKMH_CNPM.Models;
 
@@ -64,6 +67,36 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                 excelImport.SaveChanges();
             }
             return RedirectToAction("Index", "MONHOCs");
+        }
+
+        //Export danh sách môn học sang file excel
+        public ActionResult ExportToExcel()
+        {
+            var mONHOCs = new System.Data.DataTable();
+            mONHOCs.Columns.Add("Mã môn học", typeof(string));
+            mONHOCs.Columns.Add("Tên môn học", typeof(string));
+            mONHOCs.Columns.Add("Loại môn", typeof(string));
+            mONHOCs.Columns.Add("Số tiết", typeof(int));
+            mONHOCs.Columns.Add("Số tín chỉ", typeof(int));
+
+            foreach (MONHOC item in db.MONHOCs)
+            {
+                mONHOCs.Rows.Add(item.MaMonHoc, item.TenMonHoc, item.LOAIMONHOC.TenLoaiMon, item.SoTiet, item.SoTinChi);
+            }
+
+            var grid = new GridView();
+            grid.DataSource = mONHOCs;
+            grid.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=DanhSachMonHoc.xls");
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+            grid.RenderControl(htw);
+
+            return Content(sw.ToString(), "application/ms-excel");
         }
 
         // GET: PDT/MONHOCs/Details/5
