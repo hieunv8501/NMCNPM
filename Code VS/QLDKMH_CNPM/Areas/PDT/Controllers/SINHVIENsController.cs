@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using OfficeOpenXml;
 using QLDKMH_CNPM.Models;
 
@@ -66,6 +69,39 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                 excelImport.SaveChanges();
             }
             return RedirectToAction("Index", "SINHVIENs");
+        }
+
+        //Export danh sách sinh viên sang file excel
+        public ActionResult ExportToExcel()
+        {
+            var sINHVIENs = new System.Data.DataTable();
+            sINHVIENs.Columns.Add("Mã sinh viên", typeof(string));
+            sINHVIENs.Columns.Add("Họ tên", typeof(string));
+            sINHVIENs.Columns.Add("Ngày sinh", typeof(string));
+            sINHVIENs.Columns.Add("Giới tính", typeof(string));
+            sINHVIENs.Columns.Add("Ngành học", typeof(string));
+            sINHVIENs.Columns.Add("Đối tượng", typeof(string));
+            sINHVIENs.Columns.Add("Địa chỉ", typeof(string));
+
+            foreach (SINHVIEN item in db.SINHVIENs)
+            {
+                sINHVIENs.Rows.Add(item.MaSV, item.HoTen, item.NgaySinh, item.GioiTinh, item.NGANH.TenNganh, item.DOITUONG.TenDoiTuong, item.HUYEN.TenHuyen + "-" + item.HUYEN.TINH.TenTinh);
+            }
+
+            var grid = new GridView();
+            grid.DataSource = sINHVIENs;
+            grid.DataBind();
+
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=DanhSachSinhVien.xls");
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+            grid.RenderControl(htw);
+
+            return Content(sw.ToString(), "application/ms-excel");
         }
 
         // GET: PDT/SINHVIENs/Details/5
