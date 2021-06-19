@@ -9,20 +9,21 @@
 <h3 class="mb-1 text-danger controllerStyle">DANH SÁCH MÔN HỌC</h3>
 
 
-@using (Html.BeginForm("Upload", "KHOAs", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Upload", "MONHOCs", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div class="generalStyle" style="color:black"><strong>Tải lên thông tin sinh viên qua file Excel</strong></div>
-    <div class="form-group">
-        <div class="upload">
-            <input type="button" class="uploadButton btnStyle generalStyle" value="Chọn đường dẫn" />
-            <input type="file" name="UploadedFile" accept="/.xls, .xlsx" id="fileUpload" />
-            <label class="fileName" style="width:auto; ">Đường dẫn file Excel...</label>
-        </div>
-        <input type="submit" name="Submit" class="btn btn-primary btnStyle generalStyle" value="Tải lên" />
-    </div>
-}
+<div class="generalStyle" style="color:black"><strong>Tải lên thông tin môn học qua file Excel</strong></div>
+                <div class="form-group">
+                    <div class="upload">
+                        <input type="button" class="uploadButton btnStyle generalStyle" value="Chọn đường dẫn" />
+                        <input type="file" name="UploadedFile" accept="/.xls, .xlsx" id="fileUpload" />
+                        <label class="fileName" style="width:auto; ">Đường dẫn file Excel...</label>
+                    </div>
+                    <input type="submit" name="Submit" class="btn btn-primary btnStyle generalStyle" value="Tải lên" />
+                </div>}
 <div class="generalStyle" style="color:black"><strong>Xuất danh sách môn học ra file Excel</strong></div>
-@Html.ActionLink("Xuất danh sách", "ExportToExcel", null, new { @class = "btn btn-primary btnStyle" })
+<div>
+    @Html.ActionLink("Xuất danh sách", "ExportToExcel", null, new { @class = "btn btn-primary btnStyle" })
+</div>
 
 <!--DataTable Showing-->
 <!--Thêm class="card" để scroll nội dung mà không scroll sidebar-->
@@ -93,7 +94,7 @@
                                 </div>
                             </td>
                         </tr>
-}
+                     }
                 </table>
             </div>
         </div>
@@ -117,4 +118,5 @@
         else {
             alert("Vui lòng chọn file Excel để tải lên");
         }
-    });</script>
+    });
+</script>
