@@ -1,0 +1,43 @@
+﻿@model QLDKMH_CNPM.Models.CT_PHIEU_DKHP
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CT_PHIEU_DKHP</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DS_MONHOC_MO.MaMonHoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DS_MONHOC_MO.MaMonHoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PHIEU_DKHP.MaSV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PHIEU_DKHP.MaSV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GhiChu)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

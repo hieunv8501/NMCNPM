@@ -1,0 +1,115 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.PHIEU_DKHP>
+
+@{ 
+   ViewBag.Title = "IndexSV";
+   Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml"; 
+}
+
+<h3 class="mb-1 text-danger text-left controllerStyle">DANH SÁCH PHIẾU ĐĂNG KÍ HỌC PHẦN</h3>
+<hr />
+<!-- DataTales -->
+<div class="bg-light card generalStyle">
+    <div class="py-2 m-0">
+    </div>
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1 " style="background-color: white;">
+        <div>
+            <div id="dataTable_wrapper">
+                <!--id = dataTable shows number of entries; sort and search function-->
+                <table class="table table-bordered dataTable dataStyle" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th width="10%">
+                                Số phiếu ĐKHP
+                            </th>
+                            <th width="15%">
+                                Học kỳ - Năm học
+                            </th>
+                            <th width="8%">
+                                MSSV
+                            </th>
+                            <th width="12%">
+                                Ngày đăng ký
+                            </th>
+                            <th width="14%">
+                                Tổng tiền đăng ký
+                            </th>
+                            <th width="11%">
+                                Tổng tiền phải đóng
+                            </th>
+                            <th width="11%">
+                                Tổng tiền đã đóng
+                            </th>
+                            <th width="10%">
+                                Số tiền còn lại
+                            </th>
+                            <th width="15%" style="text-align:center">Thao tác</th>
+                    </thead>
+
+                    <tfoot>
+                        <tr>
+                            <th>
+                                Số phiếu ĐKHP
+                            </th>
+                            <th>
+                                Học kỳ - Năm học
+                            </th>
+                            <th>
+                                MSSV
+                            </th>
+                            <th>
+                                Ngày đăng ký
+                            </th>
+                            <th>
+                                Tổng tiền đã đăng ký
+                            </th>
+                            <th>
+                                Tổng tiền phải đóng
+                            </th>
+                            <th>
+                                Tổng tiền đã đóng
+                            </th>
+                            <th>
+                                Số tiền còn lại
+                            </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.SoPhieuDKHP)
+                            </td>
+                            <td style="vertical-align:middle;">
+                                HK @Html.DisplayFor(modelItem => item.HKNH.HocKy) (@Html.DisplayFor(modelItem => item.HKNH.Nam1)-@Html.DisplayFor(modelItem => item.HKNH.Nam2))
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.MaSV)
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.NgayLap.Day)/@Html.DisplayFor(modelItem => item.NgayLap.Month)/@Html.DisplayFor(modelItem => item.NgayLap.Year)
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.TongTienDangKy)
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.TongTienPhaiDong)
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.TongTienDaDong)
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.SoTienConLai)
+                            </td>
+                            <td style="vertical-align:middle;">
+                                <a class="btn btn-primary btnStyle" href="@Url.Action("Details", "PHIEU_DKHP", new { id = item.SoPhieuDKHP })">Chi tiết</a>
+                            </td>
+                        </tr>
+                     }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

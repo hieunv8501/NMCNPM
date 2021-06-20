@@ -1,0 +1,82 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.DSSV_CHUAHOANTHANH_HP>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+<head>
+    <script type="text/javascript" src="~/Scripts/jquery-3.6.0.js"></script>
+</head>
+<!--Page Heading-->
+<h3 class="mb-1 text-danger controllerStyle">BÁO CÁO SINH VIÊN CHƯA HOÀN THÀNH HỌC PHÍ</h3>
+<hr />
+<body>
+    <div>
+        <label for="HocKy">Chọn học kỳ: </label>
+        <select name="HocKy" id="id1">
+            <option value="1">Học kỳ 1</option>
+            <option value="2">Học kỳ 2</option>
+            <option value="3">Học kỳ hè</option>
+        </select>
+    </div>
+    <div>
+        <label for="NamHoc">Chọn Năm học: </label>
+        <select name="NamHoc" id="id2">
+            <option value="2018">2018 - 2019</option>
+            <option value="2019">2019 - 2020</option>
+            <option value="2020">2020 - 2021</option>
+            <option value="2021">2021 - 2022</option>
+        </select>
+    </div>
+
+    <div>
+        <input type="submit" id="submit" value="Tìm kiếm" />
+    </div>
+    <div id="UpdatePanel"></div>
+    @section Scripts{
+        <script type="text/javascript" src="~/Scripts/jquery-3.6.0.js"></script>
+        <script type="text/javascript">
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            $.ajax({
+                url: "@Url.Action("GetID", "DSSV_CHUAHOANTHANH_HP")",
+                data: { id1: $("#id1").val(), id2: $("#id2").val() },
+                type: "GET",
+                dataType: "json",
+                success: function (data) { loadData(data); },
+                error: function (data) {
+                    alert("Bị lỗi");
+                }
+            });
+        });
+        function loadData(data) {
+            var tab = $('<table class="table table-bordered dataStyle" id="dataTable"></table>');
+            var thead = $('<thead></thead>');
+            thead.append('<th width="100px">Mã HKNH</th>');
+            thead.append('<th width="100px">MSSV</th>');
+            thead.append('<th width="100px">Họ tên</th>');
+            thead.append('<th width="100px">Mã Ngành</th>');
+            thead.append('<th width="100px">Học kì</th>');
+            thead.append('<th width="100px">Năm bắt đầu</th>');
+            thead.append('<th width="100px">Năm kết thúc</th>');
+            thead.append('<th width="100px">Số tiền còn nợ</th>');
+            tab.append(thead);
+            $.each(data, function (i, val) {
+                var trow = $('<tr></tr>');
+                trow.append('<td style="vertical-align:middle;">' + val.MaHKNH + '</td>');
+                trow.append('<td style="vertical-align:middle;">' + val.MaSV + '</td>');
+                trow.append('<td style="vertical-align:middle;">' + val.HoTen + '</td>');
+                trow.append('<td style="vertical-align:middle;">' + val.MaNganh + '</td>');
+                trow.append('<td style="vertical-align:middle;">' + val.HocKy + '</td>');
+                trow.append('<td style="vertical-align:middle;">' + val.Nam1 + '</td>');
+                trow.append('<td style="vertical-align:middle;">' + val.Nam2 + '</td>');
+                trow.append('<td style="vertical-align:middle;">' + val.SoTienConLai + '</td>');
+                tab.append(trow);
+            });
+            $("#UpdatePanel").html(tab);
+        };
+    });
+        </script>
+    }
+
+</body>
+      

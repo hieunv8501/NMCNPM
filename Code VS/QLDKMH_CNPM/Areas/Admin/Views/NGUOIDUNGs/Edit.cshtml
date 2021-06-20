@@ -1,0 +1,42 @@
+﻿@model QLDKMH_CNPM.Models.NGUOIDUNG
+
+@{ 
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml"; 
+}
+
+<h3 class="text-left text-danger controllerStyle">SỬA THÔNG TIN NGƯỜI DÙNG</h3>
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal generalStyle" style="color: black;">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.TenDangNhap)
+    <hr />
+    <div class="form-group">
+        <div class="control-label">Mật khẩu</div>
+        <div>
+            @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label">
+            Nhóm người dùng
+            @Html.DropDownList("MaNhom", null, "-- Chọn nhóm người dùng --", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.NHOMNGUOIDUNG.TenNhom, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div>
+            <input type="submit" value="Lưu" class="btn btn-danger btnStyle" />
+            <span>
+                @Html.ActionLink("Hủy", "Index", new { id = Model.TenDangNhap }, new { @class = "btn btn-primary btnStyle" })
+            </span>
+        </div>
+    </div>
+</div>}
