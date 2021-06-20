@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+using System;
+>>>>>>> 8a9a28917c32214c877566d11561fee382559f72
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -51,3 +55,7 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
         }
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8a9a28917c32214c877566d11561fee382559f72

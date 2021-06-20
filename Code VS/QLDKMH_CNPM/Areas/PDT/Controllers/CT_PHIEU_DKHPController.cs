@@ -154,7 +154,6 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             try
             {
                 string[] ids = formCollection["MaMo"].Split(new char[] { ',' });
-
                 string id = formCollection["SoPhieuDKHP"];
                 foreach (string MaMonHoc in ids)
                 {

@@ -87,6 +87,10 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             var grid = new GridView();
             grid.DataSource = mONHOCs;
             grid.DataBind();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8a9a28917c32214c877566d11561fee382559f72
             Response.ClearContent();
             Response.Buffer = true;
             Response.AddHeader("content-disposition", "attachment; filename=DanhSachMonHoc.xls");
@@ -98,7 +102,10 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
 
             return Content(sw.ToString(), "application/ms-excel");
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8a9a28917c32214c877566d11561fee382559f72
         // GET: PDT/MONHOCs/Details/5
         public ActionResult Details(string id)
         {
