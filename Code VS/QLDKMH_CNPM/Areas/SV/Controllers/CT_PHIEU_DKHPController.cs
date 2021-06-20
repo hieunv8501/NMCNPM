@@ -138,13 +138,13 @@ namespace QLDKMH_CNPM.Areas.SV.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CT_PHIEU_DKHP cT_PHIEUDK = db.CT_PHIEU_DKHP.Find(id);
-            if (cT_PHIEUDK == null)
+            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
+            if (pHIEU_DKHP == null)
             {
                 return HttpNotFound();
             }
             ViewBag.id = id_2;
-            return View(cT_PHIEUDK);
+            return View(pHIEU_DKHP);
         }
 
         // POST: SV/CT_PHIEUDK/Delete/5
