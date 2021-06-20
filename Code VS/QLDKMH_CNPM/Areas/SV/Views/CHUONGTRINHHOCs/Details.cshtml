@@ -39,23 +39,24 @@ else
                     </thead>
                     @foreach (var item in Model)
                     {
-        <tr>
-            <th>
-                @Html.DisplayFor(model => item.HocKy)
-            </th>
-            <td>
-                @Html.DisplayFor(model => item.MaMonHoc)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.MONHOC.TenMonHoc)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.MONHOC.SoTinChi)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.GhiChu)
-            </td>
-        </tr>}
+                        <tr>
+                            <th>
+                                @Html.DisplayFor(model => item.HocKy)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => item.MaMonHoc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.MONHOC.TenMonHoc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.MONHOC.SoTinChi)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.GhiChu)
+                            </td>
+                        </tr>
+                     }
                 </table>
             </div>
 

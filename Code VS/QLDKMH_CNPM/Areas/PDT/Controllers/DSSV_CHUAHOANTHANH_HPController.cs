@@ -17,41 +17,41 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // GET: PDT/DSSV_CHUAHOANTHANH_HP/Index/5
         public ActionResult Index(int id)
         {
-            var danhsach = db.DSSV_CHUAHOANTHANH_HP.Include(b => b.SINHVIEN);
+            var danhsach = db.DSSV_CHUAHOANTHANH_HP.Include(b => b.SINHVIEN).Include(h => h.HKNH);    //kết hai bảng SINHVIEN va DSSV_CHUAHOANTHANH_HP
 
-            List<DSSV_CHUAHOANTHANH_HP> dSSV_CHUAHOANTHANH_HP = db.DSSV_CHUAHOANTHANH_HP.ToList();
-            List<SINHVIEN> sINHVIEN = db.SINHVIENs.ToList();
-            List<HKNH> hKNH = db.HKNHs.ToList();
-            List<PHIEU_DKHP> pHIEU_DKHP = db.PHIEU_DKHP.ToList();
+            List<DSSV_CHUAHOANTHANH_HP> dSSV_CHUAHOANTHANH_HP = db.DSSV_CHUAHOANTHANH_HP.ToList(); //xuất ds sv nợ học phí ra list 
+            List<SINHVIEN> sINHVIEN = db.SINHVIENs.ToList(); //xuất SV ra list
+            List<HKNH> hKNH = db.HKNHs.ToList(); //xuất học kỳ ra list
+            List<PHIEU_DKHP> pHIEU_DKHP = db.PHIEU_DKHP.ToList(); //xuất phiếu DKHP ra list
 
-            var model1 = from a in dSSV_CHUAHOANTHANH_HP
-                        join b in sINHVIEN on a.MaSV equals b.MaSV into table_temp1
-                        from b in table_temp1.ToList()
-                        join c in hKNH on a.MaHKNH equals c.MaHKNH into table_temp2
-                        from c in table_temp2.ToList()
-                        select new DSSV_CHUAHOANTHANH_HP
-                        {
-                            HKNH = c,
-                            SINHVIEN = b,
-                            SoTienConLai = a.SoTienConLai
-                        };
+            var model1 = from d in dSSV_CHUAHOANTHANH_HP
+                        join s in sINHVIEN on d.MaSV equals s.MaSV into table_temp1   // join SINHVIEN và DSSV_CHUAHOANTHANH_HP sang bảng tạm
+                        from s in table_temp1.ToList()                                // xuất ra list
+                        join h in hKNH on d.MaHKNH equals h.MaHKNH into table_temp2   // join thêm HKNH sang bảng tạm khác
+                        from h in table_temp2.ToList()                                // xuất ra list
+                            select new DSSV_CHUAHOANTHANH_HP
+                            {
+                                HKNH = h,
+                                SINHVIEN = s,
+                                SoTienConLai = d.SoTienConLai
+                            };
 
-            if (id == 0)
+            if (id <= 0)
             {
                 ViewBag.KIEMTRA = danhsach.ToList();
                 return View(model1.ToList());
             }
-            var model2 = from p in pHIEU_DKHP
+            var model2 = (from p in pHIEU_DKHP
                          join h in hKNH on p.MaHKNH equals h.MaHKNH into table_temp1
-                         where (p.MaHKNH == id) & p.SoTienConLai > 0
+                         where (p.MaHKNH == id) && (p.SoTienConLai > 0)
                          from h in table_temp1.ToList()
                          select new DSSV_CHUAHOANTHANH_HP
                          {
                              PHIEU_DKHP = p,
                              HKNH = h
-                         };
+                         });
 
-            ViewBag.Message = id;
+            ViewBag.M = id;
             if (model2.Count() == 0)
                 return RedirectToAction("ListHK", new { code = 1 });
 
@@ -63,6 +63,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             ViewBag.Message = "";
             if (code == 1)
                 ViewBag.Message = "Học kỳ này không có sinh viên nợ học phí";
+            var namHoc = db.HKNHs;
             return View(db.HKNHs.ToList());
         }
 

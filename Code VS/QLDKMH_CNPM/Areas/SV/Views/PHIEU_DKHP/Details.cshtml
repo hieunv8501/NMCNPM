@@ -49,7 +49,7 @@
 <div class="bg-light card generalStyle">
     <div class="mt-0 py-2">
         <span>
-            @Html.ActionLink("Đăng ký thêm môn học", "Create", "CT_PHIEU_DKHP", null, new { @class = "btn btn-primary btnStyle" })
+            @Html.ActionLink("Đăng ký thêm môn học", "Create", "CT_PHIEU_DKHP", new { area = "SV", id = Model.SoPhieuDKHP, HKNH = Model.MaHKNH, id_2 = ViewData["TenDangNhap"] }, new { @class = "btn btn-primary btnStyle" })
         </span>
         <span style="float:right">
             @* Nếu chưa đăng kí môn nào thì sẽ ẩn nút xóa. *@

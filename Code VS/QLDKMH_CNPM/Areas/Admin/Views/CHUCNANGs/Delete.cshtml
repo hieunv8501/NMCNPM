@@ -1,41 +1,36 @@
 ﻿@model QLDKMH_CNPM.Models.CHUCNANG
 
-@{
-    ViewBag.Title = "Delete";
-    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
-}
+@{ ViewBag.Title = "Delete";
+    
+   Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml"; }
 
-<h2>Delete</h2>
+<h3 class="text-left text-danger controllerStyle">XÓA THÔNG TIN CHỨC NĂNG</h3>
+<hr />
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e37df">
+                <th width="50%">Tên chức năng</th>
+                <td width="50%">@Html.DisplayFor(model => model.TenChucNang)</td>
+            </tr>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>CHUCNANG</h4>
+            <tr class="bg-light" style="color:black;">
+                <th>Tên màn hình được load</th>
+                <td>@Html.DisplayFor(model => model.TenManHinhDuocLoad)</td>
+            </tr>
+        </tbody>
+    </table>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenChucNang)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TenChucNang)
-        </dd>
+    @using (Html.BeginForm())
+    {
+        
+       @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TenManHinhDuocLoad)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenManHinhDuocLoad)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+                <div class="form-actions">
+                    <h6 class="text-left text-danger controllerStyle">Bạn có muốn xóa thông tin chức năng này?</h6>
+                    <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
+                    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaChucNang }, new { @class = "btn btn-primary btnStyle" })
+                </div>
     }
 </div>

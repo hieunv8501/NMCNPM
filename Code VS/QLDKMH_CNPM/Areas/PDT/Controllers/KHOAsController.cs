@@ -47,7 +47,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                             var khoa = new KHOA();
                             khoa.MaKhoa = workSheet.Cells[iRow, 1].Value.ToString();
                             khoa.TenKhoa = workSheet.Cells[iRow, 2].Value.ToString();
-                            kHOA.Add(ng);
+                            kHOA.Add(khoa);
                         }
                     }
                 }
@@ -56,7 +56,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             {
                 foreach (var item in kHOA)
                 {
-                    excelImport.NGANHs.Add(item);
+                    excelImport.KHOAs.Add(item);
                 }
                 excelImport.SaveChanges();
             }
