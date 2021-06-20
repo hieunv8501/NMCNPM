@@ -192,8 +192,7 @@ insert into PHIEUTHU values (3, 2, '31/12/2020', 100000)
 insert into PHIEUTHU values (3, 1, '25/12/2019', 10000)
 
 -- du lieu table DSSV_CHUAHOANTHANH_HP
-insert into DSSV_CHUAHOANTHANH_HP values (21920, '191512', 0)
-insert into DSSV_CHUAHOANTHANH_HP values (12021, '201011', 0)
+
 
 --PHANQUYEN
 -- du lieu mau table CHUCNANG
@@ -257,6 +256,7 @@ insert into NHOMNGUOIDUNG values ('3', N'Sinh viên')
 -- du lieu table NGUOIDUNG
 insert into NGUOIDUNG values ('admin01', '1', '1')
 insert into NGUOIDUNG values ('pdt01', '1', '2')
+
 
 -- du lieu table NGUOIDUNG
 insert into PHANQUYEN values('1', 'CN01')

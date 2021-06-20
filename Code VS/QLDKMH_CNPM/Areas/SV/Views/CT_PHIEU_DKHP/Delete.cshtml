@@ -1,14 +1,11 @@
 ﻿@model QLDKMH_CNPM.Models.PHIEU_DKHP
 
-<<<<<<< HEAD
 @{ ViewBag.Title = "Delete";
     Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml"; }
-=======
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml";
 }
->>>>>>> 8a9a28917c32214c877566d11561fee382559f72
 <h3 class="text-left text-danger controllerStyle">XÓA MÔN HỌC</h3>
 
 <div class="bg-primary text-white generalStyle " style="text-align: left; padding:5px;">
@@ -17,55 +14,6 @@
 <hr />
 @using (Html.BeginForm("Delete", "CT_PHIEU_DKHP", FormMethod.Post))
 {
-<<<<<<< HEAD
-@Html.AntiForgeryToken()
-<div class="control-label generalStyle ">Số phiếu đăng ký </div>
-<div>
-    @Html.EditorFor(model => model.SoPhieuDKHP, new { htmlAttributes = new { @class = "form-control generalStyle", @readonly = "readonly" } })
-</div>
-<div class="form-group mt-1">
-    <div class="control-label">
-        <input id="btnNew" type="submit" value="Xóa các môn đã chọn" class="btn btn-danger btnStyle generalStyle" />
-        <input type="button" value="Hủy" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
-    </div>
-</div>
-<div class="form-group generalStyle">
-    <div id="dataTable_wrapper" name="ID" class="dataTables_wrapper card-body pre-scrollable bg-white m-1 p-1">
-        <div id="dataTable_wrapper" class="dataTables_wrapper">
-            <table id="DataTable" style="width:100%;" class="table table-bordered dataStyle dataTable">
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" id="checkBoxAll" class="custom-checkbox" />Chọn</th>
-                        <th>Mã môn học</th>
-                        <th>Mã môn học mở</th>
-                        <th>Tên môn học</th>
-                        <th>Loại môn</th>
-                        <th>Số tiết</th>
-                        <th>Số tín chỉ</th>
-                        <th>Ghi chú</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var MonHoc in Model.CT_PHIEU_DKHP)
-                    {
-                        <tr>
-                            <td><input type="checkbox" name="MaMo" value="@MonHoc.MaMo" id="MonHoc" class="custom-checkbox chkCheckBoxId" /></td>
-                            <td>@MonHoc.DS_MONHOC_MO.MONHOC.MaMonHoc</td>
-                            <td>@MonHoc.MaMo</td>
-                            <td>@MonHoc.DS_MONHOC_MO.MONHOC.TenMonHoc</td>
-                            <td>@MonHoc.DS_MONHOC_MO.MONHOC.MaLoaiMon</td>
-                            <td>@MonHoc.DS_MONHOC_MO.MONHOC.SoTiet</td>
-                            <td>@MonHoc.DS_MONHOC_MO.MONHOC.SoTinChi</td>
-                            <td>@MonHoc.GhiChu</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <hr />
-        </div>
-    </div>
-</div>}
-=======
     @Html.AntiForgeryToken()
     <div class="control-label generalStyle ">Số phiếu đăng ký </div>
     <div>
@@ -97,7 +45,7 @@
                         @foreach (var MonHoc in Model.CT_PHIEU_DKHP)
                         {
                             <tr>
-                                <td><input type="checkbox" id="MonHoc" name="MaMo" value="@MonHoc.MaMo" class="custom-checkbox chkCheckBoxId" /></td>
+                                <td><input type="checkbox" name="MaMo" value="@MonHoc.MaMo" id="MonHoc" class="custom-checkbox chkCheckBoxId" /></td>
                                 <td>@MonHoc.DS_MONHOC_MO.MONHOC.MaMonHoc</td>
                                 <td>@MonHoc.MaMo</td>
                                 <td>@MonHoc.DS_MONHOC_MO.MONHOC.TenMonHoc</td>
@@ -112,8 +60,8 @@
                 <hr />
             </div>
         </div>
-    </div>}
->>>>>>> 8a9a28917c32214c877566d11561fee382559f72
+    </div>
+}
 
 <div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -157,29 +105,19 @@
         });
     });
 </script>
-<<<<<<< HEAD
 
-=======
->>>>>>> 8a9a28917c32214c877566d11561fee382559f72
 @* Phải chọn ít nhất một môn để xóa *@
 <script src="https://lipis.github.io/bootstrap-sweetalert/lib/sweet-alert.js"></script>
-<link href="~/Content/sweetalert/sweet-alert.css" rel="stylesheet" />
+
+<link href="~/Styles/sweetalert.css" rel="stylesheet" />
 <script type="text/javascript">
     $(document).ready(function () {
         $('#btnNew').click(function () {
             checked = $("input[type=checkbox]:checked").length;
-<<<<<<< HEAD
-=======
-
->>>>>>> 8a9a28917c32214c877566d11561fee382559f72
             if (!checked) {
                 alert("Phải chọn ít nhất một môn để xóa.");
                 return false;
             }
-<<<<<<< HEAD
-=======
-
->>>>>>> 8a9a28917c32214c877566d11561fee382559f72
         });
     });
 </script>
