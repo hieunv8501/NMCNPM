@@ -98,6 +98,11 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
 
             return Content(sw.ToString(), "application/ms-excel");
         }
+<<<<<<< HEAD
+=======
+
+        // GET: PDT/MONHOCs/Details/5
+>>>>>>> 5a837dfbb40456c771232ce12f276c914790117c
         public ActionResult Details(string id)
         {
             if (id == null)
