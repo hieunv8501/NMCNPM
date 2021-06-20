@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QLDKMH_CNPM.DS_model>
+﻿@model IEnumerable<QLDKMH_CNPM.Models.DSSV_CHUAHOANTHANH_HP>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
@@ -22,8 +22,7 @@
                             <th>Họ Tên</th>
                             <th>Mã Ngành</th>
                             <th>Học kỳ</th>
-                            <th>Năm bắt đầu</th>
-                            <th>Năm kết thúc</th>
+                            <th>Năm</th>
                             <th>Số tiền còn lại</th>
                             <th style="text-align: center">Thao tác</th>
                         </tr>
@@ -36,8 +35,7 @@
                             <th>Họ Tên</th>
                             <th>Mã Ngành</th>
                             <th>Học kỳ</th>
-                            <th>Năm bắt đầu</th>
-                            <th>Năm kết thúc</th>
+                            <th>Năm</th>
                             <th>Số tiền còn lại</th>
                             <th></th>
                         </tr>
@@ -53,24 +51,20 @@
                                 @Html.DisplayFor(modelItem => item.MaSV)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.HoTen)
+                                @Html.DisplayFor(modelItem => item.SINHVIEN.HoTen)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.MaNganh)
+                                @Html.DisplayFor(modelItem => item.SINHVIEN.MaNganh)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.HocKy)
+                                @Html.DisplayFor(modelItem => item.HKNH.HocKy)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Nam1)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nam2)
+                                @Html.DisplayFor(modelItem => item.HKNH.Nam1)-@Html.DisplayFor(modelItem => item.HKNH.Nam2)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.SoTienConLai)
                             </td>
-
                             <td>
                                 <!--EFFECT 1: line with blue-->
 

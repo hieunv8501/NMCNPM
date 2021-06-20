@@ -10,16 +10,20 @@
 
 @using (Html.BeginForm("Upload", "SINHVIENs", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-<div class="generalStyle" style="color:black"><strong>Tải lên thông tin sinh viên qua file Excel</strong></div>
-                <div class="form-group">
-                    <div class="upload">
-                        <input type="button" class="uploadButton btnStyle generalStyle" value="Chọn đường dẫn" />
-                        <input type="file" name="UploadedFile" accept="/.xls, .xlsx" id="fileUpload" />
-                        <label class="fileName" style="width:auto; ">Đường dẫn file Excel...</label>
-                    </div>
-                    <input type="submit" name="Submit" class="btn btn-primary btnStyle generalStyle" value="Tải lên" />
-                </div>
+    <div class="generalStyle" style="color:black"><strong>Tải lên thông tin sinh viên qua file Excel</strong></div>
+    <div class="form-group">
+        <div class="upload">
+            <input type="button" class="uploadButton btnStyle generalStyle" value="Chọn đường dẫn" />
+            <input type="file" name="UploadedFile" accept="/.xls, .xlsx" id="fileUpload" />
+            <label class="fileName" style="width:auto; ">Đường dẫn file Excel...</label>
+        </div>
+        <input type="submit" name="Submit" class="btn btn-primary btnStyle generalStyle" value="Tải lên" />
+    </div>
 }
+<a class="generalStyle" style="color:black"><strong>Xuất danh sách sinh viên ra file Excel</strong></a>
+<a>
+    @Html.ActionLink("Xuất danh sách", "ExportToExcel", null, new { @class = "btn btn-primary btnStyle generalStyle" })
+</a>
 <!--DataTable Showing-->
 <!--Thêm class="card" để scroll nội dung mà không scroll sidebar-->
 <div class="bg-light card generalStyle">
@@ -65,44 +69,44 @@
 
                     @foreach (var item in Model)
                     {
-        <tr>
-            <td style="vertical-align:middle;">
-                @Html.DisplayFor(model => item.MaSV)
-            </td>
-            <td style="vertical-align:middle;">
-                @Html.DisplayFor(modelItem => item.HoTen)
-            </td>
-            <td style="vertical-align:middle;">
-                @Html.DisplayFor(modelItem => item.NgaySinh.Day)/@Html.DisplayFor(modelItem => item.NgaySinh.Month)/@Html.DisplayFor(modelItem => item.NgaySinh.Year)
-                @*Tuy vẫn chạy và hiển thị ra đúng mong muốn nhưng
-                    rất nhiều lỗi sẽ xuất hiện ở đoạn này nếu dùng câu lệnh ở dưới đây
-                    @Html.Label(@item.NgaySinh.ToString("dd/MM/yyyy"))*@
-            </td>
-            <td style="vertical-align:middle;">
-                @Html.DisplayFor(modelItem => item.GioiTinh)
-            </td>
-            <td style="vertical-align:middle;">
-                @Html.DisplayFor(modelItem => item.HUYEN.TenHuyen)
-                - @Html.DisplayFor(modelItem => item.HUYEN.TINH.TenTinh)
-            </td>
-            <td style="vertical-align:middle;">
-                @Html.DisplayFor(modelItem => item.NGANH.TenNganh)
-            </td>
-            <td style="vertical-align:middle;">
+                        <tr>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(model => item.MaSV)
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.HoTen)
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.NgaySinh.Day)/@Html.DisplayFor(modelItem => item.NgaySinh.Month)/@Html.DisplayFor(modelItem => item.NgaySinh.Year)
+                                @*Tuy vẫn chạy và hiển thị ra đúng mong muốn nhưng
+                                    rất nhiều lỗi sẽ xuất hiện ở đoạn này nếu dùng câu lệnh ở dưới đây
+                                    @Html.Label(@item.NgaySinh.ToString("dd/MM/yyyy"))*@
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.GioiTinh)
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.HUYEN.TenHuyen)
+                                - @Html.DisplayFor(modelItem => item.HUYEN.TINH.TenTinh)
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.NGANH.TenNganh)
+                            </td>
+                            <td style="vertical-align:middle;">
                 <!--EFFECT 1: line with blue-->
 
-                <div class="container">
-                    <div class="dropdown nav-item">
-                        <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Tùy chọn
-                        </button>
-                        <div class="dropdown-menu" style="text-align: center;" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="@Url.Action("Details", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Xem thông tin</a>
-                            <a class="dropdown-item" href="@Url.Action("Edit", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Sửa thông tin</a>
-                            <a class="dropdown-item" href="@Url.Action("Delete", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Xóa thông tin</a>
-                        </div>
-                    </div>
-                </div>
+                                <div class="container">
+                                    <div class="dropdown nav-item">
+                                        <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Tùy chọn
+                                        </button>
+                                        <div class="dropdown-menu" style="text-align: center;" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="@Url.Action("Details", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Xem thông tin</a>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Sửa thông tin</a>
+                                            <a class="dropdown-item" href="@Url.Action("Delete", "SINHVIENs", new {area ="PDT", id = item.MaSV})">Xóa thông tin</a>
+                                        </div>
+                                    </div>
+                                </div>
 
                 <!--EFFECT 2: line with gray-->
                 <!--<div class="dropdown">
@@ -116,8 +120,9 @@
                 </div>
                 </div>-->
 
-            </td>
-        </tr>}
+                            </td>
+                        </tr>
+                     }
                 </table>
             </div>
         </div>
@@ -127,7 +132,8 @@
 
 @*Js để hỗ trợ upload file Excel*@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>$('input[type=file]').change(function (e) {
+<script>
+    $('input[type=file]').change(function (e) {
         $in = $(this);
         $in.next().html($in.val());
 
@@ -140,4 +146,5 @@
         else {
             alert("Vui lòng chọn file Excel để tải lên");
         }
-    });</script>
+    });
+</script>

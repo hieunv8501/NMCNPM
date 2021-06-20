@@ -83,6 +83,10 @@ namespace QLDKMH_CNPM.Models
                 .WithRequired(e => e.DS_MONHOC_MO)
                 .WillCascadeOnDelete(false);
 
+            //modelBuilder.Entity<DSSV_CHUAHOANTHANH_HP>()
+            //    .Property(e => e.MaHKNH)
+            //    .IsRequired();
+
             modelBuilder.Entity<DSSV_CHUAHOANTHANH_HP>()
                 .Property(e => e.MaSV)
                 .IsFixedLength()

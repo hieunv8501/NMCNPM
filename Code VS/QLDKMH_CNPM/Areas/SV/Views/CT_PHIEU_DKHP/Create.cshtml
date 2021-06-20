@@ -1,8 +1,7 @@
 ﻿@model QLDKMH_CNPM.Models.CT_PHIEU_DKHP
 
 @{ ViewBag.Title = "Create";
-    Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml"; 
-}
+    Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml"; }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="~/scripts/jquery-3.4.1.min.js"></script>
@@ -33,70 +32,70 @@
 {
 @Html.AntiForgeryToken()
 
-                <div class="control-label generalStyle" style="color:black">
-                    Số phiếu đăng ký
-                    <div class="form-control" readonly>@ViewBag.SoPhieuDKHP</div>
-                </div>
-                 <div class="form-group mt-1 ml-0">
-                      <div class="control-label" style="font-family: Arial, Helvetica, sans-serif; font-size: larger">
-                           <input id="btnNew" type="submit" value="Đăng ký các môn đã chọn" class="btn btn-primary btnStyle " />
-                           <input type="button" value="Hủy" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
-                      </div>
-                 </div>               
-                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                 <div class="form-group generalStyle">
-                       <div id="dataTable_wrapper" name="ID" class="dataTables_wrapper card-body pre-scrollable bg-white m-1 p-1">
-                            <div>
-                                 <div id="dataTable_wrapper" class="dataTables_wrapper">
-                                      <table class="table table-bordered dataTable dataStyle" id="dataTable">
-                                            <thead>
-                                                  <tr>
-                                                      <th><input type="checkbox" id="checkBoxAll" class="custom-checkbox" />Chọn</th>
-                                                       <th>Mã môn học</th>
-                                                       <th>Mã môn học mở</th>
-                                                       <th>Tên môn học</th>
-                                                       <th>Loại môn</th>
-                                                       <th>Số tiết</th>
-                                                       <th>Số tín chỉ</th>
-                                                       <th>Ghi chú</th>
-                                                  </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach (var item in ViewBag.ListMonHoc)
-                                            {
-                                                 <tr value="@item.MaMo">
-                                                     <td><input type="checkbox" name="MaMo" value="@item.MaMo" class="custom-checkbox chkCheckBoxId" /></td>
-                                                     <td>
-                                                            @item.DS_MONHOC_MO.MONHOC.MaMonHoc
-                                                     </td>
-                                                     <td>
-                                                            @item.MaMo
-                                                     </td>
-                                                     <td>
-                                                            @item.DS_MONHOC_MO.MONHOC.TenMonHoc
-                                                     </td>
-                                                     <td>   
-                                                            @item.DS_MONHOC_MO.MONHOC.MaLoaiMon
-                                                     </td>
-                                                     <td>
-                                                            @item.DS_MONHOC_MO.MONHOC.SoTiet
-                                                     </td>
-                                                     <td>
-                                                            @item.DS_MONHOC_MO.MONHOC.SoTinChi
-                                                     </td>
-                                                     <td>   
-                                                            @item.GhiChu
-                                                     </td>
-                                                 </tr>
-                                            }
-                                            </tbody>
-                                      </table>
-                                      @Html.ValidationMessageFor(model => model.MaMo, "", new { @class = "text-danger" })
-                                      <hr />
-                                 </div>
-                            </div>
-                       </div>
-                 </div>
+<div class="control-label generalStyle" style="color:black">
+    Số phiếu đăng ký
+    <div class="form-control" readonly>@ViewBag.SoPhieuDKHP</div>
+</div>
+<div class="form-group mt-1 ml-0">
+    <div class="control-label" style="font-family: Arial, Helvetica, sans-serif; font-size: larger">
+        <input id="btnNew" type="submit" value="Đăng ký các môn đã chọn" class="btn btn-primary btnStyle " />
+        <input type="button" value="Hủy" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+    </div>
+</div>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group generalStyle">
+    <div id="dataTable_wrapper" name="ID" class="dataTables_wrapper card-body pre-scrollable bg-white m-1 p-1">
+        <div>
+            <div id="dataTable_wrapper" class="dataTables_wrapper">
+                <table class="table table-bordered dataTable dataStyle" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkBoxAll" class="custom-checkbox" />Chọn</th>
+                            <th>Mã môn học</th>
+                            <th>Mã môn học mở</th>
+                            <th>Tên môn học</th>
+                            <th>Loại môn</th>
+                            <th>Số tiết</th>
+                            <th>Số tín chỉ</th>
+                            <th>Ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.ListMonHoc)
+                        {
+                            <tr value="@item.MaMo">
+                                <td><input type="checkbox" name="MaMo" value="@item.MaMo" class="custom-checkbox chkCheckBoxId" /></td>
+                                <td>
+                                    @item.DS_MONHOC_MO.MONHOC.MaMonHoc
+                                </td>
+                                <td>
+                                    @item.MaMo
+                                </td>
+                                <td>
+                                    @item.DS_MONHOC_MO.MONHOC.TenMonHoc
+                                </td>
+                                <td>
+                                    @item.DS_MONHOC_MO.MONHOC.MaLoaiMon
+                                </td>
+                                <td>
+                                    @item.DS_MONHOC_MO.MONHOC.SoTiet
+                                </td>
+                                <td>
+                                    @item.DS_MONHOC_MO.MONHOC.SoTinChi
+                                </td>
+                                <td>
+                                    @item.GhiChu
+                                </td>
+                            </tr>
+                         }
+                    </tbody>
+                </table>
+                @Html.ValidationMessageFor(model => model.MaMo, "", new { @class = "text-danger" })
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>
 }
 <div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
     <div class="modal-dialog" role="document">

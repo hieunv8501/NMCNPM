@@ -7,17 +7,18 @@
 <!--Page Heading-->
 <h3 class="mb-1 text-danger controllerStyle">DANH SÁCH ĐỐI TƯỢNG ƯU TIÊN</h3>
 
-@using (Html.BeginForm("Upload", "KHOAs", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Upload", "DOITUONGs", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-<div class="generalStyle" style="color:black"><strong>Tải lên thông tin sinh viên qua file Excel</strong></div>
-                <div class="form-group">
-                    <div class="upload">
-                        <input type="button" class="uploadButton btnStyle generalStyle" value="Chọn đường dẫn" />
-                        <input type="file" name="UploadedFile" accept="/.xls, .xlsx" id="fileUpload" />
-                        <label class="fileName" style="width:auto; ">Đường dẫn file Excel...</label>
-                    </div>
-                    <input type="submit" name="Submit" class="btn btn-primary btnStyle generalStyle" value="Tải lên" />
-                </div>}
+    <div class="generalStyle" style="color:black"><strong>Tải lên thông tin đối tượng qua file Excel</strong></div>
+    <div class="form-group">
+        <div class="upload">
+            <input type="button" class="uploadButton btnStyle generalStyle" value="Chọn đường dẫn" />
+            <input type="file" name="UploadedFile" accept="/.xls, .xlsx" id="fileUpload" />
+            <label class="fileName" style="width:auto; ">Đường dẫn file Excel...</label>
+        </div>
+        <input type="submit" name="Submit" class="btn btn-primary btnStyle generalStyle" value="Tải lên" />
+    </div>
+}
 
 
 <!--DataTable Showing-->
@@ -43,28 +44,29 @@
 
                     @foreach (var item in Model)
                     {
-        <tr>
-            <td style="vertical-align: middle;">
-                @Html.DisplayFor(modelItem => item.TenDoiTuong)
-            </td>
-            <td style="vertical-align: middle;">
-                @Html.DisplayFor(modelItem => item.TiLeGiamHocPhi)
-            </td>
-            <td>
-                <div class="container">
-                    <div class="dropdown nav-item">
-                        <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Tùy chọn
-                        </button>
-                        <div class="dropdown-menu" style="text-align:center;" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="@Url.Action("Details", "DOITUONGs", new {area ="PDT", id = item.MaDoiTuong})">Xem thông tin</a>
-                            <a class="dropdown-item" href="@Url.Action("Edit", "DOITUONGs", new {area ="PDT", id = item.MaDoiTuong})">Sửa thông tin</a>
-                            <a class="dropdown-item" href="@Url.Action("Delete", "DOITUONGs", new {area ="PDT", id = item.MaDoiTuong})">Xóa thông tin</a>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>}
+                        <tr>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.TenDoiTuong)
+                            </td>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.TiLeGiamHocPhi)
+                            </td>
+                            <td>
+                                <div class="container">
+                                    <div class="dropdown nav-item">
+                                        <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Tùy chọn
+                                        </button>
+                                        <div class="dropdown-menu" style="text-align:center;" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="@Url.Action("Details", "DOITUONGs", new {area ="PDT", id = item.MaDoiTuong})">Xem thông tin</a>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", "DOITUONGs", new {area ="PDT", id = item.MaDoiTuong})">Sửa thông tin</a>
+                                            <a class="dropdown-item" href="@Url.Action("Delete", "DOITUONGs", new {area ="PDT", id = item.MaDoiTuong})">Xóa thông tin</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                     }
                 </table>
             </div>
         </div>
@@ -72,7 +74,8 @@
 </div>
 @*Js để hỗ trợ upload file Excel*@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>$('input[type=file]').change(function (e) {
+<script>
+    $('input[type=file]').change(function (e) {
         $in = $(this);
         $in.next().html($in.val());
 
