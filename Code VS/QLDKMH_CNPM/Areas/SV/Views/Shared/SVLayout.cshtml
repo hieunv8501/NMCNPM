@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Trang chủ sinh viên | Quản lý đăng ký môn học và thu học phí</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="~/Assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/Assets/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="~/Assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <link href="~/Assets/css/SVcss/SVcss.css" rel="stylesheet" />
+
+    <style>
+        .non-interactive {
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body id="page-top" class="w3-sidebar">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <li class="sidebar-brand-icon non-interactive my-1" href="@Url.Action("SVHome", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("SVHome","SV") ">
+                    <img id="img_logo" alt="UIT" style="width: 80px; height: 70px" src="@Url.Content("~/Content/img/uit_logo_removebg.png")" />
+                    <h5 style="margin-top: 5px; color: black; font-weight: bolder; font-family: Calibri, sans-serif;" class="embed-responsive">Nhập Môn Công Nghệ Phần Mềm</h5>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <li><hr class="sidebar-divider py-0 my-0"></li>
+
+
+            <li class="nav-item">
+                <a class="nav-link m-1 py-0 justify-content-center align-content-center align-items-center d-flex" href="@Url.Action("SVHome", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">
+                    <img id="img_logo" alt="SVHome" width="25" height="25" src="@Url.Content("~/Content/img/home.png")" />
+                </a>
+            </li>
+            <!--Divider-->
+            <li>
+                <hr class="sidebar-divider my-0" />
+            </li>
+
+            <!-- Heading -->
+            <li class="sidebar-heading active bg-gradient-light my-1" style="color: black; font-size: 13px;">THÔNG TIN</li>
+
+            <li class="nav-item active zoom generalStyle sidebarSize" style="border-top: solid black 1px">
+                <a class="nav-link" href="@Url.Action("SVmodule0", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">Thông báo</a>
+            </li>
+
+            <li class="nav-item active zoom generalStyle sidebarSize">
+                <a class="nav-link" href="@Url.Action("SVmodule1", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">Sự kiện - Tin tức</a>
+            </li>
+
+            <li class="nav-item active zoom generalStyle sidebarSize">
+                <a class="nav-link" href="@Url.Action("SVmodule2", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">Kế hoạch năm</a>
+            </li>
+            <li class="nav-item active zoom generalStyle sidebarSize">
+                <a class="nav-link" href="@Url.Action("SVmodule3", "SV", new {TenDangNhap = ViewData["TenDangNhap"]})">Quy định - Hướng dẫn</a>
+            </li>
+            <li class="nav-item active zoom generalStyle sidebarSize">
+                <a class="nav-link" href="@Url.Action("Details", "SINHVIENs", new { id = ViewData["TenDangNhap"]})">Lý lịch sinh viên</a>
+            </li>
+
+            <li class="nav-item active zoom generalStyle sidebarSize">
+                <a class="nav-link" href="@Url.Action("Index", "CHUONGTRINHHOCs", new { id = ViewData["TenDangNhap"]})">Chương trình học</a>
+            </li>
+           
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item btn btn-primary p-0" style="border: none">
+                <a class="nav-link collapsed zoom" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                    <span class="generalStyle active getfontStyle" style="font-size:12px; color:white">Đăng ký học phần</span>
+                </a>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="py-2 collapse-inner rounded">
+                        <h6 class="collapse-header"></h6>
+                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("ListHK", "DS_MONHOC_MO", new { id = ViewData["TenDangNhap"] })">Danh sách môn học mở</a>
+                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("Create", "PHIEU_DKHP", new { id_sv = ViewData["TenDangNhap"]})">Đăng ký học phần</a>
+                        <a class="collapse-item zoom generalStyle sidebarSize bg-gradient-primary m-0" style="color: white; width: fit-content" href="@Url.Action("IndexSV", "PHIEU_DKHP", new { id = ViewData["TenDangNhap"]})">Thông tin ĐKHP</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item active zoom generalStyle sidebarSize">
+                <a class="nav-link" href="@Url.Action("Index", "PHIEUTHUs", new { id = ViewData["TenDangNhap"] })">Thông tin phiếu thu</a>
+            </li>
+
+            <li class="nav-item active zoom generalStyle sidebarSize">
+                <a class="nav-link" href="@Url.Action("Edit", "NGUOIDUNGs", new { id = ViewData["TenDangNhap"] })">Đổi mật khẩu</a>
+            </li>
+
+            <li class="nav-item active generalStyle sidebarSize zoom" data-toggle="modal" data-target="#logoutModal">
+                <a class="nav-link" href="#">Đăng xuất</a>
+            </li>
+
+            <li class="text-center d-none d-md-inline">
+                <button id="sidebarToggle" class="rounded-circle border-warning bg-gradient-primary zoom"></button>
+            </li>
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+
+        <div id="content-wrapper" class="d-flex flex-column" style="position:relative;">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!--Topbar-->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar">
+
+                    <!--Sidebar Toggle (Topbar)-->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-block rounded-circle">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-gradient-light small generalStyle" placeholder="Tìm kiếm..." aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <!--Topbar Navbar-->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!--Nav Item - Alerts-->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!--Counter - Alerts-->
+
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+
+                            <!-- Dropdown - Alerts-->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right animated--grow-in generalStyle" aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header sidebarSize">
+                                    Thông báo
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-crown text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div class="sidebarSize">
+                                        <div>30 Tháng 6 Năm 2021</div>
+                                        <span style="font-weight: 200">Chúc may mắn với điểm số cao nhé!</span>
+                                    </div>
+                                </a>
+
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle badge-success">
+                                            <i class="fas fa-briefcase text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div class="sidebarSize">
+                                        <div>April 29 2021</div>
+                                        <span style="font-weight: 200">Chúc nhóm một buổi thuyết trình tốt!</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center sidebarSize" href="#">Hiển thị tất cả thông báo</a>
+                            </div>
+                        </li>
+                        <!-- Nav Item - Messages-->
+
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <i class="fas fa-envelope fa-fw"></i>
+
+                                <!--Counter - Messages-->
+                                <span class="badge badge-danger badge-counter">7</span>
+                            </a>
+                            <!--Dropdown - Messages-->
+
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right animated--grow-in generalStyle" aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header sidebarSize">
+                                    TIN NHẮN
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://d3av3o1z276gfa.cloudfront.net/images/place/r3B5IkCGEKReT7IcFWCIcVDSlPCXeXwr.jpeg" alt="Tin nhắn 1">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="sidebarSize">
+                                        <div style="font-weight:100;">Chính sách miễn giảm học phí từ UIT</div>
+                                        <span>UIT P. KHTC · 58m</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://brasol.vn/public/ckeditor/uploads/tin-tuc/brasol.vn-logo-hoi-sinh-vien-image-1-compressed.jpg" alt="Message 2">
+                                        <div class="status-indicator"></div>
+                                    </div>
+                                    <div class="sidebarSize">
+                                        <div style="font-weight:100;">Tham gia ngay các hoạt động để đạt được danh hiệu SV5T</div>
+                                        <span>Hội sinh viên UIT · 1d</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://cs.uit.edu.vn/wp-content/uploads/2017/08/logocs.png" alt="Message 3">
+                                        <div class="status-indicator bg-warning"></div>
+                                    </div>
+                                    <div class="sidebarSize">
+                                        <div style="font-weight:100;">Đăng kí thi thử TOEIC ngay cùng Đoàn khoa Khoa Học Máy Tính !</div>
+                                        <span>CS - TOEIC · 2d</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://www.uit.edu.vn/sites/vi/files/image_from_word/wetalk25.png" alt="Message 4">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="sidebarSize">
+                                        <div style="font-weight:100;">WeTalk - Không gian chia sẻ: Hãy đến và chia sẻ các tâm sự, luôn luôn lắng nghe và thấu hiểu</div>
+                                        <span>Không gian chia sẻ - A104 · 2w</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center sidebarSize" href="#">Hiển thị thêm tin nhắn</a>
+                            </div>
+                        </li>
+
+                        <li class="topbar-divider d-none d-sm-block"></li>
+
+                        <!--Nav Item - User Information-->
+                        <li class="nav-item dropdown no-arrow">
+                            <div class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span id="name" class="mr-3 d-nono d-lg-inline getfontStyle" style="font-size:14px; font-weight: 500; color: black;">Nhóm 8</span>
+                                <img class="img-profile rounded-circle" src="~/Content/img/logo_uit.jpeg" />
+                            </div>
+
+                            <!--Dropdown - User Information-->
+                            <div class="btn dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="btn dropdown-item getfontStyle" href="~//Home/About">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                                    Thông tin nhóm
+                                </a>
+                                <a class="btn dropdown-item getfontStyle" href="~//Home/Index">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2"></i>
+                                    Giới thiệu
+                                </a>
+                                <a class="btn dropdown-item getfontStyle" href="~//Home/Contact">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2"></i>
+                                    Liên hệ
+                                </a>
+                                <a class="btn dropdown-item getfontStyle" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                                    Đăng xuất
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!--End of Topbar-->
+                <!-- Begin Page Content-->
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <p class="copyright text-center my-auto generalStyle">Quản lý Đăng ký môn học & Thu học phí - Nhập môn Công nghệ Phần mềm</p>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel">Đăng xuất</h5>
+                    <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                        <span class="generalStyle" aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body generalStyle" style="color: black;">Bạn có thật sự muốn "Đăng xuất" ?</div>
+                <div class="modal-footer generalStyle">
+                    <a class="btn btn-danger btnStyle" href="~/Login/Login/Login">Đăng xuất</a>
+                    <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Assets/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/Assets/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Assets/js/demo/datatables-demo.js"></script>
+
+</body>
+
+</html>

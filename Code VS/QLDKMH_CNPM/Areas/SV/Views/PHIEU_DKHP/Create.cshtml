@@ -1,0 +1,117 @@
+﻿@model QLDKMH_CNPM.Models.PHIEU_DKHP
+
+@{ 
+   ViewBag.Title = "Create";
+   Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml"; 
+}
+
+<h3 class="text-left text-danger controllerStyle">THÊM MỚI PHIẾU ĐĂNG KÍ HỌC PHẦN</h3>
+<hr />
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+                <div class="form-horizontal generalStyle" style="color: black;">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="control-label">Số Phiếu ĐKHP</div>
+                        <div>
+                            <div class="form-control">@ViewBag.SoPhieuDKHP</div>
+                            @Html.HiddenFor(m => m.SoPhieuDKHP)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="control-label">Mã số sinh viên</div>
+                        <div>
+                            <div class="form-control">@ViewBag.MaSV.MaSV</div>
+                            @Html.HiddenFor(m => m.MaSV)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label">Họ tên sinh viên</div>
+                        <div>
+                            <div class="form-control">@ViewBag.MaSV.HoTen</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="control-label">Ngày lập phiếu đăng ký</div>
+                        <div class="form-control">@ViewBag.NgayLap</div>
+                            @Html.HiddenFor(m => m.NgayLap)                     
+                    </div>
+
+                    <div class="form-group">
+                        <div class="control-label">Học kỳ - năm học</div>
+                        <div>
+                            <select id="MaHKNH" name="MaHKNH" class="form-control">
+                                @foreach (var item in ViewBag.HocKyNamHoc)
+                                {
+                                    <option value="@item.MaHKNH">HK @item.HocKy Năm học @item.Nam1 - @item.Nam2</option>
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(model => model.MaHKNH, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @if (ViewBag.Message == "Sai")
+                    {
+                            <div class="alert alert-danger generalStyle">Không hợp lệ, mời chọn lại! </div>
+                            
+                    }
+                    <hr />
+                    <div class="form-group">
+                        <div class="control-label">
+                            <input id="btnNew" type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
+                            <input type="button" value="Hủy" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+                        </div>
+                    </div>
+
+                </div>}
+
+<!--Cảnh báo thoát-->
+<div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="generalStyle" aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body generalStyle" style="color: black;">Thoát khi chưa lưu?</div>
+            <div class="modal-footer generalStyle">
+                <a class="btn btn-danger btnStyle" href="@Url.Action("IndexSV", "PHIEU_DKHP", new { area = "SV", id = ViewData["TenDangNhap"] })">Đồng ý</a>
+                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Javascript để gọi datetimepicker trong Ngày tháng-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.datetimepicker').datepicker({
+            closeText: "Đóng",
+            prevText: "Trước",
+            nextText: "Sau",
+            currentText: "Hôm nay",
+            monthNames: ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"],
+            monthNamesShort: ["Một", "Hai", "Ba", "Bốn", "Năm", "Sáu", "Bảy", "Tám", "Chín", "Mười", "Mười một", "Mười hai"],
+            dayNames: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
+            dayNamesShort: ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
+            dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+            weekHeader: "Tuần",
+            dateFormat: "dd/mm/yy",
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: "",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:+0",
+            showButtonPanel: true
+        });
+    });
+</script>-->

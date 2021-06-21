@@ -1,0 +1,520 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CNPM_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CHUCNANG">
+    <Key>
+      <PropertyRef Name="MaChucNang" />
+    </Key>
+    <Property Name="MaChucNang" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenChucNang" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="TenManHinhDuocLoad" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NHOMNGUOIDUNGs" Relationship="Self.PHANQUYEN" FromRole="CHUCNANG" ToRole="NHOMNGUOIDUNG" />
+  </EntityType>
+  <EntityType Name="CHUONGTRINHHOC">
+    <Key>
+      <PropertyRef Name="MaNganh" />
+      <PropertyRef Name="MaMonHoc" />
+    </Key>
+    <Property Name="MaNganh" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MaMonHoc" Type="String" MaxLength="7" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="HocKy" Type="Int32" Nullable="false" />
+    <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MONHOC" Relationship="Self.FK_CTH_MONHOC" FromRole="CHUONGTRINHHOC" ToRole="MONHOC" />
+    <NavigationProperty Name="NGANH" Relationship="Self.FK_CTH_NGANH" FromRole="CHUONGTRINHHOC" ToRole="NGANH" />
+  </EntityType>
+  <EntityType Name="CT_PHIEU_DKHP">
+    <Key>
+      <PropertyRef Name="SoPhieuDKHP" />
+      <PropertyRef Name="MaMo" />
+    </Key>
+    <Property Name="SoPhieuDKHP" Type="Int32" Nullable="false" />
+    <Property Name="MaMo" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="GhiChu" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DS_MONHOC_MO" Relationship="Self.FK_MaMo_DS_MONHOC_MO" FromRole="CT_PHIEU_DKHP" ToRole="DS_MONHOC_MO" />
+    <NavigationProperty Name="PHIEU_DKHP" Relationship="Self.FK_SoPhieuDKHP_PHIEU_DKHP" FromRole="CT_PHIEU_DKHP" ToRole="PHIEU_DKHP" />
+  </EntityType>
+  <EntityType Name="DOITUONG">
+    <Key>
+      <PropertyRef Name="MaDoiTuong" />
+    </Key>
+    <Property Name="MaDoiTuong" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenDoiTuong" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="TiLeGiamHocPhi" Type="Int32" />
+    <NavigationProperty Name="SINHVIENs" Relationship="Self.FK_SV_DOITUONG" FromRole="DOITUONG" ToRole="SINHVIEN" />
+  </EntityType>
+  <EntityType Name="DS_MONHOC_MO">
+    <Key>
+      <PropertyRef Name="MaMo" />
+    </Key>
+    <Property Name="MaMo" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MaHKNH" Type="Int32" Nullable="false" />
+    <Property Name="MaMonHoc" Type="String" MaxLength="7" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CT_PHIEU_DKHP" Relationship="Self.FK_MaMo_DS_MONHOC_MO" FromRole="DS_MONHOC_MO" ToRole="CT_PHIEU_DKHP" />
+    <NavigationProperty Name="MONHOC" Relationship="Self.FK_DS_MONHOCMO_MONHOC" FromRole="DS_MONHOC_MO" ToRole="MONHOC" />
+    <NavigationProperty Name="HKNH" Relationship="Self.FK_MAHKNH_HKNH" FromRole="DS_MONHOC_MO" ToRole="HKNH" />
+  </EntityType>
+  <EntityType Name="DSSV_CHUAHOANTHANH_HP">
+    <Key>
+      <PropertyRef Name="MaHKNH" />
+      <PropertyRef Name="MaSV" />
+    </Key>
+    <Property Name="MaHKNH" Type="Int32" Nullable="false" />
+    <Property Name="MaSV" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="SoTienConLai" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="HKNH" Relationship="Self.FK_DSSV_CHUAHOANTHANH_HP__HKNH" FromRole="DSSV_CHUAHOANTHANH_HP" ToRole="HKNH" />
+    <NavigationProperty Name="SINHVIEN" Relationship="Self.FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN" FromRole="DSSV_CHUAHOANTHANH_HP" ToRole="SINHVIEN" />
+  </EntityType>
+  <EntityType Name="HKNH">
+    <Key>
+      <PropertyRef Name="MaHKNH" />
+    </Key>
+    <Property Name="MaHKNH" Type="Int32" Nullable="false" />
+    <Property Name="HocKy" Type="Int32" Nullable="false" />
+    <Property Name="Nam1" Type="Int32" Nullable="false" />
+    <Property Name="Nam2" Type="Int32" Nullable="false" />
+    <Property Name="HanDongHocPhi" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="DS_MONHOC_MO" Relationship="Self.FK_MAHKNH_HKNH" FromRole="HKNH" ToRole="DS_MONHOC_MO" />
+    <NavigationProperty Name="DSSV_CHUAHOANTHANH_HP" Relationship="Self.FK_DSSV_CHUAHOANTHANH_HP__HKNH" FromRole="HKNH" ToRole="DSSV_CHUAHOANTHANH_HP" />
+    <NavigationProperty Name="PHIEU_DKHP" Relationship="Self.FK_PHIEUDKHP_HKNH" FromRole="HKNH" ToRole="PHIEU_DKHP" />
+  </EntityType>
+  <EntityType Name="HUYEN">
+    <Key>
+      <PropertyRef Name="MaHuyen" />
+    </Key>
+    <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenHuyen" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="MaTinh" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="VungSauVungXa" Type="Boolean" />
+    <NavigationProperty Name="TINH" Relationship="Self.FK_HUYEN_TINH" FromRole="HUYEN" ToRole="TINH" />
+    <NavigationProperty Name="SINHVIENs" Relationship="Self.FK_SV_HUYEN" FromRole="HUYEN" ToRole="SINHVIEN" />
+  </EntityType>
+  <EntityType Name="KHOA">
+    <Key>
+      <PropertyRef Name="MaKhoa" />
+    </Key>
+    <Property Name="MaKhoa" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenKhoa" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NGANHs" Relationship="Self.FK_NGANH_KHOA" FromRole="KHOA" ToRole="NGANH" />
+  </EntityType>
+  <EntityType Name="LOAIMONHOC">
+    <Key>
+      <PropertyRef Name="MaLoaiMon" />
+    </Key>
+    <Property Name="MaLoaiMon" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenLoaiMon" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="HeSoChia" Type="Int32" />
+    <Property Name="SoTienMotTinChi" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="MONHOCs" Relationship="Self.FK_MONHOC_LOAIMONHOC" FromRole="LOAIMONHOC" ToRole="MONHOC" />
+  </EntityType>
+  <EntityType Name="MONHOC">
+    <Key>
+      <PropertyRef Name="MaMonHoc" />
+    </Key>
+    <Property Name="MaMonHoc" Type="String" MaxLength="7" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenMonHoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MaLoaiMon" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="SoTiet" Type="Int32" />
+    <Property Name="SoTinChi" Type="Int32" />
+    <NavigationProperty Name="CHUONGTRINHHOCs" Relationship="Self.FK_CTH_MONHOC" FromRole="MONHOC" ToRole="CHUONGTRINHHOC" />
+    <NavigationProperty Name="DS_MONHOC_MO" Relationship="Self.FK_DS_MONHOCMO_MONHOC" FromRole="MONHOC" ToRole="DS_MONHOC_MO" />
+    <NavigationProperty Name="LOAIMONHOC" Relationship="Self.FK_MONHOC_LOAIMONHOC" FromRole="MONHOC" ToRole="LOAIMONHOC" />
+  </EntityType>
+  <EntityType Name="NGANH">
+    <Key>
+      <PropertyRef Name="MaNganh" />
+    </Key>
+    <Property Name="MaNganh" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenNganh" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="MaKhoa" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="CHUONGTRINHHOCs" Relationship="Self.FK_CTH_NGANH" FromRole="NGANH" ToRole="CHUONGTRINHHOC" />
+    <NavigationProperty Name="KHOA" Relationship="Self.FK_NGANH_KHOA" FromRole="NGANH" ToRole="KHOA" />
+    <NavigationProperty Name="SINHVIENs" Relationship="Self.FK_SV_NGANH" FromRole="NGANH" ToRole="SINHVIEN" />
+  </EntityType>
+  <EntityType Name="NGUOIDUNG">
+    <Key>
+      <PropertyRef Name="TenDangNhap" />
+    </Key>
+    <Property Name="TenDangNhap" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MatKhau" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MaNhom" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="NHOMNGUOIDUNG" Relationship="Self.FK_NGUOIDUNG_NHOMNGUOIDUNG" FromRole="NGUOIDUNG" ToRole="NHOMNGUOIDUNG" />
+  </EntityType>
+  <EntityType Name="NHOMNGUOIDUNG">
+    <Key>
+      <PropertyRef Name="MaNhom" />
+    </Key>
+    <Property Name="MaNhom" Type="Int32" Nullable="false" />
+    <Property Name="TenNhom" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NGUOIDUNGs" Relationship="Self.FK_NGUOIDUNG_NHOMNGUOIDUNG" FromRole="NHOMNGUOIDUNG" ToRole="NGUOIDUNG" />
+    <NavigationProperty Name="CHUCNANGs" Relationship="Self.PHANQUYEN" FromRole="NHOMNGUOIDUNG" ToRole="CHUCNANG" />
+  </EntityType>
+  <EntityType Name="PHIEU_DKHP">
+    <Key>
+      <PropertyRef Name="SoPhieuDKHP" />
+    </Key>
+    <Property Name="SoPhieuDKHP" Type="Int32" Nullable="false" />
+    <Property Name="MaSV" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="NgayLap" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="MaHKNH" Type="Int32" Nullable="false" />
+    <Property Name="TongTCLT" Type="Int32" Nullable="false" />
+    <Property Name="TongTCTH" Type="Int32" Nullable="false" />
+    <Property Name="TongTienDangKy" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="TongTienPhaiDong" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="TongTienDaDong" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="SoTienConLai" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="CT_PHIEU_DKHP" Relationship="Self.FK_SoPhieuDKHP_PHIEU_DKHP" FromRole="PHIEU_DKHP" ToRole="CT_PHIEU_DKHP" />
+    <NavigationProperty Name="HKNH" Relationship="Self.FK_PHIEUDKHP_HKNH" FromRole="PHIEU_DKHP" ToRole="HKNH" />
+    <NavigationProperty Name="SINHVIEN" Relationship="Self.FK_MASV_SINHVIEN" FromRole="PHIEU_DKHP" ToRole="SINHVIEN" />
+    <NavigationProperty Name="PHIEUTHUs" Relationship="Self.FK_PHIEUTHU_PHIEUDKHP" FromRole="PHIEU_DKHP" ToRole="PHIEUTHU" />
+  </EntityType>
+  <EntityType Name="PHIEUTHU">
+    <Key>
+      <PropertyRef Name="SoPhieuThu" />
+    </Key>
+    <Property Name="SoPhieuThu" Type="Int32" Nullable="false" />
+    <Property Name="SoPhieuDKHP" Type="Int32" Nullable="false" />
+    <Property Name="NgayLap" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="SoTienThu" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="PHIEU_DKHP" Relationship="Self.FK_PHIEUTHU_PHIEUDKHP" FromRole="PHIEUTHU" ToRole="PHIEU_DKHP" />
+  </EntityType>
+  <EntityType Name="SINHVIEN">
+    <Key>
+      <PropertyRef Name="MaSV" />
+    </Key>
+    <Property Name="MaSV" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="HoTen" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="GioiTinh" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="MaNganh" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MaDoiTuong" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MaHuyen" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DOITUONG" Relationship="Self.FK_SV_DOITUONG" FromRole="SINHVIEN" ToRole="DOITUONG" />
+    <NavigationProperty Name="DSSV_CHUAHOANTHANH_HP" Relationship="Self.FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN" FromRole="SINHVIEN" ToRole="DSSV_CHUAHOANTHANH_HP" />
+    <NavigationProperty Name="HUYEN" Relationship="Self.FK_SV_HUYEN" FromRole="SINHVIEN" ToRole="HUYEN" />
+    <NavigationProperty Name="NGANH" Relationship="Self.FK_SV_NGANH" FromRole="SINHVIEN" ToRole="NGANH" />
+    <NavigationProperty Name="PHIEU_DKHP" Relationship="Self.FK_MASV_SINHVIEN" FromRole="SINHVIEN" ToRole="PHIEU_DKHP" />
+  </EntityType>
+  <EntityType Name="TINH">
+    <Key>
+      <PropertyRef Name="MaTinh" />
+    </Key>
+    <Property Name="MaTinh" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenTinh" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="HUYENs" Relationship="Self.FK_HUYEN_TINH" FromRole="TINH" ToRole="HUYEN" />
+  </EntityType>
+  <Association Name="FK_CTH_MONHOC">
+    <End Role="MONHOC" Type="Self.MONHOC" Multiplicity="1" />
+    <End Role="CHUONGTRINHHOC" Type="Self.CHUONGTRINHHOC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MONHOC">
+        <PropertyRef Name="MaMonHoc" />
+      </Principal>
+      <Dependent Role="CHUONGTRINHHOC">
+        <PropertyRef Name="MaMonHoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CTH_NGANH">
+    <End Role="NGANH" Type="Self.NGANH" Multiplicity="1" />
+    <End Role="CHUONGTRINHHOC" Type="Self.CHUONGTRINHHOC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NGANH">
+        <PropertyRef Name="MaNganh" />
+      </Principal>
+      <Dependent Role="CHUONGTRINHHOC">
+        <PropertyRef Name="MaNganh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MaMo_DS_MONHOC_MO">
+    <End Role="DS_MONHOC_MO" Type="Self.DS_MONHOC_MO" Multiplicity="1" />
+    <End Role="CT_PHIEU_DKHP" Type="Self.CT_PHIEU_DKHP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DS_MONHOC_MO">
+        <PropertyRef Name="MaMo" />
+      </Principal>
+      <Dependent Role="CT_PHIEU_DKHP">
+        <PropertyRef Name="MaMo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SoPhieuDKHP_PHIEU_DKHP">
+    <End Role="PHIEU_DKHP" Type="Self.PHIEU_DKHP" Multiplicity="1" />
+    <End Role="CT_PHIEU_DKHP" Type="Self.CT_PHIEU_DKHP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PHIEU_DKHP">
+        <PropertyRef Name="SoPhieuDKHP" />
+      </Principal>
+      <Dependent Role="CT_PHIEU_DKHP">
+        <PropertyRef Name="SoPhieuDKHP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SV_DOITUONG">
+    <End Role="DOITUONG" Type="Self.DOITUONG" Multiplicity="1" />
+    <End Role="SINHVIEN" Type="Self.SINHVIEN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DOITUONG">
+        <PropertyRef Name="MaDoiTuong" />
+      </Principal>
+      <Dependent Role="SINHVIEN">
+        <PropertyRef Name="MaDoiTuong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DS_MONHOCMO_MONHOC">
+    <End Role="MONHOC" Type="Self.MONHOC" Multiplicity="1" />
+    <End Role="DS_MONHOC_MO" Type="Self.DS_MONHOC_MO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MONHOC">
+        <PropertyRef Name="MaMonHoc" />
+      </Principal>
+      <Dependent Role="DS_MONHOC_MO">
+        <PropertyRef Name="MaMonHoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MAHKNH_HKNH">
+    <End Role="HKNH" Type="Self.HKNH" Multiplicity="1" />
+    <End Role="DS_MONHOC_MO" Type="Self.DS_MONHOC_MO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HKNH">
+        <PropertyRef Name="MaHKNH" />
+      </Principal>
+      <Dependent Role="DS_MONHOC_MO">
+        <PropertyRef Name="MaHKNH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DSSV_CHUAHOANTHANH_HP__HKNH">
+    <End Role="HKNH" Type="Self.HKNH" Multiplicity="1" />
+    <End Role="DSSV_CHUAHOANTHANH_HP" Type="Self.DSSV_CHUAHOANTHANH_HP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HKNH">
+        <PropertyRef Name="MaHKNH" />
+      </Principal>
+      <Dependent Role="DSSV_CHUAHOANTHANH_HP">
+        <PropertyRef Name="MaHKNH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN">
+    <End Role="SINHVIEN" Type="Self.SINHVIEN" Multiplicity="1" />
+    <End Role="DSSV_CHUAHOANTHANH_HP" Type="Self.DSSV_CHUAHOANTHANH_HP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SINHVIEN">
+        <PropertyRef Name="MaSV" />
+      </Principal>
+      <Dependent Role="DSSV_CHUAHOANTHANH_HP">
+        <PropertyRef Name="MaSV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PHIEUDKHP_HKNH">
+    <End Role="HKNH" Type="Self.HKNH" Multiplicity="1" />
+    <End Role="PHIEU_DKHP" Type="Self.PHIEU_DKHP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HKNH">
+        <PropertyRef Name="MaHKNH" />
+      </Principal>
+      <Dependent Role="PHIEU_DKHP">
+        <PropertyRef Name="MaHKNH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HUYEN_TINH">
+    <End Role="TINH" Type="Self.TINH" Multiplicity="1" />
+    <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TINH">
+        <PropertyRef Name="MaTinh" />
+      </Principal>
+      <Dependent Role="HUYEN">
+        <PropertyRef Name="MaTinh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SV_HUYEN">
+    <End Role="HUYEN" Type="Self.HUYEN" Multiplicity="1" />
+    <End Role="SINHVIEN" Type="Self.SINHVIEN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HUYEN">
+        <PropertyRef Name="MaHuyen" />
+      </Principal>
+      <Dependent Role="SINHVIEN">
+        <PropertyRef Name="MaHuyen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NGANH_KHOA">
+    <End Role="KHOA" Type="Self.KHOA" Multiplicity="0..1" />
+    <End Role="NGANH" Type="Self.NGANH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KHOA">
+        <PropertyRef Name="MaKhoa" />
+      </Principal>
+      <Dependent Role="NGANH">
+        <PropertyRef Name="MaKhoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MONHOC_LOAIMONHOC">
+    <End Role="LOAIMONHOC" Type="Self.LOAIMONHOC" Multiplicity="1" />
+    <End Role="MONHOC" Type="Self.MONHOC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOAIMONHOC">
+        <PropertyRef Name="MaLoaiMon" />
+      </Principal>
+      <Dependent Role="MONHOC">
+        <PropertyRef Name="MaLoaiMon" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SV_NGANH">
+    <End Role="NGANH" Type="Self.NGANH" Multiplicity="1" />
+    <End Role="SINHVIEN" Type="Self.SINHVIEN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NGANH">
+        <PropertyRef Name="MaNganh" />
+      </Principal>
+      <Dependent Role="SINHVIEN">
+        <PropertyRef Name="MaNganh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NGUOIDUNG_NHOMNGUOIDUNG">
+    <End Role="NHOMNGUOIDUNG" Type="Self.NHOMNGUOIDUNG" Multiplicity="1" />
+    <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHOMNGUOIDUNG">
+        <PropertyRef Name="MaNhom" />
+      </Principal>
+      <Dependent Role="NGUOIDUNG">
+        <PropertyRef Name="MaNhom" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MASV_SINHVIEN">
+    <End Role="SINHVIEN" Type="Self.SINHVIEN" Multiplicity="1" />
+    <End Role="PHIEU_DKHP" Type="Self.PHIEU_DKHP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SINHVIEN">
+        <PropertyRef Name="MaSV" />
+      </Principal>
+      <Dependent Role="PHIEU_DKHP">
+        <PropertyRef Name="MaSV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PHIEUTHU_PHIEUDKHP">
+    <End Role="PHIEU_DKHP" Type="Self.PHIEU_DKHP" Multiplicity="1" />
+    <End Role="PHIEUTHU" Type="Self.PHIEUTHU" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PHIEU_DKHP">
+        <PropertyRef Name="SoPhieuDKHP" />
+      </Principal>
+      <Dependent Role="PHIEUTHU">
+        <PropertyRef Name="SoPhieuDKHP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PHANQUYEN">
+    <End Role="CHUCNANG" Type="Self.CHUCNANG" Multiplicity="*" />
+    <End Role="NHOMNGUOIDUNG" Type="Self.NHOMNGUOIDUNG" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="CNPM_dbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CHUCNANGs" EntityType="Self.CHUCNANG" />
+    <EntitySet Name="CHUONGTRINHHOCs" EntityType="Self.CHUONGTRINHHOC" />
+    <EntitySet Name="CT_PHIEU_DKHP" EntityType="Self.CT_PHIEU_DKHP" />
+    <EntitySet Name="DOITUONGs" EntityType="Self.DOITUONG" />
+    <EntitySet Name="DS_MONHOC_MO" EntityType="Self.DS_MONHOC_MO" />
+    <EntitySet Name="DSSV_CHUAHOANTHANH_HP" EntityType="Self.DSSV_CHUAHOANTHANH_HP" />
+    <EntitySet Name="HKNHs" EntityType="Self.HKNH" />
+    <EntitySet Name="HUYENs" EntityType="Self.HUYEN" />
+    <EntitySet Name="KHOAs" EntityType="Self.KHOA" />
+    <EntitySet Name="LOAIMONHOCs" EntityType="Self.LOAIMONHOC" />
+    <EntitySet Name="MONHOCs" EntityType="Self.MONHOC" />
+    <EntitySet Name="NGANHs" EntityType="Self.NGANH" />
+    <EntitySet Name="NGUOIDUNGs" EntityType="Self.NGUOIDUNG" />
+    <EntitySet Name="NHOMNGUOIDUNGs" EntityType="Self.NHOMNGUOIDUNG" />
+    <EntitySet Name="PHIEU_DKHP" EntityType="Self.PHIEU_DKHP" />
+    <EntitySet Name="PHIEUTHUs" EntityType="Self.PHIEUTHU" />
+    <EntitySet Name="SINHVIENs" EntityType="Self.SINHVIEN" />
+    <EntitySet Name="TINHs" EntityType="Self.TINH" />
+    <AssociationSet Name="FK_CTH_MONHOC" Association="Self.FK_CTH_MONHOC">
+      <End Role="MONHOC" EntitySet="MONHOCs" />
+      <End Role="CHUONGTRINHHOC" EntitySet="CHUONGTRINHHOCs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CTH_NGANH" Association="Self.FK_CTH_NGANH">
+      <End Role="NGANH" EntitySet="NGANHs" />
+      <End Role="CHUONGTRINHHOC" EntitySet="CHUONGTRINHHOCs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MaMo_DS_MONHOC_MO" Association="Self.FK_MaMo_DS_MONHOC_MO">
+      <End Role="DS_MONHOC_MO" EntitySet="DS_MONHOC_MO" />
+      <End Role="CT_PHIEU_DKHP" EntitySet="CT_PHIEU_DKHP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SoPhieuDKHP_PHIEU_DKHP" Association="Self.FK_SoPhieuDKHP_PHIEU_DKHP">
+      <End Role="PHIEU_DKHP" EntitySet="PHIEU_DKHP" />
+      <End Role="CT_PHIEU_DKHP" EntitySet="CT_PHIEU_DKHP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SV_DOITUONG" Association="Self.FK_SV_DOITUONG">
+      <End Role="DOITUONG" EntitySet="DOITUONGs" />
+      <End Role="SINHVIEN" EntitySet="SINHVIENs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DS_MONHOCMO_MONHOC" Association="Self.FK_DS_MONHOCMO_MONHOC">
+      <End Role="MONHOC" EntitySet="MONHOCs" />
+      <End Role="DS_MONHOC_MO" EntitySet="DS_MONHOC_MO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MAHKNH_HKNH" Association="Self.FK_MAHKNH_HKNH">
+      <End Role="HKNH" EntitySet="HKNHs" />
+      <End Role="DS_MONHOC_MO" EntitySet="DS_MONHOC_MO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DSSV_CHUAHOANTHANH_HP__HKNH" Association="Self.FK_DSSV_CHUAHOANTHANH_HP__HKNH">
+      <End Role="HKNH" EntitySet="HKNHs" />
+      <End Role="DSSV_CHUAHOANTHANH_HP" EntitySet="DSSV_CHUAHOANTHANH_HP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN" Association="Self.FK_DSSV_CHUAHOANTHANH_HP__SINHVIEN">
+      <End Role="SINHVIEN" EntitySet="SINHVIENs" />
+      <End Role="DSSV_CHUAHOANTHANH_HP" EntitySet="DSSV_CHUAHOANTHANH_HP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PHIEUDKHP_HKNH" Association="Self.FK_PHIEUDKHP_HKNH">
+      <End Role="HKNH" EntitySet="HKNHs" />
+      <End Role="PHIEU_DKHP" EntitySet="PHIEU_DKHP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HUYEN_TINH" Association="Self.FK_HUYEN_TINH">
+      <End Role="TINH" EntitySet="TINHs" />
+      <End Role="HUYEN" EntitySet="HUYENs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SV_HUYEN" Association="Self.FK_SV_HUYEN">
+      <End Role="HUYEN" EntitySet="HUYENs" />
+      <End Role="SINHVIEN" EntitySet="SINHVIENs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NGANH_KHOA" Association="Self.FK_NGANH_KHOA">
+      <End Role="KHOA" EntitySet="KHOAs" />
+      <End Role="NGANH" EntitySet="NGANHs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MONHOC_LOAIMONHOC" Association="Self.FK_MONHOC_LOAIMONHOC">
+      <End Role="LOAIMONHOC" EntitySet="LOAIMONHOCs" />
+      <End Role="MONHOC" EntitySet="MONHOCs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SV_NGANH" Association="Self.FK_SV_NGANH">
+      <End Role="NGANH" EntitySet="NGANHs" />
+      <End Role="SINHVIEN" EntitySet="SINHVIENs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NGUOIDUNG_NHOMNGUOIDUNG" Association="Self.FK_NGUOIDUNG_NHOMNGUOIDUNG">
+      <End Role="NHOMNGUOIDUNG" EntitySet="NHOMNGUOIDUNGs" />
+      <End Role="NGUOIDUNG" EntitySet="NGUOIDUNGs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MASV_SINHVIEN" Association="Self.FK_MASV_SINHVIEN">
+      <End Role="SINHVIEN" EntitySet="SINHVIENs" />
+      <End Role="PHIEU_DKHP" EntitySet="PHIEU_DKHP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PHIEUTHU_PHIEUDKHP" Association="Self.FK_PHIEUTHU_PHIEUDKHP">
+      <End Role="PHIEU_DKHP" EntitySet="PHIEU_DKHP" />
+      <End Role="PHIEUTHU" EntitySet="PHIEUTHUs" />
+    </AssociationSet>
+    <AssociationSet Name="PHANQUYEN" Association="Self.PHANQUYEN">
+      <End Role="CHUCNANG" EntitySet="CHUCNANGs" />
+      <End Role="NHOMNGUOIDUNG" EntitySet="NHOMNGUOIDUNGs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
