@@ -24,6 +24,8 @@ namespace QLDKMH_CNPM.Models
         public virtual HKNH HKNH { get; set; }
 
         public virtual SINHVIEN SINHVIEN { get; set; }
-        public PHIEU_DKHP PHIEU_DKHP { get; internal set; }
+
+        public object SoTienDangKy { get; internal set; }
+        public object SoTienPhaiDong { get; internal set; }
     }
 }

@@ -25,7 +25,6 @@ namespace QLDKMH_CNPM.Models
         public string HoTen { get; set; }
 
         [Column(TypeName = "smalldatetime")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime NgaySinh { get; set; }
 
         [StringLength(3)]

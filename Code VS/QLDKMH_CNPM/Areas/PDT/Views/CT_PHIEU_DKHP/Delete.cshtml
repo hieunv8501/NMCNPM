@@ -3,11 +3,11 @@
 @{ ViewBag.Title = "Delete";
     Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
 <h3 class="text-left text-danger controllerStyle">XÓA MÔN HỌC</h3>
-
+<hr />
 <div class="bg-primary text-white generalStyle " style="text-align: left; padding:5px;">
     Danh sách môn học đã đăng ký
 </div>
-<hr />
+<br />
 @using (Html.BeginForm("Delete", "CT_PHIEU_DKHP", FormMethod.Post))
 {
 @Html.AntiForgeryToken()

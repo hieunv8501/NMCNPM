@@ -7,13 +7,13 @@
 <h3 class="text-danger controllerStyle">
     SỬA THÔNG TIN CHƯƠNG TRÌNH HỌC <br />
 </h3>
-
+<hr/>
 <h4 class="text-danger controllerStyle">
     Ngành: @Html.DisplayFor(model => model.NGANH.TenNganh)
     <br />
     Môn: @Html.DisplayFor(model => model.MONHOC.TenMonHoc)
 </h4>
-
+<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -24,7 +24,6 @@
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.MaMonHoc)
-           <hr />
            <div class="form-group">
              <div class="control-label">Học kỳ</div>
                 <div class="col-md-10">

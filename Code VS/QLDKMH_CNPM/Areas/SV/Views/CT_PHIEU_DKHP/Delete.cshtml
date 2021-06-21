@@ -3,14 +3,14 @@
 @{ ViewBag.Title = "Delete";
     Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml"; }
 <h3 class="text-left text-danger controllerStyle">XÓA MÔN HỌC</h3>
-
+<hr />
 <div class="bg-primary text-white generalStyle " style="text-align: left; padding:5px;">
     Danh sách môn học đã đăng ký
 </div>
-<hr />
+<br />
 @using (Html.BeginForm("Delete", "CT_PHIEU_DKHP", FormMethod.Post))
-{
-@Html.AntiForgeryToken()
+    {
+    @Html.AntiForgeryToken()
 <div class="control-label generalStyle ">Số phiếu đăng ký </div>
 <div>
     @Html.EditorFor(model => model.SoPhieuDKHP, new { htmlAttributes = new { @class = "form-control generalStyle", @readonly = "readonly" } })
@@ -50,7 +50,7 @@
                             <td>@MonHoc.DS_MONHOC_MO.MONHOC.SoTinChi</td>
                             <td>@MonHoc.GhiChu</td>
                         </tr>
-                    }
+}
                 </tbody>
             </table>
             <hr />
@@ -77,8 +77,7 @@
 </div>
 @if (ViewBag.Message == "Sai")
 {
-    <div class="alert alert-danger generalStyle" style="color: black; font-size: 1rem">Xóa thất bại! </div>
-}
+<div class="alert alert-danger generalStyle" style="color: black; font-size: 1rem">Xóa thất bại! </div>}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="~/Scripts/jquery-3.6.0.min.js"></script>
@@ -101,15 +100,24 @@
     });
 </script>
 
+
 @* Phải chọn ít nhất một môn để xóa *@
+@* Sử dụng sweet alert warning *@
 <script src="https://lipis.github.io/bootstrap-sweetalert/lib/sweet-alert.js"></script>
-<link href="~/Content/sweetalert/sweet-alert.css" rel="stylesheet" />
+<script src="~/Scripts/sweetalert.min.js"></script>
+<link href="~/Styles/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/sweetalert-dev.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#btnNew').click(function () {
             checked = $("input[type=checkbox]:checked").length;
             if (!checked) {
-                alert("Phải chọn ít nhất một môn để xóa.");
+                swal({
+                    title: "Cảnh báo!",
+                    type: "warning",
+                    text: "Bạn phải chọn ít nhất một môn để xóa!",
+                    confirmButtonText: 'Đồng ý'
+                });
                 return false;
             }
         });

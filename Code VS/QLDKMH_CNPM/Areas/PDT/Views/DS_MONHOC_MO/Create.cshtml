@@ -9,12 +9,11 @@
 <h4 class="text-left text-danger controllerStyle">
     Học kỳ: @ViewBag.HocKy | Năm học: @ViewBag.Nam1 - @ViewBag.Nam2
 </h4>
-
+<hr />
 @using (Html.BeginForm())
 {
 @Html.AntiForgeryToken()
 <div class="form-horizontal generalStyle">
-<hr />
     <div class="form-group">
         <div class="control-label">Mã môn học mở</div>
         <div>

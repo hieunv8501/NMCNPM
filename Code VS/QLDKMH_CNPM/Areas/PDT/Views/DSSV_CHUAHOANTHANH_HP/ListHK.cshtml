@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<QLDKMH_CNPM.Models.HKNH>
 
 @{ 
-   ViewBag.Title = "KIEMTRA";
+   ViewBag.Title = "Test";
    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
 }
 
@@ -19,11 +19,11 @@
             }
         </select>
         <br />
-        @if (ViewBag.Message != "")
+        @if (ViewBag.message != "")
         {
-            <div class="alert alert-warning generalStyle" style="color:black">@ViewBag.M</div>
+            <div class="alert alert-warning generalStyle" style="color:black">@ViewBag.message</div>
         }
-        <a class="btn btn-primary" id="link" href="@Url.Action("ListHK", "DSSV_CHUAHOANTHANH_HP", new { area = "PDT" })">Xem danh sách báo cáo</a>
+        <a class="btn btn-primary" id="link" href="@Url.Action("ListHK", "DSSV_CHUAHOANTHANH_HP", new {  })">Xem danh sách báo cáo</a>
     </div>
 
 </div>

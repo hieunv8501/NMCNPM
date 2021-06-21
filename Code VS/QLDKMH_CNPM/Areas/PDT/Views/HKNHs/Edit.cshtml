@@ -7,7 +7,7 @@
 
 <h3 class="text-left text-danger controllerStyle">SỬA THÔNG TIN HỌC KỲ</h3>
 <h4 class="text-left text-danger controllerStyle">HỌC KỲ: @Html.DisplayFor(model => model.HocKy) | Năm học: @Html.DisplayFor(model => model.Nam1) - @Html.DisplayFor(model => model.Nam2)</h4>
-
+<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -15,7 +15,6 @@
     <div class="form-horizontal generalStyle" style="color: black;">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.MaHKNH)
-        <hr />
 
         <div class="form-group">
             <div class="control-label">Tên học kỳ</div>

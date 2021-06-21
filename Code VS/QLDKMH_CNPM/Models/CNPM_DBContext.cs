@@ -7,8 +7,7 @@ namespace QLDKMH_CNPM.Models
 {
     public partial class CNPM_DBContext : DbContext
     {
-        public CNPM_DBContext()
-            : base("name=CNPM_DBContext")
+        public CNPM_DBContext() : base("name=CNPM_DBContext")
         {
         }
 

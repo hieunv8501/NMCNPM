@@ -7,19 +7,19 @@
 
 <!--Page Heading-->
 <h3 class="mb-1 text-danger controllerStyle">DANH SÁCH MÔN HỌC</h3>
-
+<hr />
 
 @using (Html.BeginForm("Upload", "MONHOCs", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-<div class="generalStyle" style="color:black"><strong>Tải lên thông tin môn học qua file Excel</strong></div>
-                <div class="form-group">
+<a class="generalStyle" style="color:black"><strong>Tải lên thông tin môn học qua file Excel</strong></a>
+                <a class="form-group">
                     <div class="upload">
                         <input type="button" class="uploadButton btnStyle generalStyle" value="Chọn đường dẫn" />
                         <input type="file" name="UploadedFile" accept="/.xls, .xlsx" id="fileUpload" />
                         <label class="fileName" style="width:auto; ">Đường dẫn file Excel...</label>
                     </div>
                     <input type="submit" name="Submit" class="btn btn-primary btnStyle generalStyle" value="Tải lên" />
-                </div>}
+                </a>}
 <a class="generalStyle" style="color:black"><strong>Xuất danh sách môn học ra file Excel</strong></a>
 <a>
     @Html.ActionLink("Xuất danh sách", "ExportToExcel", null, new { @class = "btn btn-primary btnStyle generalStyle" })

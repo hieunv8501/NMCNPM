@@ -12,13 +12,12 @@
 <h4 class="text-danger controllerStyle">
     Ngành: @ViewBag.TenNganh
 </h4>
-
+<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal generalStyle" style="color: black;">
-        <hr />
         <div class="form-group">
             <div class="control-label">Môn học</div>
             <div class="col-md-10">

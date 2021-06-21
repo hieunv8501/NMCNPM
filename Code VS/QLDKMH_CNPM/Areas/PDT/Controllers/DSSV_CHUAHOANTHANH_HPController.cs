@@ -15,55 +15,84 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         private CNPM_DBContext db = new CNPM_DBContext();
 
         // GET: PDT/DSSV_CHUAHOANTHANH_HP/Index/5
-        public ActionResult Index(int id)
+        public ActionResult Index(string id)
         {
-            var danhsach = db.DSSV_CHUAHOANTHANH_HP.Include(b => b.SINHVIEN).Include(h => h.HKNH);    //kết hai bảng SINHVIEN va DSSV_CHUAHOANTHANH_HP
+            var dsSV_CHUAHOANTHANH_HP = db.DSSV_CHUAHOANTHANH_HP.Include(b => b.SINHVIEN);
+            List<DSSV_CHUAHOANTHANH_HP> bao_cao = db.DSSV_CHUAHOANTHANH_HP.ToList();
+            List<SINHVIEN> sinh_vien = db.SINHVIENs.ToList();
+            List<HKNH> hk_nh = db.HKNHs.ToList();
+            List<PHIEU_DKHP> phieu_dk = db.PHIEU_DKHP.ToList();
 
-            List<DSSV_CHUAHOANTHANH_HP> dSSV_CHUAHOANTHANH_HP = db.DSSV_CHUAHOANTHANH_HP.ToList(); //xuất ds sv nợ học phí ra list 
-            List<SINHVIEN> sINHVIEN = db.SINHVIENs.ToList(); //xuất SV ra list
-            List<HKNH> hKNH = db.HKNHs.ToList(); //xuất học kỳ ra list
-            List<PHIEU_DKHP> pHIEU_DKHP = db.PHIEU_DKHP.ToList(); //xuất phiếu DKHP ra list
-
-            var model1 = from d in dSSV_CHUAHOANTHANH_HP
-                        join s in sINHVIEN on d.MaSV equals s.MaSV into table_temp1   // join SINHVIEN và DSSV_CHUAHOANTHANH_HP sang bảng tạm
-                        from s in table_temp1.ToList()                                // xuất ra list
-                        join h in hKNH on d.MaHKNH equals h.MaHKNH into table_temp2   // join thêm HKNH sang bảng tạm khác
-                        from h in table_temp2.ToList()                                // xuất ra list
-                            select new DSSV_CHUAHOANTHANH_HP
-                            {
-                                HKNH = h,
-                                SINHVIEN = s,
-                                SoTienConLai = d.SoTienConLai
-                            };
-
-            if (id <= 0)
+            var danhsach = from b in bao_cao
+                           join s in sinh_vien on b.MaSV equals s.MaSV into table1
+                           from s in table1.ToList()
+                           join h in hk_nh on b.MaHKNH equals h.MaHKNH into table2
+                           from h in table2.ToList()
+                           select new DSSV_CHUAHOANTHANH_HP
+                           {
+                               SINHVIEN = s,
+                               SoTienPhaiDong = b.SoTienPhaiDong,
+                               SoTienDangKy = b.SoTienDangKy,
+                               SoTienConLai = b.SoTienConLai,
+                               HKNH = h
+                           };
+            if (id == null)
             {
-                ViewBag.KIEMTRA = danhsach.ToList();
-                return View(model1.ToList());
+                ViewBag.Test = dsSV_CHUAHOANTHANH_HP.ToList();
+                return View(danhsach.ToList());
             }
-            var model2 = (from p in pHIEU_DKHP
-                         join h in hKNH on p.MaHKNH equals h.MaHKNH into table_temp1
-                         where (p.MaHKNH == id) && (p.SoTienConLai > 0)
-                         from h in table_temp1.ToList()
+            var baocao = from p in phieu_dk
+                         join h in hk_nh on p.MaHKNH equals h.MaHKNH into table1
+                         from h in table1.ToList()
+                         where p.MaHKNH == Convert.ToInt32(id) & p.SoTienConLai > 0
+                         join s in sinh_vien on p.MaSV equals s.MaSV into table2
+                         from s in table2.ToList()
                          select new DSSV_CHUAHOANTHANH_HP
                          {
-                             PHIEU_DKHP = p,
+                             SINHVIEN = s,
+                             SoTienPhaiDong = p.TongTienPhaiDong,
+                             SoTienDangKy = p.TongTienDangKy,
+                             SoTienConLai = p.SoTienConLai,
                              HKNH = h
-                         });
+                         };
 
-            ViewBag.M = id;
-            if (model2.Count() == 0)
+           //Chỗ này nó không chạy qua nhưng SQL Server lại lưu được chạy được :(
+             string SQL = "IF NOT EXISTS (SELECT * FROM DSSV_CHUAHOANTHANH_HP JOIN PHIEU_DKHP ON DSSV_CHUAHOANTHANH_HP.MaHKNH = PHIEU_DKHP.MaHKNH AND DSSV_CHUAHOANTHANH_HP.MaSV = PHIEU_DKHP.MaSV WHERE PHIEU_DKHP.SoTienConLai > 0) BEGIN INSERT INTO DSSV_CHUAHOANTHANH_HP(MaHKNH, MaSV, SoTienConLai) SELECT MaHKNH, MaSV, SoTienConLai FROM PHIEU_DKHP WHERE SoTienConLai > 0 AND MaHKNH ='"+id+"' END";
+             db.Database.ExecuteSqlCommand(SQL);
+             
+            //INSERT INTO DSSV_CHUAHOANTHANH_HP(MaHKNH, MaSV, SoTienConLai) SELECT MaHKNH, MaSV, SoTienConLai FROM PHIEU_DKHP WHERE SoTienConLai > 0 AND MaHKNH = '" + id + "'";
+            //string SQL = "INSERT INTO DSSV_CHUAHOANTHANH_HP(MaHKNH, MaSV, SoTienConLai) SELECT MaHKNH, MaSV, SoTienConLai FROM PHIEU_DKHP WHERE SoTienConLai > 0 AND MaHKNH = '" + id + "'";
+            //db.Database.ExecuteSqlCommand(SQL);
+            ViewBag.Message = id;
+            if (baocao.Count() == 0)
                 return RedirectToAction("ListHK", new { code = 1 });
 
-            return View(model2.ToList());
+            return View(baocao.ToList());
+
+            //string SQL_2 = "SELECT * FROM DSSV_CHUAHOANTHANH_HP WHERE MaHKNH = '" + id + "'";
+            //if (DateTime.Now > db.HKNHs.Find(id).HanDongHocPhi)
+            //{
+            //    ViewBag.HocKy = db.HKNHs.Find(id).HocKy;
+            //    ViewBag.Nam1 = db.HKNHs.Find(id).Nam1;
+            //    ViewBag.Nam2 = db.HKNHs.Find(id).Nam2;
+            //    var check = db.DSSV_CHUAHOANTHANH_HP.Where(x => x.MaHKNH == id);
+            //    var count = check.Count();
+            //    if (count == 0)
+            //    {
+            //        string SQL = "INSERT INTO DSSV_CHUAHOANTHANH_HP(MaHKNH, MaSV, SoTienConLai) SELECT MaHKNH, MaSV, SoTienConLai FROM PHIEU_DKHP WHERE SoTienConLai > 0 AND MaHKNH = '" + id + "'";
+            //        db.Database.ExecuteSqlCommand(SQL);
+            //    }
+            //    return View(db.Database.SqlQuery<DSSV_CHUAHOANTHANH_HP>(SQL_2).ToList());
+            //}
+            //ViewBag.check = 0;
+            //return View(db.Database.SqlQuery<DSSV_CHUAHOANTHANH_HP>(SQL_2).ToList());
         }
 
         public ActionResult ListHK(int code = 0)
         {
-            ViewBag.Message = "";
+            ViewBag.message = "";
             if (code == 1)
-                ViewBag.Message = "Học kỳ này không có sinh viên nợ học phí";
-            var namHoc = db.HKNHs;
+                ViewBag.message = "Học kỳ này không có sinh viên nợ học phí";
             return View(db.HKNHs.ToList());
         }
 
@@ -80,6 +109,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                 return HttpNotFound();
             }
             return View(dSSV_CHUAHOANTHANH_HP);
+
         }
 
         // GET: PDT/DSSV_CHUAHOANTHANH_HP/Create

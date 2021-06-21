@@ -36,8 +36,11 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         }
 
         // GET: PDT/HKNHs/Create
-        public ActionResult Create()
+        public ActionResult Create(int code = 0)
         {
+            ViewBag.Message = "Dung";
+            if (code == 1)
+                ViewBag.Message = "Sai";
             return View();
         }
 
@@ -48,14 +51,21 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaHKNH,HocKy,Nam1,Nam2,HanDongHocPhi")] HKNH hKNH)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.HKNHs.Add(hKNH);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.HKNHs.Add(hKNH);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(hKNH);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Create", "HKNHs", new { code = 1 });
             }
 
-            return View(hKNH);
         }
 
         // GET: PDT/HKNHs/Edit/5
