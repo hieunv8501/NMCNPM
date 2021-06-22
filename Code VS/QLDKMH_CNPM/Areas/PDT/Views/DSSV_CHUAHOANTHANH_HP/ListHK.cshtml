@@ -1,21 +1,21 @@
 ﻿@model IEnumerable<QLDKMH_CNPM.Models.HKNH>
 
-@{ 
-   ViewBag.Title = "Test";
-   Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
 }
 
 
 <h3 class="mb-1 text-danger controllerStyle">DANH SÁCH BÁO CÁO SINH VIÊN CHƯA HOÀN THÀNH HỌC PHÍ</h3>
 <hr />
-
 <div class="form-group generalStyle">
     <div>
-        <select class="form-control namhoc">
+        <select class="form-control namhoc fa-align-center">
             <option value="0" selected>-- Chọn học kỳ --</option>
             @foreach (var item in Model)
             {
-                <option value="@item.MaHKNH">HK @item.HocKy (@item.Nam1 - @item.Nam2)</option>            
+                <option value="@item.MaHKNH">HK @item.HocKy (@item.Nam1 - @item.Nam2)</option>
+
             }
         </select>
         <br />

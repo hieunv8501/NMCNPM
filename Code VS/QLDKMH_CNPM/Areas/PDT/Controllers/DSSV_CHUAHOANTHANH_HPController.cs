@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using QLDKMH_CNPM.Models;
 
 namespace QLDKMH_CNPM.Areas.PDT.Controllers
@@ -14,190 +17,102 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
     {
         private CNPM_DBContext db = new CNPM_DBContext();
 
-        // GET: PDT/DSSV_CHUAHOANTHANH_HP/Index/5
-        public ActionResult Index(string id)
-        {
-            var dsSV_CHUAHOANTHANH_HP = db.DSSV_CHUAHOANTHANH_HP.Include(b => b.SINHVIEN);
-            List<DSSV_CHUAHOANTHANH_HP> bao_cao = db.DSSV_CHUAHOANTHANH_HP.ToList();
-            List<SINHVIEN> sinh_vien = db.SINHVIENs.ToList();
-            List<HKNH> hk_nh = db.HKNHs.ToList();
-            List<PHIEU_DKHP> phieu_dk = db.PHIEU_DKHP.ToList();
-
-            var danhsach = from b in bao_cao
-                           join s in sinh_vien on b.MaSV equals s.MaSV into table1
-                           from s in table1.ToList()
-                           join h in hk_nh on b.MaHKNH equals h.MaHKNH into table2
-                           from h in table2.ToList()
-                           select new DSSV_CHUAHOANTHANH_HP
-                           {
-                               SINHVIEN = s,
-                               SoTienPhaiDong = b.SoTienPhaiDong,
-                               SoTienDangKy = b.SoTienDangKy,
-                               SoTienConLai = b.SoTienConLai,
-                               HKNH = h
-                           };
-            if (id == null)
-            {
-                ViewBag.Test = dsSV_CHUAHOANTHANH_HP.ToList();
-                return View(danhsach.ToList());
-            }
-            var baocao = from p in phieu_dk
-                         join h in hk_nh on p.MaHKNH equals h.MaHKNH into table1
-                         from h in table1.ToList()
-                         where p.MaHKNH == Convert.ToInt32(id) & p.SoTienConLai > 0
-                         join s in sinh_vien on p.MaSV equals s.MaSV into table2
-                         from s in table2.ToList()
-                         select new DSSV_CHUAHOANTHANH_HP
-                         {
-                             SINHVIEN = s,
-                             SoTienPhaiDong = p.TongTienPhaiDong,
-                             SoTienDangKy = p.TongTienDangKy,
-                             SoTienConLai = p.SoTienConLai,
-                             HKNH = h
-                         };
-
-           //Chỗ này nó không chạy qua nhưng SQL Server lại lưu được chạy được :(
-             string SQL = "IF NOT EXISTS (SELECT * FROM DSSV_CHUAHOANTHANH_HP JOIN PHIEU_DKHP ON DSSV_CHUAHOANTHANH_HP.MaHKNH = PHIEU_DKHP.MaHKNH AND DSSV_CHUAHOANTHANH_HP.MaSV = PHIEU_DKHP.MaSV WHERE PHIEU_DKHP.SoTienConLai > 0) BEGIN INSERT INTO DSSV_CHUAHOANTHANH_HP(MaHKNH, MaSV, SoTienConLai) SELECT MaHKNH, MaSV, SoTienConLai FROM PHIEU_DKHP WHERE SoTienConLai > 0 AND MaHKNH ='"+id+"' END";
-             db.Database.ExecuteSqlCommand(SQL);
-             
-            //INSERT INTO DSSV_CHUAHOANTHANH_HP(MaHKNH, MaSV, SoTienConLai) SELECT MaHKNH, MaSV, SoTienConLai FROM PHIEU_DKHP WHERE SoTienConLai > 0 AND MaHKNH = '" + id + "'";
-            //string SQL = "INSERT INTO DSSV_CHUAHOANTHANH_HP(MaHKNH, MaSV, SoTienConLai) SELECT MaHKNH, MaSV, SoTienConLai FROM PHIEU_DKHP WHERE SoTienConLai > 0 AND MaHKNH = '" + id + "'";
-            //db.Database.ExecuteSqlCommand(SQL);
-            ViewBag.Message = id;
-            if (baocao.Count() == 0)
-                return RedirectToAction("ListHK", new { code = 1 });
-
-            return View(baocao.ToList());
-
-            //string SQL_2 = "SELECT * FROM DSSV_CHUAHOANTHANH_HP WHERE MaHKNH = '" + id + "'";
-            //if (DateTime.Now > db.HKNHs.Find(id).HanDongHocPhi)
-            //{
-            //    ViewBag.HocKy = db.HKNHs.Find(id).HocKy;
-            //    ViewBag.Nam1 = db.HKNHs.Find(id).Nam1;
-            //    ViewBag.Nam2 = db.HKNHs.Find(id).Nam2;
-            //    var check = db.DSSV_CHUAHOANTHANH_HP.Where(x => x.MaHKNH == id);
-            //    var count = check.Count();
-            //    if (count == 0)
-            //    {
-            //        string SQL = "INSERT INTO DSSV_CHUAHOANTHANH_HP(MaHKNH, MaSV, SoTienConLai) SELECT MaHKNH, MaSV, SoTienConLai FROM PHIEU_DKHP WHERE SoTienConLai > 0 AND MaHKNH = '" + id + "'";
-            //        db.Database.ExecuteSqlCommand(SQL);
-            //    }
-            //    return View(db.Database.SqlQuery<DSSV_CHUAHOANTHANH_HP>(SQL_2).ToList());
-            //}
-            //ViewBag.check = 0;
-            //return View(db.Database.SqlQuery<DSSV_CHUAHOANTHANH_HP>(SQL_2).ToList());
-        }
-
         public ActionResult ListHK(int code = 0)
         {
             ViewBag.message = "";
             if (code == 1)
                 ViewBag.message = "Học kỳ này không có sinh viên nợ học phí";
+            //if (code == 2)
+            //    ViewBag.message = "Không thể xem báo cáo vì chưa đến hạn đóng học phí!";
             return View(db.HKNHs.ToList());
         }
 
-        // GET: PDT/DSSV_CHUAHOANTHANH_HP/Details/5
-        public ActionResult Details(int? id)
+        // GET: PDT/DSSV_CHUAHOANTHANH_HP/Index/5
+        public ActionResult Index(int id)
         {
-            if (id == null)
+            if (DateTime.Now > db.HKNHs.Find(id).HanDongHocPhi)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DSSV_CHUAHOANTHANH_HP dSSV_CHUAHOANTHANH_HP = db.DSSV_CHUAHOANTHANH_HP.Find(id);
-            if (dSSV_CHUAHOANTHANH_HP == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dSSV_CHUAHOANTHANH_HP);
+                ViewBag.MaHKNH = db.HKNHs.Find(id).MaHKNH;
+                ViewBag.HocKy = db.HKNHs.Find(id).HocKy;
+                ViewBag.Nam1 = db.HKNHs.Find(id).Nam1;
+                ViewBag.Nam2 = db.HKNHs.Find(id).Nam2;
+                var check = db.DSSV_CHUAHOANTHANH_HP.Where(x => x.MaHKNH == id);
 
-        }
+                if (check.Count() == 0)
+                {
+                    string SQL = "INSERT INTO DSSV_CHUAHOANTHANH_HP(MaHKNH, MaSV, SoTienConLai) SELECT MaHKNH, MaSV, SoTienConLai FROM PHIEU_DKHP WHERE SoTienConLai > 0 AND MaHKNH = '" + id + "'";
+                    db.Database.ExecuteSqlCommand(SQL);
+                }
+                List<SINHVIEN> SV = db.SINHVIENs.ToList();
+                List<PHIEU_DKHP> PD = db.PHIEU_DKHP.ToList();
+                List<DSSV_CHUAHOANTHANH_HP> DCH = db.DSSV_CHUAHOANTHANH_HP.ToList();
 
-        // GET: PDT/DSSV_CHUAHOANTHANH_HP/Create
-        public ActionResult Create()
-        {
-            ViewBag.MaHKNH = new SelectList(db.HKNHs, "MaHKNH", "MaHKNH");
-            ViewBag.MaSV = new SelectList(db.SINHVIENs, "MaSV", "HoTen");
+                var baocao = from P in PD
+                             join D in DCH on P.MaHKNH equals D.MaHKNH into TB1
+                             from D in TB1.ToList()
+                             where P.MaSV == D.MaSV && D.MaHKNH == id
+                             join S in SV on D.MaSV equals S.MaSV into TB2
+                             from S in TB2.ToList()
+                             select new DSSV_CHUAHOANTHANH_HP
+                             {
+                                 SINHVIEN = S,
+                                 SoTienPhaiDong = P.TongTienPhaiDong,
+                                 SoTienDangKy = P.TongTienDangKy,
+                                 SoTienConLai = D.SoTienConLai,
+                             };
+
+                if (baocao.Count() == 0)
+                    return RedirectToAction("ListHK", new { code = 1 });
+                return View(baocao.ToList());
+            }
+            ViewBag.check = 0;
             return View();
         }
 
-        // POST: PDT/DSSV_CHUAHOANTHANH_HP/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaHKNH,MaSV,SoTienConLai")] DSSV_CHUAHOANTHANH_HP dSSV_CHUAHOANTHANH_HP)
+        public ActionResult ExportToExcel(int id)
         {
-            if (ModelState.IsValid)
+            var dSSV_CHUAHOANTHANH_HP = new System.Data.DataTable();
+            dSSV_CHUAHOANTHANH_HP.Columns.Add("Mã sinh viên", typeof(string));
+            dSSV_CHUAHOANTHANH_HP.Columns.Add("Tên sinh viên", typeof(string));
+            dSSV_CHUAHOANTHANH_HP.Columns.Add("Số tiền đăng ký", typeof(string));
+            dSSV_CHUAHOANTHANH_HP.Columns.Add("Số tiền phải đóng", typeof(string));
+            dSSV_CHUAHOANTHANH_HP.Columns.Add("Số tiền còn lại", typeof(string));
+
+            List<SINHVIEN> SV = db.SINHVIENs.ToList();
+            List<PHIEU_DKHP> PD = db.PHIEU_DKHP.ToList();
+            List<DSSV_CHUAHOANTHANH_HP> DCH = db.DSSV_CHUAHOANTHANH_HP.ToList();
+
+            var baocao = from P in PD
+                         join D in DCH on P.MaHKNH equals D.MaHKNH into TB1
+                         from D in TB1.ToList()
+                         where P.MaSV == D.MaSV && D.MaHKNH == id
+                         join S in SV on D.MaSV equals S.MaSV into TB2
+                         from S in TB2.ToList()
+                         select new DSSV_CHUAHOANTHANH_HP
+                         {
+                             SINHVIEN = S,
+                             SoTienPhaiDong = P.TongTienPhaiDong,
+                             SoTienDangKy = P.TongTienDangKy,
+                             SoTienConLai = D.SoTienConLai,
+                         };
+            foreach (var item in baocao)
             {
-                db.DSSV_CHUAHOANTHANH_HP.Add(dSSV_CHUAHOANTHANH_HP);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                dSSV_CHUAHOANTHANH_HP.Rows.Add(item.SINHVIEN.MaSV, item.SINHVIEN.HoTen, item.SoTienDangKy, item.SoTienPhaiDong, item.SoTienConLai);
             }
 
-            ViewBag.MaHKNH = new SelectList(db.HKNHs, "MaHKNH", "MaHKNH", dSSV_CHUAHOANTHANH_HP.MaHKNH);
-            ViewBag.MaSV = new SelectList(db.SINHVIENs, "MaSV", "HoTen", dSSV_CHUAHOANTHANH_HP.MaSV);
-            return View(dSSV_CHUAHOANTHANH_HP);
-        }
+            var grid = new GridView();
+            grid.DataSource = dSSV_CHUAHOANTHANH_HP;
+            grid.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=DanhSachSinhVienNoHP.xls");
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
 
-        // GET: PDT/DSSV_CHUAHOANTHANH_HP/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DSSV_CHUAHOANTHANH_HP dSSV_CHUAHOANTHANH_HP = db.DSSV_CHUAHOANTHANH_HP.Find(id);
-            if (dSSV_CHUAHOANTHANH_HP == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.MaHKNH = new SelectList(db.HKNHs, "MaHKNH", "MaHKNH", dSSV_CHUAHOANTHANH_HP.MaHKNH);
-            ViewBag.MaSV = new SelectList(db.SINHVIENs, "MaSV", "HoTen", dSSV_CHUAHOANTHANH_HP.MaSV);
-            return View(dSSV_CHUAHOANTHANH_HP);
-        }
+            grid.RenderControl(htw);
 
-        // POST: PDT/DSSV_CHUAHOANTHANH_HP/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaHKNH,MaSV,SoTienConLai")] DSSV_CHUAHOANTHANH_HP dSSV_CHUAHOANTHANH_HP)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(dSSV_CHUAHOANTHANH_HP).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.MaHKNH = new SelectList(db.HKNHs, "MaHKNH", "MaHKNH", dSSV_CHUAHOANTHANH_HP.MaHKNH);
-            ViewBag.MaSV = new SelectList(db.SINHVIENs, "MaSV", "HoTen", dSSV_CHUAHOANTHANH_HP.MaSV);
-            return View(dSSV_CHUAHOANTHANH_HP);
-        }
-
-        // GET: PDT/DSSV_CHUAHOANTHANH_HP/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DSSV_CHUAHOANTHANH_HP dSSV_CHUAHOANTHANH_HP = db.DSSV_CHUAHOANTHANH_HP.Find(id);
-            if (dSSV_CHUAHOANTHANH_HP == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dSSV_CHUAHOANTHANH_HP);
-        }
-
-        // POST: PDT/DSSV_CHUAHOANTHANH_HP/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            DSSV_CHUAHOANTHANH_HP dSSV_CHUAHOANTHANH_HP = db.DSSV_CHUAHOANTHANH_HP.Find(id);
-            db.DSSV_CHUAHOANTHANH_HP.Remove(dSSV_CHUAHOANTHANH_HP);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return Content(sw.ToString(), "application/ms-excel");
         }
 
         protected override void Dispose(bool disposing)
