@@ -1,0 +1,103 @@
+﻿@model QLDKMH_CNPM.Models.HUYEN
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h3 class="text-left text-danger controllerStyle">THÊM MỚI THÔNG TIN HUYỆN</h3>
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal generalStyle" style="color: black;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="control-label">
+                Tên tỉnh
+                @Html.DropDownList("MaTinh", null, "-- Chọn tỉnh --", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TINH.TenTinh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label">
+                Mã huyện
+                @Html.EditorFor(model => model.MaHuyen, new { htmlAttributes = new { @maxlength = "4", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaHuyen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label">
+                Tên huyện
+                @Html.EditorFor(model => model.TenHuyen, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenHuyen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label">Thuộc vùng sâu vùng xa</div>
+            <div>
+                @Html.RadioButtonFor(model => model.VungSauVungXa, true)
+                Có
+                <br />
+                @Html.RadioButtonFor(model => model.VungSauVungXa, false)
+                Không
+                @Html.ValidationMessageFor(model => model.VungSauVungXa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @if (ViewBag.Message == "Sai")
+        {
+            <div class="alert alert-danger">Không hợp lệ! Mời nhập lại... </div>
+        }
+
+        <div class="form-group">
+            <div class="control-label">
+                <input type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
+                <input type="button" value="Hủy" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+                <input type="button" value="Quay về trang chủ" class="btn btn-primary btnStyle" data-toggle="modal" data-target="#AlertModal2" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<!--Cảnh báo thoát khi chưa lưu-->
+<div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="generalStyle" aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body generalStyle" style="color: black;">Thoát khi chưa lưu?</div>
+            <div class="modal-footer generalStyle">
+                <a class="btn btn-danger btnStyle" href="@Url.Action("Index", "HUYENs", new { area = "PDT" })">Đồng ý</a>
+                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Cảnh báo thoát để về trang chủ-->
+<div class="modal fade" id="AlertModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="generalStyle" aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body generalStyle" style="color: black;">Quay về trang chủ?</div>
+            <div class="modal-footer generalStyle">
+                <a class="btn btn-danger btnStyle" href="~/PDT/PDT/PDTHome">Đồng ý</a>
+                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>

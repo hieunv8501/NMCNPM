@@ -1,0 +1,111 @@
+﻿@model QLDKMH_CNPM.Models.SINHVIEN
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+<h3 class="text-left text-danger controllerStyle">SỬA THÔNG TIN SINH VIÊN</h3>
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal generalStyle" style="color: black;">
+        @*<div style="color:white; font-weight:bold;">
+                <span class="bg-danger p-1">SINH VIÊN</span>
+            </div>*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MaSV)
+        <div class="form-group">
+            <div class="control-label">Họ và tên sinh viên</div>
+            <div>
+                @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label">Ngày sinh (MM/dd/YYYY)</div>
+            <div>
+                @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label">Giới tính</div>
+            <div>
+                @Html.RadioButtonFor(model => model.GioiTinh, "Nam", new { @checked = "checked" })
+                Nam
+                @Html.RadioButtonFor(model => model.GioiTinh, "Nữ")
+                Nữ
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label">Tỉnh</div>
+            <div>
+                @Html.DropDownList("MaTinh", null, "-- Chọn lại tỉnh --", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.HUYEN.TINH.MaTinh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label">Huyện</div>
+            <div>
+                @Html.DropDownList("MaHuyen", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaHuyen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label">Ngành</div>
+            <div>
+                @Html.DropDownList("MaNganh", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NGANH.TenNganh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label">Loại đối tượng ưu tiên</div>
+            <div>
+                @Html.DropDownList("MaDoiTuong", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DOITUONG.TenDoiTuong, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <div>
+                <input type="submit" value="Lưu" class="btn btn-danger btnStyle" />
+                <span>
+                    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaSV }, new { @class = "btn btn-primary btnStyle" })
+                </span>
+            </div>
+        </div>
+    </div>
+}
+
+@* Chọn Tỉnh trước sau đó sẽ đổ dữ liệu của các Huyện thuộc tỉnh đó vào trong dropdownlist *@
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#MaTinh").change(function () {
+        $("#MaHuyen").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetHuyen")',
+            dataType: 'json',
+            data: { id: $("#MaTinh").val() },
+            success: function (city) {
+                $.each(city, function (i, city) {
+                    $("#MaHuyen").append('<option value="'  +  city.Value  +  '">'  +  city.Text  +  '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed.' + ex);
+            }
+        });
+        return false;
+    })
+});
+</script>

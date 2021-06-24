@@ -1,0 +1,125 @@
+﻿@model QLDKMH_CNPM.Models.PHIEU_DKHP
+
+@{ ViewBag.Title = "Delete";
+    Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml"; }
+<h3 class="text-left text-danger controllerStyle">XÓA MÔN HỌC</h3>
+<hr />
+<div class="bg-primary text-white generalStyle " style="text-align: left; padding:5px;">
+    Danh sách môn học đã đăng ký
+</div>
+<br />
+@using (Html.BeginForm("Delete", "CT_PHIEU_DKHP", FormMethod.Post))
+    {
+    @Html.AntiForgeryToken()
+<div class="control-label generalStyle ">Số phiếu đăng ký </div>
+<div>
+    @Html.EditorFor(model => model.SoPhieuDKHP, new { htmlAttributes = new { @class = "form-control generalStyle", @readonly = "readonly" } })
+</div>
+<div class="form-group mt-1">
+    <div class="control-label">
+        <input id="btnNew" type="submit" value="Xóa các môn đã chọn" class="btn btn-danger btnStyle generalStyle" />
+        <input type="button" value="Hủy" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+    </div>
+</div>
+<div class="form-group generalStyle">
+    <div id="dataTable_wrapper" name="ID" class="dataTables_wrapper card-body pre-scrollable bg-white m-1 p-1">
+        <div id="dataTable_wrapper" class="dataTables_wrapper">
+            <table id="DataTable" style="width:100%;" class="table table-bordered dataStyle dataTable">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="checkBoxAll" class="custom-checkbox" />Chọn</th>
+                        <th>Mã môn học</th>
+                        <th>Mã môn học mở</th>
+                        <th>Tên môn học</th>
+                        <th>Loại môn</th>
+                        <th>Số tiết</th>
+                        <th>Số tín chỉ</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var MonHoc in Model.CT_PHIEU_DKHP)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="MaMo" value="@MonHoc.MaMo" id="MonHoc" class="custom-checkbox chkCheckBoxId" /></td>
+                            <td>@MonHoc.DS_MONHOC_MO.MONHOC.MaMonHoc</td>
+                            <td>@MonHoc.MaMo</td>
+                            <td>@MonHoc.DS_MONHOC_MO.MONHOC.TenMonHoc</td>
+                            <td>@MonHoc.DS_MONHOC_MO.MONHOC.MaLoaiMon</td>
+                            <td>@MonHoc.DS_MONHOC_MO.MONHOC.SoTiet</td>
+                            <td>@MonHoc.DS_MONHOC_MO.MONHOC.SoTinChi</td>
+                            <td>@MonHoc.GhiChu</td>
+                        </tr>
+}
+                </tbody>
+            </table>
+            <hr />
+        </div>
+    </div>
+</div>}
+
+<div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                <button class="close generalStyle" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="generalStyle" aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body generalStyle" style="color: black;">Thoát khi chưa xóa môn?</div>
+            <div class="modal-footer generalStyle">
+                <a class="btn btn-danger btnStyle generalStyle" href="@Url.Action("Details", "Phieu_DKHP", new { area = "SV", id = Model.SoPhieuDKHP })">Đồng ý</a>
+                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.Message == "Sai")
+{
+<div class="alert alert-danger generalStyle" style="color: black; font-size: 1rem">Xóa thất bại! </div>}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+<script src="~/scripts/bootstrap.min.js"></script>
+<link href="~/Assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<script src="~/Assets/vendor/datatables/jquery.dataTables.min.js"></script>
+<link href="~/Assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#DataTable').DataTable();
+        $('#checkBoxAll').click(function () {
+            if ($(this).is(":checked")) {
+                $(".chkCheckBoxId").prop("checked", true)
+            }
+            else {
+                $(".chkCheckBoxId").prop("checked", false)
+            }
+        });
+    });
+</script>
+
+
+@* Phải chọn ít nhất một môn để xóa *@
+@* Sử dụng sweet alert warning *@
+<script src="https://lipis.github.io/bootstrap-sweetalert/lib/sweet-alert.js"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<link href="~/Styles/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/sweetalert-dev.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnNew').click(function () {
+            checked = $("input[type=checkbox]:checked").length;
+            if (!checked) {
+                swal({
+                    title: "Cảnh báo!",
+                    type: "warning",
+                    text: "Bạn phải chọn ít nhất một môn để xóa!",
+                    confirmButtonText: 'Đồng ý'
+                });
+                return false;
+            }
+        });
+    });
+</script>
