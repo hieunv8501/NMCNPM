@@ -15,11 +15,9 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             <div class="control-label">Số phiếu đăng ký</div>
-            <div>
                 <div class="form-control" readonly>@ViewBag.SoPhieuDKHP</div>
                 @Html.HiddenFor(model => model.SoPhieuDKHP)
                 @Html.ValidationMessageFor(model => model.SoPhieuDKHP, "", new { @class = "text-danger" })
-            </div>
         </div>
 
         <div class="form-group">
@@ -34,7 +32,7 @@
             <div class="control-label">Ngày lập phiếu đăng ký</div>
             <div class="form-control">
                 @Html.DisplayFor(model => model.NgayLap.Day)/@Html.DisplayFor(model => model.NgayLap.Month)/@Html.DisplayFor(model => model.NgayLap.Year)
-                @Html.HiddenFor(model => model.NgayLap)
+                @Html.ValidationMessageFor(model => model.NgayLap, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -85,9 +83,8 @@
     </div>
 </div>
 
-
 <!--Javascript để gọi datetimepicker trong Ngày tháng-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
     $(function () {
@@ -113,4 +110,4 @@
             showButtonPanel: true
         });
     });
-</script>
+</script>-->

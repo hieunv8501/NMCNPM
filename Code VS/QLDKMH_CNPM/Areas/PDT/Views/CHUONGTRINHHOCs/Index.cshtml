@@ -41,17 +41,17 @@
 
                     @foreach (var item in Model)
                     {
-        <tr>
-            <td style="vertical-align: middle;">
-                @Html.DisplayFor(modelItem => item.MaNganh)
-            </td>
-            <td style="vertical-align: middle;">
-                @Html.DisplayFor(modelItem => item.TenNganh)
-            </td>
-            <td style="text-align: center">
-                <a href="@Url.Action("Details", "CHUONGTRINHHOCs", new {area ="PDT", id = item.MaNganh})">Xem chương trình học</a>
-            </td>
-        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.MaNganh)
+                            </td>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.TenNganh)
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <a href="@Url.Action("Details", "CHUONGTRINHHOCs", new {area ="PDT", id = item.MaNganh})">Xem chương trình học</a>
+                            </td>
+                        </tr>
 }
 
                 </table>

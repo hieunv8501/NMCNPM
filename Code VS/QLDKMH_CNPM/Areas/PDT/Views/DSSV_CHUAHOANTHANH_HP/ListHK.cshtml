@@ -1,17 +1,17 @@
 ﻿@model IEnumerable<QLDKMH_CNPM.Models.HKNH>
 
 @{ 
-   ViewBag.Title = "Test";
+   ViewBag.Title = "ListHK";
    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
 }
 
 
-<h3 class="mb-1 text-danger controllerStyle">DANH SÁCH BÁO CÁO SINH VIÊN CHƯA HOÀN THÀNH HỌC PHÍ</h3>
+<h3 class="mb-1 text-danger controllerStyle">BÁO CÁO SINH VIÊN CHƯA HOÀN THÀNH HỌC PHÍ</h3>
 <hr />
 
-<div class="form-group generalStyle">
+<div class="form-group generalStyle" >
     <div>
-        <select class="form-control namhoc">
+        <select class="form-control namhoc" style="font-size:0.9rem;"  >
             <option value="0" selected>-- Chọn học kỳ --</option>
             @foreach (var item in Model)
             {
@@ -19,11 +19,11 @@
             }
         </select>
         <br />
-        @if (ViewBag.message != "")
+        @if (ViewBag.Message != "")
         {
-            <div class="alert alert-warning generalStyle" style="color:black">@ViewBag.message</div>
+            <div class="alert alert-warning generalStyle" style="color:black">@ViewBag.Message</div>
         }
-        <a class="btn btn-primary" id="link" href="@Url.Action("ListHK", "DSSV_CHUAHOANTHANH_HP", new {  })">Xem danh sách báo cáo</a>
+        <a class="btn btn-primary generalStyle" style="font-size:.9rem;" id="link" href="@Url.Action("ListHK", "DSSV_CHUAHOANTHANH_HP", new {  })">Xem báo cáo</a>
     </div>
 
 </div>

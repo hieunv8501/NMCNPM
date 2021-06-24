@@ -83,8 +83,20 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             ViewBag.Message = "Dung";
             if (code == 1)
                 ViewBag.Message = "Sai";
+            ViewBag.MaSV = new SelectList(db.SINHVIENs, "MaSV", "MaSV");
             ViewBag.SoPhieuDKHP = new SelectList(db.PHIEU_DKHP, "SoPhieuDKHP", "SoPhieuDKHP");
-            return View();
+            int sOPhieuThu = 1;
+            if (db.PHIEUTHUs.Count() != 0)
+            {
+                var SoPhieu_last = db.PHIEUTHUs.OrderByDescending(x => x.SoPhieuThu).FirstOrDefault(); //tìm số phiếu cuối cùng trong database
+                sOPhieuThu = SoPhieu_last.SoPhieuThu + 1; //tăng sô phiếu cuối lên 1
+            }
+            ViewBag.SoPhieuThu = new SelectList(db.PHIEUTHUs, "SoPhieuThu", "SoPhieuThu");
+            ViewBag.SoPhieuThu = sOPhieuThu;
+            PHIEUTHU pHIEUTHU = new PHIEUTHU();
+            pHIEUTHU.SoPhieuThu = ViewBag.SoPhieuThu;
+            pHIEUTHU.NgayLap = DateTime.Now;                      
+            return View(pHIEUTHU);
         }
 
         // POST: PDT/PHIEUTHUs/Create

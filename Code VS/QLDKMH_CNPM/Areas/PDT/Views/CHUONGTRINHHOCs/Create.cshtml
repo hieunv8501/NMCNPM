@@ -20,7 +20,7 @@
     <div class="form-horizontal generalStyle" style="color: black;">
         <div class="form-group">
             <div class="control-label">Môn học</div>
-            <div class="col-md-10">
+            <div>
                 @Html.DropDownList("MaMonHoc", null, "-- Chọn môn học --", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MONHOC.TenMonHoc, "", new { @class = "text-danger" })
             </div>
@@ -28,15 +28,15 @@
 
         <div class="form-grousp">
             <div class="control-label">Học kỳ</div>
-            <div class="col-md-10">
+            <div>
                 @Html.EditorFor(model => model.HocKy, new { htmlAttributes = new { @maxlength= "1", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.HocKy, "", new { @class = "text-danger" })
             </div>
         </div>
-
+    <br/>
         <div class="form-group">
             <div class="control-label">Ghi chú</div>
-            <div class="col-md-10">
+            <div>
                 @Html.EditorFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
             </div>
@@ -44,8 +44,8 @@
 
         <hr />
         <div class="form-group">
-            <div class="col-md-offset-2">
-                <input type="submit" value="Tạo" class="btn btn-primary btnStyle" />
+            <div>
+                <input type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
                 @Html.ActionLink("Hủy", "Details", new { id = ViewBag.MaNganh }, new { @class = "btn btn-primary btnStyle" })
             </div>
         </div>

@@ -1,7 +1,8 @@
 ﻿@model QLDKMH_CNPM.Models.CHUONGTRINHHOC
 
-@{ ViewBag.Title = "Edit";
-                Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
+@{ 
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
 }
 
 <h3 class="text-danger controllerStyle">
@@ -41,12 +42,14 @@
            </div>
            <hr />
            <div class="form-group">
-              <div>
-                  <input type="submit" value="Lưu" class="btn btn-danger btnStyle" />
-                     <span onclick=" return confirm('Bạn chưa lưu, bạn có muốn thoát ra không?')">
-                          @Html.ActionLink("Quay lại", "Details", new { id = Model.MaNganh }, new { @class = "btn btn-primary btnStyle" })
-                     </span>
-              </div>
+               <div>
+                   <span onclick=" return confirm('Bạn có chắc chắn muốn sửa ?')">
+                       <input type="submit" value="Lưu" class="btn btn-danger btnStyle" />
+                   </span>   
+                   <span onclick=" return confirm('Bạn chưa lưu, bạn có muốn thoát ra không?')">
+                       @Html.ActionLink("Quay lại", "Details", new { id = Model.MaNganh }, new { @class = "btn btn-primary btnStyle" })
+                   </span>
+               </div>
            </div>
        </div>
 }
