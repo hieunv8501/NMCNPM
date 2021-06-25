@@ -202,9 +202,12 @@
                                                 Tùy chọn
                                             </button>
                                             <div class="dropdown-menu" style="text-align:center" aria-labelledby="navbarDropdownMenuLink">
-                                                <a class="dropdown-item" href="@Url.Action("Details", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP })">Xem thông tin</a>
+                                                <a class="dropdown-item" href="@Url.Action("Details_2", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP, SoPhieuDKHP = ViewBag.SoPhieuDKHP, MSSV = ViewBag.MSSV, MHKNH = ViewBag.MHKNH, Day = ViewBag.Day, Month = ViewBag.Month, Year = ViewBag.Year, TinhTrang = ViewBag.TinhTrang })">Xem thông tin</a>
                                                 @*<a class="dropdown-item" href="@Url.Action("Delete", "CT_Phieu_DKHP", new { area = "PDT", id = item.SoPhieuDKHP })">Xóa môn học</a>*@
-                                                <a class="dropdown-item" href="@Url.Action("Delete", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP })">Xóa phiếu ĐKHP</a>
+                                                @if (item.CT_PHIEU_DKHP.Count <= 0)
+                                                {
+                                                    <a class="dropdown-item" href="@Url.Action("Delete_2", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP, SoPhieuDKHP = ViewBag.SoPhieuDKHP, MSSV = ViewBag.MSSV, MHKNH = ViewBag.MHKNH, Day = ViewBag.Day, Month = ViewBag.Month, Year = ViewBag.Year, TinhTrang = ViewBag.TinhTrang })">Xóa phiếu ĐKHP</a>
+                                                }
                                             </div>
                                         </div>
                                     </div>
