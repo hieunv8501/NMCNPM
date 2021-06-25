@@ -37,6 +37,28 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             return View(pHIEU_DKHP);
         }
 
+        public ActionResult Details_2(int? id, int? SoPhieuDKHP, string MSSV, int? MHKNH, int? Day, int? Month, int? Year, int? TinhTrang)
+        {
+            ViewBag.SoPhieuDKHP = SoPhieuDKHP;
+            ViewBag.MSSV = MSSV;
+            ViewBag.MHKNH = MHKNH;
+            ViewBag.Day = Day;
+            ViewBag.Month = Month;
+            ViewBag.Year = Year;
+            ViewBag.TinhTrang = TinhTrang;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
+            if (pHIEU_DKHP == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CT_PHIEU_DKHPandDS_MONHOC_MO = db.CT_PHIEU_DKHP.Where(m => m.SoPhieuDKHP == id).ToList();
+            return View(pHIEU_DKHP);
+        }
+
         // GET: PDT/PHIEU_DKHP/Create
         public ActionResult Create(int code = 1)
         {
@@ -168,9 +190,56 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult Delete_2(int? id, int? SoPhieuDKHP, string MSSV, int? MHKNH, int? Day, int? Month, int? Year, int? TinhTrang)
+        {
+            ViewBag.SoPhieuDKHP = SoPhieuDKHP;
+            ViewBag.MSSV = MSSV;
+            ViewBag.MHKNH = MHKNH;
+            ViewBag.Day = Day;
+            ViewBag.Month = Month;
+            ViewBag.Year = Year;
+            ViewBag.TinhTrang = TinhTrang;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
+            if (pHIEU_DKHP == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.id = id;
+            return View(pHIEU_DKHP);
+        }
+
+        // POST: PDT/CT_PHIEU_DKHP/Delete/5
+        [HttpPost, ActionName("Delete_2")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed_2(int id, int? SoPhieuDKHP, string MSSV, int? MHKNH, int? Day, int? Month, int? Year, int? TinhTrang)
+        {
+            ViewBag.SoPhieuDKHP = SoPhieuDKHP;
+            ViewBag.MSSV = MSSV;
+            ViewBag.MHKNH = MHKNH;
+            ViewBag.Day = Day;
+            ViewBag.Month = Month;
+            ViewBag.Year = Year;
+            ViewBag.TinhTrang = TinhTrang;
+            PHIEU_DKHP pHIEU_DKHP = db.PHIEU_DKHP.Find(id);
+            db.PHIEU_DKHP.Remove(pHIEU_DKHP);
+            db.SaveChanges();
+            return RedirectToAction("TraCuu", new { SoPhieuDKHP = ViewBag.SoPhieuDKHP, MSSV = ViewBag.MSSV, MHKNH = ViewBag.MHKNH, Day = ViewBag.Day, Month = ViewBag.Month, Year = ViewBag.Year, TinhTrang = ViewBag.TinhTrang });
+        }
         public ActionResult TraCuu(int? SoPhieuDKHP, string MSSV, int? MHKNH, int? Day, int? Month, int? Year, int? TinhTrang)
         {
             ViewBag.HocKyNamHoc = db.HKNHs;
+            ViewBag.SoPhieuDKHP = SoPhieuDKHP;
+            ViewBag.MSSV = MSSV;
+            ViewBag.MHKNH = MHKNH;
+            ViewBag.Day = Day;
+            ViewBag.Month = Month;
+            ViewBag.Year = Year;
+            ViewBag.TinhTrang = TinhTrang;
             //Nếu người dùng không nhập gì thì không hiện gì cả
             if (SoPhieuDKHP == null && (MSSV == null || MSSV == "") && MHKNH == null && Day == null && Month == null && Year == null && TinhTrang == null)
             {
