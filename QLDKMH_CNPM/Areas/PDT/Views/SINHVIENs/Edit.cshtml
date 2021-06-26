@@ -1,0 +1,161 @@
+﻿@model QLDKMH_CNPM.Models.SINHVIEN
+
+@{ ViewBag.Title = "Edit";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+<h3 class="text-left text-danger controllerStyle">SỬA THÔNG TIN SINH VIÊN</h3>
+<hr />
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal generalStyle" style="color: black;">
+    @*<div style="color:white; font-weight:bold;">
+            <span class="bg-danger p-1">SINH VIÊN</span>
+        </div>*@
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+    <div class="form-group">
+        <div class="control-label">MSSV</div>
+        <div>
+            @Html.EditorFor(model => model.MaSV, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.HiddenFor(model => model.MaSV)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="control-label">Họ và tên sinh viên</div>
+        <div>
+            @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label">Ngày sinh</div>
+        <div>
+            @Html.EditorFor(model => model.NgaySinh, "0:dd/MM/yyyy", new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+            @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label">Giới tính</div>
+        <div>
+            @Html.RadioButtonFor(model => model.GioiTinh, "Nam", new { @checked = "checked" })
+            Nam
+            @Html.RadioButtonFor(model => model.GioiTinh, "Nữ")
+            Nữ
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label">Tỉnh</div>
+        <div>
+            @Html.DropDownList("MaTinh", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.HUYEN.TINH.MaTinh, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label">Huyện</div>
+        <div>
+            @Html.DropDownList("MaHuyen", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MaHuyen, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label">Ngành</div>
+        <div>
+            @Html.DropDownList("MaNganh", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.NGANH.TenNganh, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label">Loại đối tượng ưu tiên</div>
+        <div>
+            @Html.DropDownList("MaDoiTuong", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DOITUONG.TenDoiTuong, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div>
+            <input type="submit" value="Lưu" class="btn btn-danger btnStyle" />
+            <input type="button" value="Quay lại" class="btn btn-primary btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+        </div>
+    </div>
+</div>}
+
+@* Chọn Tỉnh trước sau đó sẽ đổ dữ liệu của các Huyện thuộc tỉnh đó vào trong dropdownlist *@
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#MaTinh").change(function () {
+        $("#MaHuyen").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetHuyen")',
+            dataType: 'json',
+            data: { id: $("#MaTinh").val() },
+            success: function (city) {
+                $.each(city, function (i, city) {
+                    $("#MaHuyen").append('<option value="'  +  city.Value  +  '">'  +  city.Text  +  '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed.' + ex);
+            }
+        });
+        return false;
+    })
+});
+</script>
+
+<!--Javascript để gọi datetimepicker trong Ngày tháng-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.datetimepicker').datepicker({
+            closeText: "Đóng",
+            prevText: "Trước",
+            nextText: "Sau",
+            currentText: "Hôm nay",
+            monthNames: ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"],
+            monthNamesShort: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+            dayNames: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
+            dayNamesShort: ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
+            dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+            weekHeader: "Tuần",
+            dateFormat: "mm/dd/yy",
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: "",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:+0",
+            showButtonPanel: true
+        });
+    });
+</script>
+
+<!--Cảnh báo thoát-->
+<div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="generalStyle" aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body generalStyle" style="color: black;">Chưa lưu, bạn có muốn thoát?</div>
+            <div class="modal-footer generalStyle">
+                @Html.ActionLink("Đồng ý", "Details", new { id = Model.MaSV }, new { @class = "btn btn-danger btnStyle" })
+                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>

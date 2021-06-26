@@ -1,0 +1,42 @@
+﻿@model QLDKMH_CNPM.Models.TINH
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h3 class="text-left text-danger controllerStyle">XÓA THÔNG TIN TỈNH</h3>
+
+<hr />
+
+@*<div style="color:white; font-weight:bold;">
+          <span class="bg-danger p-1">TỈNH</span>
+    </div>*@
+
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color: white; background-color: #4e73df">
+                <th width="50%">Mã tỉnh</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaTinh)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tên tỉnh</th>
+                <td>@Html.DisplayFor(model => model.TenTinh)</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+            <h6 class="text-left text-danger controllerStyle">Bạn có muốn xóa thông tin tỉnh này?</h6>
+            <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
+            @Html.ActionLink("Quay lại", "Index", new { id = Model.MaTinh }, new { @class = "btn btn-primary btnStyle" })
+        </div>
+    }
+</div>
+
