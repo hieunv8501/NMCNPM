@@ -26,6 +26,10 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
                 ViewBag.message = "Học kỳ này không có sinh viên nợ học phí";
             if (code == 2)
                 ViewBag.message1 = "Năm học này không có sinh viên nợ học phí";
+
+            //Lay danh sach nam hoc vao ViewBag
+            var NamHoc = db.HKNHs.AsEnumerable().GroupBy(x => new {x.Nam1,x.Nam2 }).Select(g=>g.FirstOrDefault()).ToList();
+            ViewBag.NamHoc = NamHoc.Select(x =>(x.Nam1, x.Nam2)).Where(x=>x.Nam1<DateTime.Now.Year).ToList();
             return View(db.HKNHs.ToList());
         }
 

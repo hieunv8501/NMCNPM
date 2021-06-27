@@ -12,35 +12,39 @@
             <option value="0" selected>-- Chọn học kỳ --</option>
             @foreach (var item in Model)
             {
-<option value="@item.MaHKNH">HK @item.HocKy (@item.Nam1 - @item.Nam2)</option>
-}
+                <option value="@item.MaHKNH">HK @item.HocKy (@item.Nam1 - @item.Nam2)</option>
+            }
         </select>
         <br />
         @if (ViewBag.message != "")
         {
-<div class="alert alert-danger generalStyle" style="color:black">@ViewBag.message</div>}
+            <div class="alert alert-danger generalStyle" style="color:black">@ViewBag.message</div>}
         <a class="btn btn-primary btnStyle" id="link" href="@Url.Action("ListHK", "DSSV_CHUAHOANTHANH_HP", new {  })">Xem danh sách báo cáo</a>
     </div>
 
 </div>
 <hr />
+@foreach (var item in Model.Where(x => x.Nam1 < DateTime.Now.Year))
+{
+    
+}
 @using (Html.BeginForm("BieuDo", "DSSV_CHUAHOANTHANH_HP", FormMethod.Get))
 {<div class="form-group generalStyle">
         <div>
             <select id="BieuDo" class="form-control fa-align-center" name="Nam1">
                 <option value="0" selected>-- Chọn năm học --</option>
-                @foreach (var item in Model.Where(x => x.Nam1 < DateTime.Now.Year))
+                @foreach (var item in ViewBag.NamHoc)
                 {
-                    <option value="@item.Nam1">(@item.Nam1 - @item.Nam2)</option>
+                    <option value="@item.Item1">(@item.Item1 - @item.Item2)</option>
                 }
             </select>
             <br />
             @if (ViewBag.message1 != "")
             {
                 <div class="alert alert-warning generalStyle" style="color:black">@ViewBag.message1</div>}
-                    <button type="submit" value="Tra cứu" class=" btn btn-primary btnStyle">
-                        Xem biểu đồ
-                    </button>
+            <button type="submit" value="Tra cứu" class=" btn btn-primary btnStyle">
+                Xem biểu đồ
+            </button>
         </div>
     </div>
 }
