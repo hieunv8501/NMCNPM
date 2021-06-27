@@ -5,92 +5,96 @@
 <h3 class="text-left text-danger controllerStyle">THÊM MỚI THÔNG TIN SINH VIÊN</h3>
 <hr />
 
-@using (Html.BeginForm("Create", "SINHVIENs", FormMethod.Get))
+@using (Html.BeginForm())
 {
-@Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 
-                <div class="form-horizontal generalStyle" style="color: black;">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <p class="generalStyle"><strong>Nhập thông tin sinh viên</strong></p>
+<div class="form-horizontal generalStyle" id="form1" method="POST" style="color: black;">
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-                    @*@if (@ViewBag.Message == "Sai")
-                    {
-                        <div class="alert alert-danger">Không hợp lệ! Mời nhập lại... </div>
-                     }*@
+    @if (@ViewBag.Message == "Sai")
+    {
+        <div class="alert alert-danger">Thông tin nhập không hợp lệ, mời nhập lại !! </div>
+    }
+    <div class="generalStyle"><strong>Nhập thông tin sinh viên</strong></div>
+    <p class="font-italic">Vui lòng nhập đúng và đầy đủ các thông tin dưới đây</p>
+    <div class="form-group">
+        <div class="control-label">Mã sinh viên</div>
+        <div>
+            @Html.EditorFor(model => model.MaSV, new { htmlAttributes = new { @id = "MSSV", @onblur = "inputValidation1(this)", @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MaSV, "", new { @class = "text-danger" })
+        </div>
+        <div id="textField1"></div>
+    </div>
 
-                    <div class="form-group">
-                        <div class="control-label">Mã sinh viên</div>
-                        <div>
-                            @Html.EditorFor(model => model.MaSV, new { htmlAttributes = new {@class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.MaSV, "MSSV chỉ bao gồm 6 ký tự chữ số", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="control-label">Họ và tên sinh viên</div>
-                        <div>
-                            @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+    <div class="form-group">
+        <div class="control-label">Họ và tên sinh viên</div>
+        <div>
+            @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @id = "HoTen", @onblur = "inputValidation2(this)", @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+        </div>
+        <div id="textField2"></div>
+    </div>
 
-                    <div class="form-group ">
-                        <div class="control-label">Ngày sinh</div>
-                        <div>
-                            @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
-                            @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+    <div class="form-group ">
+        <div class="control-label">Ngày sinh</div>
+        <div>
+            @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @id = "NgaySinh", @onblur = "inputValidation3(this)", @class = "form-control datetimepicker" } })
+            @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+        </div>
+        <div id="textField3"></div>
+    </div>
 
-                    <div class="form-group">
-                        <div class="control-label">Giới tính</div>
-                        <div>
-                            @Html.RadioButtonFor(model => model.GioiTinh, "Nam", new { @checked = "checked" })
-                            Nam
-                            @Html.RadioButtonFor(model => model.GioiTinh, "Nữ")
-                            Nữ
-                        </div>
-                    </div>
+    <div class="form-group">
+        <div class="control-label">Giới tính</div>
+        <div>
+            @Html.RadioButtonFor(model => model.GioiTinh, "Nam", new { @checked = "checked" })
+            Nam
+            @Html.RadioButtonFor(model => model.GioiTinh, "Nữ")
+            Nữ
+        </div>
+    </div>
 
-                    <div class="form-group">
-                        <div class="control-label">Tỉnh</div>
-                        <div>
-                            @Html.DropDownList("MaTinh", null, "-- Chọn tỉnh --", htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.HUYEN.TINH.TenTinh, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+    <div class="form-group">
+        <div class="control-label">Tỉnh</div>
+        <div>
+            @Html.DropDownList("MaTinh", null, "-- Chọn tỉnh --", htmlAttributes: new { @id = "Tinh", @onblur = "inputValidation4(this)", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.HUYEN.TINH.TenTinh, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-                    <div class="form-group">
-                        <div class="control-label">Huyện</div>
-                        <div>
-                            @Html.DropDownList("MaHuyen", null, "-- Chọn huyện --", htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.HUYEN.TenHuyen, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+    <div class="form-group">
+        <div class="control-label">Huyện</div>
+        <div>
+            @Html.DropDownList("MaHuyen", null, "-- Chọn huyện --", htmlAttributes: new { @id = "Huyen", @onblur = "inputValidation5(this)", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.HUYEN.TenHuyen, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-                    <div class="form-group">
-                        <div class="control-label">Ngành</div>
-                        <div>
-                            @Html.DropDownList("MaNganh", null, "-- Chọn ngành --", htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.NGANH.TenNganh, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+    <div class="form-group">
+        <div class="control-label">Ngành</div>
+        <div>
+            @Html.DropDownList("MaNganh", null, "-- Chọn ngành --", htmlAttributes: new { @id = "DoiTuong", @onblur = "inputValidation6(this)", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.NGANH.TenNganh, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-                    <div class="form-group">
-                        <div class="control-label">Loại đối tượng ưu tiên</div>
-                        <div>
-                            @Html.DropDownList("MaDoiTuong", null, "-- Chọn đối tượng --", htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.DOITUONG.TenDoiTuong, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+    <div class="form-group">
+        <div class="control-label">Loại đối tượng ưu tiên</div>
+        <div>
+            @Html.DropDownList("MaDoiTuong", null, "-- Chọn đối tượng --", htmlAttributes: new { @onblur = "inputValidation7(this)", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DOITUONG.TenDoiTuong, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-                    <hr />
-                    <div class="form-group">
-                        <div class="control-label">
-                            <input id="btnNew" type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
-                            <input type="button" value="Hủy" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
-                        </div>
-                    </div>
-                </div>}
+    <hr />
+    <div class="form-group">
+        <div class="control-label">
+            <input id="btnNew" type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
+            <input type="button" value="Quay lại" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+        </div>
+    </div>
+</div>}
 
 <!--Cảnh báo thoát-->
 <div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
@@ -104,7 +108,7 @@
             </div>
             <div class="modal-body generalStyle" style="color: black;">Thoát khi chưa thêm mới?</div>
             <div class="modal-footer generalStyle">
-                <a class="btn btn-danger btnStyle" href="@Url.Action("Index", "SINHVIENs", new { area = "PDT" })">Đồng ý</a>
+                <a class="btn btn-danger btnStyle" href="@Url.Action("Index", "SINHVIENs", new {area ="PDT", code = 0 })">Đồng ý</a>
                 <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
             </div>
         </div>
@@ -136,10 +140,10 @@ $(document).ready(function () {
 });
 </script>
 
-
 <!--Javascript để gọi datetimepicker trong Ngày tháng-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script><script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script src="~/Scripts/jquery-3.6.0.js"></script>
 <script type="text/javascript">
     $(function () {
         $('.datetimepicker').datepicker({
@@ -162,6 +166,102 @@ $(document).ready(function () {
             changeYear: true,
             yearRange: "-60:+0",
             showButtonPanel: true
+        });
+    });
+</script>
+
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+    //function để validation mã sinh viên
+    function inputValidation1(inputTxt) {
+        var regx = /^[0-9]+$/;
+        var textField = document.getElementById("textField1");
+
+        if (inputTxt.value != '') {
+            if (inputTxt.value.length == 6) {
+                if (inputTxt.value.match(regx)) {
+                    textField.textContent = '';
+                    textField.style.color = 'green';
+                } else {
+                    textField.textContent = '*Vui lòng chỉ nhập ký tự số';
+                    textField.style.color = 'red';
+                }
+            } else {
+                textField.textContent = '*MSSV phải có 6 ký tự';
+                textField.style.color = 'red';
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập MSSV';
+            textField.style.color = 'red';
+        }
+    }
+    //function để validation label tên sinh viên
+    function inputValidation2(inputTxt) {
+        var regx = /^[aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ ]+$/;
+        var textField = document.getElementById("textField2");
+
+        if (inputTxt.value != '') {
+            if (inputTxt.value.match(regx)) {
+                textField.textContent = '';
+                textField.style.color = 'green';
+            } else {
+                textField.textContent = '*Vui lòng chỉ nhập các ký tự là tiếng việt và khoảng trắng';
+                textField.style.color = 'red';
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập họ tên sinh viên';
+            textField.style.color = 'red';
+        }
+    }
+    //
+    function inputValidation3(inputTxt) {
+
+        var textField = document.getElementById("textField3");
+        if (inputTxt.value == '') {
+            textField.textContent = '*Không được để trống thông tin này, vui lòng chọn một ngày sinh cụ thể';
+            textField.style.color = 'red';
+        }
+        else {
+            textField.textContent = '';
+            textField.style.color = 'green';
+        }
+    }
+    //function để disable/able button submit 
+    $(function () {
+        $('#btnNew').attr('disabled', true);
+        $('#DoiTuong, #MSSV, #HoTen, #NgaySinh, #Tinh, #Huyen, #Nganh, #DoiTuong').change(function () {
+            if ($('#MSSV').val() != '') {
+                if ($('#HoTen').val() != '') {
+                    if ($('#NgaySinh').val() != '') {
+                        if ($('#Tinh').val() != '') {
+                            if ($('#Huyen').val() != '') {
+                                if ($('#Nganh').val() != '') {
+                                    if ($('#DoiTuong').val() != '') {
+                                        $('#btnNew').attr('disabled', false);
+                                    } else {
+                                        $('#btnNew').attr('disabled', true);
+                                    }
+                                } else {
+                                    $('#btnNew').attr('disabled', true);
+                                }
+                            } else {
+                                $('#btnNew').attr('disabled', true);
+                            }
+                        } else {
+                            $('#btnNew').attr('disabled', true);
+                        }
+                    } else {
+                        $('#btnNew').attr('disabled', true);
+                    }
+
+                } else {
+                    $('#btnNew').attr('disabled', true);
+                }
+            } else {
+                $('#btnNew').attr('disabled', true);
+            }
         });
     });
 </script>
