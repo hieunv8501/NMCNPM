@@ -1,0 +1,47 @@
+﻿@model QLDKMH_CNPM.Models.LOAIMONHOC
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h3 class="text-left text-danger controllerStyle">XÓA THÔNG TIN LOẠI MÔN HỌC</h3>
+<hr />
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Mã loại môn học</th>
+                <td>@Html.DisplayFor(model => model.MaLoaiMon)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tên loại môn học</th>
+                <td>@Html.DisplayFor(model => model.TenLoaiMon)</td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Số tiết một tín chỉ</th>
+                <td>@Html.DisplayFor(model => model.HeSoChia)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Số tiền một tín chỉ</th>
+                <td>@Html.DisplayFor(model => model.SoTienMotTinChi)</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+          <div class="form-actions no-color">
+              <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
+              <span>
+                  @Html.ActionLink("Quay lại", "Index", new { id = Model.MaLoaiMon }, new { @class = "btn btn-primary btnStyle" })
+              </span>
+          </div>
+    }
+</div>

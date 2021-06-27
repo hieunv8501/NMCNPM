@@ -1,0 +1,71 @@
+﻿@model QLDKMH_CNPM.Models.SINHVIEN
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h3 class="text-left text-danger controllerStyle">XÓA THÔNG TIN SINH VIÊN</h3>
+
+
+@*<div style="color:white; font-weight:bold;">
+            <span class="bg-danger p-1">SINH VIÊN</span>
+    </div>*@
+<hr />
+
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e73df;">
+                <th width="50%">MSSV</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaSV)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Họ và Tên</th>
+                <td>@Html.DisplayFor(model => model.HoTen)</td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Giới tính</th>
+                <td>@Html.DisplayFor(model => model.GioiTinh)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Ngày sinh</th>
+                <td>@Html.DisplayFor(model => model.NgaySinh.Day)/@Html.DisplayFor(model => model.NgaySinh.Month)/@Html.DisplayFor(model => model.NgaySinh.Year) </td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Quê quán</th>
+                <td>@Html.DisplayFor(model => model.HUYEN.TenHuyen) - @Html.DisplayFor(model => model.HUYEN.TINH.TenTinh)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Ngành</th>
+                <td>@Html.DisplayFor(model => model.NGANH.TenNganh)</td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Khoa</th>
+                <td>@Html.DisplayFor(model => model.NGANH.KHOA.TenKhoa)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Loại đối tượng ưu tiên</th>
+                <td>@Html.DisplayFor(model => model.DOITUONG.TenDoiTuong)</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+            <h6 class="text-left text-danger controllerStyle">Bạn có muốn xóa thông tin sinh viên này?</h6>
+            <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
+            @Html.ActionLink("Quay lại", "Index", new { id = Model.MaSV }, new { @class = "btn btn-primary btnStyle" })
+        </div>
+    }
+</div>
