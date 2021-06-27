@@ -79,7 +79,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.MaMonHoc = new SelectList(db.MONHOCs, "MaMonHoc", "TenMonHoc");
+            ViewBag.MONHOC = db.MONHOCs.ToList();
             ViewBag.MaNganh = db.NGANHs.Find(id).MaNganh;
             ViewBag.TenNganh = db.NGANHs.Find(id).TenNganh;
 

@@ -124,7 +124,7 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         {
             ViewBag.code = code;
             ViewBag.MaHKNH = new SelectList(db.HKNHs, "MaHKNH", "MaHKNH");
-            ViewBag.MaMonHoc = new SelectList(db.MONHOCs, "MaMonHoc", "TenMonHoc");
+            ViewBag.MONHOC = db.MONHOCs.ToList();
             ViewBag.MaHKNH = db.HKNHs.Find(id).MaHKNH;
             ViewBag.HocKy = db.HKNHs.Find(id).HocKy;
             ViewBag.Nam1 = db.HKNHs.Find(id).Nam1;
