@@ -122,16 +122,35 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
         // GET: PDT/DS_MONHOC_MO/Create
         public ActionResult Create(int id, int code = 0)
         {
-            ViewBag.code = code;
             ViewBag.MaHKNH = new SelectList(db.HKNHs, "MaHKNH", "MaHKNH");
-            ViewBag.MONHOC = db.MONHOCs.ToList();
             int hk = db.HKNHs.Find(id).HocKy;
-            var DanhSachMonHoc = db.CHUONGTRINHHOCs.Where(x => x.HocKy == hk);
-            ViewBag.MaHKNH = db.HKNHs.Find(id).MaHKNH;
-            ViewBag.HocKy = db.HKNHs.Find(id).HocKy;
-            ViewBag.Nam1 = db.HKNHs.Find(id).Nam1;
-            ViewBag.Nam2 = db.HKNHs.Find(id).Nam2;
-            return View(DanhSachMonHoc.ToList());
+
+            if (hk == 1 || hk == 2)
+            {
+                int check = (hk % 2 == 0) ? 0 : 1;
+                var DanhSachMonHoc = db.CHUONGTRINHHOCs.Where(x => ((x.HocKy % 2) == check));
+                ViewBag.MaHKNH = db.HKNHs.Find(id).MaHKNH;
+                ViewBag.HocKy = db.HKNHs.Find(id).HocKy;
+                ViewBag.Nam1 = db.HKNHs.Find(id).Nam1;
+                ViewBag.Nam2 = db.HKNHs.Find(id).Nam2;
+                return View(DanhSachMonHoc.ToList());
+            }
+            else
+            {
+                if (hk == 3)
+                {
+                    var DanhSachMonHoc = db.CHUONGTRINHHOCs;
+                    ViewBag.MaHKNH = db.HKNHs.Find(id).MaHKNH;
+                    ViewBag.HocKy = db.HKNHs.Find(id).HocKy;
+                    ViewBag.Nam1 = db.HKNHs.Find(id).Nam1;
+                    ViewBag.Nam2 = db.HKNHs.Find(id).Nam2;
+                    return View(DanhSachMonHoc.ToList());
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
         }
 
         // POST: PDT/DS_MONHOC_MO/Create
