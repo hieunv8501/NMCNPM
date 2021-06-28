@@ -45,7 +45,7 @@
                     <option value="0" selected>-- Chọn môn học mở --</option>
                     @foreach (var item in Model)
                     {
-                        <option value="@item.MaMonHoc">(@item.MaMonHoc - @item.MONHOC.TenMonHoc)</option>
+                <option value="@item.MaMonHoc">(@item.MaMonHoc - @item.MONHOC.TenMonHoc  - @item.MONHOC.LOAIMONHOC.TenLoaiMon)</option>
                     }
                 </select>
             </div>
