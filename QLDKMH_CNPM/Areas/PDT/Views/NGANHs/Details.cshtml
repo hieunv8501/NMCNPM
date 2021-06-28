@@ -1,0 +1,31 @@
+﻿@model QLDKMH_CNPM.Models.NGANH
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h3 class="text-left text-danger controllerStyle">THÔNG TIN CÁC NGÀNH</h3>
+<hr />
+<div style="font-weight:100;" class="generalStyle">
+    <table class="table" width="100%">
+        <tbody>
+            <tr style="color: white; background-color: #4e73df">
+                <th width="50%">Mã ngành</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaNganh)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tên ngành</th>
+                <td>@Html.DisplayFor(model => model.TenNganh)</td>
+            </tr>
+            <tr style="color: white; background-color: #4e73df">
+                <th>Khoa quản lý</th>
+                <td>@Html.DisplayFor(model => model.KHOA.TenKhoa)</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaNganh }, new { @class = "btn btn-danger btnStyle" })
+    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaNganh }, new { @class = "btn btn-primary btnStyle" })
+</div>

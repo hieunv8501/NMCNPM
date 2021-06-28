@@ -1,0 +1,31 @@
+﻿@model QLDKMH_CNPM.Models.NGUOIDUNG
+
+@{ 
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml"; 
+}
+
+<h3 class="text-left text-danger controllerStyle">THÔNG TIN NGƯỜI DÙNG</h3>
+<hr />
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e37df">
+                <th width="50%">Tên đăng nhập</th>
+                <td width="50%">@Html.DisplayFor(model => model.TenDangNhap)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Mật khẩu</th>
+                <td>@Html.DisplayFor(model => model.MatKhau)</td>
+            </tr>
+            <tr style="color: white; background-color:#4e37df">
+                <th>Nhóm người dùng</th>
+                <td>@Html.DisplayFor(model => model.NHOMNGUOIDUNG.TenNhom)</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.TenDangNhap }, new { @class = "btn btn-danger btnStyle" })
+    @Html.ActionLink("Quay lại", "Index", new { id = Model.TenDangNhap }, new { @class = "btn btn-primary btnStyle" })
+</div>

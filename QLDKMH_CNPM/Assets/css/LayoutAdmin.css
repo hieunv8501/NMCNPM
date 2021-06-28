@@ -1,0 +1,40 @@
+﻿
+.swapper {
+    max-width: 600px;
+    min-height: 30px;
+    border: 5px solid #0026ff;
+    padding: 5px;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.unTouchable {
+    pointer-events: none;
+}
+
+.images {
+    display: inline-flex;
+    flex-direction: row;
+    position: absolute;
+}
+
+.generalStyle{
+    font-family: Arial, 'Segoe UI', sans-serif;
+}
+
+.PlaceHolderStyle {
+    color: cornflowerblue;
+    font-family: Arial, 'Segoe UI', sans-serif;
+}
+
+.sizeStyle{
+    font-size:14px;
+}
+
+.LoginAccStyle {
+    font-weight:700;
+    color: black;
+    font-size:small;
+}
