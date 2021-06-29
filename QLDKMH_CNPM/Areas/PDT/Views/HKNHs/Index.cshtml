@@ -1,0 +1,82 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.HKNH>
+
+@{ 
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
+}
+
+<!--Page Heading-->
+<h3 class="mb-1 text-danger controllerStyle">DANH SÁCH HỌC KỲ - NĂM HỌC</h3>
+<hr class="mb-0" />
+<!--DataTable Showing-->
+<!--Thêm class="card" để scroll nội dung mà không scroll sidebar-->
+<div class="bg-light card generalStyle">
+    <div class="py-2 m-0">
+        <span>
+            @Html.ActionLink("Thêm học kỳ", "Create", "HKNHs", null, new { id = ViewBag.MaHKNH, @class = "btn btn-primary btnStyle" })
+        </span>
+        <span style="float: right;">
+            @Html.ActionLink("Quản lý danh sách môn học mở", "ListHK", "DS_MONHOC_MO", null, new { id = ViewBag.MaHKNH, @class = "btn btn-primary btnStyle" })
+        </span>
+    </div>
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white">
+        <div>
+            <div id="dataTable_wrapper" class="dataTables_wrapper">
+                <table class="table table-bordered dataStyle dataTable" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th width="50%">Học kỳ</th>
+                            <th width="50%">Năm học</th>
+                            <th style="text-align: center">Thao tác</th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.HocKy)
+                            </td>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.Nam1) - @Html.DisplayFor(modelItem => item.Nam2)
+                            </td>
+                            <td>
+                                <div class="container">
+                                    <div class="dropdown nav-item">
+                                        <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Tùy chọn
+                                        </button>
+                                        <div class="dropdown-menu" style="text-align:center;" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="@Url.Action("Details", "HKNHs", new {area ="PDT", id = item.MaHKNH })">Xem thông tin</a>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", "HKNHs", new {area ="PDT", id = item.MaHKNH})">Sửa thông tin</a>
+                                            <a class="dropdown-item" href="@Url.Action("Delete", "HKNHs", new {area ="PDT", id = item.MaHKNH})">Xóa thông tin</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                     }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if (ViewBag.code == 1)
+{
+<script type="text/javascript">swal({
+            icon: 'error',
+            title: 'Không thể xóa',
+            text: 'Không thể xóa học kỳ này vì học kỳ này đang có LỚP HỌC MỞ !!!',
+        })</script>}
+
+@if (ViewBag.code == 10)
+{
+<script type="text/javascript">swal("Đã thêm học kỳ thành công", "", "success");</script>}
+@if (ViewBag.code == 11)
+{
+<script type="text/javascript">swal("Đã xóa học kỳ thành công", "", "success");</script>}
+@if (ViewBag.code == 12)
+{
+<script type="text/javascript">swal("Đã sửa thông tin học kỳ thành công", "", "success");</script>}

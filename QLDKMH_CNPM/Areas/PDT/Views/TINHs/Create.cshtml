@@ -1,0 +1,138 @@
+﻿@model QLDKMH_CNPM.Models.TINH
+
+@{ ViewBag.Title = "Create";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+
+<h3 class="text-left text-danger controllerStyle">THÊM MỚI THÔNG TIN TỈNH</h3>
+<hr />
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+                <div class="form-horizontal generalStyle" style="color: black;">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="control-label">
+                            Mã tỉnh
+                            @Html.EditorFor(model => model.MaTinh, new { htmlAttributes = new { @id = "MaTinh", @onblur = "inputValidation1(this)", @maxlength = "4", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaTinh, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="textField1"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="control-label">
+                            Tên tỉnh
+                            @Html.EditorFor(model => model.TenTinh, new { htmlAttributes = new { @id = "TenTinh", @onblur = "inputValidation2(this)", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TenTinh, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="textField2"></div>
+                    </div>
+
+                    @if (ViewBag.Message == "Sai")
+                    {
+    <div class="alert alert-danger">Không hợp lệ! Mời nhập lại... </div>}
+
+                    <div class="form-group">
+                        <div class="control-label">
+                            <input id="submit" type="submit" value="Thêm mới" disabled class="btn btn-primary btnStyle" />
+                            <input type="button" value="Quay lại" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+                        </div>
+                    </div>
+                </div>}
+
+<!--Cảnh báo thoát-->
+<div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="generalStyle" aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body generalStyle" style="color: black;">Thoát khi chưa thêm mới?</div>
+            <div class="modal-footer generalStyle">
+                <a class="btn btn-danger btnStyle" href="@Url.Action("Index", "TINHs", new { area = "PDT" })">Đồng ý</a>
+                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if (ViewBag.code == 2)
+{
+<script type="text/javascript">
+    swal({
+        icon: 'error',
+        title: 'Không thể thêm',
+        text: 'Không thể thêm tỉnh này vì mã tỉnh này đã tồn tại !!!',
+    })</script>
+}
+
+
+<script type="text/javascript">
+    //function để validation mã tỉnh
+    //Ở mỗi validation có thêm hàm dùng để disabled submit khi người dùng nhập sai
+    function inputValidation1(inputTxt) {
+        var regx = /^[0-9]+$/;
+        var textField = document.getElementById("textField1");
+        if (inputTxt.value != '') {
+            if (inputTxt.value.length == 4) {
+                if (inputTxt.value.match(regx)) {
+                    textField.textContent = '';
+                    textField.style.color = 'green';
+                } else {
+                    textField.textContent = '*Vui lòng chỉ nhập ký tự số';
+                    textField.style.color = 'red';
+                    $('#submit').attr('disabled', true);
+                }
+            } else {
+                textField.textContent = '*Mã Tỉnh phải có đủ 4 ký tự';
+                textField.style.color = 'red';
+                $('#submit').attr('disabled', true);
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập Mã Tỉnh';
+            textField.style.color = 'red';
+        }
+    }
+    //function để validation label tên Tỉnh
+    function inputValidation2(inputTxt) {
+        var regx = /^[aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ ]+$/;
+        var textField = document.getElementById("textField2");
+        if (inputTxt.value != '') {
+            if (inputTxt.value.match(regx)) {
+                textField.textContent = '';
+                textField.style.color = 'green';
+            } else {
+                textField.textContent = '*Vui lòng chỉ nhập các ký tự là tiếng việt và khoảng trắng';
+                textField.style.color = 'red';
+                $('#submit').attr('disabled', true);
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập Tên Tỉnh';
+            textField.style.color = 'red';
+        }
+    }
+    //function để disable/able button submit
+    $(function () {
+        $('#submit').attr('disabled', true);
+        $('#MaTinh, #TenTinh').change(function () {
+            if ($('#MaTinh').val() != '') {
+                if ($('#TenTinh').val() != '') {
+                    $('#submit').attr('disabled', false);
+                } else {
+                    $('#submit').attr('disabled', true);
+                }
+            } else {
+                $('#submit').attr('disabled', true);
+            }
+        });
+    });
+</script>

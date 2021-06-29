@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<html lang="vi,en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-egde">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Quản lý Đăng ký môn học & Thu học phí của sinh viên</title>
+
+    <!--Custom fonts for this template-->
+    <link href="~/Assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!--Custom styles for this template-->
+    <link href="~/Assets/css/sb-admin-2.min.css" rel="stylesheet" />
+
+    <!--Custom styles for holding current tab active-->
+    <!--<link href="~/Assets/css/w3.css" rel="stylesheet" />-->
+
+    <link href="~/Assets/css/PDTCSS.css" rel="stylesheet" />
+
+    <!--Custom styles for this page-->
+    <link href="~/Assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+    <!--Page wrapper-->
+    <div id="wrapper">
+        <!-- Sidebar-->
+        <ul class="navbar-nav bg-gradient-light sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!--Sidebar & Brand-->
+            <li class="sidebar-brand-icon my-1 non-interactive">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center">
+                    <img id="img_logo" alt="UIT" style="width: 80px; height: 70px" src="@Url.Content("~/Content/img/uit_logo_removebg.png")" />
+                    <h5 style="margin-top: 5px; color: blue; font-weight: bolder; font-family: Calibri, sans-serif" class="embed-responsive">Nhập Môn Công Nghệ Phần Mềm</h5>
+                </a>
+            </li>
+            <!--Nav Item - Dashboard-->
+            <li class="nav-item zoom">
+                <a class="nav-link" href="~//Home/Index">
+                    <img id="img_logo" alt="Home" width="25" height="25" src="@Url.Content("~/Content/img/home.png")" />
+                    <span>Trang chủ</span>
+                </a>
+            </li>
+
+            <!-- Divider-->
+            <li>
+                <hr class="sidebar-divider py-2 my-0" />
+            </li>
+
+            <!-- Heading-->
+            <li class="sidebar-heading active bg-gradient-light my-1" style="color:black; font-size:13px">ĐIỀU HƯỚNG</li>
+
+            <!--LIST of information-->
+            <!--Divider here if you want, but I do not recommend this
+            cause there will be a little change to the general layout of page-->
+            <!--<li> <hr class="sidebar-divider d-none d-md-block"></li>-->
+            <!--Sidebar Toggler (Sidebar)-->
+            <li class="text-center d-none d-md-inline">
+                <button id="sidebarToggle" class="rounded-circle border-0 bg-gradient-primary zoom"></button>
+            </li>
+
+        </ul>
+
+        <!--Content Wrapper-->
+        <!--End of Sidebar-->
+        <div id="content-wrapper" class="d-flex flex-column" style="position:relative;">
+
+            <!--Main Content-->
+            <div id="content">
+
+                <!--Topbar-->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar">
+
+                    <!--Sidebar Toggle (Topbar)-->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-block rounded-circle">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!--Topbar Search-->
+                    <form class="d-none d-sm-inline-block form-inline navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-gradient-light small generalStyle" placeholder="Tìm kiếm..." aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!--Topbar Navbar-->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!--Nav Item - Alerts-->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+
+                                <!--Counter - Alerts-->
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+
+                            <!-- Dropdown - Alerts-->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right animated--grow-in generalStyle" aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header sidebarSize">
+                                    Thông báo
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-crown text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div class="sidebarSize">
+                                        <div>30 Tháng 6 Năm 2021</div>
+                                        <span style="font-weight: 200">Chúc may mắn với điểm số cao nhé!</span>
+                                    </div>
+                                </a>
+
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle badge-success">
+                                            <i class="fas fa-briefcase text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div class="sidebarSize">
+                                        <div>April 29 2021</div>
+                                        <span style="font-weight: 200">Chúc nhóm một buổi thuyết trình tốt!</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center sidebarSize" href="#">Hiển thị tất cả thông báo</a>
+                            </div>
+                        </li>
+                        <!-- Nav Item - Messages-->
+
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+
+                                <!--Counter - Messages-->
+                                <span class="badge badge-danger badge-counter">7</span>
+                            </a>
+                            <!--Dropdown - Messages-->
+
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right animated--grow-in generalStyle" aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header sidebarSize">
+                                    TIN NHẮN
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://d3av3o1z276gfa.cloudfront.net/images/place/r3B5IkCGEKReT7IcFWCIcVDSlPCXeXwr.jpeg" alt="Tin nhắn 1">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="sidebarSize">
+                                        <div style="font-weight:100;">Chính sách miễn giảm học phí từ UIT</div>
+                                        <span>UIT P. KHTC · 58m</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://brasol.vn/public/ckeditor/uploads/tin-tuc/brasol.vn-logo-hoi-sinh-vien-image-1-compressed.jpg" alt="Message 2">
+                                        <div class="status-indicator"></div>
+                                    </div>
+                                    <div class="sidebarSize">
+                                        <div style="font-weight:100;">Tham gia ngay các hoạt động để đạt được danh hiệu SV5T</div>
+                                        <span>Hội sinh viên UIT · 1d</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://cs.uit.edu.vn/wp-content/uploads/2017/08/logocs.png" alt="Message 3">
+                                        <div class="status-indicator bg-warning"></div>
+                                    </div>
+                                    <div class="sidebarSize">
+                                        <div style="font-weight:100;">Đăng kí thi thử TOEIC ngay cùng Đoàn khoa Khoa Học Máy Tính !</div>
+                                        <span>CS - TOEIC · 2d</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://www.uit.edu.vn/sites/vi/files/image_from_word/wetalk25.png" alt="Message 4">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="sidebarSize">
+                                        <div style="font-weight:100;">WeTalk - Không gian chia sẻ: Hãy đến và chia sẻ các tâm sự, luôn luôn lắng nghe và thấu hiểu</div>
+                                        <span>Không gian chia sẻ - A104 · 2w</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center sidebarSize" href="#">Hiển thị thêm tin nhắn</a>
+                            </div>
+                        </li>
+
+                        <li class="topbar-divider d-none d-sm-block"></li>
+                        <!--Nav Item - User Information-->
+
+                        <li class="nav-item dropdown no-arrow">
+                            <div class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span id="name" class="mr-3 d-nono d-lg-inline getfontStyle" style="font-size: 14px; font-weight: 500; color: black;">Nhóm 8</span>
+                                <img class="img-profile rounded-circle" src="~/Content/img/logo_uit.jpeg" />
+                            </div>
+
+                            <!--Dropdown - User Information-->
+                            <div class="btn dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="btn dropdown-item getfontStyle" href="~//Home/About">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                                    Thông tin nhóm
+                                </a>
+                                <a class="btn dropdown-item getfontStyle" href="~//Home/Index">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2"></i>
+                                    Giới thiệu
+                                </a>
+                                <a class="btn dropdown-item getfontStyle" href="~//Home/Contact">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2"></i>
+                                    Liên hệ
+                                </a>
+                                <a class="btn dropdown-item getfontStyle" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                                    Đăng xuất
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!--End of Topbar-->
+                <!--Begin Page Content-->
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+                @*/.container-fluid*@
+            </div>
+            <!--End of Main Content-->
+            <!--Footer-->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <p class="copyright text-center my-auto">Quản lý Đăng ký môn học & Thu học phí - Nhập môn Công nghệ Phần mềm</p>
+                </div>
+            </footer>
+
+        </div>
+        <!--End of Content Wrapper-->
+    </div>
+    <!--End of Page Wrapper-->
+    <!--Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!--Logout Modal-->
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title generalStyle" id="exampleModalLabel">Đăng xuất</h5>
+                    <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                        <span class="generalStyle" aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body generalStyle" style="color: black;">Bạn có thật sự muốn "Đăng xuất" ?</div>
+                <div class="modal-footer generalStyle">
+                    <a class="btn btn-danger btnStyle" href="~/Login/Login/Login">Đăng xuất</a>
+                    <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Bootstrap core JavaScript-->
+    <script src="~/Assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!--Core plugin JavaScript-->
+    <script src="~/Assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!--Custom scripts for all pages-->
+    <script src="~/Assets/js/sb-admin-2.min.js"></script>
+    <!--Page level plugins-->
+    <script src="~/Assets/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!--Page level custom scripts-->
+    <script src="~/Assets/js/demo/datatables-demo.js"></script>
+
+</body>
+</html>
+
+
+
+

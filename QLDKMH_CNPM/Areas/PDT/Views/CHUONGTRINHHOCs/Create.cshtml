@@ -1,0 +1,125 @@
+﻿@model QLDKMH_CNPM.Models.CHUONGTRINHHOC
+
+@{ ViewBag.Title = "Create";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+
+<h3 class="text-danger controllerStyle">
+    THÊM MÔN HỌC VÀO CHƯƠNG TRÌNH HỌC
+    <br />
+</h3>
+<h4 class="text-danger controllerStyle">
+    Ngành: @ViewBag.TenNganh
+</h4>
+<hr />
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+                <div class="form-horizontal generalStyle" style="color: black;">
+                    <div class="form-group">
+                        <div class="control-label">Môn học</div>
+                        <div>
+                            <select id="MaMonHoc" name="MaMonHoc" class="form-control">
+                                <option value="0" selected>-- Chọn môn học --</option>
+                                @foreach (var item in ViewBag.MONHOC)
+                                {
+                <option id="MaMonHoc" value="@item.MaMonHoc">@item.MaMonHoc - @item.TenMonHoc (@item.LOAIMONHOC.TenLoaiMon)</option>}
+                            </select>
+                            @Html.ValidationMessageFor(model => model.MaMonHoc, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-grousp">
+                        <div class="control-label">Học kỳ</div>
+                        <div>
+                            @Html.EditorFor(model => model.HocKy, new { htmlAttributes = new { @id = "HocKy", @onblur = "inputValidation1(this)", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.HocKy, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="textField1"></div>
+                    </div>
+                    <br />
+
+                    <div class="form-group">
+                        <div class="control-label">Ghi chú</div>
+                        <div>
+                            @Html.EditorFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="form-group">
+                        <div>
+                            <input id="submit" type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
+                            <input type="button" value="Quay lại" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+                        </div>
+                    </div>
+                </div>}
+
+<!--Cảnh báo thoát chưa lưu-->
+<div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="generalStyle" aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body generalStyle" style="color: black;">Thoát khi chưa thêm mới?</div>
+            <div class="modal-footer generalStyle">
+
+                @Html.ActionLink("Đồng ý", "Details", new { id = ViewBag.MaNganh }, new { @class = "btn btn-danger btnStyle" })
+                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if (ViewBag.code == 1)
+{
+<script type="text/javascript">
+    swal({
+        icon: 'error',
+        title: 'Không thể thêm',
+        text: 'Không thể thêm môn học này vào chương trình học vì môn học này đã nằm trong chương trình học của ngành này !!!',
+    });
+</script>}
+
+
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+    //function để validation label số tiết
+    function inputValidation1(inputTxt) {
+        var regx = /^[1-8]+$/;
+        var textField = document.getElementById("textField1");
+        if (inputTxt.value != '') {
+            if (inputTxt.value.match(regx) && inputTxt.value.length <= 1) {
+                textField.textContent = '';
+                textField.style.color = 'green';
+            } else {
+                textField.textContent = '*Vui lòng chỉ nhập học kỳ là số nguyên dương từ 1 - 8';
+                textField.style.color = 'red';
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập học kỳ, không để trống';
+            textField.style.color = 'red';
+        }
+    }
+    $(function () {
+        $('#submit').attr('disabled', true);
+        $('#MaMonMon, #HocKy').change(function () {
+            if ($('#MaMonMon').val() != '') {
+                if ($('#HocKy').val() != '') {
+                    $('#submit').attr('disabled', false);
+                } else {
+                    $('#submit').attr('disabled', true);
+                }
+            } else {
+                $('#submit').attr('disabled', true);
+            }
+        });
+    });
+</script>
