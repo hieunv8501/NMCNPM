@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "PDTHome";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <title>Trang chủ phòng đào tạo</title>
+    <link href="~/Assets/css/PDTcss/SliderPDT.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="generalFont">
+        <div class="bg-gradient-light">
+            <div id="header" class="page-header" role="banner">
+                <div class="container">
+                    <div class="header-section">
+                        <a class=" d-inline" href="PDTHome" title="Phòng Đào tạo Đại học" rel="home">
+                            <img style="width:auto; height:auto" src="~/Content/img/banner_uit_15.png" alt="Phòng Đào tạo Đại học" role="presentation">
+                        </a>
+                        <a class="h2" style="float:right; color:blue; font-weight:700; font-family:Cambria ; margin:15px 0 0 200px; position:absolute">PHÒNG ĐÀO TẠO ĐẠI HỌC</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Slideshow-->
+
+    <div id="slider">
+        <div class="dp-wrap">
+            <div id="dp-slider">
+
+                <div class="dp_item" data-class="1" data-position="1">
+                    <div class="dp-img">
+                        <img class="img-fluid" src="~/Content/img/15nam_UIT.jpg" alt="investing">
+                    </div>
+                </div>
+
+                <div class="dp_item" data-class="2" data-position="2">
+                    <div class="dp-img">
+                        <img class="img-fluid" src="~/Content/img/saudh_2021.png" alt="investing">
+                    </div>
+                </div>
+
+                <div class="dp_item" data-class="3" data-position="3">
+                    <div class="dp-img">
+                        <img class="img-fluid" src="~/Content/img/tuyendungUIT.png" alt="investing">
+                    </div>
+                </div>
+
+                <div class="dp_item" data-class="4" data-position="4">
+                    <div class="dp-img">
+                        <img class="img-fluid" src="~/Content/img/wallpaperPDT.png" alt="investing">
+                    </div>
+                </div>
+            </div>
+
+            <span id="dp-next">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 51.401">
+                    <defs>
+                        <style type="button">
+                            .cls-1 {
+                                fill: none;
+                                stroke: gold;
+                                stroke-miterlimit: 0;
+                                stroke-width: 0px;
+                            }
+                        </style>
+                    </defs>
+                    <path id="Rectangle_4_Copy" data-name="Rectangle 4 Copy" class="cls-1" d="M32.246,0V33.178L0,31.953" transform="translate(0.094 25.276) rotate(-45)" />
+                </svg>
+            </span>
+
+            <span id="dp-prev">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 51.401">
+                    <defs>
+                        <style type="button">
+                            .cls-1 {
+                                fill: none;
+                                stroke: gold;
+                                stroke-miterlimit: 0;
+                                stroke-width: 0px;
+                            }
+                        </style>
+                    </defs>
+                    <path id="Rectangle_4_Copy" data-name="Rectangle 4 Copy" class="cls-1" d="M32.246,0V33.178L0,31.953" transform="translate(0.094 25.276) rotate(-45)" />
+                </svg>
+            </span>
+
+            <ul id="dp-dots">
+                <li data-class="1" class="active"></li>
+                <li data-class="2"></li>
+                <li data-class="3"></li>
+                <li data-class="4"></li>
+            </ul>
+        </div>
+    </div>
+    <!--Footer for page-->
+
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function detect_active() {
+            // get active
+            var get_active = $("#dp-slider .dp_item:first-child").data("class");
+            $("#dp-dots li").removeClass("active");
+            $("#dp-dots li[data-class=" + get_active + "]").addClass("active");
+        }
+        $("#dp-next").click(function () {
+            var total = $(".dp_item").length;
+            $("#dp-slider .dp_item:first-child").hide().appendTo("#dp-slider").fadeIn();
+            $.each($(".dp_item"), function (index, dp_item) {
+                $(dp_item).attr("data-position", index + 1);
+            });
+            detect_active();
+        });
+
+        $("#dp-prev").click(function () {
+            var total = $(".dp_item").length;
+            $("#dp-slider .dp_item:last-child").hide().prependTo("#dp-slider").fadeIn();
+            $.each($(".dp_item"), function (index, dp_item) {
+                $(dp_item).attr("data-position", index + 1);
+            });
+
+            detect_active();
+        });
+
+        $("#dp-dots li").click(function () {
+            $("#dp-dots li").removeClass("active");
+            $(this).addClass("active");
+            var get_slide = $(this).attr("data-class");
+            console.log(get_slide);
+            $("#dp-slider .dp_item[data-class=" + get_slide + "]")
+                .hide()
+                .prependTo("#dp-slider")
+                .fadeIn();
+            $.each($(".dp_item"), function (index, dp_item) {
+                $(dp_item).attr("data-position", index + 1);
+            });
+        });
+
+        $("body").on("click", "#dp-slider .dp_item:not(:first-child)", function () {
+            var get_slide = $(this).attr("data-class");
+            console.log(get_slide);
+            $("#dp-slider .dp_item[data-class=" + get_slide + "]")
+                .hide()
+                .prependTo("#dp-slider")
+                .fadeIn();
+            $.each($(".dp_item"), function (index, dp_item) {
+                $(dp_item).attr("data-position", index + 1);
+            });
+
+            detect_active();
+        });
+    });
+</script>

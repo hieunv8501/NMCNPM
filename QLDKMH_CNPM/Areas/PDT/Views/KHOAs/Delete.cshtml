@@ -1,0 +1,36 @@
+﻿@model QLDKMH_CNPM.Models.KHOA
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h3 class="text-left text-danger controllerStyle">XÓA THÔNG TIN KHOA</h3>
+<hr />
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color: white; background-color: #4e73df">
+                <th width="50%">Mã khoa</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaKhoa)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tên khoa</th>
+                <td>@Html.DisplayFor(model => model.TenKhoa)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+            <h6 class="text-left text-danger controllerStyle">Bạn có muốn xóa thông tin khoa này?</h6>
+            <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
+            @Html.ActionLink("Quay lại", "Index", new { id = Model.MaKhoa }, new { @class = "btn btn-primary btnStyle" })
+        </div>
+    }
+
+</div>

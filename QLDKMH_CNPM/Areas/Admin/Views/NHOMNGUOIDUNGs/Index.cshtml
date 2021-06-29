@@ -1,0 +1,60 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.NHOMNGUOIDUNG>
+
+@{ 
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml"; 
+}
+
+<!--Page Heading-->
+<h3 class="mb-1 text-danger controllerStyle">DANH SÁCH NHÓM NGƯỜI DÙNG</h3>
+
+<!--DataTable Showing-->
+<!--Thêm class="card" để scroll nội dung mà không scroll sidebar-->
+<div class="bg-light card generalStyle">
+    <div class="py-2 m-0">
+        <span>
+            @Html.ActionLink("Thêm Nhóm người dùng", "Create", null, new { @class = "btn btn-primary btnStyle" })
+        </span>
+    </div>
+
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white">
+        <div>
+            <div id="dataTable_wrapper" class="dataTables_wrapper">
+                <table class="table table-bordered dataStyle dataTable" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th width="50%">Mã nhóm</th>
+                            <th width="50%">Tên nhóm người dùng</th>
+                            <th style="text-align: center">Thao tác</th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.MaNhom)
+                            </td>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.TenNhom)
+                            </td>
+                            <td>
+                                <div class="container">
+                                    <div class="dropdown nav-item">
+                                        <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Tùy chọn
+                                        </button>
+                                        <div class="dropdown-menu" style="text-align:center;" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="@Url.Action("Details", "NHOMNGUOIDUNGs", new {area ="Admin", id = item.MaNhom})">Xem thông tin</a>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", "NHOMNGUOIDUNGs", new {area ="Admin", id = item.MaNhom})">Sửa thông tin</a>
+                                            <a class="dropdown-item" href="@Url.Action("Delete", "NHOMNGUOIDUNGs", new {area ="Admin", id = item.MaNhom})">Xóa thông tin</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

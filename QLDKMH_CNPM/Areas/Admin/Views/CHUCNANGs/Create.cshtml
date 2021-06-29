@@ -1,0 +1,70 @@
+﻿@model QLDKMH_CNPM.Models.CHUCNANG
+
+@{ ViewBag.Title = "Create";
+                Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml"; }
+
+<h3 class="text-left text-danger controllerStyle">THÊM MỚI THÔNG TIN CHỨC NĂNG</h3>
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal generalStyle" style="color: black;">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <div class="control-label">
+            Mã chức năng
+            @Html.EditorFor(model => model.MaChucNang, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MaChucNang, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="control-label">
+            Tên chức năng
+            @Html.EditorFor(model => model.TenChucNang, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenChucNang, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label">
+            Tên màn hình được load
+            @Html.EditorFor(model => model.TenManHinhDuocLoad, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenManHinhDuocLoad, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    @if (ViewBag.Message == "Sai")
+    {
+<div class="alert alert-danger">Không hợp lệ! Mời nhập lại... </div>}
+    <div class="form-group">
+        <div class="control-label">
+            <input type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
+            <input type="button" value="Hủy" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+            @*<input type="button" value="Quay về trang chủ" class="btn btn-primary btnStyle" data-toggle="modal" data-target="#AlertModal2" />*@
+        </div>
+    </div>
+</div>
+                    }
+
+
+<!--Cảnh báo thoát khi chưa lưu-->
+<div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="generalStyle" aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body generalStyle" style="color: black;">Thoát khi chưa lưu?</div>
+            <div class="modal-footer generalStyle">
+                <a class="btn btn-danger btnStyle" href="@Url.Action("Index", "CHUCNANGs", new { area = "Admin" })">Đồng ý</a>
+                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
