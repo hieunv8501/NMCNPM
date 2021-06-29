@@ -1,0 +1,43 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.NGANH>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/SV/Views/Shared/SVLayout.cshtml";
+}
+
+<h3 class="mb-1 text-danger controllerStyle">DANH SÁCH NGÀNH</h3>
+<hr />
+<div class="bg-light card generalStyle">
+
+    <div id="dataTable_wrapper" class="dataTables_wrapper card-body m-1 p-1" style="background-color: white">
+        <div>
+            <div id="dataTable_wrapper" class="dataTables_wrapper">
+                <table class="table table-bordered dataStyle dataTable" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th width="35%">Mã ngành</th>
+                            <th width="35%">Tên ngành</th>
+                            <th width="30%" style="text-align:center">Chương trình học</th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.MaNganh)
+                            </td>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.TenNganh)
+                            </td>
+                            <td style="text-align: center">
+                                <a href="@Url.Action("Details", "CHUONGTRINHHOCs", new { area = "SV", id = item.MaNganh, id_2 = ViewData["TenDangNhap"] })">Xem chương trình học</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

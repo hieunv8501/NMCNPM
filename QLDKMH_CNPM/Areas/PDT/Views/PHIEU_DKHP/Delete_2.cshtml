@@ -1,0 +1,72 @@
+﻿@model QLDKMH_CNPM.Models.PHIEU_DKHP
+
+@{ 
+    ViewBag.Title = "Delete_2";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
+}
+
+<h3 class="text-left text-danger controllerStyle">XÓA PHIẾU ĐĂNG KÝ HỌC PHẦN</h3>
+<hr />
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e73df;">
+                <th width="50%">Số phiếu ĐKHP</th>
+                <td width="50%">@Html.DisplayFor(model => model.SoPhieuDKHP)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>MSSV</th>
+                <td>@Html.DisplayFor(model => model.MaSV)</td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Học kì</th>
+                <td>HK @Html.DisplayFor(model => model.HKNH.HocKy) </td>
+            </tr>
+            <tr class="bg-light" style="color:black;">
+                <th>Ngày lập</th>
+                <td>@Html.DisplayFor(model => model.NgayLap.Day)/@Html.DisplayFor(model => model.NgayLap.Month)/@Html.DisplayFor(model => model.NgayLap.Year) </td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Tổng tín chỉ lý thuyết</th>
+                <td>@Html.DisplayFor(model => model.TongTCLT) </td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tổng tín chỉ thực hành</th>
+                <td>@Html.DisplayFor(model => model.TongTCTH) </td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Tổng tiền đã đăng ký (VNĐ)</th>
+                <td>@Html.DisplayFor(model => model.TongTienDangKy)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tổng tiền phải đóng (VNĐ)</th>
+                <td>@Html.DisplayFor(model => model.TongTienPhaiDong)</td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Tổng tiền đã đóng (VNĐ)</th>
+                <td>@Html.DisplayFor(model => model.TongTienDaDong)</td>
+            </tr>
+            <tr class="bg-light" style="color:black;">
+                <th>Số tiền còn lại (VNĐ)</th>
+                <td>@Html.DisplayFor(model => model.SoTienConLai)</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+         <div class="form-actions">
+            <h6 class="text-left text-danger controllerStyle">Bạn có muốn xóa phiếu ĐKHP này?</h6>
+            <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
+            @Html.ActionLink("Quay lại", "TraCuu", new { SoPhieuDKHP = ViewBag.SoPhieuDKHP, MSSV = ViewBag.MSSV, MHKNH = ViewBag.MHKNH, Day = ViewBag.Day, Month = ViewBag.Month, Year = ViewBag.Year, TinhTrang = ViewBag.TinhTrang }, new { @class = "btn btn-primary btnStyle generalStyle" })
+         </div>}
+</div>

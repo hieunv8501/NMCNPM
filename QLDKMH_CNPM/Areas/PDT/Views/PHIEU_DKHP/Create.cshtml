@@ -1,0 +1,149 @@
+﻿
+@model QLDKMH_CNPM.Models.PHIEU_DKHP
+
+@{ ViewBag.Title = "Create";
+                Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+
+<h3 class="text-left text-danger controllerStyle">THÊM MỚI PHIẾU ĐĂNG KÍ HỌC PHẦN</h3>
+<hr />
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+                <div class="form-horizontal generalStyle" style="color: black;">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="control-label">Số phiếu đăng ký</div>
+                        <div>
+                            <div class="form-control" readonly>@ViewBag.SoPhieuDKHP</div>
+                            @Html.HiddenFor(model => model.SoPhieuDKHP)
+                            @Html.ValidationMessageFor(model => model.SoPhieuDKHP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="control-label">Mã số sinh viên</div>
+                        <div>
+                            @Html.DropDownList("MaSV", null, "-- Chọn MSSV --", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MaSV, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="control-label">Ngày lập phiếu đăng ký</div>
+                        <div class="form-control" readonly>
+                            @Html.DisplayFor(model => model.NgayLap.Day)/@Html.DisplayFor(model => model.NgayLap.Month)/@Html.DisplayFor(model => model.NgayLap.Year)
+                            @Html.HiddenFor(model => model.NgayLap)
+                            @Html.ValidationMessageFor(model => model.NgayLap, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @*div class="form-group">
+                            <div class="control-label">Học kỳ - năm học</div>
+                            <div>
+                                @Html.DropDownList("HocKyNamHoc", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MaHKNH, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+                    <div class="form-group">
+                        <div class="control-label">Học kỳ - năm học</div>
+                        <div>
+                            <select id="MaHKNH" name="MaHKNH" class="form-control">
+                                @foreach (var item in ViewBag.HocKyNamHoc)
+                                {
+                <option value="@item.MaHKNH">HK @item.HocKy Năm học @item.Nam1 - @item.Nam2</option>}
+                            </select>
+                            @Html.ValidationMessageFor(model => model.MaHKNH, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @*@if (@ViewBag.Message == "Sai")
+                        {
+                            <div class="alert alert-danger generalStyle">Không hợp lệ, mời chọn lại! </div>
+                        }*@
+                    <hr />
+                    <div class="form-group">
+                        <div class="control-label">
+                            <input id="btnNew" type="submit" value="Thêm mới" disabled class="btn btn-primary btnStyle" />
+                            <input type="button" value="Quay lại" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+                        </div>
+                    </div>
+
+                </div>}
+
+<!--Cảnh báo thoát-->
+<div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="generalStyle" aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body generalStyle" style="color: black;">Thoát khi chưa thực hiện thêm mới?</div>
+            <div class="modal-footer generalStyle">
+                <a class="btn btn-danger btnStyle" href="@Url.Action("Index", "PHIEU_DKHP", new { area = "PDT" })">Đồng ý</a>
+                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if (ViewBag.code == 2)
+{
+    <script type="text/javascript">
+        swal({
+            icon: 'error',
+            title: 'Không thể thêm',
+            text: 'Không thể thêm phiếu ĐKHP này vì sinh viên này đã có phiếu ĐKHP trong học kỳ này !!!',
+        });
+    </script>
+}
+
+<!--Javascript để gọi datetimepicker trong Ngày tháng-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.datetimepicker').datepicker({
+            closeText: "Đóng",
+            prevText: "Trước",
+            nextText: "Sau",
+            currentText: "Hôm nay",
+            monthNames: ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"],
+            monthNamesShort: ["Một", "Hai", "Ba", "Bốn", "Năm", "Sáu", "Bảy", "Tám", "Chín", "Mười", "Mười một", "Mười hai"],
+            dayNames: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
+            dayNamesShort: ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
+            dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+            weekHeader: "Tuần",
+            dateFormat: "dd/mm/yy",
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: "",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:+0",
+            showButtonPanel: true
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    //function để disable/able button submit
+    $(function () {
+        $('#btnNew').attr('disabled', true);
+        $('#MaSV, #MaHKNH').change(function () {
+                if ($('#MaSV').val() != '') {
+                    if ($('#MaHKNH').val() != '') {
+                        $('#btnNew').attr('disabled', false);
+                    } else {
+                        $('#btnNew').attr('disabled', true);
+                    }
+                }
+                else {
+                    $('#btnNew').attr('disabled', true);
+                }
+        });
+    });
+</script>

@@ -1,0 +1,53 @@
+﻿@model QLDKMH_CNPM.Models.CHUONGTRINHHOC
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+<h3 class="text-danger controllerStyle">
+    XÓA MÔN HỌC KHỎI CHƯƠNG TRÌNH HỌC
+</h3>
+
+<h4 class="text-danger controllerStyle">
+    Ngành: @Html.DisplayFor(model => model.NGANH.TenNganh)
+</h4>
+<hr />
+<hr />
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width:100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Mã môn học</th>
+                <td>@Html.DisplayFor(model => model.MaMonHoc)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tên môn học</th>
+                <td>@Html.DisplayFor(model => model.MONHOC.TenMonHoc)</td>
+            </tr>
+
+            <tr style="color:white; background-color:#4e73df;">
+                <th>Học kỳ</th>
+                <td>@Html.DisplayFor(model => model.HocKy)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Ghi chú</th>
+                <td>@Html.DisplayFor(model => model.GhiChu)</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+            <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
+            <span>
+                @Html.ActionLink("Quay lại", "Details", new { id = Model.MaNganh }, new { @class = "btn btn-primary btnStyle" })
+            </span>
+        </div>
+    }
+</div>
