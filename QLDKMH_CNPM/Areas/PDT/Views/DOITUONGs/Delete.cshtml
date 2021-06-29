@@ -1,0 +1,40 @@
+﻿@model QLDKMH_CNPM.Models.DOITUONG
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h3 class="text-left text-danger controllerStyle">XÓA THÔNG TIN ĐỐI TƯỢNG ƯU TIÊN</h3>
+<hr />
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e73df">
+                <th width="50%">Mã đối tượng ưu tiên</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaDoiTuong)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tên đối tượng ưu tiên</th>
+                <td>@Html.DisplayFor(model => model.TenDoiTuong)</td>
+            </tr>
+            <tr style="color: white; background-color:#4e73df">
+                <th>Tỉ lệ giảm học phí (%)</th>
+                <td>@Html.DisplayFor(model => model.TiLeGiamHocPhi)</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+            <h6 class="text-left text-danger controllerStyle">Bạn có muốn xóa thông tin loại đối tượng ưu tiên này?</h6>
+            <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
+            @Html.ActionLink("Quay lại", "Index", new { id = Model.MaDoiTuong }, new { @class = "btn btn-primary btnStyle" })
+        </div>
+    }
+</div>

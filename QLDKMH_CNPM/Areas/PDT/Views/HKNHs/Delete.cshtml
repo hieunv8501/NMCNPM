@@ -1,0 +1,49 @@
+﻿@model QLDKMH_CNPM.Models.HKNH
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h3 class="text-left text-danger controllerStyle">XÓA THÔNG TIN HỌC KỲ</h3>
+<h4 class="text-left text-danger controllerStyle">HỌC KỲ: @Html.DisplayFor(model => model.HocKy) | Năm học: @Html.DisplayFor(model => model.Nam1) - @Html.DisplayFor(model => model.Nam2)</h4>
+<hr />
+<div class="generalStyle" style="font-weight: 100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color: white; background-color: #4e73df">
+                <th width="50%">Mã học kỳ</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaHKNH)</td>
+            </tr>
+
+            <tr class="bg-light" style="color: black;">
+                <th>Tên học kỳ</th>
+                <td>@Html.DisplayFor(model => model.HocKy)</td>
+            </tr>
+
+            <tr style="color: white; background-color:#4e73df">
+            <tr style="color: white; background-color:#4e73df">
+                <th>Năm</th>
+                <td>@Html.DisplayFor(model => model.Nam1) - @Html.DisplayFor(model => model.Nam2)
+                <td>
+            </tr>
+            <tr class="bg-light" style="color:black;">
+                <th>Hạn đóng học phí</th>
+                <td>@Html.DisplayFor(model => model.HanDongHocPhi.Day)/@Html.DisplayFor(model => model.HanDongHocPhi.Month)/@Html.DisplayFor(model => model.HanDongHocPhi.Year)</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+            <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
+            <span>
+                @Html.ActionLink("Quay lại", "Index", new { id = Model.MaHKNH }, new { @class = "btn btn-primary btnStyle" })
+            </span>
+        </div>
+    }
+</div>

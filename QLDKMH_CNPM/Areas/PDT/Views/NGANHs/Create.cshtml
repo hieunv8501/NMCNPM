@@ -1,0 +1,147 @@
+﻿@model QLDKMH_CNPM.Models.NGANH
+
+@{ ViewBag.Title = "Create";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+
+<h3 class="text-left text-danger controllerStyle">THÊM MỚI THÔNG TIN NGÀNH</h3>
+<hr />
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+                <div class="form-horizontal generalStyle" style="color: black;">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="control-label">
+                            Khoa quản lý
+                            @Html.DropDownList("MaKhoa", null, "-- Chọn khoa --", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.KHOA.TenKhoa, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="control-label">
+                            Mã ngành
+                            @Html.EditorFor(model => model.MaNganh, new { htmlAttributes = new { @id = "MaNganh", @onblur = "inputValidation1(this)", @maxlength = "4", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaNganh, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="textField1"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="control-label">
+                            Tên ngành
+                            @Html.EditorFor(model => model.TenNganh, new { htmlAttributes = new { @id = "TenNganh", @onblur = "inputValidation2(this)", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TenNganh, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="textField2"></div>
+                    </div>
+
+                    @if (ViewBag.Message == "Sai")
+                    {
+    <div class="alert alert-danger">Không hợp lệ! Mời nhập lại... </div>}
+
+                    <div class="form-group">
+                        <div class="control-label">
+                            <input id="submit" type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
+                            <input type="button" value="Quay lại" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+                        </div>
+                    </div>
+                </div>}
+
+<!--Cảnh báo thoát khi chưa lưu-->
+<div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="generalStyle" aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body generalStyle" style="color: black;">Thoát khi chưa thêm mới?</div>
+            <div class="modal-footer generalStyle">
+                <a class="btn btn-danger btnStyle" href="@Url.Action("Index", "NGANHs", new { area = "PDT" })">Đồng ý</a>
+                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if (ViewBag.code == 1)
+{
+<script type="text/javascript">
+    swal({
+        icon: 'error',
+        title: 'Không thể thêm',
+        text: 'Không thể thêm ngành học này vì mã ngành học này đã tồn tại !!!',
+    })</script>
+}
+
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+    //function để validation mã Ngành
+    function inputValidation1(inputTxt) {
+        var regx = /^[A-Z]+$/;
+        var textField = document.getElementById("textField1");
+        if (inputTxt.value != '') {
+            if (inputTxt.value.length == 4) {
+                if (inputTxt.value.match(regx)) {
+                    textField.textContent = '';
+                    textField.style.color = 'green';
+                } else {
+                    textField.textContent = '*Vui lòng chỉ nhập kí tự In Hoa';
+                    textField.style.color = 'red';
+                    $('#submit').attr('disabled', true);
+                }
+            } else {
+                textField.textContent = '*Mã Ngành phải có đủ 4 ký tự';
+                textField.style.color = 'red';
+                $('#submit').attr('disabled', true);
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập Mã Ngành';
+            textField.style.color = 'red';
+        }
+    }
+    //function để validation label tên Ngành
+    function inputValidation2(inputTxt) {
+        var regx = /^[aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ ]+$/;
+        var textField = document.getElementById("textField2");
+        if (inputTxt.value != '') {
+            if (inputTxt.value.match(regx)) {
+                textField.textContent = '';
+                textField.style.color = 'green';
+            } else {
+                textField.textContent = '*Vui lòng chỉ nhập các ký tự là tiếng việt và khoảng trắng';
+                textField.style.color = 'red';
+                $('#submit').attr('disabled', true);
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập Tên Ngành';
+            textField.style.color = 'red';
+        }
+    }
+    $(function () {
+        $('#submit').attr('disabled', true);
+        $('#MaNganh, #TenNganh, #MaKhoa').change(function () {
+            if ($('#TenNganh').val() != '') {
+                if ($('#MaKhoa').val() != '') {
+                    if ($('#TenNganh').val != '') {
+                        $('#submit').attr('disabled', false);
+                    } else {
+                        $('#submit').attr('disabled', true);
+                    }
+                } else {
+                    $('#submit').attr('disabled', true);
+                }
+            } else {
+                $('#submit').attr('disabled', true);
+            }
+        });
+    });
+</script>

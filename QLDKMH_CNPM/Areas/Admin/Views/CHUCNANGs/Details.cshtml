@@ -1,0 +1,30 @@
+﻿@model QLDKMH_CNPM.Models.CHUCNANG
+
+@{ 
+   ViewBag.Title = "Details";
+   Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml"; 
+}
+<h3 class="text-left text-danger controllerStyle">THÔNG TIN CHỨC NĂNG</h3>
+<hr />
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e37df">
+                <th width="50%">Mã chức năng</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaChucNang)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tên chức năng</th>
+                <td>@Html.DisplayFor(model => model.TenChucNang)</td>
+            </tr>
+            <tr style="color: white; background-color:#4e37df">
+                <th>Tên màn hình được load</th>
+                <td>@Html.DisplayFor(model => model.TenManHinhDuocLoad)</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaChucNang }, new { @class = "btn btn-danger btnStyle" })
+    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaChucNang }, new { @class = "btn btn-primary btnStyle" })
+</div>

@@ -1,0 +1,107 @@
+﻿.w3-sidebar:not(#sidebarToggle) {
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    position: relative !important;
+    z-index: 1;
+    overflow: auto;
+}
+
+/* for holding tab active when choosing it......currently in adjustment */
+/*.activecurrentTab {
+    background-color: black;
+    text-anchor: middle;
+}*/
+
+.non-interactive {
+    pointer-events: none;
+}
+
+.name:hover {
+    background-color: ActiveBorder;
+    border-bottom: groove;
+}
+
+.zoom {
+    background-color: #4e73df;
+    transition: transform .2s; /* Animation */
+    border-bottom: solid black 1px;
+    border-radius: 20px;
+}
+
+/*set dropdownlist effect*/
+.dropdown .btn {
+    background: #4e37df;
+    color: #fff;
+}
+
+
+.dropdown-menu .dropdown-item {
+    display: block;
+    width: auto;
+}
+
+.container .dropdown .dropdown-menu a:hover {
+    color: blue;
+    background-color: #4e37df;
+    border-color: black;
+}
+
+.zoom:hover {
+    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    transform: scale(1.1);
+    text-transform: uppercase;
+    text-align-last: center;
+    background-color: blue;
+    z-index: 1;
+}
+
+.dropdown .btn:hover {
+    background: blue;
+    color: #ff0000;
+}
+
+.getfontStyle {
+    font-family: Arial, 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.controllerStyle {
+    font-family: Arial, 'Segoe UI', sans-serif;
+    font-weight: 600;
+}
+
+.generalStyle {
+    font-family: Arial, 'Segoe UI', sans-serif;
+}
+
+.dataStyle {
+    color: black;
+    font-size: 15px;
+    font-weight: 100; 
+}
+
+
+.btnStyle {
+    font-size: 14px;
+}
+
+.btnForActionLink {
+    background: blue;
+}
+
+.sidebarSize {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.hoverControl {
+    color: white;
+}
+
+.detailsFont {
+    text-emphasis-color: white;
+    background-color: #4e73df;
+}
+

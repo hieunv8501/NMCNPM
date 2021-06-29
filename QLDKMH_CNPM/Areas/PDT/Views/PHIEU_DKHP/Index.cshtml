@@ -1,0 +1,173 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.PHIEU_DKHP>
+
+@{ 
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
+}
+<link href="~/Assets/css/UploadFile.css" rel="stylesheet" type="text/css" />
+<!--Page Heading-->
+<h3 class="mb-1 text-danger text-left controllerStyle">DANH SÁCH PHIẾU ĐĂNG KÝ HỌC PHẦN</h3>
+<hr class="mb-0" />
+<!--DataTable Showing-->
+<!--Thêm class="card" để scroll nội dung mà không scroll sidebar-->
+@using (Html.BeginForm("Upload", "PHIEU_DKHP", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <a class="generalStyle" style="color:black"><strong>Tải lên file Excel danh sách phiếu đăng ký</strong></a>
+    <a class="form-group">
+        <div class="upload">
+            <input type="button" class="uploadButton btnStyle generalStyle" value="Chọn đường dẫn" />
+            <input type="file" name="UploadedFile" accept="/.xls, .xlsx" id="fileUpload" />
+            <label class="fileName" style="width:auto; ">Đường dẫn file Excel...</label>
+        </div>
+        <input type="submit" name="Submit" class="btn btn-primary btnStyle generalStyle" value="Tải lên" />
+    </a>
+}
+<div class="bg-light card generalStyle">
+    <div class="py-2 m-0">
+        <span>
+            @Html.ActionLink("Thêm phiếu Đăng ký học phần", "Create", null, new { @class = "btn btn-primary btnStyle" })
+        </span>
+    </div>
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1 " style="background-color: white;">
+        <div>
+            <div id="dataTable_wrapper">
+                <!--id = dataTable shows number of entries; sort and search function-->
+                <table class="table table-bordered dataTable dataStyle" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th width="9%">Số phiếu ĐKHP</th>
+                            <th width="5%">MSSV</th>
+                            <th width="10%">Ngày lập</th>
+                            <th width="13%">Học kỳ</th>
+                            <th width="12%">Số tiền đăng ký</th>
+                            <th width="12%">Số tiền phải đóng</th>
+                            <th width="12%">Số tiền đã đóng</th>
+                            <th width="12%">Số tiền còn lại</th>
+                            <th style="text-align:center;">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <!--This is for footer line-->
+                    <tfoot>
+                        <tr>
+                            <th>Số phiếu ĐKHP</th>
+                            <th>MSSV</th>
+                            <th>Ngày lập</th>
+                            <th>Học kỳ</th>
+                            <th>Số tiền đăng ký</th>
+                            <th>Số tiền phải đóng</th>
+                            <th>Số tiền đã đóng</th>
+                            <th>Số tiền còn lại</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.SoPhieuDKHP)
+                            </td>
+
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.MaSV)
+                            </td>
+
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.NgayLap.Day)/@Html.DisplayFor(modelItem => item.NgayLap.Month)/@Html.DisplayFor(modelItem => item.NgayLap.Year)
+                            </td>
+
+                            <td style="vertical-align:middle;">
+                                HK @Html.DisplayFor(modelItem => item.HKNH.HocKy) (@Html.DisplayFor(modelItem => item.HKNH.Nam1)-@Html.DisplayFor(modelItem => item.HKNH.Nam2))
+                            </td>
+
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.TongTienDangKy)
+
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.TongTienPhaiDong)
+                            </td>
+
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.TongTienDaDong)
+                            </td>
+
+                            <td style="vertical-align:middle;">
+                                @Html.DisplayFor(modelItem => item.SoTienConLai)
+                            </td>
+
+                            <td style="vertical-align:middle;">
+                                <div class="container">
+                                    <div class="dropdown nav-item">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Tùy chọn
+                                        </button>
+                                        <div class="dropdown-menu" style="text-align: left;" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="@Url.Action("Details", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP })">Xem thông tin</a>
+                                            @if (item.TongTCLT == 0 && item.TongTCTH == 0)
+                                            {
+                            <a class="dropdown-item" href="@Url.Action("Delete", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP })">Xóa phiếu ĐKHP</a>}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                     }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Js để hỗ trợ upload file Excel*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $('input[type=file]').change(function (e) {
+        $in = $(this);
+        $in.next().html($in.val());
+
+    });
+    $('.uploadButton').click(function () {
+        var fileName = $(".UploadedFile").val();
+        if (fileName) {
+            alert(fileName + " có thể tải lên.");
+        }
+        else {
+            alert("Vui lòng chọn file Excel để tải lên");
+        }
+    });
+</script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if (ViewBag.code == 1)
+{
+<script type="text/javascript">
+    swal({
+        icon: 'error',
+        title: 'Không thể xóa',
+        text: 'Không thể xóa phiếu ĐKHP này vì đã có PHIẾU THU HỌC PHÍ cho phiếu ĐKHP này !!!',
+    })
+</script>}
+@if (ViewBag.code == 2)
+{
+<script type="text/javascript">
+    swal({
+        icon: 'error',
+        title: 'Không thể xóa',
+        text: 'Không thể xóa phiếu ĐKHP này vì phiếu ĐKHP này đã có ĐĂNG KÝ môn học !!!',
+    })
+</script> } @*@if (ViewBag.code == 3)
+    {
+        <script type="text/javascript">
+            swal({
+                icon: 'error',
+                title: 'Không thể xóa',
+                text: 'Không thể xóa phiếu ĐKHP này vì phiếu ĐKHP đang nằm trong BÁO CÁO sinh viên nợ HP !!!',
+            })
+        </script>
+    }*@
+@if (ViewBag.code == 11)
+{
+<script type="text/javascript">
+    swal("Đã xóa phiếu ĐKHP thành công", "", "success");
+</script>}   

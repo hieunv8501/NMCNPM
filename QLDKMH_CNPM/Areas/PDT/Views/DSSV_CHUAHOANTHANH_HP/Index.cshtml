@@ -1,0 +1,83 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.DSSV_CHUAHOANTHANH_HP>
+@{ ViewBag.Title = "Index";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+
+@if (ViewBag.check == 0)
+{
+    <br>
+    <h3 class="mb-1 text-danger controllerStyle" style="text-align:center">Không thể xem báo cáo vì chưa đến hạn đóng học phí!!!</h3>
+    <hr />
+    <div class="form-group">
+        <div>
+            <a class="btn btn-primary btnStyle generalStyle" href="~/PDT/DSSV_CHUAHOANTHANH_HP/ListHK/">Quay lại</a>
+        </div>
+    </div>
+}
+else
+{
+
+
+    <!--Page Heading-->
+    <h3 class="mb-1 text-danger controllerStyle">
+        DANH SÁCH SINH VIÊN CHƯA HOÀN THÀNH HỌC PHÍ<br/>
+    </h3>
+    <h4 class="text-danger controllerStyle" style="text-align:center">
+        Học kỳ: @ViewBag.HocKy | Năm học: @ViewBag.Nam1 - @ViewBag.Nam2
+    </h4>
+    <hr class="mb-0" />
+    <a class="generalStyle" style="color:black"><strong>Xuất danh sách sinh viên nợ học phí ra file Excel</strong></a>
+    <a>
+        @Html.ActionLink("Xuất danh sách", "ExportToExcel", new { id = ViewBag.MaHKNH }, new { @class = "btn btn-primary btnStyle generalStyle" })
+    </a>
+    <hr class="mb-0" />
+    <!--DataTable Showing-->
+    <div class="bg-light card generalStyle">
+       
+        <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white">
+            <div>
+                <div id="dataTable_wrapper" class="dataTables_wrapper">
+                    <table class="table table-bordered dataStyle dataTable" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Mã số sinh viên</th>
+                                <th>Tên sinh viên</th>
+                                <th>Số tiền đăng ký</th>
+                                <th>Số tiền phải đóng</th>
+                                <th>Số tiền còn lại</th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SINHVIEN.MaSV)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SINHVIEN.HoTen)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SoTienDangKy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SoTienPhaiDong)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SoTienConLai)
+                                </td>
+
+                            </tr>}
+                    </table>
+                    <h5 class="mb-1 text-primary controllerStyle" style="text-align:right">Tổng số sinh viên chưa hoàn thành học phí:  @ViewBag.TongSV_DKMH_HK</h5>
+                    @*Ti le sinh vien chua hoan thanh hoc phi chi ap dung voi nhung phieu da dang ki mon hoc.*@
+                    <h5 class="mb-1 text-primary controllerStyle" style="text-align:right">Tỉ lệ sinh viên chưa hoàn thành học phí: @(@ViewBag.TongSV_DKMH_HK*100/@ViewBag.TongSV_HK)%</h5>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <a class="btn btn-primary btnStyle" href="~/PDT/DSSV_CHUAHOANTHANH_HP/ListHK/">Quay lại</a>
+            </div>
+        </div>
+    </div>
+}

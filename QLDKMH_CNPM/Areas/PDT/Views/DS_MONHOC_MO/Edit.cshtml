@@ -1,0 +1,42 @@
+﻿@model QLDKMH_CNPM.Models.DS_MONHOC_MO
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h3 class="text-left text-danger controllerStyle">SỬA THÔNG TIN MÔN HỌC MỞ</h3>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal generalStyle" style="color: black;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MaMo)
+        <div class="form-group">
+            <div class="control-label">Mã học kỳ năm học</div>
+            <div>
+                @Html.DropDownList("MaHKNH", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaHKNH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label">Môn học</div>
+            <div>
+                @Html.DropDownList("MaMonHoc", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MONHOC.TenMonHoc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2">
+                <input type="submit" value="Lưu" class="btn btn-danger btnStyle" />
+                <span>
+                    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaHKNH }, new { @class = "btn btn-primary btnStyle" })
+                </span>
+            </div>
+        </div>
+    </div>
+}

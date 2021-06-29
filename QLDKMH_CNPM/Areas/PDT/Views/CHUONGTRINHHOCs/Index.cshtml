@@ -1,0 +1,81 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.NGANH>
+
+@{ ViewBag.Title = "Index";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+<link href="~/Assets/css/UploadFile.css" rel="stylesheet" type="text/css" />
+
+<h3 class="mb-1 text-danger controllerStyle">CHƯƠNG TRÌNH HỌC</h3>
+<hr class="mb-0" />
+
+@using (Html.BeginForm("Upload", "CHUONGTRINHHOCs", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<a class="generalStyle" style="color:black"><strong>Tải lên file Excel chương trình học các ngành</strong></a>
+                <a class="form-group">
+                    <div class="upload">
+                        <input type="button" class="uploadButton btnStyle generalStyle" value="Chọn đường dẫn" />
+                        <input type="file" name="UploadedFile" accept="/.xls, .xlsx" id="fileUpload" />
+                        <label class="fileName" style="width:auto; ">Đường dẫn file Excel...</label>
+                    </div>
+                    <input type="submit" name="Submit" class="btn btn-primary btnStyle generalStyle" value="Tải lên" />
+                </a>}
+
+<div class="bg-light card generalStyle">
+    <div class="py-2 m-0">
+        <span style="float: right">
+            @Html.ActionLink("Quản lý Ngành", "Index", "NGANHs", null, new { @class = "btn btn-primary btnStyle" })
+        </span>
+    </div>
+
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white">
+        <div>
+            <div id="dataTable_wrapper" class="dataTables_wrapper">
+                <table class="table table-bordered dataTable dataStyle" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th width="40%">Mã ngành</th>
+                            <th width="40%">Tên ngành</th>
+                            <th width="30%" style="text-align:center">Chương trình học</th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+        <tr>
+            <td style="vertical-align: middle;">
+                @Html.DisplayFor(modelItem => item.MaNganh)
+            </td>
+            <td style="vertical-align: middle;">
+                @Html.DisplayFor(modelItem => item.TenNganh)
+            </td>
+            <td style="text-align: center">
+                <a href="@Url.Action("Details", "CHUONGTRINHHOCs", new {area ="PDT", id = item.MaNganh})">Xem chương trình học</a>
+            </td>
+        </tr>}
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@*Js để hỗ trợ upload file Excel*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $('input[type=file]').change(function (e) {
+        $in = $(this);
+        $in.next().html($in.val());
+
+    });
+    $('.uploadButton').click(function () {
+        var fileName = $(".UploadedFile").val();
+        if (fileName) {
+            alert(fileName + " có thể tải lên.");
+        }
+        else {
+            alert("Vui lòng chọn file Excel để tải lên");
+        }
+    });</script>
+
+@if (ViewBag.code == 10)
+{
+<script type="text/javascript">swal("Đã thêm chương trình học thành công", "", "success");</script>
+}
