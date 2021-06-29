@@ -20,10 +20,10 @@
     });
 </script>
 
-<h3 class="text-left text-danger controllerStyle">ĐĂNG KÝ MÔN HỌC</h3>
+<h3 class="text-left text-danger controllerStyle">ĐĂNG KÝ LỚP HỌC</h3>
 <hr />
 <div class="bg-primary text-white generalStyle" style="text-align: left; padding:5px">
-    Danh sách môn học có thể đăng ký
+    Danh sách lớp học có thể đăng ký
 </div>
 <br />
 @using (Html.BeginForm())
@@ -36,8 +36,8 @@
     </div>
     <div class="form-group mt-1 ml-0">
         <div class="control-label" style="font-family: Arial, Helvetica, sans-serif; font-size: larger">
-            <input id="btnNew" type="submit" value="Đăng ký các môn đã chọn" class="btn btn-primary btnStyle " />
-            <input type="button" value="Hủy" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+            <input id="btnNew" type="submit" value="Đăng ký các lớp đã chọn" class="btn btn-primary btnStyle " />
+            <input type="button" value="Quay lại" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
         </div>
     </div>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -51,7 +51,7 @@
                                 <th>
                                     Chọn
                                 </th>
-                                <th>Mã môn học mở</th>
+                                <th>Mã lớp học mở</th>
                                 <th>Mã môn học</th>
                                 <th width="25%">Tên môn học</th>
                                 <th>Loại môn</th>
@@ -104,7 +104,7 @@
                     <span class="generalStyle" aria-hidden="true">x</span>
                 </button>
             </div>
-            <div class="modal-body generalStyle" style="color: black;">Bạn có thật sự muốn hủy đăng ký?</div>
+            <div class="modal-body generalStyle" style="color: black;">Bạn có thật sự muốn thoát khi chưa thực hiện đăng ký?</div>
             <div class="modal-footer generalStyle">
                 <a class="btn btn-danger btnStyle" href="@Url.Action("Details", "Phieu_DKHP", new { area = "PDT", id = ViewBag.SoPhieuDKHP })">Đồng ý</a>
                 <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
@@ -113,7 +113,7 @@
     </div>
 </div>
 
-@* Phải chọn ít nhất một môn để đăng ký *@
+@* Phải chọn ít nhất một lớp để đăng ký *@
 @* Sử dụng sweet alert warning *@
 <script src="https://lipis.github.io/bootstrap-sweetalert/lib/sweet-alert.js"></script>
 <script src="~/Scripts/sweetalert.min.js"></script>
@@ -127,7 +127,7 @@
                 swal({
                     title: "Cảnh báo!",
                     type: "warning",
-                    text: "Bạn phải chọn ít nhất một môn để đăng ký!",
+                    text: "Bạn phải chọn ít nhất một lớp để đăng ký!",
                     confirmButtonText: 'Đồng ý',
                 });
                 return false;
@@ -156,7 +156,6 @@
             if ($(this).is(':checked')) {
                 var checked_val = $(this).val();
                 checked_val = checked_val.slice(0, 7);
-                //alert('checked_val');
                 var arr = [];
                 $('input:checked[type="checkbox"]').each(function () {
                     arr.push($(this).val().slice(0, 7));
@@ -173,9 +172,9 @@
                    $(this).prop('checked', false); // Unchecks it
                     /* alert("Không thể chọn vì đã chọn môn học này rồi")*/
                     swal({
-                        title: "Thông báo!",
+                        title: "Cảnh báo!",
                         type: "warning",
-                        text: "Không thể chọn vì đã chọn môn học này rồi!",
+                        text: "Không thể chọn lớp này vì bạn đã chọn lớp khác cho môn học này rồi!",
                         confirmButtonText: 'Đồng ý',
                     });
                 }
