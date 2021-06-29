@@ -43,20 +43,20 @@
         </td>
     </tr>
 </table>
-<h7 class="text-left text-danger generalStyle" style="font-weight:500">MÔN HỌC ĐÃ ĐĂNG KÝ</h7>
+<h7 class="text-left text-danger generalStyle" style="font-weight:500">LỚP HỌC ĐÃ ĐĂNG KÝ</h7>
 <div class="bg-light card generalStyle">
     <div class="mt-0 py-2">
         @* Nếu đã quá hạn đăng ký học phần (hạn đóng học phí) thì không được đăng ký/xóa môn học nữa. *@
         @if (ViewBag.HDHP > DateTime.Now && Model.TongTienDaDong == 0)
         {
             <span>
-                @Html.ActionLink("Đăng ký thêm môn học", "Create", "CT_PHIEU_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP, HKNH = Model.MaHKNH }, new { @class = "btn btn-primary btnStyle" })
+                @Html.ActionLink("Đăng ký thêm lớp học", "Create", "CT_PHIEU_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP, HKNH = Model.MaHKNH }, new { @class = "btn btn-primary btnStyle" })
             </span>
             @* Nếu chưa đăng kí môn nào thì sẽ ẩn nút xóa. *@
             if (Model.TongTCLT != 0 || Model.TongTCTH != 0)
             {
                 <span style="float:right">
-                    @Html.ActionLink("Xóa môn học đã đăng ký", "Delete", "CT_Phieu_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle" })
+                    @Html.ActionLink("Xóa lớp học đã đăng ký", "Delete", "CT_Phieu_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle" })
                 </span>
             }
         }
@@ -69,6 +69,7 @@
                 <table class="table table-bordered dataTable dataStyle" id="dataTable">
                     <thead>
                         <tr>
+                            <th>Mã lớp học mở</th>
                             <th>Mã môn học</th>
                             <th>Tên môn học</th>
                             <th>Loại môn học</th>
@@ -79,6 +80,7 @@
 
                     <tfoot>
                         <tr>
+                            <th>Mã lớp học mở</th>
                             <th>Mã môn học</th>
                             <th>Tên môn học</th>
                             <th>Loại môn học</th>
@@ -90,6 +92,9 @@
                     @foreach (var item in ViewBag.CT_PHIEU_DKHPandDS_MONHOC_MO)
                     {
                         <tr>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MaMo
+                            </td>
                             <td style="vertical-align:middle;">
                                 @item.DS_MONHOC_MO.MaMonHoc
                             </td>
@@ -119,16 +124,11 @@
 
 @if (ViewBag.code == 10)
 {
-    <script type="text/javascript">swal("Đã đăng ký môn học thành công", "", "success");</script>
-}
-
-@if (ViewBag.code == 12)
-{
-    <script type="text/javascript">swal("Không tìm thấy môn học nào", "", "warning");</script>
+    <script type="text/javascript">swal("Đã đăng ký lớp học thành công", "", "success");</script>
 }
 
 @if (ViewBag.code == 11)
 {
-    <script type="text/javascript">swal("Đã xóa môn khỏi môn học đăng ký thành công", "", "success");</script>
+    <script type="text/javascript">swal("Đã xóa lớp học khỏi phiếu đăng ký thành công", "", "success");</script>
 }
 

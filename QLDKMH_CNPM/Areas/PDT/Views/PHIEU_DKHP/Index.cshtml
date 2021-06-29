@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<QLDKMH_CNPM.Models.PHIEU_DKHP>
 
-@{ ViewBag.Title = "Index";
-                Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+@{ 
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
 
 <!--Page Heading-->
-<h3 class="mb-1 text-danger text-left controllerStyle">DANH SÁCH PHIẾU ĐĂNG KÍ HỌC PHẦN</h3>
+<h3 class="mb-1 text-danger text-left controllerStyle">DANH SÁCH PHIẾU ĐĂNG KÝ HỌC PHẦN</h3>
 <hr />
 <!--DataTable Showing-->
 <!--Thêm class="card" để scroll nội dung mà không scroll sidebar-->
@@ -89,7 +91,10 @@
                                         </button>
                                         <div class="dropdown-menu" style="text-align: left;" aria-labelledby="navbarDropdownMenuLink">
                                             <a class="dropdown-item" href="@Url.Action("Details", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP })">Xem thông tin</a>
-                                            <a class="dropdown-item" href="@Url.Action("Delete", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP })">Xóa phiếu ĐKHP</a>
+                                            @if (item.TongTCLT == 0 && item.TongTCTH == 0)
+                                            {
+                                                <a class="dropdown-item" href="@Url.Action("Delete", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP })">Xóa phiếu ĐKHP</a>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -105,18 +110,24 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @if (ViewBag.code == 1)
 {
-<script type="text/javascript">swal({
-            icon: 'error',
-            title: 'Không thể xóa',
-            text: 'Không thể xóa phiếu ĐKHP này vì đã có PHIẾU THU HỌC PHÍ cho phiếu ĐKHP này !!!',
-        })</script>}
+    <script type="text/javascript">
+        swal({
+                icon: 'error',
+                title: 'Không thể xóa',
+                text: 'Không thể xóa phiếu ĐKHP này vì đã có PHIẾU THU HỌC PHÍ cho phiếu ĐKHP này !!!',
+        })
+    </script>
+}
 @if (ViewBag.code == 2)
 {
-<script type="text/javascript">swal({
-            icon: 'error',
-            title: 'Không thể xóa',
-            text: 'Không thể xóa phiếu ĐKHP này vì phiếu ĐKHP này đã có ĐĂNG KÝ môn học !!!',
-        })</script> } 
+    <script type="text/javascript">
+        swal({
+                icon: 'error',
+                title: 'Không thể xóa',
+                text: 'Không thể xóa phiếu ĐKHP này vì phiếu ĐKHP này đã có ĐĂNG KÝ môn học !!!',
+            })
+    </script>
+} 
 @*@if (ViewBag.code == 3)
     {
         <script type="text/javascript">
@@ -129,4 +140,7 @@
     }*@
 @if (ViewBag.code == 11)
 {
-<script type="text/javascript">swal("Đã xóa phiếu ĐKHP thành công", "", "success");</script>}   
+    <script type="text/javascript">
+        swal("Đã xóa phiếu ĐKHP thành công", "", "success");
+    </script>
+}   
