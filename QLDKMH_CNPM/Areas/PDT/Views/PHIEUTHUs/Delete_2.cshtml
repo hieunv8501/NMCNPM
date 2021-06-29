@@ -1,8 +1,8 @@
 ﻿@model QLDKMH_CNPM.Models.PHIEU_DKHP
 
-@{
-    ViewBag.Title = "Delete";
-    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+@{ 
+    ViewBag.Title = "Delete_2";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
 }
 
 <h3 class="text-left text-danger controllerStyle">XÓA PHIẾU ĐĂNG KÝ HỌC PHẦN</h3>
@@ -61,13 +61,12 @@
     </table>
     <hr />
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div class="form-actions">
-            <h6 class="text-left text-danger controllerStyle">Bạn có muốn xóa phiếu thu này?</h6>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+         <div class="form-actions">
+            <h6 class="text-left text-danger controllerStyle">Bạn có muốn xóa phiếu ĐKHP này?</h6>
             <input type="submit" value="Xóa" class="btn btn-danger btnStyle" />
-            @Html.ActionLink("Quay lại", "Details", new { id = Model.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle" })
-        </div>
-    }
+            @Html.ActionLink("Quay lại", "TraCuu", new { SoPhieuDKHP = ViewBag.SoPhieuDKHP, MSSV = ViewBag.MSSV, MHKNH = ViewBag.MHKNH, Day = ViewBag.Day, Month = ViewBag.Month, Year = ViewBag.Year, TinhTrang = ViewBag.TinhTrang }, new { @class = "btn btn-primary btnStyle generalStyle" })
+         </div>}
 </div>

@@ -1,0 +1,284 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.PHIEU_DKHP>
+
+@{ ViewBag.Title = "TraCuu";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+
+<h3 class="mb-1 text-left text-danger controllerStyle">TRA CỨU PHIẾU ĐĂNG KÍ HỌC PHẦN</h3>
+<hr />
+<h4 class="mb-1 text-left text-primary controllerStyle">Tiêu chuẩn tra cứu</h4>
+@using (Html.BeginForm("TraCuu", "PHIEU_DKHP", FormMethod.Get))
+{
+    <table class="generalStyle" style="color:black; font-size:1rem;">
+        <tr>
+            <td>
+                <div class="control-label">Số phiếu ĐKHP</div>
+            </td>
+            <td>
+                @Html.TextBox("SoPhieuDKHP", null, new { @class = "form-control" })
+            </td>
+            <td></td>
+            <td>
+                <div class="control-label ">Ngày</div>
+            </td>
+            <td>
+                @Html.TextBox("Day", null, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="control-label">Mã số sinh viên</div>
+            </td>
+            <td>
+                @Html.TextBox("MSSV", null, new { @class = "form-control" })
+            </td>
+            <td></td>
+            <td>
+                <div class="control-label">Tháng</div>
+            </td>
+            <td>
+                @Html.TextBox("Month", null, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="control-label ">Học kì - năm học</div>
+            </td>
+            <td>
+
+                <div>
+                    <select id="MHKNH" name="MHKNH" class="form-control dropdown-toggle">
+                        <option disabled selected style="display:none">  </option>
+                        @foreach (var item in ViewBag.HocKyNamHoc)
+                        {
+                            <option value="@item.MaHKNH">HK @item.HocKy Năm học @item.Nam1 - @item.Nam2</option>
+                        }
+                    </select>
+                </div>
+            </td>
+            <td></td>
+            <td>
+                <div class="control-label ">Năm</div>
+            </td>
+            <td>
+                @Html.TextBox("Year", null, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="control-label">Tình trạng học phí</div>
+            </td>
+            <td>
+                <select id="MHKNH" name="TinhTrang" class="form-control">
+                    <option disabled selected style="display:none">  </option>
+                    <option value="1">Đã hoàn thành</option>
+                    <option value="0">Chưa hoàn thành</option>
+                    <option value="2">Chưa hoặc không đăng ký môn học</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="text-align:center">
+                <button type="submit" value="Tra cứu" class="btn btn-primary btnStyle generalStyle">
+                    <i class="fa fa-search"></i>
+                    Tra cứu
+                </button>
+            </td>
+        </tr>
+    </table>}
+
+<div class="bg-light card generalStyle">
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1 " style="background-color: white;">
+        <div>
+            <div id="dataTable_wrapper">
+                <!--id = dataTable shows number of entries; sort and search function-->
+                <table class="table table-bordered dataTable dataStyle" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align:middle;">
+                                Số phiếu ĐKHP
+                            </th>
+                            <th style="vertical-align:middle;">
+                                MSSV
+                            </th>
+                            <th style="vertical-align:middle;">
+                                Họ Tên
+                            </th>
+                            <th style="vertical-align:middle;">
+                                Học kỳ -Năm học
+                            </th>
+                            <th style="vertical-align:middle;">
+                                Ngày lập
+                            </th>
+                            <th style="vertical-align:middle;">
+                                Số tín chỉ lý thuyết
+                            </th>
+                            <th style="vertical-align:middle;">
+                                Số tín chỉ thực hành
+                            </th>
+                            <th style="vertical-align:middle;">
+                                Số tiền đăng ký
+                            </th>
+                            <th style="vertical-align:middle;">
+                                Số tiền phải đóng
+                            </th>
+                            <th style="vertical-align:middle;">
+                                Số tiền đã đóng
+                            </th>
+                            <th style="vertical-align:middle;">
+                                Số tiền còn lại
+                            </th>
+                            <th style="vertical-align:middle;">
+                                Tình trạng học phí
+                            </th>
+                            <th style="text-align:center; vertical-align:middle;">Thao tác</th>
+                        </tr>
+                    </thead>
+
+                    @if (Model.Count() == 0)
+                    {
+                        <tr>
+                            <td colspan="3" style="color:red">Không tìm thấy phiếu thu nào</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(modelItem => item.SoPhieuDKHP)
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(modelItem => item.MaSV)
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(modelItem => item.SINHVIEN.HoTen)
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    HK @Html.DisplayFor(modelItem => item.HKNH.HocKy) (@Html.DisplayFor(modelItem => item.HKNH.Nam1)-@Html.DisplayFor(modelItem => item.HKNH.Nam2))
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(modelItem => item.NgayLap.Day)/@Html.DisplayFor(modelItem => item.NgayLap.Month)/@Html.DisplayFor(modelItem => item.NgayLap.Year)
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(modelItem => item.TongTCLT)
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(modelItem => item.TongTCTH)
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(modelItem => item.TongTienDangKy)
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(modelItem => item.TongTienPhaiDong)
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(modelItem => item.TongTienDaDong)
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(modelItem => item.SoTienConLai)
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    @if ((item.SoTienConLai) > 0)
+                                    {
+                                        <p>Chưa hoàn thành</p>
+                                    }
+                                    else if (item.SoTienConLai == 0)
+                                    {
+                                        if (item.TongTienDangKy == 0)
+                                        {
+                                            <p>Chưa hoặc không đăng ký môn học</p>
+                                        }
+
+                                        else
+                                        {
+                                            <p>Đã hoàn thành</p>
+                                        }
+                                    }
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    <div class="container">
+                                        <div class="dropdown nav-item">
+                                            <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Tùy chọn
+                                            </button>
+                                            <div class="dropdown-menu" style="text-align:left" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" href="@Url.Action("Details_2", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP, SoPhieuDKHP = ViewBag.SoPhieuDKHP, MSSV = ViewBag.MSSV, MHKNH = ViewBag.MHKNH, Day = ViewBag.Day, Month = ViewBag.Month, Year = ViewBag.Year, TinhTrang = ViewBag.TinhTrang })">Xem thông tin</a>
+                                                @*<a class="dropdown-item" href="@Url.Action("Delete", "CT_Phieu_DKHP", new { area = "PDT", id = item.SoPhieuDKHP })">Xóa môn học</a>*@
+                                                <a class="dropdown-item" href="@Url.Action("Delete_2", "PHIEU_DKHP", new { area = "PDT", id = item.SoPhieuDKHP, SoPhieuDKHP = ViewBag.SoPhieuDKHP, MSSV = ViewBag.MSSV, MHKNH = ViewBag.MHKNH, Day = ViewBag.Day, Month = ViewBag.Month, Year = ViewBag.Year, TinhTrang = ViewBag.TinhTrang })">Xóa phiếu ĐKHP</a>
+                                                @if (item.TongTienDaDong > 0)
+                                                {
+                                                    <a class="dropdown-item" href="@Url.Action("TraCuuPhieuThu", "PHIEUTHUs", new { area = "PDT", SoPhieuDKHP = item.SoPhieuDKHP })">Danh sách phiếu thu</a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr> 
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Javascript để gọi datetimepicker trong Ngày tháng-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.datetimepicker').datepicker({
+            closeText: "Đóng",
+            prevText: "Trước",
+            nextText: "Sau",
+            currentText: "Hôm nay",
+            monthNames: ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"],
+            monthNamesShort: ["Một", "Hai", "Ba", "Bốn", "Năm", "Sáu", "Bảy", "Tám", "Chín", "Mười", "Mười một", "Mười hai"],
+            dayNames: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
+            dayNamesShort: ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
+            dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+            weekHeader: "Tuần",
+            dateFormat: "dd/mm/yy",
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: "",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:+0",
+            showButtonPanel: true
+        });
+    });
+</script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if (ViewBag.code == 1)
+{
+<script type="text/javascript">
+    swal({
+        icon: 'error',
+        title: 'Không thể xóa',
+        text: 'Không thể xóa phiếu ĐKHP này vì đã có PHIẾU THU HỌC PHÍ cho phiếu ĐKHP này !!!',
+
+    })
+</script>}
+@if (ViewBag.code == 2)
+{
+    <script type="text/javascript">
+        swal({
+            icon: 'error',
+            title: 'Không thể xóa',
+            text: 'Không thể xóa phiếu ĐKHP này vì phiếu ĐKHP này đã có ĐĂNG KÝ lớp học mở !!!',
+
+        })
+    </script>
+}
+@if (ViewBag.code == 13)
+{
+<script type="text/javascript">
+    swal("Đã xóa phiếu ĐKHP thành công", "", "success");
+
+</script>}
