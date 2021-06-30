@@ -27,7 +27,7 @@
                     @*<div class="form-group">
                         <div class="control-label">Số Phiếu ĐKHP</div>
                         <div>
-                            @Html.DropDownList("SoPhieuDKHP", null, "-- Chọn phiếu đăng ký --", htmlAttributes: new { @id = "SoPhieuDKHP", @class = "form-control" })
+                            @Html.EditorFor(Model => Model.SoPhieuDKHP, new { htmlAttributes = new { @id = "SoPhieuDKHP", @class = "form-control", @readonly = "readonly" } })
                             @Html.ValidationMessageFor(model => model.SoPhieuDKHP, "", new { @class = "text-danger" })
                         </div>
                     </div>*@
