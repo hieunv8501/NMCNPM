@@ -106,7 +106,11 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             try
             {
                 if (ModelState.IsValid)
-                {                   
+                {
+                    if (db.PHIEU_DKHP.Find(pHIEUTHU.SoPhieuDKHP).SoTienConLai < pHIEUTHU.SoTienThu)
+                    {
+                        return RedirectToAction("Create", "PHIEUTHUs", new { code = 2 });
+                    }
                     db.PHIEUTHUs.Add(pHIEUTHU);
                     db.SaveChanges();
                     return RedirectToAction("Index", new { code = 10 });
