@@ -1,0 +1,207 @@
+﻿@model QLDKMH_CNPM.Models.LOAIMONHOC
+
+@{ ViewBag.Title = "Create";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+
+<h3 class="text-left text-danger controllerStyle">THÊM LOẠI MÔN HỌC MỚI</h3>
+<hr />
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+                <div class="form-horizontal generalStyle" style="color: black;">
+
+                    <div class="form-group">
+                        <div class="control-label">Mã loại môn học</div>
+                        <div>
+                            @Html.EditorFor(model => model.MaLoaiMon, new { htmlAttributes = new { @id = "MaLoaiMon", @onblur = "inputValidation1(this)", @maxlength = "2", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaLoaiMon, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="textField1"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="control-label">Tên loại môn học</div>
+                        <div>
+                            @Html.EditorFor(model => model.TenLoaiMon, new { htmlAttributes = new { @id = "TenLoaiMon", @onblur = "inputValidation2(this)", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TenLoaiMon, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="textField2"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="control-label">Số tiết một tín chỉ</div>
+                        <div>
+                            @Html.EditorFor(model => model.HeSoChia, new { htmlAttributes = new { @id = "SoTietMotTin", @onblur = "inputValidation3(this)", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.HeSoChia, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="textField3"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="control-label">Số tiền một tín chỉ</div>
+                        <div>
+                            @Html.EditorFor(model => model.SoTienMotTinChi, new { htmlAttributes = new { @id = "SoTienMotTin", @onblur = "inputValidation4(this)", @class = "form-control" }  })
+                            @Html.ValidationMessageFor(model => model.SoTienMotTinChi, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="textField4"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div>
+                            <input id="btnNew" type="submit" value="Thêm mới" disabled class="btn btn-primary btnStyle" />
+                            <input type="button" value="Quay lại" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+                        </div>
+                    </div>
+                </div>
+ }
+<!--Cảnh báo thoát chưa lưu-->
+<div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="generalStyle" aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body generalStyle" style="color: black;">Thoát khi chưa thêm mới?</div>
+            <div class="modal-footer generalStyle">
+                <a class="btn btn-danger btnStyle" href="@Url.Action("Index", "LOAIMONHOCs", new { area = "PDT" })">Đồng ý</a>
+                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if (ViewBag.code == 1)
+{
+    <script type="text/javascript">
+        swal({
+            icon: 'error',
+            title: 'Không thể thêm',
+            text: 'Không thể thêm loại môn học này vì mã loại môn học này đã tồn tại !!!',
+        })
+    </script>
+}
+@if (ViewBag.code == 3)
+{
+    <script type="text/javascript">
+        swal({
+            icon: 'error',
+            title: 'Không thể thêm',
+            text: 'Không thể thêm loại môn học này vì tên loại môn học này đã tồn tại !!!',
+        })
+    </script>
+}
+
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+    //function để validation mã sinh viên
+    function inputValidation1(inputTxt) {
+        var regx = /^[A-Z]+$/;
+        var textField = document.getElementById("textField1");
+
+        if (inputTxt.value != '') {
+            if (inputTxt.value.length == 2) {
+                if (inputTxt.value.match(regx)) {
+                    textField.textContent = '';
+                    textField.style.color = 'green';
+                } else {
+                    textField.textContent = '*Vui lòng chỉ nhập ký tự chữ cái in hoa';
+                    textField.style.color = 'red';
+                    $('#btnNew').attr('disabled', true);
+                }
+            } else {
+                textField.textContent = '*Mã loại môn có 2 ký tự';
+                textField.style.color = 'red';
+                $('#btnNew').attr('disabled', true);
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập mã loại môn';
+            textField.style.color = 'red';
+        }
+    }
+    //function để validation label tên loại môn
+    function inputValidation2(inputTxt) {
+        var regx = /^[aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ ]+$/;
+        var textField = document.getElementById("textField2");
+
+        if (inputTxt.value != '') {
+            if (inputTxt.value.match(regx)) {
+                textField.textContent = '';
+                textField.style.color = 'green';
+            } else {
+                textField.textContent = '*Vui lòng chỉ nhập các ký tự là tiếng việt và có chứa khoảng trắng';
+                textField.style.color = 'red';
+                $('#btnNew').attr('disabled', true);
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập tên loại môn';
+            textField.style.color = 'red';
+        }
+    }
+    //function để validation label số tiết một tín chỉ
+    function inputValidation3(inputTxt) {
+        var regx = /^[0-9]+$/;
+        var textField = document.getElementById("textField3");
+
+        if (inputTxt.value != '') {
+            if (inputTxt.value.match(regx) > 0) {
+                textField.textContent = '';
+                textField.style.color = 'green';
+            } else {
+                textField.textContent = '*Vui lòng chỉ nhập số nguyên dương';
+                textField.style.color = 'red';
+                $('#btnNew').attr('disabled', true);
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập số tiết của một tín chỉ';
+            textField.style.color = 'red';
+        }
+    }
+    //function để validation label số tiền một tín chỉ
+    function inputValidation4(inputTxt) {
+        var regx = /^[0-9].+$/;
+        var textField = document.getElementById("textField4");
+
+        if (inputTxt.value != '') {
+            if (inputTxt.value.match(regx)) {
+                textField.textContent = '';
+                textField.style.color = 'green';
+            } else {
+                textField.textContent = '*Vui lòng chỉ nhập một số tiền hợp lệ';
+                textField.style.color = 'red';
+                $('#btnNew').attr('disabled', true);
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập số tiền của một tín chỉ';
+            textField.style.color = 'red';
+        }
+    }
+    $(function () {
+        $('#btnNew').attr('disabled', true);
+        $('#MaLoaiMon, #TenLoaiMon, #SoTietMotTin, #SoTienMotTin').change(function () {
+            if ($('#MaLoaiMon').val() != '') {
+                if ($('#TenLoaiMon').val() != '') {
+                    if ($('#SoTietMotTin').val() != '') {
+                        if ($('#SoTienMotTin').val() != '') {
+                            $('#btnNew').attr('disabled', false);
+                        } else {
+                            $('#btnNew').attr('disabled', true);
+                        }
+                    } else {
+                        $('#btnNew').attr('disabled', true);
+                    }
+                } else {
+                    $('#btnNew').attr('disabled', true);
+                }
+            }
+        })
+    });
+</script>

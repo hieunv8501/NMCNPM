@@ -1,0 +1,65 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.CHUCNANG>
+
+@{ 
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml"; 
+}
+
+<!--Page Heading-->
+<h3 class="mb-1 text-danger controllerStyle">DANH SÁCH CHỨC NĂNG</h3>
+
+<!--DataTable Showing-->
+<!--Thêm class="card" để scroll nội dung mà không scroll sidebar-->
+<div class="bg-light card generalStyle">
+    <div class="py-2 m-0">
+        <span>
+            @Html.ActionLink("Thêm chức năng", "Create", null, new { @class = "btn btn-primary btnStyle" })
+        </span>
+    </div>
+
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white">
+        <div>
+            <div id="dataTable_wrapper" class="dataTables_wrapper">
+                <table class="table table-bordered dataStyle dataTable" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th width="30%">Mã chức năng</th>
+                            <th width="30%">Tên chức năng</th>
+                            <th width="30%">Tên màn hình được load</th>
+                            <th style="text-align: center">Thao tác</th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.MaChucNang)
+                            </td>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.TenChucNang)
+                            </td>
+                            <td style="vertical-align: middle;">
+                                @Html.DisplayFor(modelItem => item.TenManHinhDuocLoad)
+                            </td>
+                            <td>
+                                <div class="container">
+                                    <div class="dropdown nav-item">
+                                        <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Tùy chọn
+                                        </button>
+                                        <div class="dropdown-menu" style="text-align:center;" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="@Url.Action("Details", "CHUCNANGs", new {area ="Admin", id = item.MaChucNang})">Xem thông tin</a>
+                                            <a class="dropdown-item" href="@Url.Action("Edit", "CHUCNANGs", new {area ="Admin", id = item.MaChucNang})">Sửa thông tin</a>
+                                            <a class="dropdown-item" href="@Url.Action("Delete", "CHUCNANGs", new {area ="Admin", id = item.MaChucNang})">Xóa thông tin</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

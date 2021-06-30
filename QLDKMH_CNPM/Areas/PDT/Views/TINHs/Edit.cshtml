@@ -1,0 +1,82 @@
+﻿@model QLDKMH_CNPM.Models.TINH
+
+@{ ViewBag.Title = "Edit";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+
+<h3 class="text-left text-danger controllerStyle">SỬA THÔNG TIN TỈNH</h3>
+<hr />
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal generalStyle" style="color: black;">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <hr />
+    <div class="form-group">
+        <div class="control-label">Mã tỉnh</div>
+        <div>
+            @Html.EditorFor(model => model.MaTinh, new { htmlAttributes = new { @class = "form-control", @readonly="readonly" } })
+            @Html.HiddenFor(model => model.MaTinh)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="control-label">Tên tỉnh</div>
+        <div>
+            @Html.EditorFor(model => model.TenTinh, new { htmlAttributes = new { @id = "TenTinh", @onblur = "inputValidation1(this)", @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenTinh, "", new { @class = "text-danger" })
+        </div>
+        <div id="textField1"></div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div>
+            <input id="btnEdit" type="submit" value="Lưu" disabled class="btn btn-danger btnStyle" />
+            <input type="button" value="Quay lại" class="btn btn-primary generalStyle btnStyle" data-toggle="modal" data-target="#AlertModal1" />
+        </div>
+    </div>
+</div>}
+
+<!--Cảnh báo thoát-->
+<div class="modal fade" id="AlertModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title generalStyle" style="color:black; font-weight:700;" id="exampleModalLabel2">Thông báo</h5>
+                <button class="close ge" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="generalStyle" aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body generalStyle" style="color: black;">Chưa lưu, bạn có muốn thoát?</div>
+            <div class="modal-footer generalStyle">
+                @Html.ActionLink("Đồng ý", "Details", new { id = Model.MaTinh }, new { @class = "btn btn-danger btnStyle" })
+                <button class="btn btn-primary btnStyle" type="button" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    //function để validation label tên Tỉnh
+    function inputValidation1(inputTxt) {
+        var regx = /^[-aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ ]+$/;
+        var textField = document.getElementById("textField1");
+        if (inputTxt.value != '') {
+            if (inputTxt.value.match(regx)) {
+                textField.textContent = '';
+                textField.style.color = 'green';
+                $('#btnEdit').attr('disabled', false);
+            } else {
+                textField.textContent = '*Vui lòng chỉ nhập các ký tự là tiếng việt và khoảng trắng';
+                textField.style.color = 'red';
+                $('#btnEdit').attr('disabled', true);
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập Tên Tỉnh';
+            textField.style.color = 'red';
+            $('#btnEdit').attr('disabled', true);
+        }
+    }
+</script>

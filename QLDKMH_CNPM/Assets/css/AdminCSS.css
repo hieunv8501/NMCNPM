@@ -1,0 +1,136 @@
+﻿.w3-sidebar:not(#sidebarToggle) {
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    position: relative !important;
+    z-index: 1;
+    overflow: auto;
+}
+
+/* for holding tab active when choosing it......currently in adjustment */
+/*.activecurrentTab {
+    background-color: black;
+    text-anchor: middle;
+}*/
+
+.non-interactive {
+    pointer-events: none;
+}
+
+.name:hover {
+    background-color: ActiveBorder;
+    border-bottom: groove;
+}
+
+.zoom {
+    background-color: #4e73df;
+    transition: transform .2s; /* Animation */
+    border-bottom: solid black 1px;
+    border-radius: 20px;
+}
+
+/*set dropdownlist effect*/
+.dropdown .btn {
+    background: #4e73df;
+    color: #fff;
+}
+
+.dropdown-menu .dropdown-item {
+    display: block;
+    width: auto;
+}
+
+.container .dropdown .dropdown-menu a:hover {
+    color: blue;
+    background-color: #4e73df;
+    border-color: black;
+}
+
+.zoom:hover {
+    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    transform: scale(1.1);
+    text-transform: uppercase;
+    text-align-last: center;
+    background-color: blue;
+    z-index: 1;
+}
+
+.dropdown .btn:hover{
+    background: blue;
+    color: #ff0000;
+}
+
+.getfontstyle {
+    font-family: Arial, 'Segoe UI', sans-serif;
+    font-weight: 500;
+    font-size: 12px !important;
+}
+
+.controllerStyle {
+    font-family: Arial, 'Segoe UI', sans-serif;
+    font-weight: 700;
+}
+.generalStyle {
+    font-family: Arial, 'Segoe UI', sans-serif;
+}
+
+.dataStyle {
+    font-family: Arial, 'Segoe UI', sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    color: black;
+}
+
+.btnStyle {
+    font-family: Arial, 'Segoe UI', sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+}
+.btnForActionLink {
+    background: blue;
+}
+
+.halftabledataStyle {
+    font-family: Arial, 'Segoe UI', sans-serif;
+    font-weight: 200;
+    font-size: 14px;
+}
+/*these css for indicate scroll section*/
+/*//begin*/
+/*.header {
+    position: fixed;
+    z-index: 1;
+    top: 80px;
+    width: 81%;
+    background-color: white;
+}
+
+.progress-container {
+    width: 100%;
+    height: 8px;
+    background: none;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 5px;
+    background: blue;
+}
+
+.content {
+    padding: initial;
+    margin-top: 150px;
+    width: 100%;
+}*/
+/*//end*/
+
+.PDTsv{
+
+}
+.hoverControl {
+    color:white;
+}
+.detailsFont {
+    text-emphasis-color: white; 
+    background-color: #4e73df;
+}

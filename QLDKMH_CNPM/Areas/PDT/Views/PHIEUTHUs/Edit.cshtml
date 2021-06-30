@@ -1,0 +1,139 @@
+﻿@model QLDKMH_CNPM.Models.PHIEUTHU
+
+@{ ViewBag.Title = "Edit";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+<h3 class="text-left text-danger controllerStyle">SỬA THÔNG TIN PHIẾU THU</h3>
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+                <div class="form-horizontal generalStyle" style="color: black;">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <hr />
+                    <div class="form-group">
+                        <div class="control-label">Số phiếu thu</div>
+                        <div>
+                            @Html.EditorFor(model => model.SoPhieuThu, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })                         
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label">Số Phiếu ĐKHP</div>
+                        <div class="form-control" readonly>
+                            @Html.DisplayFor(model => model.SoPhieuDKHP)
+                            @Html.ValidationMessageFor(model => model.SoPhieuDKHP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                        <div class="control-label">Số Phiếu ĐKHP</div>
+                        <div>
+                            @Html.DropDownList("SoPhieuDKHP", null, "-- Chọn phiếu đăng ký --", htmlAttributes: new { @id = "SoPhieuDKHP", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.SoPhieuDKHP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+                    <div class="form-group">
+                        <div class="control-label">Ngày lập</div>
+                        <div class="form-control" readonly>
+                            @Html.DisplayFor(model => model.NgayLap)
+                            @Html.HiddenFor(model => model.NgayLap)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="control-label">Số tiền thu (VNĐ)</div>
+                        <div>
+                            @Html.EditorFor(model => model.SoTienThu, new { htmlAttributes = new { @id = "SoTienThu", onblur = "inputValidation1(this)", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SoTienThu, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="textField1"></div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <div>
+                            <input id="submit" type="submit" value="Lưu" class="btn btn-danger btnStyle" />
+                            @Html.ActionLink("Quay lại", "Index", new { id = Model.SoPhieuThu }, new { @class = "btn btn-primary btnStyle" })
+                        </div>
+                    </div>
+                </div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript"></script>}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if (ViewBag.code == 1)
+    {
+    <script type="text/javascript">
+        swal({
+            icon: 'error',
+            title: 'Không thể sửa',
+            text: 'Không thể sửa phiếu thu này vì phiếu thu đó đã lập ra trước so với phiếu ĐKHP cần đóng!!!',
+        })
+    </script>}
+    @*@if (ViewBag.code == 2)
+    {
+    <script type="text/javascript">
+        swal({
+            icon: 'error',
+            title: 'Không thể xóa',
+            text: 'Không thể xóa môn học này vì môn học này đang nằm trong DANH SÁCH MÔN HỌC MỞ của một học kỳ nào đó !!!',
+        })
+    </script>}*@
+
+@if (ViewBag.code == 10)
+{
+<script type="text/javascript">
+    swal("Đã thêm phiếu thu học phí thành công", "", "success");
+</script>
+}
+@if (ViewBag.code == 11)
+{
+<script type="text/javascript">
+    swal("Đã xóa phiếu thu học phí thành công", "", "success");
+</script>
+}
+@if (ViewBag.code == 12)
+{
+<script type="text/javascript">
+    swal("Đã sửa thông tin phiếu thu học phí thành công", "", "success");
+</script>
+}
+
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+    //function để validation Số Tiền thu
+    //Ở mỗi validation có thêm hàm dùng để disabled submit khi người dùng nhập sai
+    function inputValidation1(inputTxt) {
+        var regx = /^[0-9.]+$/;
+        var textField = document.getElementById("textField1");
+        if (inputTxt.value != '') {
+            if (inputTxt.value.match(regx)> 0 ) {
+                textField.textContent = '';
+                textField.style.color = 'green';
+            } else {
+                textField.textContent = '*Số tiền thu là một số dương, vui lòng nhập lại';
+                textField.style.color = 'red';
+                $('#submit').attr('disabled', true);
+            }
+        }
+        else {
+            textField.textContent = '*Vui lòng nhập Số Tiền thu';
+            textField.style.color = 'red';
+            $('#submit').attr('disabled', true);
+        }
+    }
+    //function để disable/able button submit
+    $(function () {
+        $('#submit').attr('disabled', false);
+        $('#SoPhieuDKHP, #SoTienThu').change(function () {
+            if ($('#SoPhieuDKHP').val() != '') {
+                if ($('#SoTienThu').val() > 0) {
+                    $('#submit').attr('disabled', false);
+                } else {
+                    $('#submit').attr('disabled', true);
+                }
+            } else {
+                $('#submit').attr('disabled', true);
+            }
+        });
+    });</script>

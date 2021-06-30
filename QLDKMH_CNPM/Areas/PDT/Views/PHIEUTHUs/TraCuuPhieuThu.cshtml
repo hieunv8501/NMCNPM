@@ -1,0 +1,81 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.PHIEUTHU>
+
+@{ 
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
+}
+<link href="~/Assets/css/UploadFile.css" rel="stylesheet" type="text/css" />
+
+<!--Page Heading-->
+<h3 class="mb-1 text-danger controllerStyle">DANH SÁCH PHIẾU THU </h3>
+<hr />
+<h4 class="mb-1 text-left text-primary controllerStyle">Các phiếu thu thuộc về số phiếu đăng ký @ViewBag.SoPhieuDKHP</h4>
+<!--DataTable Showing-->
+<div class="bg-light card generalStyle">
+    <div class="py-2 m-0">
+        <span>
+            @if (ViewBag.SoTienConLai > 0)
+            {
+                 @Html.ActionLink("Thêm phiếu thu", "Create", null, new { @class = "btn btn-primary btnStyle" })           
+            }
+        </span>
+    </div>
+    <div>
+        <div id="dataTable_wrapper" class="dataTables_wrapper card-body m-1 p-1" style="background-color: white">
+            <div>
+                <div id="dataTable_wrapper" class="dataTables_wrapper">
+                    <table class="table table-bordered dataTable dataStyle" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th width="15%">Số phiếu thu</th>
+                                <th width="26%">Ngày lập phiếu</th>
+                                <th width="25%">Số tiền thu (VNĐ)</th>
+                                @*<th style="text-align:center; width: fit-content">Thao tác</th>*@
+                            </tr>
+                        </thead>
+                        <!--This is for footer line-->
+                        <tfoot>
+                            <tr>
+                                <th>Số phiếu thu</th>
+                                <th>Ngày lập phiếu</th>
+                                <th>Số tiền thu (VNĐ)</th>
+                                @*<th></th>*@
+                            </tr>
+                        </tfoot>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(model => item.SoPhieuThu)
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(modelItem => item.NgayLap.Day)/@Html.DisplayFor(modelItem => item.NgayLap.Month)/@Html.DisplayFor(modelItem => item.NgayLap.Year)
+                                </td>
+                                <td style="vertical-align:middle;">
+                                    @Html.DisplayFor(modelItem => item.SoTienThu)
+                                </td>
+                                <!--<td>-->
+                                <!--EFFECT 1: line with blue-->
+                                <!--<div class="container">
+                                        <div class="dropdown nav-item">
+                                            <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight: 500; font-size: small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Tùy chọn
+                                            </button>
+                                            <div class="dropdown-menu" style="text-align:center" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" href="@Url.Action("Details", "PHIEUTHUs", new { id = item.SoPhieuThu})">Xem thông tin</a>
+                                                <a class="dropdown-item" href="@Url.Action("Edit", "PHIEUTHUs", new { id = item.SoPhieuThu})">Sửa thông tin</a>
+                                                <a class="dropdown-item" href="@Url.Action("Delete", "PHIEUTHUs", new { id = item.SoPhieuThu})">Xóa thông tin</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>-->
+                            </tr>
+                         }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.ActionLink("Quay lại", "TraCuu", "PHIEU_DKHP", "", new { @class = "btn btn-primary btnStyle generalStyle" })

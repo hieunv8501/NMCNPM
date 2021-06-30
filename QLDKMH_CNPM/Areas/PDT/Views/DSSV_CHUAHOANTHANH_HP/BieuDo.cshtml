@@ -1,0 +1,80 @@
+﻿@{ ViewBag.Title = "BieuDo";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
+    }
+<h3 class="mb-1 text-danger controllerStyle">BIỂU ĐỒ DANH SÁCH SINH VIÊN CHƯA HOÀN THÀNH HỌC PHÍ THEO NĂM</h3>
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <div Style="font-family: Arial; font-size: small; text-align:center" class="row">
+        <div style="width:100%; height:100%">
+            <canvas id="myChart" style="width:100%; max-width:1000px"></canvas>
+        </div>
+    </div>
+    <div class="generalStyle" style="font-weight:100;">
+        <h5 class="mb-1 text-primary controllerStyle" style="text-align:left"> Tổng số sinh viên nợ học phí: @ViewBag.Tong_SV_No </h5>
+        <h5 class="mb-1 text-primary controllerStyle" style="text-align:left"> Tổng số sinh viên đăng kí học phần: @ViewBag.Tong_SV_DK </h5>
+        <h5 class="mb-1 text-primary controllerStyle" style="text-align:left"> Tỉ lệ sinh viên nợ học phí trong năm: @(@ViewBag.Tong_SV_No*100 / @ViewBag.Tong_SV_DK)%</h5>
+    </div>
+    <hr />
+    <div class="generalStyle" style="font-weight:100;">
+        <a>@Html.ActionLink("Quay lại", "ListHK", new { }, new { @class = "btn btn-primary btnStyle" })</a>
+    </div>
+</body>
+
+</html>
+
+<script src="~/Assets/vendor/chart.js/Chart.min.js"></script>
+<script src="~/Assets/vendor/chart.js/Chart.js"></script>
+<script>
+        var xValues = @Html.Raw(Json.Encode(@ViewBag.label));
+        var yValues = @Html.Raw(Json.Encode(@ViewBag.SoLuong));
+        var barColors = ["red", "green", "blue"];
+        new Chart("myChart", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: "Biểu đồ nợ học phí trong năm @Html.Raw(ViewBag.Nam1) - @Html.Raw(ViewBag.Nam2)",
+                    fontSize: 25
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Số học sinh nợ học phí',
+                            fontSize: 15
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Học Kỳ',
+                            fontSize: 15
+                        }
+                    }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: (tooltipItems, data) => {
+                            return data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] + ' Sinh Viên';
+                        }
+                    },
+                }
+            }
+        });
+</script>
