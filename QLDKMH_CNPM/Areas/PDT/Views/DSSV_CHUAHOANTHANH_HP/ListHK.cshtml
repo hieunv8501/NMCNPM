@@ -1,0 +1,76 @@
+﻿@model IEnumerable<QLDKMH_CNPM.Models.HKNH>
+
+@{ ViewBag.Title = "Test";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+
+
+<h3 class="mb-1 text-danger controllerStyle">DANH SÁCH BÁO CÁO SINH VIÊN CHƯA HOÀN THÀNH HỌC PHÍ</h3>
+<hr class="mb-5" />
+<div class="form-group generalStyle">
+    <div>
+        <select class="form-control namhoc fa-align-center">
+            <option value="0" selected>-- Chọn học kỳ --</option>
+            @foreach (var item in Model)
+            {
+                <option value="@item.MaHKNH">HK @item.HocKy (@item.Nam1 - @item.Nam2)</option>
+            }
+        </select>
+        <br />
+        @if (ViewBag.message != "")
+        {
+            <div class="alert alert-danger generalStyle" style="color:black">@ViewBag.message</div>
+        }
+        <a class="btn btn-primary btnStyle" id="link" href="@Url.Action("ListHK", "DSSV_CHUAHOANTHANH_HP", new {  })">Xem danh sách báo cáo</a>
+    </div>
+
+</div>
+<hr />
+@using (Html.BeginForm("BieuDo", "DSSV_CHUAHOANTHANH_HP", FormMethod.Get))
+{
+    <div class="form-group generalStyle">
+        <div>
+            <select id="BieuDo" class="form-control fa-align-center" name="Nam1">
+                <option value="0" selected>-- Chọn năm học --</option>
+                @foreach (var item in ViewBag.NamHoc)
+                {
+                    <option value="@item.Item1">(@item.Item1 - @item.Item2)</option>                
+                }
+            </select>
+            <br />
+            @if (ViewBag.message1 != "")
+            {
+                <div class="alert alert-warning generalStyle" style="color:black">@ViewBag.message1</div>
+            }
+            <button type="submit" value="Xem biểu đồ" class=" btn btn-primary btnStyle generalStyle">
+                Xem biểu đồ
+            </button>
+        </div>
+    </div>
+}
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("select.namhoc").change(function () {
+            var selected = $(this).children("option:selected").val();
+            if (selected == "0") {
+                alert("Chưa chọn năm học!!!");
+                document.getElementById("link").href = "/DSSV_CHUAHOANTHANH_HP/ListHK";
+            }
+            else {
+                document.getElementById("link").href = "/PDT/DSSV_CHUAHOANTHANH_HP/Index/" + selected.toString();
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("select#BieuDo").change(function () {
+            var selected = $(this).children("option:selected").val();
+            if (selected == "0") {
+                alert("Chưa chọn năm học!!!");
+            }
+        });
+    });
+</script>
+

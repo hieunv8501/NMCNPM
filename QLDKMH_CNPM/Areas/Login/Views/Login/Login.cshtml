@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--Custom fonts for this template-->
+    <link href="~/Assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!--Custom styles for this template-->
+    <link href="~/Assets/css/sb-admin-2.min.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/LayoutAdmin.css" rel="stylesheet" />
+
+    <title>Đăng nhập hệ thống</title>
+
+
+</head>
+<body style="height:100vh; background-color:#2f6bff; background-image:linear-gradient(145deg, #2f6bff 50%, #115d9d 0%); background-size:cover;">
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100vh; width:80vw; margin-left:auto; margin-right:auto;">
+        <!--Outer Row-->
+        <div class="row justify-content-center ">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="bg-light o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!--Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <div class="unTouchable col-md-4">
+                                    <img src="~/Content/img/key_login.jpg" alt="login_key" class="images" style="z-index:0; margin:130px; margin-left:220px; width:227px; height:253px;" />
+                                    <img src="~/Content/img/unlock-512-removebg-preview.png" alt="login_key1" class="images rotate-15" style="z-index:1; margin-top:30px; width:300px; height:300px;" />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <span class="text-primary generalStyle" style="font-size:25px; font-weight:bolder;">ĐĂNG NHẬP HỆ THỐNG</span>
+                                    </div>
+                                    @using (Html.BeginForm())
+                                    {
+                                        <div class="form-group">
+                                            <label class="LoginAccStyle">TÊN ĐĂNG NHẬP</label>
+                                            <label style="color:red;"><strong>(*)</strong></label>
+                                            <input id="idInputEmail" name="TenDangNhap" type="text" placeholder="Tên đăng nhập" class="form-control form-control-user" aria-describedby="emailHelp" />
+                                            <p id="content" style="font-size: 14px;">Dùng tài khoản chứng thực</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="LoginAccStyle">MẬT KHẨU</label>
+                                            <label style="color:red;"><strong>(*)</strong></label>
+                                            <input id="idInputPassword" name="MatKhau" type="password" placeholder="Mật khẩu" class="form-control form-control-user" />
+                                            <p id="content" style="font-size: 14px;">Mật khẩu chứng thực</p>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck" />
+                                                <label for="customCheck" class="custom-control-label generalStyle" style="font-size: 14px; padding:3px">Lưu mật khẩu</label>
+                                            </div>
+                                        </div>
+
+                                        if (ViewBag.Message == "Sai")
+                                        {
+                                            <div class="alert-danger generalStyle sizeStyle" style="border:solid 1px red; color:red; text-align:center">Tên đăng nhập hoặc mật khẩu không đúng!</div>
+                                        }
+
+                                        <div class="form-group">
+                                            <button type="submit" value="Đăng nhập" class="btn btn-user btn-block btn-primary m-0 generalStyle font-weight-light"><strong>Đăng nhập</strong></button>
+                                        </div>
+
+                                    }
+                                    <div class="form-group m-0" style="font-size:smaller">
+                                        <a style="color:red;"><strong>(*)</strong></a>
+                                        <a class="generalStyle">Thông tin bắt buộc</a>
+                                    </div>
+
+                                    <hr class="m-0" />
+
+                                    <div class="text-center mt-2 generalStyle">
+                                        <a class="alert-light" style="font-size:smaller; font-weight: 300; text-decoration-line:none" href="#">Quên mật khẩu</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Bootstrap core JavaScript*@
+    <script src="~/Assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    @*Core plugin JavaScript*@
+    <script src="~/Assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    @*Custom scripts for all pages*@
+    <script src="~/Assets/js/sb-admin-2.min.js"></script>
+
+</body>
+</html>

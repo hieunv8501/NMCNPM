@@ -1,0 +1,75 @@
+﻿@model QLDKMH_CNPM.Models.DS_MONHOC_MO
+
+@{ 
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; 
+}
+
+<h3 class="text-left text-danger controllerStyle">THÊM LỚP HỌC MỞ</h3>
+
+<h4 class="text-left text-danger controllerStyle">
+    Học kỳ: @ViewBag.HocKy | Năm học: @ViewBag.Nam1 - @ViewBag.Nam2
+</h4>
+<hr />
+@using (Html.BeginForm("Create", "DS_MONHOC_MO", FormMethod.Post))
+{
+@Html.AntiForgeryToken()
+<div class="form-horizontal generalStyle">
+    @*<div class="form-group">
+        <div class="control-label">Mở lớp học mới</div>
+        <div class="col-md-10">*@
+            @*<select id="MaMonHoc" name="MaMonHoc" class="form-control">
+                <option value="0" selected>-- Chọn môn học --</option>
+                @foreach (var item in ViewBag.MONHOC)
+                {
+                    <option value="@item.MaMonHoc">@item.MaMonHoc - @item.TenMonHoc (@item.LOAIMONHOC.TenLoaiMon)</option>                
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.MaMonHoc, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label">Mã lớp học mở</div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MaMo, new { htmlAttributes = new { @maxlength = "11", @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MaMo, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+    
+        <div class="form-group">
+            <div class="control-label">Mở lớp học mới</div>
+            <div class="col-md-10">
+                <select id="MaMonHoc" name="MaMonHoc" class="form-control">
+                    <option value="0" selected>-- Chọn môn học cần mở lớp --</option>
+                    @foreach (var item in ViewBag.MONHOC)
+                    {
+                        <option value="@item.MaMonHoc">@item.MaMonHoc - @item.TenMonHoc (@item.LOAIMONHOC.TenLoaiMon)</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.MaMonHoc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+    <div class="form-group">
+         <div class="col-md-offset-2">
+                <input type="submit" value="Thêm mới" class="btn btn-primary btnStyle" />
+                @Html.ActionLink("Quay lại", "Index", new { id = ViewBag.MaHKNH }, new { @class = "btn btn-primary btnStyle" })
+         </div>
+    </div>
+</div>
+
+}
+    
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if (ViewBag.code == 1)
+{
+    <script type="text/javascript">
+    swal({
+        icon: 'error',
+        title: 'Không thể thêm',
+        text: 'Không thể thêm lớp học mở này vì mã lớp học mở này đã tồn tại !!!',
+    })
+    </script>
+}

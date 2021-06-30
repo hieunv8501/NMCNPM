@@ -1,0 +1,46 @@
+﻿@model QLDKMH_CNPM.Models.HUYEN
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml";
+}
+
+<h3 class="text-left text-danger controllerStyle">THÔNG TIN HUYỆN</h3>
+<hr />
+
+<div class="generalStyle" style="font-weight:100;">
+    <table class="table" style="width: 100%;">
+        <tbody>
+            <tr style="color:white; background-color:#4e73df">
+                <th width="50%">Mã huyện</th>
+                <td width="50%">@Html.DisplayFor(model => model.MaHuyen)</td>
+            </tr>
+
+            <tr class="bg-light" style="color:black;">
+                <th>Tên huyện</th>
+                <td>@Html.DisplayFor(model => model.TenHuyen)</td>
+            </tr>
+            <tr style="color: white; background-color:#4e73df">
+                <th>Tên tỉnh</th>
+                <td>@Html.DisplayFor(model => model.TINH.TenTinh)</td>
+            </tr>
+            <tr class="bg-light" style="color:black;">
+                <th>Vùng sâu vùng xa</th>
+                <td>
+                    @if (@Model.VungSauVungXa == true)
+                    {
+                        <span>Có</span>
+                    }
+                    else
+                    {
+                        <span>Không</span>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr />
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaHuyen }, new { @class = "btn btn-danger btnStyle" })
+    @Html.ActionLink("Quay lại", "Index", new { id = Model.MaHuyen }, new { @class = "btn btn-primary btnStyle" })
+</div>

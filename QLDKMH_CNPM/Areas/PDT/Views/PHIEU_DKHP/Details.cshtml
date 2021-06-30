@@ -1,0 +1,124 @@
+﻿@model QLDKMH_CNPM.Models.PHIEU_DKHP
+
+@{ ViewBag.Title = "Details";
+    Layout = "~/Areas/PDT/Views/Shared/PDTLayout.cshtml"; }
+
+<h3 class="mb-1 text-left text-danger controllerStyle">CHI TIẾT PHIẾU ĐKHP</h3>
+<hr />
+<table class="table table-borderless generalStyle" style="color: black;">
+    <tr>
+        <td>
+            <span>Số phiếu: </span>
+            @Html.DisplayFor(model => model.SoPhieuDKHP)
+        </td>
+        <td>
+            <span>Ngày lập: </span>
+            @Html.DisplayFor(model => model.NgayLap.Day)/@Html.DisplayFor(model => model.NgayLap.Month)/@Html.DisplayFor(model => model.NgayLap.Year)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span>MSSV: </span>
+            @Html.DisplayFor(model => model.MaSV)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span>Học kỳ: </span>
+            @Html.DisplayFor(model => model.HKNH.HocKy)
+        </td>
+        <td>
+            <span>Năm học: </span>
+            @Html.DisplayFor(model => model.HKNH.Nam1) - @Html.DisplayFor(model => model.HKNH.Nam2)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span>Tổng số tín chỉ lý thuyết: </span>
+            @Html.DisplayFor(model => model.TongTCLT)
+        </td>
+        <td>
+            <span>Tổng số tín chỉ thực hành: </span>
+            @Html.DisplayFor(model => model.TongTCTH)
+        </td>
+    </tr>
+</table>
+<h7 class="text-left text-danger generalStyle" style="font-weight:500">LỚP HỌC ĐÃ ĐĂNG KÝ</h7>
+<div class="bg-light card generalStyle">
+    <div class="mt-0 py-2">
+        @* Nếu đã quá hạn đăng ký học phần (hạn đóng học phí) thì không được đăng ký/xóa môn học nữa. *@
+        @if (ViewBag.HDHP > DateTime.Now && Model.TongTienDaDong == 0)
+        {
+            <span>
+                @Html.ActionLink("Đăng ký thêm lớp học", "Create", "CT_PHIEU_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP, HKNH = Model.MaHKNH }, new { @class = "btn btn-primary btnStyle" })
+            </span>
+            @* Nếu chưa đăng kí môn nào thì sẽ ẩn nút xóa. *@
+            if (Model.TongTCLT != 0 || Model.TongTCTH != 0)
+            {
+                <span style="float:right">
+                    @Html.ActionLink("Xóa lớp học đã đăng ký", "Delete", "CT_Phieu_DKHP", new { area = "PDT", id = Model.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle" })
+                </span>
+            }
+        }
+
+    </div>
+    <div id="dataTable_wrapper" class="dataTables_wrapper pre-scrollable card-body m-1 p-1" style="background-color: white;">
+        <div>
+            <div id="dataTable_wrapper">
+                <!--id = dataTable shows number of entries; sort and search function-->
+                <table class="table table-bordered dataTable dataStyle" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>Mã lớp học mở</th>
+                            <th>Mã môn học</th>
+                            <th>Tên môn học</th>
+                            <th>Loại môn học</th>
+                        </tr>
+                    </thead>
+
+                    <tfoot>
+                        <tr>
+                            <th>Mã lớp học mở</th>
+                            <th>Mã môn học</th>
+                            <th>Tên môn học</th>
+                            <th>Loại môn học</th>
+                        </tr>
+                    </tfoot>
+
+                    @foreach (var item in ViewBag.CT_PHIEU_DKHPandDS_MONHOC_MO)
+                    {
+                        <tr>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MaMo
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MaMonHoc
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MONHOC.TenMonHoc
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @item.DS_MONHOC_MO.MONHOC.LOAIMONHOC.TenLoaiMon
+                            </td>
+                        </tr>
+}
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+@Html.ActionLink("Quay lại", "Index", new { id = Model.SoPhieuDKHP }, new { @class = "btn btn-primary btnStyle generalStyle" })
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (ViewBag.code == 10)
+{
+    <script type="text/javascript">swal("Đã đăng ký lớp học thành công", "", "success");</script>
+}
+
+@if (ViewBag.code == 11)
+{
+    <script type="text/javascript">swal("Đã xóa lớp học khỏi phiếu đăng ký thành công", "", "success");</script>
+}
+
