@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <div class="control-label">Số Phiếu ĐKHP</div>
                         <div>
-                            @Html.DropDownList("SoPhieuDKHP", null, "-- Chọn phiếu đăng ký --", htmlAttributes: new { @id = "SoPhieuDKHP", @class = "form-control" })
+                            @Html.EditorFor(Model => Model.SoPhieuDKHP, new { htmlAttributes = new { @id = "SoPhieuDKHP", @class = "form-control", @readonly = "readonly" } })
                             @Html.ValidationMessageFor(model => model.SoPhieuDKHP, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <div class="control-label">Ngày lập</div>
                         <div class="form-control" readonly>
-                            @Html.DisplayFor(model => model.NgayLap.Day)/@Html.DisplayFor(model => model.NgayLap.Month)/@Html.DisplayFor(model => model.NgayLap.Year)
+                            @Html.DisplayFor(model => model.NgayLap)
                             @Html.HiddenFor(model => model.NgayLap)
                             @Html.ValidationMessageFor(model => model.NgayLap, "", new { @class = "text-danger" })
                         </div>

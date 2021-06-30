@@ -39,7 +39,7 @@
         <div class="form-group ">
             <div class="control-label">Ngày sinh</div>
             <div>
-                @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @id = "NgaySinh", @onblur = "inputValidation3(this)", @class = "form-control datetimepicker" } })
+                @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @id = "NgaySinh", @onchange = "inputValidation3(this)", @class = "form-control datetimepicker" } })
                 @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
             </div>
             <div id="textField3"></div>
