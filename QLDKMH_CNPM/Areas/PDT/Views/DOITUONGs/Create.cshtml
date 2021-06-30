@@ -161,7 +161,7 @@
         var regx = /^[0-9]+$/;
         var textField = document.getElementById("textField3");
         if (inputTxt.value != '') {
-            if (inputTxt.value.match(regx)) {
+            if (inputTxt.value.match(regx) && inputTxt.value <= 100) {
                 textField.textContent = '';
                 textField.style.color = 'green';
             } else {
