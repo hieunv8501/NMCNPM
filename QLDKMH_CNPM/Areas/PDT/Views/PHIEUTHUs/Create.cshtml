@@ -24,11 +24,28 @@
         <div class="form-group">
             <div>Số phiếu ĐKHP</div>
             <div>
-                @Html.DropDownList("SoPhieuDKHP", null, "-- Chọn phiếu đăng ký --", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("SoPhieuDKHP", null, "-- Chọn phiếu đăng ký --", htmlAttributes: new {@class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SoPhieuDKHP, "", new { @class = "text-danger" })
             </div>
         </div>
-
+         <div class="form-group">
+            <div class="control-label">
+                Họ và tên sinh viên
+                @Html.TextBox("HoTen" ,null,new {  @class = "form-control",@readonly="readonly" })
+            </div>
+        </div>
+         <div class="form-group">
+             <div class="control-label">
+                 Mã số sinh viên
+                 @Html.TextBox("MSSV", null, new { @class = "form-control", @readonly = "readonly" })
+             </div>
+         </div>
+         <div class="form-group">
+             <div class="control-label">
+                 Học kỳ - Năm học
+                 @Html.TextBox("HKNH", null, new { @class = "form-control", @readonly = "readonly" })
+             </div>
+         </div>
         <div class="form-group">
             <div class="control-label">Ngày lập phiếu thu</div>
             <div class="form-control" readonly>
@@ -37,7 +54,12 @@
                 @Html.ValidationMessageFor(model => model.NgayLap, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div class="form-group">
+            <div class="control-label">
+                Số tiền còn lại
+                @Html.TextBox("SoTienConLai" ,null,new {  @class = "form-control",@readonly="readonly" })
+            </div>
+        </div>
         <div class="form-group">
             <div class="control-label">Số tiền thu</div>
             <div>
@@ -111,7 +133,9 @@
                 $('#submit').attr('disabled', true);
             }
         });
-    });</script>
+    });
+   
+</script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @if (ViewBag.code == 2)
 {
@@ -134,3 +158,29 @@
         })
     </script>
 }
+<script> //funtion de tu dong hien so tien con lai cho phieu thu
+    $(function () {
+        $("#SoPhieuDKHP").change(function () {
+            var selected = $('#SoPhieuDKHP').val();
+            if (selected != "") {
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetSelectedSoPhieuDKHP")',
+                    dataType: 'json',
+                    data: { id: $("#SoPhieuDKHP").val() },
+                    success: function (selectedSoTienConLai) {
+                        document.getElementById("HoTen").value = selectedSoTienConLai['Item1'];
+                        document.getElementById("MSSV").value = selectedSoTienConLai['Item2'];
+                        document.getElementById("SoTienConLai").value = selectedSoTienConLai['Item3'];
+                        document.getElementById("HKNH").value = selectedSoTienConLai['Item4'] ;
+                    },
+                    error: function (ex) {
+                        alert('Tải thông tin thất bại.' + ex);
+                    }
+                });
+            }
+            else
+                document.getElementById("SoTienConLai").value ="";
+        })
+    })
+    </script>
