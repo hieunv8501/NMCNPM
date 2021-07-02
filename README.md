@@ -1,6 +1,6 @@
-ĐỒ ÁN NHẬP MÔN CÔNG NGHỆ PHẦN MỀM - TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN - ĐHQG. TPHCM
+# ĐỒ ÁN NHẬP MÔN CÔNG NGHỆ PHẦN MỀM - TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN - ĐHQG. TPHCM
 
-ĐỀ TÀI: QUẢN LÝ ĐĂNG KÝ MÔN HỌC VÀ THU HỌC PHÍ CỦA SINH VIÊN 
+## ĐỀ TÀI: QUẢN LÝ ĐĂNG KÝ MÔN HỌC VÀ THU HỌC PHÍ CỦA SINH VIÊN 
 
 GVHD: ThS. ĐỖ THỊ THANH TUYỀN
 
@@ -8,7 +8,7 @@ GVHD: ThS. ĐỖ THỊ THANH TUYỀN
 - CSDL: SQL Server.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-NHÓM THỰC HIỆN: 
+### NHÓM THỰC HIỆN: 
 
 
 | STT | MSSV | Họ tên | 
@@ -19,7 +19,7 @@ NHÓM THỰC HIỆN:
 | 4 | 19522109 | Nguyễn Viết Quý |
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Hướng dẫn chạy phần mềm: 
+### Hướng dẫn chạy phần mềm: 
 
 Cách 1: Từ file
 
