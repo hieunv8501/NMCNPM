@@ -23,8 +23,8 @@
                 <table class="table table-bordered dataStyle dataTable" id="dataTable">
                     <thead>
                         <tr>
-                            <th width="50%">Mã nhóm</th>
-                            <th width="50%">Tên nhóm người dùng</th>
+                            <th width="35%">Mã nhóm</th>
+                            <th width="35%">Tên nhóm người dùng</th>
                             <th style="text-align: center">Thao tác</th>
                         </tr>
                     </thead>
@@ -38,19 +38,8 @@
                             <td style="vertical-align: middle;">
                                 @Html.DisplayFor(modelItem => item.TenNhom)
                             </td>
-                            <td>
-                                <div class="container">
-                                    <div class="dropdown nav-item">
-                                        <button type="button" class="btn btn-outline-danger dropdown-toggle alert-primary" style="font-weight:500; font-size:small;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            Tùy chọn
-                                        </button>
-                                        <div class="dropdown-menu" style="text-align:center;" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="@Url.Action("Details", "NHOMNGUOIDUNGs", new {area ="Admin", id = item.MaNhom})">Xem thông tin</a>
-                                            <a class="dropdown-item" href="@Url.Action("Edit", "NHOMNGUOIDUNGs", new {area ="Admin", id = item.MaNhom})">Sửa thông tin</a>
-                                            <a class="dropdown-item" href="@Url.Action("Delete", "NHOMNGUOIDUNGs", new {area ="Admin", id = item.MaNhom})">Xóa thông tin</a>
-                                        </div>
-                                    </div>
-                                </div>
+                            <td style="text-align:center">
+                                <a href="@Url.Action("Edit", "NHOMNGUOIDUNGs", new {area ="Admin", id = item.MaNhom})">Sửa thông tin</a>
                             </td>
                         </tr>}
                 </table>
