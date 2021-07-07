@@ -195,7 +195,14 @@ namespace QLDKMH_CNPM.Areas.PDT.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", new { code = 11 });
         }
-
+        [HttpGet]
+        public ActionResult GetSelectedSoPhieuDKHP(int id)
+        {
+            // TODO: Tra ve so tien cua phieu DKHP
+                var ThongTin=db.PHIEU_DKHP.Find(id);
+            var ThongTinPhieuDKHP = (ThongTin.SINHVIEN.HoTen,ThongTin.MaSV, ThongTin.SoTienConLai,"HK "+ThongTin.HKNH.HocKy.ToString()+"  ("+ ThongTin.HKNH.Nam1.ToString()+" - "+ ThongTin.HKNH.Nam2.ToString()+")");
+            return Json(ThongTinPhieuDKHP, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult TraCuuPhieuThu(int? SoPhieuDKHP)
         {
             if (SoPhieuDKHP == null)
