@@ -51,4 +51,6 @@ Cách 2: Từ link GitHub https://github.com/hieunv8501/NMCNPM.git
 
     Username: Mã số sinh viên (6 ký tự số). Pass: Mã số sinh viên (6 ký tự số) 
 
-    (Sau khi được admin/PDT thêm mới một sinh viên mới được phép đăng nhập bằng MSSV)
+    (Sau khi được admin/PDT thêm mới một sinh viên mới được phép đăng nhập bằng MSSV)\
+    
+    Deploy demo: http://tinhbui721-001-site1.etempurl.com/
