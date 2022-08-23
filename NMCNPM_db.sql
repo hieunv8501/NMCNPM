@@ -62,7 +62,7 @@ CREATE TABLE LOAIMONHOC
 (
 	MaLoaiMon char(2) primary key,
 	TenLoaiMon nvarchar(10),
-	SoTietMonTinChi int,
+	SoTietMotTinChi int,
 	SoTienMotTinChi money
 )
 
@@ -185,7 +185,7 @@ alter table NGUOIDUNG add constraint FK_NGUOIDUNG_NHOMNGUOIDUNG foreign key (MaN
 -- TẠO CÁC RÀNG BUỘC CHECK
 alter table SINHVIEN add constraint CHECK_GIOITINH check (GioiTinh in (N'Nam', N'Nữ'))
 alter table DOITUONG add constraint CHECK_TILE check (TiLeGiamHocPhi >= 0)
-alter table LOAIMONHOC add constraint CHECK_HESOCHIA check (HeSoChia > 0)
+alter table LOAIMONHOC add constraint CHECK_SOTIETMOTINCHI check (SoTietMotTinChi > 0)
 alter table LOAIMONHOC add constraint CHECK_SOTIENMOTINCHI check (SoTienMotTinChi > 0)
 alter table MONHOC add constraint CHECK_SOTIET check (SoTiet > 0)
 alter table MONHOC add constraint CHECK_SOTINCHI check (SoTinChi > 0)
@@ -234,9 +234,9 @@ ON MONHOC
 FOR INSERT, UPDATE
 AS
 BEGIN
-	DECLARE @SoTiet INT, @HeSoChia INT, @MaMonHoc char(7)
-	SELECT @SoTiet = SoTiet, @HeSoChia = HeSoChia, @MaMonHoc = MaMonHoc FROM INSERTED, LOAIMONHOC WHERE INSERTED.MaLoaiMon = LOAIMONHOC.MaLoaiMon
-	UPDATE MONHOC SET SoTinChi = @SoTiet/@HeSoChia WHERE MaMonHoc = @MaMonHoc
+	DECLARE @SoTiet INT, @SoTietMotTinChi INT, @MaMonHoc char(7)
+	SELECT @SoTiet = SoTiet, @SoTietMotTinChi = SoTietMotTinChi, @MaMonHoc = MaMonHoc FROM INSERTED, LOAIMONHOC WHERE INSERTED.MaLoaiMon = LOAIMONHOC.MaLoaiMon
+	UPDATE MONHOC SET SoTinChi = @SoTiet/@SoTietMotTinChi WHERE MaMonHoc = @MaMonHoc
 END
 GO 
 
@@ -412,7 +412,7 @@ FOR DELETE
 AS
 BEGIN
 	DECLARE @SoPhieu int, @SoTienThuDuoc money
-	SELECT @SoPhieu = SoPhieuDKHP, @SoTienThuDuoc = SoTienthu 
+	SELECT @SoPhieu = SoPhieuDKHP, @SoTienThuDuoc = SoTienThu 
 	FROM DELETED
 	
 	UPDATE PHIEU_DKHP
