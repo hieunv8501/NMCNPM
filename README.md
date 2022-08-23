@@ -1,17 +1,17 @@
-# ĐỒ ÁN NHẬP MÔN CÔNG NGHỆ PHẦN MỀM - TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN - ĐHQG. TPHCM
+# Project for Intro to Software Technology - University of Information & Technology
 
-## ĐỀ TÀI: QUẢN LÝ ĐĂNG KÝ MÔN HỌC VÀ THU HỌC PHÍ CỦA SINH VIÊN 
+## TOPIC: SUBJECTS REGISTERING AND FEE PAYING MANAGEMENT 
 
 GVHD: ThS. ĐỖ THỊ THANH TUYỀN
 
-- NNLT: C#.
-- CSDL: SQL Server.
+- Language Programming: C#, Framework: ASP.NET MVC C#.
+- Database: MS SQL Server.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-### NHÓM THỰC HIỆN: 
+### Group 8: 
 
 
-| STT | MSSV | Họ tên | 
+| No | ID | Fullname | 
 | :----: | :-: | :-: |
 | 1 | 19521509 | Nguyễn Văn Hiếu |
 | 2 | 19521485 | Phạm Phúc Hậu |
