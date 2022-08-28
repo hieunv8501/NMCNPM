@@ -43,13 +43,13 @@ Cách 2: Từ link GitHub https://github.com/hieunv8501/NMCNPM.git
 
     Username: admin 
 
-    Password: 1
+    Password: admin1@
 
     Username: pdt
 
-    Password: 1
+    Password: pdt1@
 
-    Username: Mã số sinh viên (6 ký tự số). Pass: Mã số sinh viên (6 ký tự số) 
+    Username: Mã số sinh viên được cấp (6 ký tự số). Pass: Mã số sinh viên được cấp (6 ký tự số) 
 
     (Sau khi được admin/PDT thêm mới một sinh viên mới được phép đăng nhập bằng MSSV)\
     
